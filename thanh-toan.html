@@ -1,9 +1,11 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Thanh toán</title>
 
 <style>
-*{box-sizing:border-box}
-
 body{
   margin:0;
   background:#eef3f8;
@@ -13,38 +15,17 @@ body{
 
 .box{
   max-width:600px;
-  margin:35px auto;
-  padding:22px;
-  background:#fff;
-  border-radius:16px;
-  box-shadow:0 4px 20px #0002;
+  margin:40px auto;
+  padding:25px;
+  background:white;
+  border-radius:18px;
+  box-shadow:0 5px 25px #0002;
 }
 
-.row{
-  padding:13px;
-  margin:9px 0;
-  background:#f4f7fb;
-  border-radius:9px;
-}
-
-.method{
+.info{
   padding:14px;
   margin:10px 0;
-  border:2px solid #ddd;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-.method.active{
-  border-color:#168ef2;
-  background:#eef7ff;
-}
-
-.panel{
-  display:none;
-  margin-top:15px;
-  padding:15px;
-  background:#f7f9fc;
+  background:#f4f7fb;
   border-radius:10px;
 }
 
@@ -52,30 +33,25 @@ button{
   width:100%;
   padding:13px;
   border:0;
-  border-radius:9px;
+  border-radius:10px;
+  background:#168ef2;
   color:white;
   font-weight:bold;
   cursor:pointer;
   margin-top:10px;
 }
 
-.blue{background:#168ef2}
-.green{background:#16a34a}
-
-input{
-  width:100%;
-  padding:12px;
-  margin:6px 0;
-  border:1px solid #ddd;
-  border-radius:8px;
+.free{
+  background:#16a34a;
 }
 
-#free{
+.wait{
   display:none;
-  text-align:center;
+  margin-top:15px;
   padding:15px;
-  background:#ecfdf3;
+  background:#fff7ed;
   border-radius:10px;
+  text-align:center;
 }
 </style>
 </head>
@@ -86,117 +62,60 @@ input{
 
 <h1>🧾 Thanh toán</h1>
 
-<div class="row">
-🎮 Sản phẩm: <b>Túi Mù Blox Fruits</b>
+<div class="info">
+🎁 Túi: <b id="bag">-</b>
 </div>
 
-<div class="row">
-🎁 Túi đã chọn: <b id="bag">-</b>
+<div class="info">
+💰 Mệnh giá: <b id="price">-</b>
 </div>
 
-<div class="row">
-💰 Số tiền: <b id="price">-</b>
-</div>
+<div id="free" style="display:none">
 
-
-<!-- TÚI 0Đ -->
-
-<div id="free">
-
-<h3>🎁 Túi miễn phí</h3>
+<h3>🎁 Miễn phí</h3>
 
 <p>Gói này không cần thanh toán.</p>
 
-<button class="green" onclick="receiveFree()">
+<button class="free" onclick="receiveFree()">
 🎁 NHẬN ACC
 </button>
 
 </div>
 
 
-<!-- TÚI CÓ GIÁ -->
+<div id="paid" style="display:none">
 
-<div id="paid">
-
-<h3>💳 Chọn phương thức thanh toán</h3>
-
-<div class="method" onclick="selectMethod('bank',this)">
-🏦 <b>Ngân hàng</b>
-</div>
-
-<div class="method" onclick="selectMethod('card',this)">
-🎫 <b>Thẻ cào</b>
-</div>
-
-
-<!-- NGÂN HÀNG -->
-
-<div id="bank" class="panel">
-
-<h3>🏦 Chuyển khoản</h3>
-
-<div class="row">
-Ngân hàng: <b>TÊN NGÂN HÀNG</b>
-</div>
-
-<div class="row">
-Số tài khoản: <b>XXXXXXXXXX</b>
-</div>
-
-<div class="row">
-Chủ tài khoản: <b>TÊN CHỦ TK</b>
-</div>
-
-<div class="row">
-Nội dung:
-<b id="content">SHOPACC</b>
-</div>
+<h3>💳 Thanh toán 10.000đ</h3>
 
 <p>
-Vui lòng chuyển đúng số tiền:
-<b id="bankPrice">-</b>
+Vui lòng thanh toán 10.000đ theo phương thức shop của bạn.
 </p>
 
-<button class="blue" onclick="confirmPayment()">
+<button onclick="confirmPayment()">
 TÔI ĐÃ THANH TOÁN
 </button>
 
-<div id="waitingBank" style="display:none">
-<p>⏳ Đang chờ xác minh thanh toán...</p>
-</div>
+<div id="waiting" class="wait">
 
-</div>
+⏳ Đang chờ xác minh thanh toán...
 
+<p>
+Sau khi thanh toán được xác minh,
+nút nhận acc mới được mở.
+</p>
 
-<!-- THẺ CÀO -->
-
-<div id="card" class="panel">
-
-<h3>🎫 Thẻ cào</h3>
-
-<input id="cardType"
-placeholder="Loại thẻ">
-
-<input id="cardValue"
-placeholder="Mệnh giá">
-
-<input id="cardCode"
-placeholder="Mã thẻ">
-
-<input id="cardSerial"
-placeholder="Số seri">
-
-<button class="blue" onclick="sendCard()">
-GỬI THÔNG TIN THẺ
+<button
+id="receive"
+style="display:none;background:#16a34a"
+onclick="receivePaid()">
+🎁 NHẬN ACC
 </button>
 
-<div id="waitingCard" style="display:none">
-<p>⏳ Đang chờ xác minh...</p>
 </div>
 
 </div>
 
-</div>
+<br>
 
 <a href="index.html">← Về shop</a>
 
@@ -214,95 +133,75 @@ q.get("bag") || "1";
 const price =
 Number(q.get("price") || 0);
 
-
 document.getElementById("bag").textContent =
 "Túi số " + bag;
 
 document.getElementById("price").textContent =
 price.toLocaleString("vi-VN") + " ₫";
 
-document.getElementById("bankPrice").textContent =
-price.toLocaleString("vi-VN") + " ₫";
-
-document.getElementById("content").textContent =
-"SHOPACC" + bag;
-
 
 /*
-  0Đ:
-  Không tải / hiện phần thanh toán.
+0đ → nhận acc ngay
+10K → phải thanh toán
 */
 
 if(price === 0){
 
-  document.getElementById("paid").style.display =
-  "none";
+document.getElementById("free").style.display =
+"block";
 
-  document.getElementById("free").style.display =
-  "block";
+}else if(price === 10000){
+
+document.getElementById("paid").style.display =
+"block";
+
+}else{
+
+document.getElementById("paid").style.display =
+"block";
 
 }
 
 
 function receiveFree(){
 
-  window.location.href =
-  "giao-acc.html?bag=" +
-  encodeURIComponent(bag) +
-  "&price=0";
-
-}
-
-
-function selectMethod(method, element){
-
-  document.querySelectorAll(".method")
-  .forEach(function(x){
-    x.classList.remove("active");
-  });
-
-  element.classList.add("active");
-
-  document.getElementById("bank").style.display =
-  method === "bank" ? "block" : "none";
-
-  document.getElementById("card").style.display =
-  method === "card" ? "block" : "none";
+window.location.href =
+"giao-acc.html?bag=" +
+encodeURIComponent(bag) +
+"&price=0";
 
 }
 
 
 function confirmPayment(){
 
-  document.getElementById("waitingBank")
-  .style.display = "block";
+document.getElementById("waiting").style.display =
+"block";
 
 }
 
 
-function sendCard(){
+/*
+Không tự xác nhận thanh toán thật.
+Nút nhận acc phải được mở sau khi
+shop xác minh thanh toán.
+*/
 
-  const type =
-  document.getElementById("cardType").value.trim();
+function paymentApproved(){
 
-  const value =
-  document.getElementById("cardValue").value.trim();
+document.getElementById("receive").style.display =
+"block";
 
-  const code =
-  document.getElementById("cardCode").value.trim();
+}
 
-  const serial =
-  document.getElementById("cardSerial").value.trim();
 
-  if(!type || !value || !code || !serial){
+function receivePaid(){
 
-    alert("Vui lòng nhập đầy đủ thông tin thẻ!");
-
-    return;
-  }
-
-  document.getElementById("waitingCard")
-  .style.display = "block";
+window.location.href =
+"giao-acc.html?bag=" +
+encodeURIComponent(bag) +
+"&price=" +
+encodeURIComponent(price);
 
 }
 
