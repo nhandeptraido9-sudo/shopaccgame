@@ -1,21 +1,219 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Thanh toán</title>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nhận Acc Blox Fruits</title>
+
 <style>
-body{margin:0;background:#eef3f8;font-family:Arial;color:#172033}.box{max-width:600px;margin:45px auto;background:white;border-radius:18px;padding:25px;box-shadow:0 5px 25px #0002}.row{padding:14px;margin:10px 0;background:#f4f7fb;border-radius:10px}.pay{width:100%;padding:13px;border:0;border-radius:10px;background:#168ef2;color:white;font-weight:bold;font-size:16px;cursor:pointer}.back{display:inline-block;margin-top:15px}.note{font-size:13px;color:#667085}
-</style></head><body>
-<div class="box"><h1>🧾 Xác nhận đơn hàng</h1>
-<div class="row">Sản phẩm: <b>Túi Mù Blox Fruits</b></div>
-<div class="row">Túi đã chọn: <b id="bag">-</b></div>
-<div class="row">Số tiền: <b id="price">-</b></div>
-<h3>Phương thức thanh toán</h3>
-<div class="row">💳 Chuyển khoản ngân hàng</div>
-<div class="row">📱 Ví điện tử</div>
-<button class="pay" onclick="alert('Đây là bước mẫu. Cần kết nối hệ thống thanh toán/backend trước khi nhận tiền thật.')">TIẾP TỤC THANH TOÁN</button>
-<a class="back" href="index.html">← Về shop</a>
-<p class="note">Trang này hiện chỉ là giao diện mẫu, chưa tự động nhận hoặc xác minh thanh toán.</p>
+body{
+  margin:0;
+  background:#eef3f8;
+  font-family:Arial;
+  color:#172033
+}
+
+.box{
+  max-width:600px;
+  margin:45px auto;
+  background:white;
+  border-radius:18px;
+  padding:25px;
+  box-shadow:0 5px 25px #0002
+}
+
+.row{
+  padding:14px;
+  margin:10px 0;
+  background:#f4f7fb;
+  border-radius:10px
+}
+
+.pay{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#168ef2;
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer
+}
+
+.input{
+  width:100%;
+  padding:13px;
+  margin:8px 0;
+  box-sizing:border-box;
+  border:1px solid #ddd;
+  border-radius:10px;
+  font-size:15px
+}
+
+.deliver{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#16a34a;
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:8px
+}
+
+.account{
+  display:none;
+  margin-top:20px;
+  padding:18px;
+  background:#ecfdf3;
+  border-radius:12px
+}
+
+.copy{
+  width:100%;
+  padding:12px;
+  border:0;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  font-weight:bold;
+  cursor:pointer
+}
+
+.back{
+  display:inline-block;
+  margin-top:15px
+}
+
+.note{
+  font-size:13px;
+  color:#667085
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>🎮 Nhận Acc Blox Fruits</h1>
+
+<div class="row">
+Sản phẩm: <b>Túi Mù Blox Fruits</b>
 </div>
+
+<div class="row">
+Túi đã chọn: <b id="bag">-</b>
+</div>
+
+<div class="row">
+Số tiền: <b id="price">-</b>
+</div>
+
+<h3>Thông tin Acc</h3>
+
+<input
+  id="username"
+  class="input"
+  type="text"
+  placeholder="Username Roblox">
+
+<input
+  id="password"
+  class="input"
+  type="password"
+  placeholder="Password Roblox">
+
+<button class="deliver" onclick="deliverAccount()">
+  🎁 NHẬN ACC
+</button>
+
+<div id="account" class="account">
+
+<h3>✅ Thông tin tài khoản</h3>
+
+<p>
+👤 Username:
+<b id="showUsername"></b>
+</p>
+
+<p>
+🔑 Password:
+<b id="showPassword"></b>
+</p>
+
+<button class="copy" onclick="copyAccount()">
+📋 Sao chép thông tin
+</button>
+
+</div>
+
+<a class="back" href="index.html">
+← Về shop
+</a>
+
+<p class="note">
+Trang này chỉ là giao diện demo. Không nhập mật khẩu thật vào GitHub Pages Public.
+</p>
+
+</div>
+
 <script>
-const q=new URLSearchParams(location.search);
-document.getElementById('bag').textContent='Túi số '+(q.get('bag')||'-');
-document.getElementById('price').textContent=Number(q.get('price')||0).toLocaleString('vi-VN')+' ₫';
-</script></body></html>
+
+const q = new URLSearchParams(location.search);
+
+document.getElementById('bag').textContent =
+  'Túi số ' + (q.get('bag') || '-');
+
+document.getElementById('price').textContent =
+  Number(q.get('price') || 0).toLocaleString('vi-VN') + ' ₫';
+
+
+function deliverAccount(){
+
+  const username =
+    document.getElementById('username').value.trim();
+
+  const password =
+    document.getElementById('password').value;
+
+  if(!username || !password){
+    alert('Vui lòng nhập Username và Password!');
+    return;
+  }
+
+  document.getElementById('showUsername').textContent =
+    username;
+
+  document.getElementById('showPassword').textContent =
+    password;
+
+  document.getElementById('account').style.display =
+    'block';
+}
+
+
+function copyAccount(){
+
+  const username =
+    document.getElementById('showUsername').textContent;
+
+  const password =
+    document.getElementById('showPassword').textContent;
+
+  const text =
+    'Username: ' + username +
+    '\nPassword: ' + password;
+
+  navigator.clipboard.writeText(text);
+
+  alert('Đã sao chép thông tin acc!');
+}
+
+</script>
+
+</body>
+</html>
