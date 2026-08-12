@@ -1,4 +1,186 @@
-Túi 1 → DEMO_USER_1 / DEMO_PASS_1
-Túi 2 → DEMO_USER_2 / DEMO_PASS_2
-Túi 3 → DEMO_USER_3 / DEMO_PASS_3
-Túi 4 → DEMO_USER_4 / DEMO_PASS_4
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thông tin Acc</title>
+
+<style>
+body{
+  margin:0;
+  background:#eef3f8;
+  font-family:Arial,sans-serif;
+  color:#172033
+}
+
+.box{
+  max-width:600px;
+  margin:45px auto;
+  background:white;
+  border-radius:18px;
+  padding:25px;
+  box-shadow:0 5px 25px #0002
+}
+
+.info{
+  padding:15px;
+  margin:10px 0;
+  background:#f4f7fb;
+  border-radius:10px
+}
+
+.account{
+  margin-top:20px;
+  padding:20px;
+  background:#ecfdf3;
+  border-radius:12px
+}
+
+.copy{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#2563eb;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px
+}
+
+.back{
+  display:inline-block;
+  margin-top:15px
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>🎮 Thông tin Acc Blox Fruits</h1>
+
+<div class="info">
+Túi đã chọn:
+<b id="bag">-</b>
+</div>
+
+<div class="account">
+
+<h3>✅ Acc của bạn</h3>
+
+<p>
+👤 Username:
+<b id="username">-</b>
+</p>
+
+<p>
+🔑 Password:
+<b id="password">-</b>
+</p>
+
+<button class="copy" onclick="copyAccount()">
+📋 SAO CHÉP THÔNG TIN
+</button>
+
+</div>
+
+<a class="back" href="index.html">
+← Về shop
+</a>
+
+</div>
+
+<script>
+
+const q = new URLSearchParams(location.search);
+
+const bag = q.get("bag") || "1";
+
+document.getElementById("bag").textContent =
+"Túi số " + bag;
+
+
+/*
+  ACC DEMO THEO TỪNG TÚI
+*/
+
+const accounts = {
+
+  "1": {
+    username: "DEMO_USER_1",
+    password: "DEMO_PASS_1"
+  },
+
+  "2": {
+    username: "DEMO_USER_2",
+    password: "DEMO_PASS_2"
+  },
+
+  "3": {
+    username: "DEMO_USER_3",
+    password: "DEMO_PASS_3"
+  },
+
+  "4": {
+    username: "DEMO_USER_4",
+    password: "DEMO_PASS_4"
+  },
+
+  "5": {
+    username: "DEMO_USER_5",
+    password: "DEMO_PASS_5"
+  },
+
+  "6": {
+    username: "DEMO_USER_6",
+    password: "DEMO_PASS_6"
+  }
+
+};
+
+
+const account = accounts[bag];
+
+if(account){
+
+  document.getElementById("username").textContent =
+  account.username;
+
+  document.getElementById("password").textContent =
+  account.password;
+
+}else{
+
+  document.getElementById("username").textContent =
+  "Không có acc";
+
+  document.getElementById("password").textContent =
+  "Không có acc";
+
+}
+
+
+function copyAccount(){
+
+  const username =
+  document.getElementById("username").textContent;
+
+  const password =
+  document.getElementById("password").textContent;
+
+  const text =
+  "Username: " + username +
+  "\nPassword: " + password;
+
+  navigator.clipboard.writeText(text);
+
+  alert("Đã sao chép thông tin acc!");
+
+}
+
+</script>
+
+</body>
+</html>
