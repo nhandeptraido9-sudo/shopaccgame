@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Túi mù</title>
+<style>
+body{margin:0;min-height:100vh;background:linear-gradient(#0008,#0009),linear-gradient(135deg,#1e6797,#26180e);color:#fff;font-family:Arial}.head{text-align:center;padding:20px 12px}.head h1{font-size:40px;margin:12px}.grid{max-width:1200px;margin:auto;padding:10px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.bag{height:190px;border-radius:16px;background:linear-gradient(135deg,#158ef2,#ffd43b);display:flex;align-items:center;justify-content:center;position:relative}.bag:after{content:"?";font-size:90px;color:#ffd43b;background:#d71920;border:5px solid #ffd43b;border-radius:18px;padding:5px 25px}.num{position:absolute;z-index:2;left:8px;top:8px;width:32px;height:32px;border-radius:50%;background:#ffd34b;color:#111;display:grid;place-items:center;font-weight:bold}.pick{width:100%;border:0;padding:12px;background:#168ef2;color:white;font-weight:bold;border-radius:9px;cursor:pointer;margin-top:6px}.item{background:#fff;color:#111;padding:4px;border-radius:17px}.bottom{text-align:center;margin:18px}.back{color:white}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<div class="head"><a class="back" href="index.html">← Quay lại shop</a><h1>TÚI MÙ BLOX FRUITS</h1><p>Chọn 1 túi bất kỳ để nhận ngẫu nhiên 1 sản phẩm.</p></div>
+<div class="grid" id="bags"></div><div class="bottom" id="info"></div>
+<script>
+const price=Number(new URLSearchParams(location.search).get('price')||0);
+const grid=document.getElementById('bags');
+for(let i=1;i<=8;i++) grid.innerHTML+=`<div class="item"><div class="bag"><div class="num">${i}</div></div><button class="pick" onclick="pick(${i})">CHỌN TÚI ${i}</button></div>`;
+document.getElementById('info').textContent='Giá: '+price.toLocaleString('vi-VN')+' ₫';
+function pick(n){location.href=`thanh-toan.html?price=${price}&bag=${n}`;}
+</script></body></html>
