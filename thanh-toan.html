@@ -1,18 +1,247 @@
-<button class="pay" onclick="goToAccount()">
-  🎁 NHẬN ACC
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Thanh toán</title>
+
+<style>
+body{
+  margin:0;
+  background:#eef3f8;
+  font-family:Arial,sans-serif;
+  color:#172033;
+}
+
+.box{
+  max-width:600px;
+  margin:40px auto;
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 5px 25px #0002;
+}
+
+.row{
+  padding:14px;
+  margin:10px 0;
+  background:#f4f7fb;
+  border-radius:10px;
+}
+
+.method{
+  padding:15px;
+  margin:10px 0;
+  border:2px solid #ddd;
+  border-radius:12px;
+  cursor:pointer;
+}
+
+.method:hover{
+  border-color:#168ef2;
+}
+
+.method.active{
+  border-color:#168ef2;
+  background:#eef7ff;
+}
+
+.panel{
+  display:none;
+  margin-top:15px;
+  padding:15px;
+  background:#f8fafc;
+  border-radius:12px;
+}
+
+button{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:10px;
+  background:#168ef2;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  box-sizing:border-box;
+  margin:6px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>🧾 Thanh toán</h1>
+
+<div class="row">
+🎮 Sản phẩm: <b>Túi Mù Blox Fruits</b>
+</div>
+
+<div class="row">
+🎁 Túi đã chọn: <b id="bag">-</b>
+</div>
+
+<div class="row">
+💰 Số tiền: <b id="price">-</b>
+</div>
+
+
+<h3>Chọn phương thức</h3>
+
+<div class="method" onclick="selectMethod('bank',this)">
+🏦 <b>Thanh toán ngân hàng</b>
+</div>
+
+<div class="method" onclick="selectMethod('card',this)">
+🎫 <b>Thanh toán bằng thẻ cào</b>
+</div>
+
+
+<!-- NGÂN HÀNG -->
+
+<div id="bank" class="panel">
+
+<h3>🏦 Chuyển khoản ngân hàng</h3>
+
+<p>Ngân hàng: <b>TÊN NGÂN HÀNG</b></p>
+
+<p>Số tài khoản: <b>XXXXXXXXXX</b></p>
+
+<p>Chủ tài khoản: <b>TÊN CHỦ TK</b></p>
+
+<p>Nội dung chuyển khoản:</p>
+
+<div class="row">
+<b id="transferCode">SHOPACC</b>
+</div>
+
+<p>
+Vui lòng chuyển đúng số tiền hiển thị ở trên.
+</p>
+
+<button onclick="goAccount()">
+🎁 TIẾP TỤC
 </button>
 
+</div>
+
+
+<!-- THẺ CÀO -->
+
+<div id="card" class="panel">
+
+<h3>🎫 Thanh toán bằng thẻ cào</h3>
+
+<input
+id="cardType"
+placeholder="Loại thẻ (Viettel, Vina, Mobi...)">
+
+<input
+id="cardValue"
+placeholder="Mệnh giá">
+
+<input
+id="cardCode"
+placeholder="Mã thẻ">
+
+<input
+id="cardSerial"
+placeholder="Số seri">
+
+<button onclick="submitCard()">
+📨 GỬI THẺ
+</button>
+
+</div>
+
+</div>
+
+
 <script>
-function goToAccount() {
-  const q = new URLSearchParams(location.search);
 
-  const bag = q.get("bag") || "1";
-  const price = q.get("price") || "0";
+const q = new URLSearchParams(location.search);
 
-  window.location.href =
-    "giao-acc.html?bag=" +
-    encodeURIComponent(bag) +
-    "&price=" +
-    encodeURIComponent(price);
+const bag = q.get("bag") || "1";
+
+const price =
+Number(q.get("price") || 0);
+
+
+document.getElementById("bag").textContent =
+"Túi số " + bag;
+
+document.getElementById("price").textContent =
+price.toLocaleString("vi-VN") + " ₫";
+
+
+document.getElementById("transferCode").textContent =
+"SHOPACC" + bag;
+
+
+function selectMethod(method, element){
+
+document.querySelectorAll(".method")
+.forEach(x => x.classList.remove("active"));
+
+element.classList.add("active");
+
+document.getElementById("bank").style.display =
+method === "bank" ? "block" : "none";
+
+document.getElementById("card").style.display =
+method === "card" ? "block" : "none";
+
 }
+
+
+function goAccount(){
+
+window.location.href =
+"giao-acc.html?bag=" +
+encodeURIComponent(bag);
+
+}
+
+
+function submitCard(){
+
+const type =
+document.getElementById("cardType").value.trim();
+
+const value =
+document.getElementById("cardValue").value.trim();
+
+const code =
+document.getElementById("cardCode").value.trim();
+
+const serial =
+document.getElementById("cardSerial").value.trim();
+
+if(!type || !value || !code || !serial){
+
+alert("Vui lòng nhập đầy đủ thông tin thẻ!");
+
+return;
+
+}
+
+alert(
+"Đã nhận thông tin thẻ. Cần kiểm tra thẻ trước khi giao acc."
+);
+
+}
+
 </script>
+
+</body>
+</html>
