@@ -10,34 +10,51 @@ body{
   margin:0;
   background:#eef3f8;
   font-family:Arial,sans-serif;
-  color:#172033
+  color:#172033;
 }
 
 .box{
   max-width:600px;
   margin:40px auto;
-  background:#fff;
+  background:white;
   padding:25px;
   border-radius:18px;
-  box-shadow:0 5px 25px #0002
+  box-shadow:0 5px 25px #0002;
 }
 
 .row{
   padding:14px;
   margin:10px 0;
   background:#f4f7fb;
-  border-radius:10px
+  border-radius:10px;
 }
 
-.qr{
-  width:220px;
-  max-width:100%;
-  display:block;
-  margin:20px auto;
-  border-radius:10px
+.method{
+  padding:15px;
+  margin:10px 0;
+  border:2px solid #ddd;
+  border-radius:12px;
+  cursor:pointer;
 }
 
-.pay{
+.method:hover{
+  border-color:#168ef2;
+}
+
+.method.active{
+  border-color:#168ef2;
+  background:#eef7ff;
+}
+
+.panel{
+  display:none;
+  margin-top:15px;
+  padding:15px;
+  background:#f8fafc;
+  border-radius:12px;
+}
+
+button{
   width:100%;
   padding:13px;
   border:0;
@@ -45,35 +62,17 @@ body{
   background:#168ef2;
   color:white;
   font-weight:bold;
-  font-size:16px;
-  cursor:pointer
+  cursor:pointer;
+  margin-top:10px;
 }
 
-.wait{
-  display:none;
-  margin-top:20px;
-  padding:18px;
-  background:#fff7ed;
-  border-radius:12px;
-  text-align:center
-}
-
-.receive{
-  display:none;
+input{
   width:100%;
-  padding:13px;
-  margin-top:15px;
-  border:0;
-  border-radius:10px;
-  background:#16a34a;
-  color:white;
-  font-weight:bold;
-  cursor:pointer
-}
-
-.back{
-  display:inline-block;
-  margin-top:15px
+  padding:12px;
+  box-sizing:border-box;
+  margin:6px 0;
+  border:1px solid #ddd;
+  border-radius:8px;
 }
 </style>
 </head>
@@ -85,91 +84,98 @@ body{
 <h1>🧾 Thanh toán</h1>
 
 <div class="row">
-🎮 Sản phẩm:
-<b>Túi Mù Blox Fruits</b>
+🎮 Sản phẩm: <b>Túi Mù Blox Fruits</b>
 </div>
 
 <div class="row">
-🎁 Túi đã chọn:
-<b id="bag">-</b>
+🎁 Túi đã chọn: <b id="bag">-</b>
 </div>
 
 <div class="row">
-💰 Số tiền:
-<b id="price">-</b>
+💰 Số tiền: <b id="price">-</b>
 </div>
+
+
+<h3>Chọn phương thức</h3>
+
+<div class="method" onclick="selectMethod('bank',this)">
+🏦 <b>Thanh toán ngân hàng</b>
+</div>
+
+<div class="method" onclick="selectMethod('card',this)">
+🎫 <b>Thanh toán bằng thẻ cào</b>
+</div>
+
+
+<!-- NGÂN HÀNG -->
+
+<div id="bank" class="panel">
 
 <h3>🏦 Chuyển khoản ngân hàng</h3>
 
-<!-- THAY QR CỦA BẠN VÀO ĐÂY -->
-<img
-  class="qr"
-  src="qr-ngan-hang.png"
-  alt="QR ngân hàng"
->
+<p>Ngân hàng: <b>TÊN NGÂN HÀNG</b></p>
+
+<p>Số tài khoản: <b>XXXXXXXXXX</b></p>
+
+<p>Chủ tài khoản: <b>TÊN CHỦ TK</b></p>
+
+<p>Nội dung chuyển khoản:</p>
 
 <div class="row">
-Ngân hàng:
-<b>TÊN NGÂN HÀNG</b>
+<b id="transferCode">SHOPACC</b>
 </div>
-
-<div class="row">
-Số tài khoản:
-<b>XXXXXXXXXX</b>
-</div>
-
-<div class="row">
-Chủ tài khoản:
-<b>TÊN CHỦ TÀI KHOẢN</b>
-</div>
-
-<div class="row">
-Nội dung chuyển khoản:
-<b id="content">SHOPACC</b>
-</div>
-
-<button class="pay" onclick="confirmPayment()">
-  Tôi đã thanh toán
-</button>
-
-<div id="waiting" class="wait">
-
-<h3>⏳ Đang chờ xác minh</h3>
 
 <p>
-Hệ thống đang chờ xác nhận thanh toán.
+Vui lòng chuyển đúng số tiền hiển thị ở trên.
 </p>
 
-<p>
-Sau khi thanh toán được xác nhận,
-nút nhận acc sẽ xuất hiện.
-</p>
-
-<button
-  id="receive"
-  class="receive"
-  onclick="receiveAccount()">
-  🎁 NHẬN ACC
+<button onclick="goAccount()">
+🎁 TIẾP TỤC
 </button>
 
 </div>
 
-<a class="back" href="index.html">
-← Về shop
-</a>
+
+<!-- THẺ CÀO -->
+
+<div id="card" class="panel">
+
+<h3>🎫 Thanh toán bằng thẻ cào</h3>
+
+<input
+id="cardType"
+placeholder="Loại thẻ (Viettel, Vina, Mobi...)">
+
+<input
+id="cardValue"
+placeholder="Mệnh giá">
+
+<input
+id="cardCode"
+placeholder="Mã thẻ">
+
+<input
+id="cardSerial"
+placeholder="Số seri">
+
+<button onclick="submitCard()">
+📨 GỬI THẺ
+</button>
 
 </div>
+
+</div>
+
 
 <script>
 
-const q =
-new URLSearchParams(location.search);
+const q = new URLSearchParams(location.search);
 
-const bag =
-q.get("bag") || "1";
+const bag = q.get("bag") || "1";
 
 const price =
 Number(q.get("price") || 0);
+
 
 document.getElementById("bag").textContent =
 "Túi số " + bag;
@@ -177,38 +183,61 @@ document.getElementById("bag").textContent =
 document.getElementById("price").textContent =
 price.toLocaleString("vi-VN") + " ₫";
 
-document.getElementById("content").textContent =
+
+document.getElementById("transferCode").textContent =
 "SHOPACC" + bag;
 
 
-function confirmPayment(){
+function selectMethod(method, element){
 
-document.querySelector(".pay").disabled = true;
+document.querySelectorAll(".method")
+.forEach(x => x.classList.remove("active"));
 
-document.getElementById("waiting").style.display =
-"block";
+element.classList.add("active");
 
-}
+document.getElementById("bank").style.display =
+method === "bank" ? "block" : "none";
 
-
-/*
-  CHỈ GỌI HÀM NÀY SAU KHI
-  BACKEND XÁC NHẬN ĐÃ THANH TOÁN
-*/
-
-function paymentApproved(){
-
-document.getElementById("receive").style.display =
-"block";
+document.getElementById("card").style.display =
+method === "card" ? "block" : "none";
 
 }
 
 
-function receiveAccount(){
+function goAccount(){
 
 window.location.href =
 "giao-acc.html?bag=" +
 encodeURIComponent(bag);
+
+}
+
+
+function submitCard(){
+
+const type =
+document.getElementById("cardType").value.trim();
+
+const value =
+document.getElementById("cardValue").value.trim();
+
+const code =
+document.getElementById("cardCode").value.trim();
+
+const serial =
+document.getElementById("cardSerial").value.trim();
+
+if(!type || !value || !code || !serial){
+
+alert("Vui lòng nhập đầy đủ thông tin thẻ!");
+
+return;
+
+}
+
+alert(
+"Đã nhận thông tin thẻ. Cần kiểm tra thẻ trước khi giao acc."
+);
 
 }
 
