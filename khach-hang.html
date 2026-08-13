@@ -553,12 +553,8 @@ trên trình duyệt hiện tại.
 
 try{
 
-    const users =
-        JSON.parse(
-            localStorage.getItem(
-                "shopUsers"
-            ) || "{}"
-        );
+    const currentUser =
+    localStorage.getItem("currentUser");
 
 
     const customerCount =
