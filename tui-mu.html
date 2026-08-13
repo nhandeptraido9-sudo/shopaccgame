@@ -1,17 +1,771 @@
-<!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Túi mù</title>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Túi Mù - SHOPKAROT</title>
+
 <style>
-body{margin:0;min-height:100vh;background:linear-gradient(#0008,#0009),linear-gradient(135deg,#1e6797,#26180e);color:#fff;font-family:Arial}.head{text-align:center;padding:20px 12px}.head h1{font-size:40px;margin:12px}.grid{max-width:1200px;margin:auto;padding:10px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.bag{height:190px;border-radius:16px;background:linear-gradient(135deg,#158ef2,#ffd43b);display:flex;align-items:center;justify-content:center;position:relative}.bag:after{content:"?";font-size:90px;color:#ffd43b;background:#d71920;border:5px solid #ffd43b;border-radius:18px;padding:5px 25px}.num{position:absolute;z-index:2;left:8px;top:8px;width:32px;height:32px;border-radius:50%;background:#ffd34b;color:#111;display:grid;place-items:center;font-weight:bold}.pick{width:100%;border:0;padding:12px;background:#168ef2;color:white;font-weight:bold;border-radius:9px;cursor:pointer;margin-top:6px}.item{background:#fff;color:#111;padding:4px;border-radius:17px}.bottom{text-align:center;margin:18px}.back{color:white}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr}}
-</style></head><body>
-<div class="head"><a class="back" href="index.html">← Quay lại shop</a><h1>TÚI MÙ BLOX FRUITS</h1><p>Chọn 1 túi bất kỳ để nhận ngẫu nhiên 1 sản phẩm.</p></div>
-<div class="grid" id="bags"></div><div class="bottom" id="info"></div>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f4f9;
+    color:#182238;
+}
+
+header{
+    background:linear-gradient(90deg,#5137df,#347bf0);
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+}
+
+header h1{
+    margin:0 0 8px;
+}
+
+.container{
+    max-width:900px;
+    margin:30px auto;
+    padding:15px;
+}
+
+.box{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin:15px 0 7px;
+    font-weight:bold;
+}
+
+input,
+select{
+    width:100%;
+    padding:14px;
+    border:1px solid #ccd2df;
+    border-radius:10px;
+    font-size:16px;
+}
+
+.buy-btn{
+    width:100%;
+    margin-top:22px;
+    padding:16px;
+    border:0;
+    border-radius:12px;
+    background:linear-gradient(90deg,#6647ee,#3e79ee);
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.buy-btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+.message{
+    text-align:center;
+    min-height:25px;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.info{
+    background:#fff7dc;
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.result{
+    display:none;
+    margin-top:20px;
+    background:#f5f7fb;
+    padding:20px;
+    border-radius:14px;
+}
+
+.account-box{
+    background:white;
+    padding:16px;
+    margin-top:10px;
+    border-radius:12px;
+}
+
+.copy-btn{
+    margin-top:10px;
+    padding:9px 13px;
+    border:0;
+    border-radius:8px;
+    background:#edf0f7;
+    color:#5137df;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    padding:14px;
+    background:#e9edf5;
+    color:#5137df;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
+}
+
+.history{
+    margin-top:20px;
+}
+
+.order{
+    background:#f5f7fb;
+    padding:15px;
+    border-radius:12px;
+    margin-top:10px;
+}
+
+@media(max-width:600px){
+    .container{
+        padding:10px;
+    }
+
+    .box{
+        padding:18px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎁 TÚI MÙ ACC BLOX FRUITS</h1>
+    <p>Chọn mệnh giá và gói để mua acc</p>
+</header>
+
+
+<div class="container">
+
+<div class="box">
+
+<h2>🛒 Mua acc</h2>
+
+<div class="info">
+    ⚠️ Hãy kiểm tra đúng <b>mệnh giá</b> và <b>gói</b> trước khi bấm Mua ngay.
+</div>
+
+
+<label>👤 Tên khách hàng</label>
+
+<input
+    id="customerName"
+    type="text"
+    placeholder="Nhập tên tài khoản khách"
+>
+
+
+<label>💰 Mệnh giá</label>
+
+<select id="price">
+
+    <option value="10000">10K</option>
+    <option value="20000">20K</option>
+    <option value="50000">50K</option>
+    <option value="80000">80K</option>
+    <option value="100000">100K</option>
+
+</select>
+
+
+<label>🎁 Chọn gói</label>
+
+<select id="package">
+
+    <option value="1">Gói 1</option>
+    <option value="2">Gói 2</option>
+    <option value="3">Gói 3</option>
+    <option value="4">Gói 4</option>
+    <option value="5">Gói 5</option>
+    <option value="6">Gói 6</option>
+    <option value="7">Gói 7</option>
+    <option value="8">Gói 8</option>
+
+</select>
+
+
+<button
+    id="buyButton"
+    class="buy-btn"
+    onclick="buyAccount()">
+
+    🛒 MUA NGAY
+
+</button>
+
+
+<div
+    id="message"
+    class="message">
+</div>
+
+
+<!-- KẾT QUẢ -->
+
+<div
+    id="result"
+    class="result">
+
+    <h2>🎉 Nhận acc thành công</h2>
+
+    <p>
+        📦 Mã đơn:
+    </p>
+
+    <div class="account-box">
+        <b id="orderId"></b>
+    </div>
+
+
+    <p>
+        💰 Mệnh giá:
+    </p>
+
+    <div class="account-box">
+        <b id="resultPrice"></b>
+    </div>
+
+
+    <p>
+        🎁 Gói:
+    </p>
+
+    <div class="account-box">
+        <b id="resultPackage"></b>
+    </div>
+
+
+    <p>
+        👤 Name acc:
+    </p>
+
+    <div class="account-box">
+
+        <b id="accountName"></b>
+
+        <br>
+
+        <button
+            class="copy-btn"
+            onclick="copyName()">
+
+            📋 Sao chép Name
+
+        </button>
+
+    </div>
+
+
+    <p>
+        🔑 Pass acc:
+    </p>
+
+    <div class="account-box">
+
+        <b id="accountPass"></b>
+
+        <br>
+
+        <button
+            class="copy-btn"
+            onclick="copyPass()">
+
+            📋 Sao chép Pass
+
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+
+<!-- LỊCH SỬ ĐƠN -->
+
+<div class="box history">
+
+<h2>📦 Đơn hàng của bạn</h2>
+
+<div id="orderHistory">
+
+    <p>
+        Chưa có đơn hàng.
+    </p>
+
+</div>
+
+</div>
+
+
+<a
+    href="index.html"
+    class="back">
+
+    ← Quay lại Shop
+
+</a>
+
+</div>
+
+
 <script>
-const price=Number(new URLSearchParams(location.search).get('price')||0);
-const grid=document.getElementById('bags');
-for(let i=1;i<=8;i++) grid.innerHTML+=`<div class="item"><div class="bag"><div class="num">${i}</div></div><button class="pick" onclick="pick(${i})">CHỌN TÚI ${i}</button></div>`;
-document.getElementById('info').textContent='Giá: '+price.toLocaleString('vi-VN')+' ₫';
-function pick(n){location.href=`thanh-toan.html?price=${price}&bag=${n}`;}
-</script></body></html>
-<button onclick="showAccount()">NHẬN ACC</button>
+
+/* =================================
+   GOOGLE APPS SCRIPT API
+================================= */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbyF1CkNgj6wXjsBj6c8qve0W_5WBqFgq1i9Gic_MI5czERAPfgw2pxD1KMxEp7QCMWMCg/exec";
 
 
+/* =================================
+   MUA ACC
+================================= */
+
+async function buyAccount(){
+
+    const customerName =
+        document
+        .getElementById("customerName")
+        .value
+        .trim();
+
+    const price =
+        document
+        .getElementById("price")
+        .value;
+
+    const packageNumber =
+        document
+        .getElementById("package")
+        .value;
+
+    const button =
+        document
+        .getElementById("buyButton");
+
+    const message =
+        document
+        .getElementById("message");
+
+    const result =
+        document
+        .getElementById("result");
+
+
+    if(!customerName){
+
+        message.style.color =
+            "#e53935";
+
+        message.textContent =
+            "❌ Vui lòng nhập tên khách hàng.";
+
+        return;
+    }
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "⏳ Đang kiểm tra kho...";
+
+    message.style.color =
+        "#5137df";
+
+    message.textContent =
+        "Đang lấy acc...";
+
+    result.style.display =
+        "none";
+
+
+    try{
+
+        const response =
+            await fetch(
+                API_URL,
+                {
+                    method:"POST",
+
+                    body:JSON.stringify({
+
+                        action:"getAccount",
+
+                        price:price,
+
+                        package:packageNumber,
+
+                        username:customerName
+
+                    })
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if(data.ok){
+
+            message.style.color =
+                "#00a66a";
+
+            message.textContent =
+                "✅ Mua thành công!";
+
+
+            document
+            .getElementById("orderId")
+            .textContent =
+                data.orderId;
+
+
+            document
+            .getElementById("resultPrice")
+            .textContent =
+                formatPrice(data.price);
+
+
+            document
+            .getElementById("resultPackage")
+            .textContent =
+                "Gói " + data.package;
+
+
+            document
+            .getElementById("accountName")
+            .textContent =
+                data.accountName;
+
+
+            document
+            .getElementById("accountPass")
+            .textContent =
+                data.accountPass;
+
+
+            result.style.display =
+                "block";
+
+
+            saveOrder(data);
+
+            loadOrders();
+
+
+        }else{
+
+            message.style.color =
+                "#e53935";
+
+            message.textContent =
+                "❌ " +
+                (
+                    data.message ||
+                    "Gói này đã hết acc."
+                );
+
+        }
+
+
+    }catch(error){
+
+        console.error(error);
+
+        message.style.color =
+            "#e53935";
+
+        message.textContent =
+            "❌ Không kết nối được máy chủ.";
+
+    }
+
+
+    button.disabled = false;
+
+    button.textContent =
+        "🛒 MUA NGAY";
+}
+
+
+/* =================================
+   LƯU ĐƠN HÀNG
+================================= */
+
+function saveOrder(data){
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "shopOrders"
+            ) || "[]"
+        );
+
+
+    orders.push({
+
+        id:data.orderId,
+
+        username:data.username,
+
+        price:data.price,
+
+        package:data.package,
+
+        accountName:data.accountName,
+
+        accountPass:data.accountPass,
+
+        time:new Date().toISOString()
+
+    });
+
+
+    localStorage.setItem(
+        "shopOrders",
+        JSON.stringify(orders)
+    );
+}
+
+
+/* =================================
+   HIỂN THỊ ĐƠN HÀNG
+================================= */
+
+function loadOrders(){
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "shopOrders"
+            ) || "[]"
+        );
+
+
+    const box =
+        document
+        .getElementById(
+            "orderHistory"
+        );
+
+
+    if(
+        orders.length === 0
+    ){
+
+        box.innerHTML =
+            "<p>Chưa có đơn hàng.</p>";
+
+        return;
+    }
+
+
+    box.innerHTML = "";
+
+
+    orders
+    .slice()
+    .reverse()
+    .forEach(order => {
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+
+        item.className =
+            "order";
+
+
+        item.innerHTML = `
+
+            📦 Mã đơn:
+            <b>
+                ${escapeHTML(order.id)}
+            </b>
+
+            <br><br>
+
+            💰 Giá:
+            ${escapeHTML(order.price)}
+
+            <br><br>
+
+            🎁 Gói:
+            ${escapeHTML(order.package)}
+
+            <br><br>
+
+            👤 Name:
+            <b>
+                ${escapeHTML(order.accountName)}
+            </b>
+
+            <br><br>
+
+            🔑 Pass:
+            <b>
+                ${escapeHTML(order.accountPass)}
+            </b>
+
+        `;
+
+
+        box.appendChild(item);
+
+    });
+}
+
+
+/* =================================
+   SAO CHÉP NAME
+================================= */
+
+function copyName(){
+
+    const value =
+        document
+        .getElementById(
+            "accountName"
+        )
+        .textContent;
+
+
+    navigator.clipboard
+    .writeText(value)
+    .then(() => {
+
+        alert(
+            "✅ Đã sao chép Name acc"
+        );
+
+    });
+}
+
+
+/* =================================
+   SAO CHÉP PASS
+================================= */
+
+function copyPass(){
+
+    const value =
+        document
+        .getElementById(
+            "accountPass"
+        )
+        .textContent;
+
+
+    navigator.clipboard
+    .writeText(value)
+    .then(() => {
+
+        alert(
+            "✅ Đã sao chép Pass acc"
+        );
+
+    });
+}
+
+
+/* =================================
+   FORMAT GIÁ
+================================= */
+
+function formatPrice(value){
+
+    const number =
+        Number(value);
+
+
+    if(
+        isNaN(number)
+    ){
+
+        return value;
+
+    }
+
+
+    return (
+        number / 1000
+    ) + "K";
+
+}
+
+
+/* =================================
+   BẢO VỆ HTML
+================================= */
+
+function escapeHTML(value){
+
+    return String(
+        value ?? ""
+    )
+
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+
+    .replace(
+        /</g,
+        "&lt;"
+    )
+
+    .replace(
+        />/g,
+        "&gt;"
+    )
+
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+
+    .replace(
+        /'/g,
+        "&#039;"
+    );
+}
+
+
+/* =================================
+   KHỞI ĐỘNG
+================================= */
+
+loadOrders();
+
+</script>
+
+</body>
+</html>
