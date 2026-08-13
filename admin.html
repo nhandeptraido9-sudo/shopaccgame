@@ -3,10 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Admin - SHOPACCGAME</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+    box-sizing:border-box;
+}
 
 body{
     margin:0;
@@ -22,6 +26,14 @@ header{
     padding:25px 15px;
 }
 
+header h1{
+    margin:0 0 8px;
+}
+
+header p{
+    margin:0;
+}
+
 .container{
     max-width:1100px;
     margin:30px auto;
@@ -33,8 +45,51 @@ header{
     padding:25px;
     margin-bottom:20px;
     border-radius:18px;
-    box-shadow:0 5px 20px #0002;
+    box-shadow:0 5px 20px rgba(0,0,0,.10);
 }
+
+.box h2{
+    margin-top:0;
+}
+
+
+/* =========================
+   THỐNG KÊ
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.stat{
+    background:#f5f7fb;
+    padding:20px;
+    border-radius:14px;
+    text-align:center;
+}
+
+.stat-icon{
+    font-size:30px;
+}
+
+.stat-number{
+    font-size:27px;
+    font-weight:bold;
+    color:#5137df;
+    margin-top:8px;
+}
+
+.stat-name{
+    color:#777;
+    margin-top:5px;
+}
+
+
+/* =========================
+   FORM
+========================= */
 
 label{
     display:block;
@@ -49,7 +104,18 @@ input{
     border:1px solid #ccd2df;
     border-radius:10px;
     font-size:15px;
+    outline:none;
 }
+
+select:focus,
+input:focus{
+    border-color:#5137df;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
 
 button{
     border:0;
@@ -67,18 +133,29 @@ button{
     font-size:16px;
 }
 
-.clear{
-    width:100%;
-    margin-top:10px;
-    background:#e53935;
-    color:white;
-}
-
 .refresh{
     background:#edf0f7;
     color:#5137df;
     margin-bottom:15px;
 }
+
+.delete{
+    width:100%;
+    margin-top:12px;
+    background:#e53935;
+    color:white;
+}
+
+.logout{
+    width:100%;
+    background:#e53935;
+    color:white;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
 
 .message{
     text-align:center;
@@ -87,6 +164,11 @@ button{
     font-weight:bold;
 }
 
+
+/* =========================
+   KHO ACC
+========================= */
+
 .package{
     background:#f5f7fb;
     padding:16px;
@@ -94,23 +176,58 @@ button{
     margin-top:12px;
 }
 
-.package-title{
-    font-weight:bold;
-    font-size:17px;
+.account{
+    background:white;
+    padding:14px;
+    border-radius:10px;
+    margin-top:10px;
 }
 
-.account{
+
+/* =========================
+   KHÁCH HÀNG
+========================= */
+
+.customer{
+    background:#f5f7fb;
+    padding:15px;
+    border-radius:12px;
     margin-top:10px;
-    padding:12px;
-    background:white;
-    border-radius:10px;
+}
+
+
+/* =========================
+   ACC ĐÃ GIAO
+========================= */
+
+.customer-order{
+    background:#f5f7fb;
+    border-radius:12px;
+    padding:16px;
+    margin-top:12px;
+}
+
+.status{
+    display:inline-block;
+    margin-top:10px;
+    padding:6px 10px;
+    border-radius:8px;
+    background:#dff7e7;
+    color:#168044;
+    font-size:13px;
+    font-weight:bold;
 }
 
 .empty{
-    color:#777;
     text-align:center;
-    padding:20px;
+    color:#777;
+    padding:25px;
 }
+
+
+/* =========================
+   BACK
+========================= */
 
 .back{
     display:block;
@@ -123,13 +240,17 @@ button{
     font-weight:bold;
 }
 
-.logout{
-    width:100%;
-    background:#e53935;
-    color:white;
-}
 
-@media(max-width:600px){
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
     .container{
         padding:10px;
     }
@@ -137,60 +258,217 @@ button{
     .box{
         padding:18px;
     }
+
 }
+
 </style>
 </head>
 
+
 <body>
 
+
 <header>
+
     <h1>🛠️ SHOPACCGAME ADMIN</h1>
-    <p>Quản lý kho acc túi mù</p>
+
+    <p>Quản lý khách hàng và kho acc</p>
+
 </header>
 
 
 <div class="container">
 
 
-<!-- =========================
-     THÊM ACC
-========================= -->
+<!-- =====================================
+     THỐNG KÊ
+===================================== -->
 
 <div class="box">
 
-    <h2>🎮 Thêm acc Blox Fruits</h2>
+    <h2>📊 Thống kê</h2>
 
-    <label>💰 Mệnh giá</label>
+
+    <div class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+            <div
+                id="customerCount"
+                class="stat-number">
+                0
+            </div>
+
+            <div class="stat-name">
+                Khách hàng
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                📦
+            </div>
+
+            <div
+                id="orderCount"
+                class="stat-number">
+                0
+            </div>
+
+            <div class="stat-name">
+                Đơn hàng
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🎮
+            </div>
+
+            <div
+                id="deliveredCount"
+                class="stat-number">
+                0
+            </div>
+
+            <div class="stat-name">
+                Acc đã giao
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     TÀI KHOẢN KHÁCH
+===================================== -->
+
+<div class="box">
+
+    <h2>👥 Tài khoản khách hàng</h2>
+
+    <p>
+        Danh sách tên tài khoản khách đã đăng ký.
+    </p>
+
+
+    <button
+        class="refresh"
+        onclick="renderCustomers()">
+
+        🔄 Làm mới
+
+    </button>
+
+
+    <div id="customerList"></div>
+
+</div>
+
+
+<!-- =====================================
+     THÊM ACC VÀO KHO
+===================================== -->
+
+<div class="box">
+
+    <h2>🎮 Thêm acc Blox Fruits vào kho</h2>
+
+
+    <label>
+        💰 Mệnh giá
+    </label>
+
 
     <select id="price">
 
-        <option value="0">0K</option>
-        <option value="10000">10K</option>
-        <option value="20000">20K</option>
-        <option value="50000">50K</option>
-        <option value="80000">80K</option>
-        <option value="100000">100K</option>
+        <option value="0">
+            0K
+        </option>
+
+        <option value="10000">
+            10K
+        </option>
+
+        <option value="20000">
+            20K
+        </option>
+
+        <option value="50000">
+            50K
+        </option>
+
+        <option value="80000">
+            80K
+        </option>
+
+        <option value="100000">
+            100K
+        </option>
 
     </select>
 
 
-    <label>🎁 Gói</label>
+    <label>
+        🎁 Gói
+    </label>
+
 
     <select id="package">
 
-        <option value="1">Gói 1</option>
-        <option value="2">Gói 2</option>
-        <option value="3">Gói 3</option>
-        <option value="4">Gói 4</option>
-        <option value="5">Gói 5</option>
-        <option value="6">Gói 6</option>
-        <option value="7">Gói 7</option>
-        <option value="8">Gói 8</option>
+        <option value="1">
+            Gói 1
+        </option>
+
+        <option value="2">
+            Gói 2
+        </option>
+
+        <option value="3">
+            Gói 3
+        </option>
+
+        <option value="4">
+            Gói 4
+        </option>
+
+        <option value="5">
+            Gói 5
+        </option>
+
+        <option value="6">
+            Gói 6
+        </option>
+
+        <option value="7">
+            Gói 7
+        </option>
+
+        <option value="8">
+            Gói 8
+        </option>
 
     </select>
 
 
-    <label>👤 Name acc Blox Fruits</label>
+    <label>
+        👤 Name acc Blox Fruits
+    </label>
+
 
     <input
         id="accountName"
@@ -198,7 +476,10 @@ button{
         placeholder="Nhập Name acc">
 
 
-    <label>🔑 Pass acc Blox Fruits</label>
+    <label>
+        🔑 Pass acc Blox Fruits
+    </label>
+
 
     <input
         id="accountPass"
@@ -215,15 +496,6 @@ button{
     </button>
 
 
-    <button
-        class="clear"
-        onclick="clearForm()">
-
-        🧹 Xóa ô nhập
-
-    </button>
-
-
     <div
         id="message"
         class="message">
@@ -232,13 +504,16 @@ button{
 </div>
 
 
-<!-- =========================
-     KHO ACC
-========================= -->
+<!-- =====================================
+     KHO 48 GÓI
+===================================== -->
 
 <div class="box">
 
-    <h2>📦 Kho 48 gói túi mù</h2>
+    <h2>
+        📦 Kho 48 gói túi mù
+    </h2>
+
 
     <button
         class="refresh"
@@ -254,9 +529,39 @@ button{
 </div>
 
 
-<!-- =========================
+<!-- =====================================
+     ACC KHÁCH ĐÃ NHẬN
+===================================== -->
+
+<div class="box">
+
+    <h2>
+        🎮 Acc khách đã nhận
+    </h2>
+
+
+    <p>
+        Danh sách acc đã được giao cho khách.
+    </p>
+
+
+    <button
+        class="refresh"
+        onclick="renderDelivered()">
+
+        🔄 Làm mới danh sách
+
+    </button>
+
+
+    <div id="deliveredList"></div>
+
+</div>
+
+
+<!-- =====================================
      ĐĂNG XUẤT
-========================= -->
+===================================== -->
 
 <div class="box">
 
@@ -272,8 +577,8 @@ button{
 
 
 <a
-    class="back"
-    href="index.html">
+    href="index.html"
+    class="back">
 
     ← Quay lại Shop
 
@@ -285,9 +590,10 @@ button{
 
 <script>
 
-/* =================================
+
+/* =====================================
    KIỂM TRA ADMIN
-================================= */
+===================================== */
 
 if(
     sessionStorage.getItem(
@@ -301,9 +607,9 @@ if(
 }
 
 
-/* =================================
-   DANH SÁCH MỆNH GIÁ
-================================= */
+/* =====================================
+   MỆNH GIÁ
+===================================== */
 
 const prices = [
 
@@ -340,9 +646,9 @@ const prices = [
 ];
 
 
-/* =================================
-   LẤY KHO ACC
-================================= */
+/* =====================================
+   LẤY KHO
+===================================== */
 
 function getInventory(){
 
@@ -357,28 +663,26 @@ function getInventory(){
 }
 
 
-/* =================================
+/* =====================================
    LƯU KHO
-================================= */
+===================================== */
 
-function saveInventory(inventory){
+function saveInventory(data){
 
     localStorage.setItem(
 
         "shopInventory",
 
-        JSON.stringify(
-            inventory
-        )
+        JSON.stringify(data)
 
     );
 
 }
 
 
-/* =================================
-   THÊM ACC
-================================= */
+/* =====================================
+   LƯU ACC
+===================================== */
 
 function saveAccount(){
 
@@ -412,7 +716,10 @@ function saveAccount(){
         );
 
 
-    if(!name || !pass){
+    if(
+        !name ||
+        !pass
+    ){
 
         message.style.color =
             "#e53935";
@@ -429,16 +736,14 @@ function saveAccount(){
         getInventory();
 
 
-    if(!inventory[price]){
+    if(
+        !inventory[price]
+    ){
 
         inventory[price] = {};
 
     }
 
-
-    /*
-       Mỗi gói chỉ giữ 1 acc
-    */
 
     inventory[price][packageNumber] = {
 
@@ -448,7 +753,9 @@ function saveAccount(){
 
         addedAt:
             new Date()
-            .toLocaleString("vi-VN")
+            .toLocaleString(
+                "vi-VN"
+            )
 
     };
 
@@ -462,10 +769,7 @@ function saveAccount(){
         "#00a66a";
 
     message.textContent =
-        "✅ Đã lưu acc vào " +
-        getPriceLabel(price) +
-        " - Gói " +
-        packageNumber;
+        "✅ Đã lưu acc thành công.";
 
 
     document.getElementById(
@@ -483,9 +787,9 @@ function saveAccount(){
 }
 
 
-/* =================================
+/* =====================================
    HIỂN THỊ KHO
-================================= */
+===================================== */
 
 function renderInventory(){
 
@@ -505,6 +809,7 @@ function renderInventory(){
     prices.forEach(
         price => {
 
+
             const title =
                 document.createElement(
                     "h3"
@@ -522,8 +827,8 @@ function renderInventory(){
 
 
             for(
-                let i=1;
-                i<=8;
+                let i = 1;
+                i <= 8;
                 i++
             ){
 
@@ -550,18 +855,19 @@ function renderInventory(){
 
                     item.innerHTML = `
 
-                        <div class="package-title">
-
+                        <b>
                             🎁 Gói ${i}
+                        </b>
 
-                            <span
-                                style="
-                                color:#00a66a;
-                                ">
-                                🟢 Có acc
-                            </span>
+                        <span
+                            style="
+                            color:#00a66a;
+                            margin-left:8px;
+                            ">
 
-                        </div>
+                            🟢 Có acc
+
+                        </span>
 
 
                         <div class="account">
@@ -592,19 +898,15 @@ function renderInventory(){
                                 account.addedAt
                             )}
 
-                            <br><br>
 
                             <button
-                                style="
-                                background:#e53935;
-                                color:white;
-                                width:100%;
-                                "
+                                class="delete"
                                 onclick="
-                                deleteAccount(
-                                    '${price.value}',
-                                    '${i}'
-                                )">
+                                    deleteAccount(
+                                        '${price.value}',
+                                        '${i}'
+                                    )
+                                ">
 
                                 🗑️ Xóa acc
 
@@ -618,20 +920,19 @@ function renderInventory(){
 
                     item.innerHTML = `
 
-                        <div class="package-title">
-
+                        <b>
                             🎁 Gói ${i}
+                        </b>
 
-                            <span
-                                style="
-                                color:#e53935;
-                                ">
+                        <span
+                            style="
+                            color:#e53935;
+                            margin-left:8px;
+                            ">
 
-                                🔴 Chưa có acc
+                            🔴 Chưa có acc
 
-                            </span>
-
-                        </div>
+                        </span>
 
                     `;
 
@@ -650,9 +951,9 @@ function renderInventory(){
 }
 
 
-/* =================================
+/* =====================================
    XÓA ACC
-================================= */
+===================================== */
 
 function deleteAccount(
     price,
@@ -698,77 +999,336 @@ function deleteAccount(
 }
 
 
-/* =================================
-   XÓA Ô NHẬP
-================================= */
+/* =====================================
+   HIỂN THỊ KHÁCH HÀNG
+===================================== */
 
-function clearForm(){
+function renderCustomers(){
 
-    document.getElementById(
-        "accountName"
-    ).value = "";
+    const users =
+        JSON.parse(
 
+            localStorage.getItem(
+                "shopUsers"
+            ) || "{}"
 
-    document.getElementById(
-        "accountPass"
-    ).value = "";
-
-
-    document.getElementById(
-        "message"
-    ).textContent = "";
-
-}
-
-
-/* =================================
-   TÊN MỆNH GIÁ
-================================= */
-
-function getPriceLabel(
-    price
-){
-
-    const found =
-        prices.find(
-            item =>
-                item.value ===
-                String(price)
         );
 
 
-    return found
-        ? found.label
-        : price;
+    const box =
+        document.getElementById(
+            "customerList"
+        );
+
+
+    box.innerHTML = "";
+
+
+    const names =
+        Object.keys(
+            users
+        );
+
+
+    if(
+        names.length === 0
+    ){
+
+        box.innerHTML = `
+
+            <div class="empty">
+
+                👥 Chưa có khách hàng.
+
+            </div>
+
+        `;
+
+        updateStats();
+
+        return;
+
+    }
+
+
+    names.forEach(
+        username => {
+
+
+            const customer =
+                document.createElement(
+                    "div"
+                );
+
+
+            customer.className =
+                "customer";
+
+
+            customer.innerHTML = `
+
+                👤 Tên tài khoản:
+
+                <b>
+                    ${escapeHTML(
+                        username
+                    )}
+                </b>
+
+            `;
+
+
+            box.appendChild(
+                customer
+            );
+
+        }
+    );
+
+
+    updateStats();
 
 }
 
 
-/* =================================
-   CHỐNG HTML
-================================= */
+/* =====================================
+   ACC KHÁCH ĐÃ NHẬN
+===================================== */
+
+function renderDelivered(){
+
+    const orders =
+        JSON.parse(
+
+            localStorage.getItem(
+                "shopOrders"
+            ) || "[]"
+
+        );
+
+
+    const box =
+        document.getElementById(
+            "deliveredList"
+        );
+
+
+    box.innerHTML = "";
+
+
+    if(
+        orders.length === 0
+    ){
+
+        box.innerHTML = `
+
+            <div class="empty">
+
+                📦 Chưa có acc nào được giao.
+
+            </div>
+
+        `;
+
+        updateStats();
+
+        return;
+
+    }
+
+
+    orders
+    .slice()
+    .reverse()
+    .forEach(
+        order => {
+
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "customer-order";
+
+
+            item.innerHTML = `
+
+                <b>
+                    📦 ${escapeHTML(
+                        order.id
+                    )}
+                </b>
+
+                <br><br>
+
+                👤 Khách:
+
+                <b>
+                    ${escapeHTML(
+                        order.username
+                    )}
+                </b>
+
+                <br><br>
+
+                🎮 Sản phẩm:
+
+                ${escapeHTML(
+                    order.product
+                )}
+
+                <br><br>
+
+                💰 Giá:
+
+                <b>
+                    ${escapeHTML(
+                        order.price
+                    )}
+                </b>
+
+                <br><br>
+
+                🎁 Gói:
+
+                ${escapeHTML(
+                    order.package ||
+                    "Không xác định"
+                )}
+
+                <br><br>
+
+                👤 Name acc:
+
+                <b>
+                    ${escapeHTML(
+                        order.accountName
+                    )}
+                </b>
+
+                <br><br>
+
+                🔑 Pass acc:
+
+                <b>
+                    ${escapeHTML(
+                        order.accountPass
+                    )}
+                </b>
+
+                <br><br>
+
+                📅 Thời gian:
+
+                ${escapeHTML(
+                    order.date
+                )}
+
+                <br>
+
+                <span class="status">
+
+                    🟢 Đã giao
+
+                </span>
+
+            `;
+
+
+            box.appendChild(
+                item
+            );
+
+        }
+    );
+
+
+    updateStats();
+
+}
+
+
+/* =====================================
+   THỐNG KÊ
+===================================== */
+
+function updateStats(){
+
+    const users =
+        JSON.parse(
+
+            localStorage.getItem(
+                "shopUsers"
+            ) || "{}"
+
+        );
+
+
+    const orders =
+        JSON.parse(
+
+            localStorage.getItem(
+                "shopOrders"
+            ) || "[]"
+
+        );
+
+
+    document.getElementById(
+        "customerCount"
+    ).textContent =
+        Object.keys(
+            users
+        ).length;
+
+
+    document.getElementById(
+        "orderCount"
+    ).textContent =
+        orders.length;
+
+
+    document.getElementById(
+        "deliveredCount"
+    ).textContent =
+        orders.length;
+
+}
+
+
+/* =====================================
+   ESCAPE HTML
+===================================== */
 
 function escapeHTML(value){
 
     return String(
         value ?? ""
     )
+
     .replace(
         /&/g,
         "&amp;"
     )
+
     .replace(
         /</g,
         "&lt;"
     )
+
     .replace(
         />/g,
         "&gt;"
     )
+
     .replace(
         /"/g,
         "&quot;"
     )
+
     .replace(
         /'/g,
         "&#039;"
@@ -777,9 +1337,9 @@ function escapeHTML(value){
 }
 
 
-/* =================================
+/* =====================================
    ĐĂNG XUẤT
-================================= */
+===================================== */
 
 function logoutAdmin(){
 
@@ -794,13 +1354,20 @@ function logoutAdmin(){
 }
 
 
-/* =================================
-   CHẠY KHI MỞ TRANG
-================================= */
+/* =====================================
+   KHỞI ĐỘNG
+===================================== */
+
+renderCustomers();
 
 renderInventory();
 
+renderDelivered();
+
+updateStats();
+
 </script>
+
 
 </body>
 </html>
