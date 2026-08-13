@@ -1,104 +1,24 @@
-```html
 <!doctype html>
-<html lang="vi">
-
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>SHOPACCGAME</title>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FreeGame Store</title>
+<style>
+body{margin:0;background:#eef3f8;font-family:Arial;color:#182238}.top{padding:25px 16px}.search{width:320px;max-width:90%;padding:12px 16px;border:2px solid #7258ff;border-radius:14px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;padding:10px 16px}.card{background:#fff;border:2px solid #b6c5ff;border-radius:16px;padding:5px;text-align:center}.pic{height:190px;border-radius:13px;background:linear-gradient(135deg,#168cf0,#ffd33b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:900;text-shadow:2px 2px #07509b}.btn{display:block;margin:8px 0;padding:12px;background:linear-gradient(90deg,#1598f4,#5968dc);color:white;text-decoration:none;border-radius:9px;font-weight:bold}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<div class="top"><input class="search" placeholder="🔎 Tìm game..."></div>
+<div class="grid">
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>NOOB<br>0K</div><h3>TÚI MÙ BLOX FRUITS 0K</h3><b>0 ₫</b><a class="btn" href="tui-mu.html?price=0">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>10K</div><h3>TÚI MÙ BLOX FRUITS 10K</h3><b>10.000 ₫</b><a class="btn" href="tui-mu.html?price=10000">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>20K</div><h3>TÚI MÙ BLOX FRUITS 20K</h3><b>20.000 ₫</b><a class="btn" href="tui-mu.html?price=20000">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>80K</div><h3>TÚI MÙ BLOX FRUITS 80K</h3><b>80.000 ₫</b><a class="btn" href="tui-mu.html?price=80000">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>50K</div><h3>TÚI MÙ BLOX FRUITS 50K</h3><b>50.000 ₫</b><a class="btn" href="tui-mu.html?price=50000">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>100K</div><h3>TÚI MÙ BLOX FRUITS 100K</h3><b>100.000 ₫</b><a class="btn" href="tui-mu.html?price=100000">MUA NGAY →</a></div>
+</div></body>
+  <!-- NÚT KHÁCH HÀNG -->
+<a href="khach-hang.html" class="customer-btn">
+    👤 Khách hàng
+</a>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    background:#eef3f8;
-    font-family:Arial,sans-serif;
-    color:#182238;
-}
-
-/* THANH TRÊN */
-
-.top{
-    padding:25px 16px;
-    text-align:center;
-}
-
-.search{
-    width:320px;
-    max-width:90%;
-    padding:12px 16px;
-    border:2px solid #7258ff;
-    border-radius:14px;
-    outline:none;
-}
-
-/* KHU SẢN PHẨM */
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-    padding:10px 16px;
-}
-
-/* Ô ACC BLOX FRUIT */
-
-.card{
-    background:#fff;
-    border:2px solid #b6c5ff;
-    border-radius:16px;
-    padding:5px;
-    text-align:center;
-    max-width:300px;
-}
-
-.pic{
-    height:190px;
-    border-radius:13px;
-    background:linear-gradient(135deg,#168cf0,#ffd33b);
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    color:#fff;
-    font-size:26px;
-    font-weight:900;
-    text-shadow:2px 2px #07509b;
-}
-
-.card h3{
-    margin:14px 5px 8px;
-}
-
-.card b{
-    display:block;
-    margin-bottom:8px;
-}
-
-.btn{
-    display:block;
-    margin:8px 0;
-    padding:12px;
-
-    background:linear-gradient(90deg,#1598f4,#5968dc);
-
-    color:white;
-    text-decoration:none;
-    border-radius:9px;
-    font-weight:bold;
-}
-
-.btn:hover{
-    opacity:.9;
-}
-
-/* NÚT KHÁCH HÀNG */
-
 .customer-btn{
     position:fixed;
     right:20px;
@@ -109,109 +29,28 @@ body{
     border-radius:14px;
 
     background:linear-gradient(135deg,#5137df,#347bf0);
-
     color:white;
-    text-decoration:none;
 
+    text-decoration:none;
     font-size:16px;
     font-weight:bold;
 
     box-shadow:0 5px 18px #0004;
-
-    transition:.2s;
+    transition:0.2s;
 }
 
 .customer-btn:hover{
     transform:translateY(-3px);
-}
-
-/* ĐIỆN THOẠI */
-
-@media(max-width:850px){
-
-    .grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
+    box-shadow:0 8px 22px #0005;
 }
 
 @media(max-width:500px){
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .card{
-        max-width:none;
-    }
-
     .customer-btn{
         right:12px;
         bottom:12px;
         padding:11px 14px;
         font-size:14px;
     }
-
 }
 </style>
-
-</head>
-
-<body>
-
-<!-- THANH TÌM KIẾM -->
-
-<div class="top">
-
-    <input
-        class="search"
-        placeholder="🔎 Tìm game..."
-    >
-
-</div>
-
-
-<!-- KHO ACC -->
-
-<div class="grid">
-
-    <!-- CHỈ 1 Ô ACC BLOX FRUIT -->
-
-    <div class="card">
-
-        <div class="pic">
-            ACC<br>BLOX FRUIT
-        </div>
-
-        <h3>
-            ACC BLOX FRUIT
-        </h3>
-
-        <b>
-            Còn 6
-        </b>
-
-        <a
-            class="btn"
-            href="acc-blox-fruit.html"
-        >
-            XEM TẤT CẢ →
-        </a>
-
-    </div>
-
-</div>
-
-
-<!-- NÚT KHÁCH HÀNG -->
-
-<a
-    href="khach-hang.html"
-    class="customer-btn"
->
-    👤 Khách hàng
-</a>
-
-</body>
 </html>
-```
