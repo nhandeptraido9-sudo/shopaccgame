@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Khách hàng - Shop KAROT</title>
+<title>Khách hàng - SHOPACCGAME</title>
 
 <style>
 
@@ -19,6 +19,7 @@ body{
     color:#182238;
 }
 
+
 /* HEADER */
 
 header{
@@ -30,20 +31,21 @@ header{
 
 header h1{
     margin:0 0 8px;
-    font-size:30px;
 }
 
 header p{
     margin:0;
 }
 
+
 /* CONTAINER */
 
 .container{
     max-width:900px;
-    margin:35px auto;
+    margin:30px auto;
     padding:15px;
 }
+
 
 /* BOX */
 
@@ -52,164 +54,187 @@ header p{
     border-radius:18px;
     padding:25px;
     margin-bottom:20px;
-    box-shadow:0 5px 20px #0002;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.10);
 }
 
 .box h2{
     margin-top:0;
 }
 
-/* FORM */
 
-.input{
-    width:100%;
-    padding:14px;
-    margin:8px 0 15px;
+/* THÔNG TIN */
 
-    border:1px solid #ddd;
-    border-radius:10px;
+.info-grid{
+    display:grid;
 
-    font-size:16px;
-    outline:none;
-}
+    grid-template-columns:
+        repeat(2,1fr);
 
-.input:focus{
-    border-color:#5137df;
-}
-
-/* BUTTON */
-
-button{
-    width:100%;
-    padding:14px;
-
-    border:0;
-    border-radius:10px;
-
-    background:linear-gradient(135deg,#5137df,#347bf0);
-    color:white;
-
-    font-size:16px;
-    font-weight:bold;
-
-    cursor:pointer;
-}
-
-button:hover{
-    opacity:.9;
-}
-
-/* CUSTOMER INFO */
-
-.customer-info{
-    display:none;
+    gap:15px;
 }
 
 .info{
     background:#f5f7fb;
-    padding:15px;
+
+    padding:18px;
+
     border-radius:12px;
-    margin:10px 0;
 }
 
 .label{
     color:#777;
+
     font-size:14px;
-    margin-bottom:5px;
+
+    margin-bottom:7px;
 }
 
 .value{
-    font-size:18px;
+    font-size:19px;
+
     font-weight:bold;
+
+    color:#202742;
 }
 
-/* ORDER */
+
+/* THỐNG KÊ */
+
+.stats{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:15px;
+}
+
+.stat{
+    text-align:center;
+
+    padding:20px;
+
+    border-radius:14px;
+
+    background:#f5f7fb;
+}
+
+.stat-icon{
+    font-size:28px;
+}
+
+.stat-number{
+    font-size:24px;
+
+    font-weight:bold;
+
+    color:#5137df;
+
+    margin-top:8px;
+}
+
+.stat-name{
+    color:#777;
+
+    font-size:14px;
+
+    margin-top:5px;
+}
+
+
+/* ĐƠN HÀNG */
 
 .order{
-    border:1px solid #e3e6ee;
+    border:1px solid #e2e5ed;
+
     border-radius:12px;
-    padding:15px;
+
+    padding:17px;
+
     margin-top:12px;
 }
 
 .order-title{
-    font-weight:bold;
     font-size:18px;
+
+    font-weight:bold;
+}
+
+.order-row{
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:10px;
+
+    color:#555;
 }
 
 .status{
     display:inline-block;
-    margin-top:8px;
-    padding:6px 10px;
+
+    margin-top:12px;
+
+    padding:6px 11px;
+
     border-radius:8px;
 
     background:#dff7e7;
+
     color:#188344;
 
     font-size:13px;
+
     font-weight:bold;
 }
 
-/* BACK */
+
+/* NÚT */
 
 .back{
     display:block;
+
+    width:100%;
+
+    padding:14px;
+
     text-align:center;
-    margin:25px 0;
 
-    color:#5137df;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-/* FLOATING BUTTON */
-
-.customer-btn{
-    position:fixed;
-
-    right:20px;
-    bottom:20px;
-
-    z-index:9999;
-
-    padding:13px 18px;
-
-    background:linear-gradient(135deg,#5137df,#347bf0);
+    background:
+        linear-gradient(
+            90deg,
+            #6647ee,
+            #3e79ee
+        );
 
     color:white;
 
     text-decoration:none;
 
+    border-radius:10px;
+
     font-weight:bold;
-
-    border-radius:14px;
-
-    box-shadow:0 5px 18px #0004;
-
-    transition:.2s;
 }
 
-.customer-btn:hover{
-    transform:translateY(-3px);
-}
 
 /* MOBILE */
 
-@media(max-width:500px){
+@media(max-width:600px){
 
-    header h1{
-        font-size:25px;
+    .info-grid{
+        grid-template-columns:1fr;
     }
 
-    .box{
-        padding:18px;
+    .stats{
+        grid-template-columns:1fr;
     }
 
-    .customer-btn{
-        right:12px;
-        bottom:12px;
-        padding:11px 14px;
-        font-size:14px;
+    .order-row{
+        flex-direction:column;
+
+        gap:5px;
     }
 
 }
@@ -218,68 +243,43 @@ button:hover{
 
 </head>
 
+
 <body>
 
 
 <header>
 
-    <h1>👤 SHOP KAROT</h1>
+    <h1>👤 SHOPACCGAME</h1>
 
-    <p>Khu vực khách hàng</p>
+    <p>Thông tin khách hàng</p>
 
 </header>
+
 
 
 <div class="container">
 
 
-    <!-- ĐĂNG NHẬP -->
+    <!-- THÔNG TIN -->
 
-    <div class="box" id="loginBox">
+    <div class="box">
 
-        <h2>🔐 Đăng nhập khách hàng</h2>
-
-        <p>
-            Nhập tên khách hàng để xem thông tin đơn hàng.
-        </p>
-
-        <input
-            class="input"
-            id="customerName"
-            type="text"
-            placeholder="Nhập tên khách hàng"
-        >
-
-        <button onclick="loginCustomer()">
-            👤 Vào tài khoản
-        </button>
-
-    </div>
+        <h2>
+            👤 Thông tin khách hàng
+        </h2>
 
 
-
-    <!-- THÔNG TIN KHÁCH -->
-
-    <div
-        class="customer-info"
-        id="customerInfo"
-    >
-
-        <div class="box">
-
-            <h2>👤 Thông tin khách hàng</h2>
+        <div class="info-grid">
 
 
             <div class="info">
 
                 <div class="label">
-                    Tên khách hàng
+                    Tên shop
                 </div>
 
-                <div
-                    class="value"
-                    id="showName">
-                    ---
+                <div class="value">
+                    SHOPACCGAME
                 </div>
 
             </div>
@@ -288,13 +288,111 @@ button:hover{
             <div class="info">
 
                 <div class="label">
-                    Mã khách hàng
+                    Trạng thái
+                </div>
+
+                <div class="value">
+                    🟢 Đang hoạt động
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="label">
+                    Hỗ trợ
+                </div>
+
+                <div class="value">
+                    Liên hệ Admin
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="label">
+                    Thời gian hoạt động
+                </div>
+
+                <div class="value">
+                    24/7
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- THỐNG KÊ -->
+
+    <div class="box">
+
+        <h2>
+            📊 Thống kê
+        </h2>
+
+
+        <div class="stats">
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    👥
                 </div>
 
                 <div
-                    class="value"
-                    id="showID">
-                    ---
+                    class="stat-number"
+                    id="customerCount">
+                    0
+                </div>
+
+                <div class="stat-name">
+                    Khách hàng
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    📦
+                </div>
+
+                <div
+                    class="stat-number"
+                    id="orderCount">
+                    0
+                </div>
+
+                <div class="stat-name">
+                    Đơn hàng
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div class="stat-icon">
+                    🎮
+                </div>
+
+                <div
+                    class="stat-number">
+                    48
+                </div>
+
+                <div class="stat-name">
+                    Gói túi mù
                 </div>
 
             </div>
@@ -302,303 +400,157 @@ button:hover{
 
         </div>
 
+    </div>
 
 
-        <!-- ĐƠN HÀNG -->
 
-        <div class="box">
+    <!-- ĐƠN HÀNG -->
 
-            <h2>📦 Đơn hàng của bạn</h2>
+    <div class="box">
 
-            <div id="orders">
+        <h2>
+            📦 Đơn hàng gần đây
+        </h2>
 
-                <p>
-                    Chưa có đơn hàng.
-                </p>
+
+        <div id="orders">
+
+            <div class="order">
+
+                <div class="order-title">
+                    🎁 Túi mù Blox Fruits
+                </div>
+
+
+                <div class="order-row">
+
+                    <span>
+                        Gói: 10K
+                    </span>
+
+                    <span>
+                        💰 10.000đ
+                    </span>
+
+                </div>
+
+
+                <span class="status">
+                    ✅ Đã giao
+                </span>
 
             </div>
 
+
+
+            <div class="order">
+
+                <div class="order-title">
+                    🎁 Túi mù Blox Fruits
+                </div>
+
+
+                <div class="order-row">
+
+                    <span>
+                        Gói: 50K
+                    </span>
+
+                    <span>
+                        💰 50.000đ
+                    </span>
+
+                </div>
+
+
+                <span class="status">
+                    ✅ Đã giao
+                </span>
+
+            </div>
+
+
         </div>
 
-
-        <button onclick="logout()">
-            🚪 Đăng xuất
-        </button>
-
     </div>
+
 
 
     <a
         href="index.html"
         class="back">
 
-        ← Quay lại Shop KAROT
+        ← Quay lại SHOPACCGAME
 
     </a>
+
 
 </div>
 
 
 
-<!-- NÚT KHÁCH HÀNG GÓC MÀN HÌNH -->
-
-<a
-    href="khach-hang.html"
-    class="customer-btn">
-
-    👤 Khách hàng
-
-</a>
-
-
-
 <script>
 
-/* ==========================================
-   DỮ LIỆU KHÁCH HÀNG MẪU
-========================================== */
+/*
+=========================================
+ĐẾM KHÁCH HÀNG
+=========================================
 
-const CUSTOMERS = {
+Lấy số tài khoản khách đã tạo
+trên trình duyệt hiện tại.
+*/
 
-    "khach1": {
+try{
 
-        name:"Khách hàng 1",
-
-        id:"KAROT001",
-
-        orders:[
-
-            {
-                package:"Túi 10K - Gói 1",
-                price:"10.000đ",
-                status:"Đã giao"
-            }
-
-        ]
-
-    },
-
-
-    "khach2": {
-
-        name:"Khách hàng 2",
-
-        id:"KAROT002",
-
-        orders:[
-
-            {
-                package:"Túi 50K - Gói 3",
-                price:"50.000đ",
-                status:"Đã giao"
-            },
-
-            {
-                package:"Túi 100K - Gói 8",
-                price:"100.000đ",
-                status:"Đang xử lý"
-            }
-
-        ]
-
-    }
-
-};
-
-
-
-/* ==========================================
-   ĐĂNG NHẬP
-========================================== */
-
-function loginCustomer(){
-
-    const input =
-        document
-        .getElementById("customerName")
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    if(!input){
-
-        alert(
-            "⚠️ Vui lòng nhập tên khách hàng!"
+    const users =
+        JSON.parse(
+            localStorage.getItem(
+                "shopUsers"
+            ) || "{}"
         );
 
-        return;
 
-    }
-
-
-    const customer =
-        CUSTOMERS[input];
+    const customerCount =
+        Object.keys(users).length;
 
 
-    if(!customer){
-
-        alert(
-            "❌ Không tìm thấy khách hàng!"
-        );
-
-        return;
-
-    }
+    document.getElementById(
+        "customerCount"
+    ).textContent =
+        customerCount;
 
 
-    localStorage.setItem(
-        "karot_customer",
-        input
-    );
+}catch(error){
 
-
-    showCustomer(customer);
+    document.getElementById(
+        "customerCount"
+    ).textContent =
+        "0";
 
 }
 
 
 
-/* ==========================================
-   HIỂN THỊ KHÁCH HÀNG
-========================================== */
+/*
+=========================================
+ĐẾM ĐƠN HÀNG
+=========================================
+*/
 
-function showCustomer(customer){
-
-    document
-    .getElementById("loginBox")
-    .style.display = "none";
-
-
-    document
-    .getElementById("customerInfo")
-    .style.display = "block";
-
-
-    document
-    .getElementById("showName")
-    .textContent =
-        customer.name;
-
-
-    document
-    .getElementById("showID")
-    .textContent =
-        customer.id;
-
-
-
-    const orders =
-        document
-        .getElementById("orders");
-
-
-    orders.innerHTML = "";
-
-
-
-    if(
-        !customer.orders ||
-        customer.orders.length === 0
-    ){
-
-        orders.innerHTML =
-            "<p>Chưa có đơn hàng.</p>";
-
-        return;
-
-    }
-
-
-
-    customer.orders.forEach(
-        function(order){
-
-            const div =
-                document.createElement("div");
-
-
-            div.className =
-                "order";
-
-
-            div.innerHTML = `
-
-                <div class="order-title">
-                    📦 ${order.package}
-                </div>
-
-                <p>
-                    💰 Giá:
-                    <b>${order.price}</b>
-                </p>
-
-                <span class="status">
-                    ${order.status}
-                </span>
-
-            `;
-
-
-            orders.appendChild(div);
-
-        }
-    );
-
-}
-
-
-
-/* ==========================================
-   ĐĂNG XUẤT
-========================================== */
-
-function logout(){
-
-    localStorage.removeItem(
-        "karot_customer"
+const orderElements =
+    document.querySelectorAll(
+        ".order"
     );
 
 
-    document
-    .getElementById("customerInfo")
-    .style.display = "none";
-
-
-    document
-    .getElementById("loginBox")
-    .style.display = "block";
-
-}
-
-
-
-/* ==========================================
-   TỰ ĐĂNG NHẬP LẠI
-========================================== */
-
-const savedCustomer =
-    localStorage.getItem(
-        "karot_customer"
-    );
-
-
-if(savedCustomer){
-
-    const customer =
-        CUSTOMERS[savedCustomer];
-
-
-    if(customer){
-
-        showCustomer(customer);
-
-    }
-
-}
+document.getElementById(
+    "orderCount"
+).textContent =
+    orderElements.length;
 
 </script>
 
 
 </body>
+
 </html>
