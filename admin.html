@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin - Shop Game</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef2f7;
+    color:#182238;
+}
+
+/* HEADER */
+
+header{
+    background:linear-gradient(90deg,#5137df,#3778ef);
+    color:white;
+    padding:18px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+header h1{
+    margin:0;
+    font-size:22px;
+}
+
+.logout{
+    background:#fff;
+    color:#5137df;
+    border:0;
+    padding:10px 16px;
+    border-radius:9px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* CONTAINER */
+
+.container{
+    max-width:1100px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+/* CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px #0001;
+}
+
+.card h3{
+    margin:0 0 8px;
+}
+
+.number{
+    font-size:30px;
+    font-weight:bold;
+    color:#5137df;
+}
+
+/* MENU */
+
+.menu{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.menu button{
+    padding:11px 17px;
+    border:0;
+    border-radius:9px;
+    background:white;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.menu button.active{
+    background:#5137df;
+    color:white;
+}
+
+/* SECTION */
+
+.section{
+    display:none;
+}
+
+.section.active{
+    display:block;
+}
+
+.box{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    box-shadow:0 4px 15px #0001;
+    margin-bottom:20px;
+}
+
+.box h2{
+    margin-top:0;
+}
+
+/* FORM */
+
+input,
+select,
+textarea{
+    width:100%;
+    padding:12px;
+    margin:7px 0 14px;
+    border:1px solid #ccd2df;
+    border-radius:9px;
+    font-size:15px;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
+}
+
+.btn{
+    padding:11px 17px;
+    border:0;
+    border-radius:9px;
+    background:#5137df;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn.red{
+    background:#e53935;
+}
+
+.btn.green{
+    background:#0b9b62;
+}
+
+/* TABLE */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:12px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+}
+
+th{
+    background:#f5f6fa;
+}
+
+/* MOBILE */
+
+@media(max-width:750px){
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        gap:10px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <h1>🛠️ ADMIN SHOP GAME</h1>
+
+    <button
+        class="logout"
+        onclick="logout()">
+        Đăng xuất
+    </button>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- THỐNG KÊ -->
+
+<div class="cards">
+
+    <div class="card">
+
+        <h3>👤 Tài khoản</h3>
+
+        <div
+            class="number"
+            id="userCount">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>🎮 Acc trong kho</h3>
+
+        <div
+            class="number"
+            id="accountCount">
+            0
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>🛒 Đơn hàng</h3>
+
+        <div
+            class="number"
+            id="orderCount">
+            0
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- MENU -->
+
+<div class="menu">
+
+    <button
+        class="active"
+        onclick="showSection('dashboard',this)">
+        📊 Tổng quan
+    </button>
+
+    <button
+        onclick="showSection('accounts',this)">
+        🎮 Kho acc
+    </button>
+
+    <button
+        onclick="showSection('users',this)">
+        👤 Khách hàng
+    </button>
+
+    <button
+        onclick="showSection('orders',this)">
+        🛒 Đơn hàng
+    </button>
+
+</div>
+
+
+<!-- TỔNG QUAN -->
+
+<div
+    id="dashboard"
+    class="section active">
+
+    <div class="box">
+
+        <h2>📊 Tổng quan Shop</h2>
+
+        <p>
+            Chào mừng bạn đến trang quản trị.
+        </p>
+
+        <p>
+            Từ đây bạn có thể quản lý kho acc,
+            tài khoản khách hàng và đơn hàng.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- KHO ACC -->
+
+<div
+    id="accounts"
+    class="section">
+
+    <div class="box">
+
+        <h2>🎮 Thêm acc Blox Fruits</h2>
+
+        <label>Tên acc</label>
+
+        <input
+            id="accName"
+            placeholder="Ví dụ: Acc Blox Fruits #001">
+
+
+        <label>Level</label>
+
+        <input
+            id="accLevel"
+            placeholder="Ví dụ: 2450">
+
+
+        <label>Trái</label>
+
+        <input
+            id="accFruit"
+            placeholder="Ví dụ: Kitsune">
+
+
+        <label>Giá</label>
+
+        <input
+            id="accPrice"
+            type="number"
+            placeholder="Ví dụ: 50000">
+
+
+        <label>Mô tả</label>
+
+        <textarea
+            id="accDescription"
+            placeholder="Thông tin sản phẩm..."></textarea>
+
+
+        <button
+            class="btn green"
+            onclick="addAccount()">
+
+            ➕ Thêm acc
+
+        </button>
+
+    </div>
+
+
+    <div class="box">
+
+        <h2>📦 Kho acc hiện tại</h2>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Acc</th>
+                        <th>Level</th>
+                        <th>Trái</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="accountTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- KHÁCH HÀNG -->
+
+<div
+    id="users"
+    class="section">
+
+    <div class="box">
+
+        <h2>👤 Tài khoản khách hàng</h2>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Tên tài khoản</th>
+                        <th>Ngày tạo</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="userTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ĐƠN HÀNG -->
+
+<div
+    id="orders"
+    class="section">
+
+    <div class="box">
+
+        <h2>🛒 Đơn hàng</h2>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Khách</th>
+                        <th>Sản phẩm</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="orderTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   KIỂM TRA ADMIN
+   ========================= */
+
+if(
+    sessionStorage.getItem(
+        "adminLoggedIn"
+    ) !== "true"
+){
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================
+   ĐĂNG XUẤT
+   ========================= */
+
+function logout(){
+
+    sessionStorage.removeItem(
+        "adminLoggedIn"
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =========================
+   CHUYỂN MENU
+   ========================= */
+
+function showSection(
+    id,
+    button
+){
+
+    document
+        .querySelectorAll(".section")
+        .forEach(function(section){
+
+            section.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .querySelectorAll(".menu button")
+        .forEach(function(btn){
+
+            btn.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    document
+        .getElementById(id)
+        .classList.add(
+            "active"
+        );
+
+
+    button.classList.add(
+        "active"
+    );
+
+}
+
+
+/* =========================
+   KHO ACC
+   ========================= */
+
+function getAccounts(){
+
+    return JSON.parse(
+        localStorage.getItem(
+            "shopAccounts"
+        ) || "[]"
+    );
+
+}
+
+
+function saveAccounts(accounts){
+
+    localStorage.setItem(
+        "shopAccounts",
+        JSON.stringify(accounts)
+    );
+
+}
+
+
+function addAccount(){
+
+    const name =
+        document.getElementById(
+            "accName"
+        ).value.trim();
+
+    const level =
+        document.getElementById(
+            "accLevel"
+        ).value.trim();
+
+    const fruit =
+        document.getElementById(
+            "accFruit"
+        ).value.trim();
+
+    const price =
+        document.getElementById(
+            "accPrice"
+        ).value;
+
+    const description =
+        document.getElementById(
+            "accDescription"
+        ).value.trim();
+
+
+    if(!name || !price){
+
+        alert(
+            "Vui lòng nhập tên acc và giá."
+        );
+
+        return;
+
+    }
+
+
+    const accounts =
+        getAccounts();
+
+
+    accounts.push({
+
+        id:
+            Date.now(),
+
+        name:name,
+
+        level:level,
+
+        fruit:fruit,
+
+        price:Number(price),
+
+        description:description,
+
+        status:"Chưa bán"
+
+    });
+
+
+    saveAccounts(
+        accounts
+    );
+
+
+    document.getElementById(
+        "accName"
+    ).value="";
+
+
+    document.getElementById(
+        "accLevel"
+    ).value="";
+
+
+    document.getElementById(
+        "accFruit"
+    ).value="";
+
+
+    document.getElementById(
+        "accPrice"
+    ).value="";
+
+
+    document.getElementById(
+        "accDescription"
+    ).value="";
+
+
+    renderAccounts();
+
+    alert(
+        "✅ Đã thêm acc vào kho."
+    );
+
+}
+
+
+/* =========================
+   HIỂN THỊ ACC
+   ========================= */
+
+function renderAccounts(){
+
+    const accounts =
+        getAccounts();
+
+    const table =
+        document.getElementById(
+            "accountTable"
+        );
+
+
+    table.innerHTML="";
+
+
+    accounts.forEach(function(acc){
+
+        const row =
+            document.createElement(
+                "tr"
+            );
+
+
+        row.innerHTML=`
+
+            <td>
+                ${escapeHTML(acc.name)}
+            </td>
+
+            <td>
+                ${escapeHTML(acc.level)}
+            </td>
+
+            <td>
+                ${escapeHTML(acc.fruit)}
+            </td>
+
+            <td>
+                ${Number(acc.price)
+                    .toLocaleString("vi-VN")} ₫
+            </td>
+
+            <td>
+                ${escapeHTML(acc.status)}
+            </td>
+
+            <td>
+
+                <button
+                    class="btn red"
+                    onclick="deleteAccount(${acc.id})">
+
+                    Xóa
+
+                </button>
+
+            </td>
+
+        `;
+
+
+        table.appendChild(
+            row
+        );
+
+    });
+
+
+    document.getElementById(
+        "accountCount"
+    ).textContent =
+        accounts.length;
+
+}
+
+
+function deleteAccount(id){
+
+    if(
+        !confirm(
+            "Bạn có chắc muốn xóa acc này?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    let accounts =
+        getAccounts();
+
+
+    accounts =
+        accounts.filter(
+            function(acc){
+
+                return acc.id !== id;
+
+            }
+        );
+
+
+    saveAccounts(
+        accounts
+    );
+
+
+    renderAccounts();
+
+}
+
+
+/* =========================
+   KHÁCH HÀNG
+   ========================= */
+
+function renderUsers(){
+
+    const users =
+        JSON.parse(
+            localStorage.getItem(
+                "shopUsers"
+            ) || "{}"
+        );
+
+
+    const table =
+        document.getElementById(
+            "userTable"
+        );
+
+
+    table.innerHTML="";
+
+
+    Object.keys(users)
+        .forEach(function(username){
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML=`
+
+                <td>
+                    ${escapeHTML(username)}
+                </td>
+
+                <td>
+                    ${users[username].createdAt
+                        ? new Date(
+                            users[username].createdAt
+                          ).toLocaleString("vi-VN")
+                        : "-"
+                    }
+                </td>
+
+            `;
+
+
+            table.appendChild(
+                row
+            );
+
+        });
+
+
+    document.getElementById(
+        "userCount"
+    ).textContent =
+        Object.keys(users).length;
+
+}
+
+
+/* =========================
+   ĐƠN HÀNG
+   ========================= */
+
+function renderOrders(){
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem(
+                "shopOrders"
+            ) || "[]"
+        );
+
+
+    const table =
+        document.getElementById(
+            "orderTable"
+        );
+
+
+    table.innerHTML="";
+
+
+    orders.forEach(function(order){
+
+        const row =
+            document.createElement(
+                "tr"
+            );
+
+
+        row.innerHTML=`
+
+            <td>
+                ${escapeHTML(
+                    String(order.id || "-")
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    order.user || "-"
+                )}
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    order.product || "-"
+                )}
+            </td>
+
+            <td>
+                ${order.price
+                    ? Number(order.price)
+                        .toLocaleString("vi-VN")
+                        + " ₫"
+                    : "-"
+                }
+            </td>
+
+            <td>
+                ${escapeHTML(
+                    order.status || "Chờ xử lý"
+                )}
+            </td>
+
+        `;
+
+
+        table.appendChild(
+            row
+        );
+
+    });
+
+
+    document.getElementById(
+        "orderCount"
+    ).textContent =
+        orders.length;
+
+}
+
+
+/* =========================
+   CHỐNG CHÈN HTML
+   ========================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+
+/* =========================
+   CHẠY KHI MỞ TRANG
+   ========================= */
+
+renderAccounts();
+
+renderUsers();
+
+renderOrders();
+
+
+</script>
+
+</body>
+</html>
