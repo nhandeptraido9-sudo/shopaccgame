@@ -2,9 +2,9 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Admin - SHOPACCGAME</title>
+<title>SHOPKAROT - ADMIN</title>
 
 <style>
 
@@ -15,250 +15,212 @@
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#eef2f7;
-    color:#182238;
+    background:#f1f5f9;
+    color:#111827;
 }
 
 header{
-    background:linear-gradient(90deg,#5137df,#347bf0);
+    background:#111827;
     color:white;
-    text-align:center;
-    padding:25px 15px;
+    padding:18px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
 }
 
-header h1{
-    margin:0 0 8px;
-}
-
-header p{
-    margin:0;
+.logo{
+    font-size:24px;
+    font-weight:bold;
 }
 
 .container{
-    max-width:1100px;
-    margin:30px auto;
-    padding:15px;
+    max-width:1250px;
+    margin:25px auto;
+    padding:0 15px;
 }
 
-.box{
+.login{
+    max-width:420px;
+    margin:80px auto;
     background:white;
     padding:25px;
-    margin-bottom:20px;
-    border-radius:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,.10);
+    border-radius:15px;
+    box-shadow:0 5px 25px rgba(0,0,0,.1);
 }
 
-.box h2{
-    margin-top:0;
-}
-
-
-/* =========================
-   THỐNG KÊ
-========================= */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.stat{
-    background:#f5f7fb;
-    padding:20px;
-    border-radius:14px;
-    text-align:center;
-}
-
-.stat-icon{
-    font-size:30px;
-}
-
-.stat-number{
-    font-size:27px;
-    font-weight:bold;
-    color:#5137df;
-    margin-top:8px;
-}
-
-.stat-name{
-    color:#777;
-    margin-top:5px;
-}
-
-
-/* =========================
-   FORM
-========================= */
-
-label{
-    display:block;
-    margin:15px 0 6px;
-    font-weight:bold;
-}
-
+input,
 select,
-input{
+button{
     width:100%;
-    padding:13px;
-    border:1px solid #ccd2df;
-    border-radius:10px;
+    padding:11px;
+    margin-top:8px;
+    border-radius:8px;
+    border:1px solid #d1d5db;
     font-size:15px;
-    outline:none;
 }
-
-select:focus,
-input:focus{
-    border-color:#5137df;
-}
-
-
-/* =========================
-   BUTTON
-========================= */
 
 button{
     border:0;
-    border-radius:10px;
-    padding:12px 16px;
+    background:#2563eb;
+    color:white;
     font-weight:bold;
     cursor:pointer;
 }
 
-.save{
-    width:100%;
-    margin-top:20px;
-    background:linear-gradient(90deg,#6647ee,#3e79ee);
-    color:white;
-    font-size:16px;
-}
-
-.refresh{
-    background:#edf0f7;
-    color:#5137df;
-    margin-bottom:15px;
-}
-
-.delete{
-    width:100%;
-    margin-top:12px;
-    background:#e53935;
-    color:white;
+button:hover{
+    opacity:.9;
 }
 
 .logout{
-    width:100%;
-    background:#e53935;
-    color:white;
+    width:auto;
+    background:#dc2626;
+    padding:9px 15px;
 }
 
-
-/* =========================
-   MESSAGE
-========================= */
-
-.message{
-    text-align:center;
-    margin-top:15px;
-    min-height:20px;
-    font-weight:bold;
+.nav{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
 }
 
-
-/* =========================
-   KHO ACC
-========================= */
-
-.package{
-    background:#f5f7fb;
-    padding:16px;
-    border-radius:12px;
-    margin-top:12px;
+.nav button{
+    width:auto;
+    background:#374151;
 }
 
-.account{
+.box{
     background:white;
-    padding:14px;
-    border-radius:10px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+    margin-bottom:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(
+        auto-fit,
+        minmax(220px,1fr)
+    );
+    gap:15px;
+}
+
+.stat{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+th,
+td{
+    padding:10px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+}
+
+th{
+    background:#f8fafc;
+}
+
+.table-wrap{
+    overflow:auto;
+}
+
+.success{
+    background:#dcfce7;
+    color:#166534;
+    padding:12px;
+    border-radius:9px;
     margin-top:10px;
 }
 
-
-/* =========================
-   KHÁCH HÀNG
-========================= */
-
-.customer{
-    background:#f5f7fb;
-    padding:15px;
-    border-radius:12px;
+.error{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:12px;
+    border-radius:9px;
     margin-top:10px;
 }
 
-
-/* =========================
-   ACC ĐÃ GIAO
-========================= */
-
-.customer-order{
-    background:#f5f7fb;
-    border-radius:12px;
-    padding:16px;
-    margin-top:12px;
+.hidden{
+    display:none!important;
 }
 
-.status{
+.badge{
     display:inline-block;
-    margin-top:10px;
-    padding:6px 10px;
-    border-radius:8px;
-    background:#dff7e7;
-    color:#168044;
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.available{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.sold{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.approved{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.rejected{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.danger{
+    background:#dc2626;
+}
+
+.green{
+    background:#16a34a;
+}
+
+.gray{
+    background:#6b7280;
+}
+
+.small{
     font-size:13px;
-    font-weight:bold;
+    color:#64748b;
 }
 
-.empty{
-    text-align:center;
-    color:#777;
-    padding:25px;
+.action{
+    display:flex;
+    gap:5px;
 }
 
-
-/* =========================
-   BACK
-========================= */
-
-.back{
-    display:block;
-    text-align:center;
-    padding:14px;
-    background:#edf0f7;
-    color:#5137df;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:700px){
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
-    .container{
-        padding:10px;
-    }
-
-    .box{
-        padding:18px;
-    }
-
+.action button{
+    width:auto;
+    padding:7px 10px;
+    margin:0;
 }
 
 </style>
@@ -268,11 +230,62 @@ button{
 <body>
 
 
+<!-- =================================================
+     LOGIN
+================================================= -->
+
+<div
+    id="loginPage"
+    class="login">
+
+    <h2>🔐 ADMIN SHOPKAROT</h2>
+
+    <p class="small">
+        Đăng nhập khu vực quản trị.
+    </p>
+
+    <input
+        id="adminUser"
+        placeholder="Tên Admin">
+
+    <input
+        id="adminPass"
+        type="password"
+        placeholder="Mật khẩu Admin">
+
+    <button
+        onclick="adminLogin()">
+        Đăng nhập
+    </button>
+
+    <div
+        id="loginError"
+        class="error hidden">
+    </div>
+
+</div>
+
+
+<!-- =================================================
+     ADMIN
+================================================= -->
+
+<div
+    id="adminPage"
+    class="hidden">
+
+
 <header>
 
-    <h1>🛠️ SHOPACCGAME ADMIN</h1>
+    <div class="logo">
+        🎮 SHOPKAROT ADMIN
+    </div>
 
-    <p>Quản lý khách hàng và kho acc</p>
+    <button
+        class="logout"
+        onclick="logout()">
+        Đăng xuất
+    </button>
 
 </header>
 
@@ -280,310 +293,554 @@ button{
 <div class="container">
 
 
-<!-- =====================================
-     THỐNG KÊ
-===================================== -->
+<!-- =================================================
+     MENU
+================================================= -->
 
-<div class="box">
-
-    <h2>📊 Thống kê</h2>
-
-
-    <div class="stats">
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-                👥
-            </div>
-
-            <div
-                id="customerCount"
-                class="stat-number">
-                0
-            </div>
-
-            <div class="stat-name">
-                Khách hàng
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-                📦
-            </div>
-
-            <div
-                id="orderCount"
-                class="stat-number">
-                0
-            </div>
-
-            <div class="stat-name">
-                Đơn hàng
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-                🎮
-            </div>
-
-            <div
-                id="deliveredCount"
-                class="stat-number">
-                0
-            </div>
-
-            <div class="stat-name">
-                Acc đã giao
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================
-     TÀI KHOẢN KHÁCH
-===================================== -->
-
-<div class="box">
-
-    <h2>👥 Tài khoản khách hàng</h2>
-
-    <p>
-        Danh sách tên tài khoản khách đã đăng ký.
-    </p>
-
+<div class="nav">
 
     <button
-        class="refresh"
-        onclick="renderCustomers()">
+        onclick="showPage('dashboard')">
+        📊 Tổng quan
+    </button>
 
+    <button
+        onclick="showPage('add')">
+        ➕ Thêm acc
+    </button>
+
+    <button
+        onclick="showPage('warehouse')">
+        📦 Kho acc
+    </button>
+
+    <button
+        onclick="showPage('customers')">
+        👥 Khách hàng
+    </button>
+
+    <button
+        onclick="showPage('topups')">
+        💰 Nạp tiền
+    </button>
+
+    <button
+        onclick="showPage('orders')">
+        🧾 Đơn hàng
+    </button>
+
+    <button
+        onclick="refreshAll()">
         🔄 Làm mới
-
     </button>
-
-
-    <div id="customerList"></div>
 
 </div>
 
 
-<!-- =====================================
-     THÊM ACC VÀO KHO
-===================================== -->
+<!-- =================================================
+     DASHBOARD
+================================================= -->
 
-<div class="box">
+<section
+    id="dashboard"
+    class="page">
 
-    <h2>🎮 Thêm acc Blox Fruits vào kho</h2>
+    <div class="grid">
 
+        <div class="stat">
 
-    <label>
-        💰 Mệnh giá
-    </label>
+            <div>
+                📦 Tổng acc
+            </div>
 
+            <div
+                id="totalAccounts"
+                class="stat-number">
+                0
+            </div>
 
-    <select id="price">
-
-        <option value="0">
-            0K
-        </option>
-
-        <option value="10000">
-            10K
-        </option>
-
-        <option value="20000">
-            20K
-        </option>
-
-        <option value="50000">
-            50K
-        </option>
-
-        <option value="80000">
-            80K
-        </option>
-
-        <option value="100000">
-            100K
-        </option>
-
-    </select>
+        </div>
 
 
-    <label>
-        🎁 Gói
-    </label>
+        <div class="stat">
+
+            <div>
+                🟢 Còn hàng
+            </div>
+
+            <div
+                id="availableAccounts"
+                class="stat-number">
+                0
+            </div>
+
+        </div>
 
 
-    <select id="package">
+        <div class="stat">
 
-        <option value="1">
-            Gói 1
-        </option>
+            <div>
+                🔴 Đã bán
+            </div>
 
-        <option value="2">
-            Gói 2
-        </option>
+            <div
+                id="soldAccounts"
+                class="stat-number">
+                0
+            </div>
 
-        <option value="3">
-            Gói 3
-        </option>
-
-        <option value="4">
-            Gói 4
-        </option>
-
-        <option value="5">
-            Gói 5
-        </option>
-
-        <option value="6">
-            Gói 6
-        </option>
-
-        <option value="7">
-            Gói 7
-        </option>
-
-        <option value="8">
-            Gói 8
-        </option>
-
-    </select>
+        </div>
 
 
-    <label>
-        👤 Name acc Blox Fruits
-    </label>
+        <div class="stat">
+
+            <div>
+                👥 Khách hàng
+            </div>
+
+            <div
+                id="totalCustomers"
+                class="stat-number">
+                0
+            </div>
+
+        </div>
 
 
-    <input
-        id="accountName"
-        type="text"
-        placeholder="Nhập Name acc">
+        <div class="stat">
 
+            <div>
+                💰 Yêu cầu nạp
+            </div>
 
-    <label>
-        🔑 Pass acc Blox Fruits
-    </label>
+            <div
+                id="pendingTopups"
+                class="stat-number">
+                0
+            </div>
 
+        </div>
 
-    <input
-        id="accountPass"
-        type="password"
-        placeholder="Nhập Pass acc">
-
-
-    <button
-        class="save"
-        onclick="saveAccount()">
-
-        💾 Lưu acc vào kho
-
-    </button>
-
-
-    <div
-        id="message"
-        class="message">
     </div>
 
+
+    <div class="box">
+
+        <h2>
+            📊 Tổng quan kho
+        </h2>
+
+        <p>
+            Acc còn hàng:
+            <b id="dashboardAvailable">
+                0
+            </b>
+        </p>
+
+        <p>
+            Acc đã bán:
+            <b id="dashboardSold">
+                0
+            </b>
+        </p>
+
+        <button
+            onclick="refreshAll()">
+            🔄 Cập nhật dữ liệu
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     ADD ACCOUNT
+================================================= -->
+
+<section
+    id="add"
+    class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            ➕ Thêm acc vào kho
+        </h2>
+
+        <p class="small">
+            Mỗi acc có thể thuộc một mệnh giá và một
+            trong 8 gói.
+        </p>
+
+
+        <label>
+            Mệnh giá
+        </label>
+
+        <select id="addPrice">
+
+            <option value="0">
+                0K
+            </option>
+
+            <option value="10000">
+                10K
+            </option>
+
+            <option value="20000">
+                20K
+            </option>
+
+            <option value="50000">
+                50K
+            </option>
+
+            <option value="80000">
+                80K
+            </option>
+
+            <option value="100000">
+                100K
+            </option>
+
+            <option value="200000">
+                200K
+            </option>
+
+            <option value="500000">
+                500K
+            </option>
+
+        </select>
+
+
+        <label>
+            Gói
+        </label>
+
+        <select id="addPackage">
+
+            <option value="1">
+                Gói 1
+            </option>
+
+            <option value="2">
+                Gói 2
+            </option>
+
+            <option value="3">
+                Gói 3
+            </option>
+
+            <option value="4">
+                Gói 4
+            </option>
+
+            <option value="5">
+                Gói 5
+            </option>
+
+            <option value="6">
+                Gói 6
+            </option>
+
+            <option value="7">
+                Gói 7
+            </option>
+
+            <option value="8">
+                Gói 8
+            </option>
+
+        </select>
+
+
+        <label>
+            Tên tài khoản
+        </label>
+
+        <input
+            id="addName"
+            placeholder="Tên acc Roblox">
+
+
+        <label>
+            Mật khẩu
+        </label>
+
+        <input
+            id="addPass"
+            placeholder="Mật khẩu acc">
+
+
+        <button
+            onclick="addAccount()">
+
+            ➕ Thêm vào kho
+
+        </button>
+
+
+        <div
+            id="addMessage"
+            class="hidden">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     WAREHOUSE
+================================================= -->
+
+<section
+    id="warehouse"
+    class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            📦 Kho tài khoản
+        </h2>
+
+        <button
+            onclick="loadAccounts()">
+            🔄 Tải lại kho
+        </button>
+
+        <br><br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Mệnh giá</th>
+
+                        <th>Gói</th>
+
+                        <th>Tên acc</th>
+
+                        <th>Mật khẩu</th>
+
+                        <th>Trạng thái</th>
+
+                        <th>Khách</th>
+
+                        <th>Ngày thêm</th>
+
+                        <th>Ngày bán</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="accountsTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     CUSTOMERS
+================================================= -->
+
+<section
+    id="customers"
+    class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            👥 Khách hàng
+        </h2>
+
+        <button
+            onclick="loadCustomers()">
+            🔄 Tải khách hàng
+        </button>
+
+        <br><br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Tên khách</th>
+
+                        <th>Số dư</th>
+
+                        <th>Ngày tạo</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="customersTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     TOPUPS
+================================================= -->
+
+<section
+    id="topups"
+    class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            💰 Yêu cầu nạp tiền
+        </h2>
+
+        <button
+            onclick="loadTopups()">
+            🔄 Tải yêu cầu
+        </button>
+
+        <br><br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Mã nạp</th>
+
+                        <th>Khách</th>
+
+                        <th>Hình thức</th>
+
+                        <th>Số tiền</th>
+
+                        <th>Nhà mạng</th>
+
+                        <th>Serial</th>
+
+                        <th>Mã thẻ</th>
+
+                        <th>Nội dung CK</th>
+
+                        <th>Trạng thái</th>
+
+                        <th>Thao tác</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="topupsTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     ORDERS
+================================================= -->
+
+<section
+    id="orders"
+    class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            🧾 Đơn hàng
+        </h2>
+
+        <button
+            onclick="loadAllOrders()">
+
+            🔄 Tải đơn hàng
+
+        </button>
+
+        <br><br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Mã đơn</th>
+
+                        <th>Khách</th>
+
+                        <th>Mệnh giá</th>
+
+                        <th>Gói</th>
+
+                        <th>Tên acc</th>
+
+                        <th>Mật khẩu</th>
+
+                        <th>Số tiền</th>
+
+                        <th>Ngày mua</th>
+
+                        <th>Trạng thái</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody
+                    id="ordersTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
 </div>
-
-
-<!-- =====================================
-     KHO 48 GÓI
-===================================== -->
-
-<div class="box">
-
-    <h2>
-        📦 Kho 48 gói túi mù
-    </h2>
-
-
-    <button
-        class="refresh"
-        onclick="renderInventory()">
-
-        🔄 Làm mới kho
-
-    </button>
-
-
-    <div id="inventory"></div>
-
-</div>
-
-
-<!-- =====================================
-     ACC KHÁCH ĐÃ NHẬN
-===================================== -->
-
-<div class="box">
-
-    <h2>
-        🎮 Acc khách đã nhận
-    </h2>
-
-
-    <p>
-        Danh sách acc đã được giao cho khách.
-    </p>
-
-
-    <button
-        class="refresh"
-        onclick="renderDelivered()">
-
-        🔄 Làm mới danh sách
-
-    </button>
-
-
-    <div id="deliveredList"></div>
-
-</div>
-
-
-<!-- =====================================
-     ĐĂNG XUẤT
-===================================== -->
-
-<div class="box">
-
-    <button
-        class="logout"
-        onclick="logoutAdmin()">
-
-        🚪 Đăng xuất Admin
-
-    </button>
-
-</div>
-
-
-<a
-    href="index.html"
-    class="back">
-
-    ← Quay lại Shop
-
-</a>
-
 
 </div>
 
@@ -591,550 +848,1000 @@ button{
 <script>
 
 
-/* =====================================
-   KIỂM TRA ADMIN
-===================================== */
+/* =================================================
+   API
+================================================= */
 
-if(
-    sessionStorage.getItem(
-        "adminLoggedIn"
-    ) !== "true"
-){
-
-    window.location.href =
-        "login.html";
-
-}
+const API_URL =
+"https://script.google.com/macros/s/AKfycbyzLx2QQE_H0TzNk2c4opHO8J1JLz1Rqxfckoe7OMU4Ij6JRP25Asg0kIFMt5ZBAsogbQ/exec";
 
 
-/* =====================================
-   MỆNH GIÁ
-===================================== */
+/*
+   ĐỔI 2 THÔNG TIN NÀY
+   thành tài khoản Admin của bạn.
+*/
 
-const prices = [
+const ADMIN_USERNAME =
+"admin";
 
-    {
-        value:"0",
-        label:"0K"
-    },
-
-    {
-        value:"10000",
-        label:"10K"
-    },
-
-    {
-        value:"20000",
-        label:"20K"
-    },
-
-    {
-        value:"50000",
-        label:"50K"
-    },
-
-    {
-        value:"80000",
-        label:"80K"
-    },
-
-    {
-        value:"100000",
-        label:"100K"
-    }
-
-];
+const ADMIN_PASSWORD =
+"123456";
 
 
-/* =====================================
-   LẤY KHO
-===================================== */
+let accounts = [];
 
-function getInventory(){
+let customers = [];
 
-    return JSON.parse(
+let topups = [];
 
-        localStorage.getItem(
-            "shopInventory"
-        ) || "{}"
+let orders = [];
 
-    );
+
+/* =================================================
+   FORMAT TIỀN
+================================================= */
+
+function money(value){
+
+    return Number(
+        value || 0
+    ).toLocaleString(
+        "vi-VN"
+    ) + "đ";
 
 }
 
 
-/* =====================================
-   LƯU KHO
-===================================== */
+/* =================================================
+   API POST
+================================================= */
 
-function saveInventory(data){
+async function api(data){
 
-    localStorage.setItem(
+    const response =
+        await fetch(
+            API_URL,
+            {
+                method:"POST",
 
-        "shopInventory",
+                body:
+                    JSON.stringify(
+                        data
+                    )
+            }
+        );
 
-        JSON.stringify(data)
-
-    );
+    return await response.json();
 
 }
 
 
-/* =====================================
-   LƯU ACC
-===================================== */
+/* =================================================
+   LOGIN
+================================================= */
 
-function saveAccount(){
+function adminLogin(){
 
-    const price =
-        document.getElementById(
-            "price"
-        ).value;
-
-
-    const packageNumber =
-        document.getElementById(
-            "package"
-        ).value;
-
-
-    const name =
-        document.getElementById(
-            "accountName"
-        ).value.trim();
+    const user =
+        document
+        .getElementById(
+            "adminUser"
+        )
+        .value
+        .trim();
 
 
     const pass =
-        document.getElementById(
-            "accountPass"
-        ).value;
-
-
-    const message =
-        document.getElementById(
-            "message"
-        );
+        document
+        .getElementById(
+            "adminPass"
+        )
+        .value;
 
 
     if(
-        !name ||
-        !pass
+        user ===
+        ADMIN_USERNAME &&
+
+        pass ===
+        ADMIN_PASSWORD
     ){
 
-        message.style.color =
-            "#e53935";
+        localStorage.setItem(
+            "shopAdmin",
+            "1"
+        );
 
-        message.textContent =
-            "❌ Vui lòng nhập Name và Pass.";
+
+        document
+        .getElementById(
+            "loginPage"
+        )
+        .classList
+        .add("hidden");
+
+
+        document
+        .getElementById(
+            "adminPage"
+        )
+        .classList
+        .remove("hidden");
+
+
+        refreshAll();
+
+    }
+    else{
+
+        const box =
+            document
+            .getElementById(
+                "loginError"
+            );
+
+
+        box.textContent =
+            "Sai tên Admin hoặc mật khẩu";
+
+
+        box.classList
+            .remove("hidden");
+
+    }
+
+}
+
+
+/* =================================================
+   AUTO LOGIN
+================================================= */
+
+window.addEventListener(
+    "load",
+    function(){
+
+        if(
+            localStorage.getItem(
+                "shopAdmin"
+            ) === "1"
+        ){
+
+            document
+            .getElementById(
+                "loginPage"
+            )
+            .classList
+            .add("hidden");
+
+
+            document
+            .getElementById(
+                "adminPage"
+            )
+            .classList
+            .remove("hidden");
+
+
+            refreshAll();
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   LOGOUT
+================================================= */
+
+function logout(){
+
+    localStorage.removeItem(
+        "shopAdmin"
+    );
+
+    location.reload();
+
+}
+
+
+/* =================================================
+   MENU
+================================================= */
+
+function showPage(id){
+
+    document
+    .querySelectorAll(
+        ".page"
+    )
+    .forEach(
+        page =>
+            page.classList
+            .add("hidden")
+    );
+
+
+    document
+    .getElementById(
+        id
+    )
+    .classList
+    .remove("hidden");
+
+
+    if(id === "warehouse")
+        loadAccounts();
+
+
+    if(id === "customers")
+        loadCustomers();
+
+
+    if(id === "topups")
+        loadTopups();
+
+
+    if(id === "orders")
+        loadAllOrders();
+
+}
+
+
+/* =================================================
+   THÊM ACC
+================================================= */
+
+async function addAccount(){
+
+    const price =
+        document
+        .getElementById(
+            "addPrice"
+        )
+        .value;
+
+
+    const pack =
+        document
+        .getElementById(
+            "addPackage"
+        )
+        .value;
+
+
+    const name =
+        document
+        .getElementById(
+            "addName"
+        )
+        .value
+        .trim();
+
+
+    const pass =
+        document
+        .getElementById(
+            "addPass"
+        )
+        .value
+        .trim();
+
+
+    if(!name || !pass){
+
+        showMessage(
+            "addMessage",
+            "Vui lòng nhập tên acc và mật khẩu.",
+            false
+        );
 
         return;
 
     }
 
 
-    let inventory =
-        getInventory();
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "addAccount",
+
+                price:
+                    price,
+
+                package:
+                    pack,
+
+                accountName:
+                    name,
+
+                accountPass:
+                    pass
+
+            });
 
 
-    if(
-        !inventory[price]
-    ){
+        if(result.ok){
 
-        inventory[price] = {};
+            showMessage(
+                "addMessage",
+                "Đã thêm acc vào kho. ID: " +
+                result.id,
+                true
+            );
+
+
+            document
+            .getElementById(
+                "addName"
+            )
+            .value = "";
+
+
+            document
+            .getElementById(
+                "addPass"
+            )
+            .value = "";
+
+
+            loadAccounts();
+
+        }
+        else{
+
+            showMessage(
+                "addMessage",
+                result.message,
+                false
+            );
+
+        }
 
     }
+    catch(error){
 
+        showMessage(
+            "addMessage",
+            "Không kết nối được Apps Script.",
+            false
+        );
 
-    inventory[price][packageNumber] = {
-
-        name:name,
-
-        pass:pass,
-
-        addedAt:
-            new Date()
-            .toLocaleString(
-                "vi-VN"
-            )
-
-    };
-
-
-    saveInventory(
-        inventory
-    );
-
-
-    message.style.color =
-        "#00a66a";
-
-    message.textContent =
-        "✅ Đã lưu acc thành công.";
-
-
-    document.getElementById(
-        "accountName"
-    ).value = "";
-
-
-    document.getElementById(
-        "accountPass"
-    ).value = "";
-
-
-    renderInventory();
+    }
 
 }
 
 
-/* =====================================
-   HIỂN THỊ KHO
-===================================== */
+/* =================================================
+   LOAD ACCOUNTS
+================================================= */
 
-function renderInventory(){
+async function loadAccounts(){
 
-    const inventory =
-        getInventory();
+    try{
 
-
-    const box =
-        document.getElementById(
-            "inventory"
-        );
-
-
-    box.innerHTML = "";
-
-
-    prices.forEach(
-        price => {
-
-
-            const title =
-                document.createElement(
-                    "h3"
-                );
-
-
-            title.textContent =
-                "🎁 " +
-                price.label;
-
-
-            box.appendChild(
-                title
+        const response =
+            await fetch(
+                API_URL +
+                "?action=getAccounts"
             );
 
 
-            for(
-                let i = 1;
-                i <= 8;
-                i++
+        const result =
+            await response.json();
+
+
+        if(!result.ok)
+            return;
+
+
+        accounts =
+            result.accounts || [];
+
+
+        renderAccounts();
+
+        updateDashboard();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =================================================
+   RENDER ACCOUNTS
+================================================= */
+
+function renderAccounts(){
+
+    const tbody =
+        document
+        .getElementById(
+            "accountsTable"
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    accounts.forEach(
+        acc => {
+
+            const tr =
+                document
+                .createElement(
+                    "tr"
+                );
+
+
+            const status =
+                String(
+                    acc.status || ""
+                );
+
+
+            let badge =
+                "badge";
+
+
+            if(
+                status ===
+                "CON_HANG"
             ){
 
-                const account =
-                    inventory[
-                        price.value
-                    ] &&
-                    inventory[
-                        price.value
-                    ][i];
+                badge +=
+                    " available";
+
+            }
+            else{
+
+                badge +=
+                    " sold";
+
+            }
 
 
-                const item =
-                    document.createElement(
-                        "div"
-                    );
+            tr.innerHTML = `
+
+                <td>${esc(
+                    acc.id
+                )}</td>
+
+                <td>${money(
+                    acc.price
+                )}</td>
+
+                <td>Gói ${esc(
+                    acc.package
+                )}</td>
+
+                <td>${esc(
+                    acc.accountName
+                )}</td>
+
+                <td>${esc(
+                    acc.accountPass
+                )}</td>
+
+                <td>
+                    <span class="${badge}">
+                        ${esc(status)}
+                    </span>
+                </td>
+
+                <td>${esc(
+                    acc.customer
+                )}</td>
+
+                <td>${esc(
+                    acc.createdAt
+                )}</td>
+
+                <td>${esc(
+                    acc.soldAt
+                )}</td>
+
+            `;
 
 
-                item.className =
-                    "package";
+            tbody.appendChild(
+                tr
+            );
+
+        }
+    );
+
+}
 
 
-                if(account){
+/* =================================================
+   LOAD CUSTOMERS
+================================================= */
 
-                    item.innerHTML = `
+async function loadCustomers(){
 
-                        <b>
-                            🎁 Gói ${i}
-                        </b>
+    try{
 
-                        <span
-                            style="
-                            color:#00a66a;
-                            margin-left:8px;
-                            ">
+        const result =
+            await api({
 
-                            🟢 Có acc
+                action:
+                    "getCustomers"
 
-                        </span>
+            });
 
 
-                        <div class="account">
-
-                            👤 Name:
-
-                            <b>
-                                ${escapeHTML(
-                                    account.name
-                                )}
-                            </b>
-
-                            <br><br>
-
-                            🔑 Pass:
-
-                            <b>
-                                ${escapeHTML(
-                                    account.pass
-                                )}
-                            </b>
-
-                            <br><br>
-
-                            📅 Thêm:
-
-                            ${escapeHTML(
-                                account.addedAt
-                            )}
+        if(!result.ok)
+            return;
 
 
-                            <button
-                                class="delete"
-                                onclick="
-                                    deleteAccount(
-                                        '${price.value}',
-                                        '${i}'
-                                    )
-                                ">
-
-                                🗑️ Xóa acc
-
-                            </button>
-
-                        </div>
-
-                    `;
-
-                }else{
-
-                    item.innerHTML = `
-
-                        <b>
-                            🎁 Gói ${i}
-                        </b>
-
-                        <span
-                            style="
-                            color:#e53935;
-                            margin-left:8px;
-                            ">
-
-                            🔴 Chưa có acc
-
-                        </span>
-
-                    `;
-
-                }
+        customers =
+            result.customers || [];
 
 
-                box.appendChild(
-                    item
+        renderCustomers();
+
+        updateDashboard();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =================================================
+   RENDER CUSTOMERS
+================================================= */
+
+function renderCustomers(){
+
+    const tbody =
+        document
+        .getElementById(
+            "customersTable"
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    customers.forEach(
+        customer => {
+
+            const tr =
+                document
+                .createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML = `
+
+                <td>
+                    ${esc(
+                        customer.username
+                    )}
+                </td>
+
+                <td>
+                    <b>
+                        ${money(
+                            customer.balance
+                        )}
+                    </b>
+                </td>
+
+                <td>
+                    ${esc(
+                        customer.createdAt
+                    )}
+                </td>
+
+            `;
+
+
+            tbody.appendChild(
+                tr
+            );
+
+        }
+    );
+
+}
+
+
+/* =================================================
+   LOAD TOPUPS
+================================================= */
+
+async function loadTopups(){
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "getTopups"
+
+            });
+
+
+        if(!result.ok)
+            return;
+
+
+        topups =
+            result.topups || [];
+
+
+        renderTopups();
+
+        updateDashboard();
+
+    }
+    catch(error){
+
+        console.error(error);
+
+    }
+
+}
+
+
+/* =================================================
+   RENDER TOPUPS
+================================================= */
+
+function renderTopups(){
+
+    const tbody =
+        document
+        .getElementById(
+            "topupsTable"
+        );
+
+
+    tbody.innerHTML = "";
+
+
+    topups.forEach(
+        item => {
+
+            const tr =
+                document
+                .createElement(
+                    "tr"
+                );
+
+
+            let statusClass =
+                "pending";
+
+
+            if(
+                item.status ===
+                "DA_DUYET"
+            )
+                statusClass =
+                    "approved";
+
+
+            if(
+                item.status ===
+                "TU_CHOI"
+            )
+                statusClass =
+                    "rejected";
+
+
+            let action = "";
+
+
+            if(
+                item.status ===
+                "CHO_DUYET"
+            ){
+
+                action = `
+
+                    <div class="action">
+
+                        <button
+                            class="green"
+                            onclick="approveTopup('${escAttr(item.id)}')">
+                            Duyệt
+                        </button>
+
+                        <button
+                            class="danger"
+                            onclick="rejectTopup('${escAttr(item.id)}')">
+                            Từ chối
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+            else{
+
+                action =
+                    "Đã xử lý";
+
+            }
+
+
+            tr.innerHTML = `
+
+                <td>${esc(
+                    item.id
+                )}</td>
+
+                <td>${esc(
+                    item.username
+                )}</td>
+
+                <td>${esc(
+                    item.method
+                )}</td>
+
+                <td>
+                    <b>
+                        ${money(
+                            item.amount
+                        )}
+                    </b>
+                </td>
+
+                <td>${esc(
+                    item.provider
+                )}</td>
+
+                <td>${esc(
+                    item.serial
+                )}</td>
+
+                <td>${esc(
+                    item.code
+                )}</td>
+
+                <td>${esc(
+                    item.note
+                )}</td>
+
+                <td>
+                    <span class="badge ${statusClass}">
+                        ${esc(
+                            item.status
+                        )}
+                    </span>
+                </td>
+
+                <td>
+                    ${action}
+                </td>
+
+            `;
+
+
+            tbody.appendChild(
+                tr
+            );
+
+        }
+    );
+
+}
+
+
+/* =================================================
+   DUYỆT NẠP
+================================================= */
+
+async function approveTopup(id){
+
+    if(
+        !confirm(
+            "Bạn chắc chắn muốn duyệt yêu cầu này?"
+        )
+    )
+        return;
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "duyetNap",
+
+                id:
+                    id
+
+            });
+
+
+        alert(
+            result.message
+        );
+
+
+        if(result.ok){
+
+            loadTopups();
+
+            loadCustomers();
+
+        }
+
+    }
+    catch(error){
+
+        alert(
+            "Không kết nối được máy chủ."
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   TỪ CHỐI
+================================================= */
+
+async function rejectTopup(id){
+
+    if(
+        !confirm(
+            "Bạn chắc chắn muốn từ chối?"
+        )
+    )
+        return;
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "tuChoiNap",
+
+                id:
+                    id
+
+            });
+
+
+        alert(
+            result.message
+        );
+
+
+        if(result.ok){
+
+            loadTopups();
+
+        }
+
+    }
+    catch(error){
+
+        alert(
+            "Không kết nối được máy chủ."
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   LOAD ORDERS
+================================================= */
+
+async function loadAllOrders(){
+
+    /*
+       API hiện tại có getOrders
+       theo từng username.
+
+       Vì vậy phần Admin sẽ lấy
+       danh sách khách rồi lấy đơn
+       của từng khách.
+    */
+
+
+    if(
+        customers.length === 0
+    ){
+
+        await loadCustomers();
+
+    }
+
+
+    const resultOrders = [];
+
+
+    for(
+        const customer of customers
+    ){
+
+        try{
+
+            const result =
+                await api({
+
+                    action:
+                        "getOrders",
+
+                    username:
+                        customer.username
+
+                });
+
+
+            if(
+                result.ok &&
+                result.orders
+            ){
+
+                resultOrders.push(
+                    ...result.orders
                 );
 
             }
 
         }
-    );
+        catch(error){
 
-}
-
-
-/* =====================================
-   XÓA ACC
-===================================== */
-
-function deleteAccount(
-    price,
-    packageNumber
-){
-
-    if(
-        !confirm(
-            "Bạn có chắc muốn xóa acc này?"
-        )
-    ){
-
-        return;
-
-    }
-
-
-    let inventory =
-        getInventory();
-
-
-    if(
-        inventory[price] &&
-        inventory[price][packageNumber]
-    ){
-
-        delete inventory[
-            price
-        ][
-            packageNumber
-        ];
-
-    }
-
-
-    saveInventory(
-        inventory
-    );
-
-
-    renderInventory();
-
-}
-
-
-/* =====================================
-   HIỂN THỊ KHÁCH HÀNG
-===================================== */
-
-function renderCustomers(){
-
-    const users =
-        JSON.parse(
-
-            localStorage.getItem(
-                "shopUsers"
-            ) || "{}"
-
-        );
-
-
-    const box =
-        document.getElementById(
-            "customerList"
-        );
-
-
-    box.innerHTML = "";
-
-
-    const names =
-        Object.keys(
-            users
-        );
-
-
-    if(
-        names.length === 0
-    ){
-
-        box.innerHTML = `
-
-            <div class="empty">
-
-                👥 Chưa có khách hàng.
-
-            </div>
-
-        `;
-
-        updateStats();
-
-        return;
-
-    }
-
-
-    names.forEach(
-        username => {
-
-
-            const customer =
-                document.createElement(
-                    "div"
-                );
-
-
-            customer.className =
-                "customer";
-
-
-            customer.innerHTML = `
-
-                👤 Tên tài khoản:
-
-                <b>
-                    ${escapeHTML(
-                        username
-                    )}
-                </b>
-
-            `;
-
-
-            box.appendChild(
-                customer
-            );
+            console.error(error);
 
         }
-    );
+
+    }
 
 
-    updateStats();
+    orders =
+        resultOrders;
+
+
+    renderOrders();
 
 }
 
 
-/* =====================================
-   ACC KHÁCH ĐÃ NHẬN
-===================================== */
+/* =================================================
+   RENDER ORDERS
+================================================= */
 
-function renderDelivered(){
+function renderOrders(){
 
-    const orders =
-        JSON.parse(
-
-            localStorage.getItem(
-                "shopOrders"
-            ) || "[]"
-
+    const tbody =
+        document
+        .getElementById(
+            "ordersTable"
         );
 
 
-    const box =
-        document.getElementById(
-            "deliveredList"
-        );
-
-
-    box.innerHTML = "";
-
-
-    if(
-        orders.length === 0
-    ){
-
-        box.innerHTML = `
-
-            <div class="empty">
-
-                📦 Chưa có acc nào được giao.
-
-            </div>
-
-        `;
-
-        updateStats();
-
-        return;
-
-    }
+    tbody.innerHTML = "";
 
 
     orders
@@ -1143,192 +1850,245 @@ function renderDelivered(){
     .forEach(
         order => {
 
-
-            const item =
-                document.createElement(
-                    "div"
+            const tr =
+                document
+                .createElement(
+                    "tr"
                 );
 
 
-            item.className =
-                "customer-order";
+            tr.innerHTML = `
 
+                <td>${esc(
+                    order.orderId
+                )}</td>
 
-            item.innerHTML = `
+                <td>${esc(
+                    order.username
+                )}</td>
 
-                <b>
-                    📦 ${escapeHTML(
-                        order.id
+                <td>${money(
+                    order.price
+                )}</td>
+
+                <td>
+                    Gói ${esc(
+                        order.package
                     )}
-                </b>
+                </td>
 
-                <br><br>
+                <td>${esc(
+                    order.accountName
+                )}</td>
 
-                👤 Khách:
+                <td>${esc(
+                    order.accountPass
+                )}</td>
 
-                <b>
-                    ${escapeHTML(
-                        order.username
-                    )}
-                </b>
+                <td>${money(
+                    order.amount
+                )}</td>
 
-                <br><br>
-
-                🎮 Sản phẩm:
-
-                ${escapeHTML(
-                    order.product
-                )}
-
-                <br><br>
-
-                💰 Giá:
-
-                <b>
-                    ${escapeHTML(
-                        order.price
-                    )}
-                </b>
-
-                <br><br>
-
-                🎁 Gói:
-
-                ${escapeHTML(
-                    order.package ||
-                    "Không xác định"
-                )}
-
-                <br><br>
-
-                👤 Name acc:
-
-                <b>
-                    ${escapeHTML(
-                        order.accountName
-                    )}
-                </b>
-
-                <br><br>
-
-                🔑 Pass acc:
-
-                <b>
-                    ${escapeHTML(
-                        order.accountPass
-                    )}
-                </b>
-
-                <br><br>
-
-                📅 Thời gian:
-
-                ${escapeHTML(
+                <td>${esc(
                     order.date
-                )}
+                )}</td>
 
-                <br>
-
-                <span class="status">
-
-                    🟢 Đã giao
-
-                </span>
+                <td>
+                    <span class="badge approved">
+                        ${esc(
+                            order.status
+                        )}
+                    </span>
+                </td>
 
             `;
 
 
-            box.appendChild(
-                item
+            tbody.appendChild(
+                tr
             );
 
         }
     );
 
-
-    updateStats();
-
 }
 
 
-/* =====================================
-   THỐNG KÊ
-===================================== */
+/* =================================================
+   DASHBOARD
+================================================= */
 
-function updateStats(){
+function updateDashboard(){
 
-    const users =
-        JSON.parse(
-
-            localStorage.getItem(
-                "shopUsers"
-            ) || "{}"
-
-        );
+    const total =
+        accounts.length;
 
 
-    const orders =
-        JSON.parse(
-
-            localStorage.getItem(
-                "shopOrders"
-            ) || "[]"
-
-        );
-
-
-    document.getElementById(
-        "customerCount"
-    ).textContent =
-        Object.keys(
-            users
+    const available =
+        accounts.filter(
+            acc =>
+                String(
+                    acc.status
+                )
+                .toUpperCase()
+                ===
+                "CON_HANG"
         ).length;
 
 
-    document.getElementById(
-        "orderCount"
-    ).textContent =
-        orders.length;
+    const sold =
+        accounts.filter(
+            acc =>
+                String(
+                    acc.status
+                )
+                .toUpperCase()
+                ===
+                "DA_BAN"
+        ).length;
 
 
-    document.getElementById(
-        "deliveredCount"
-    ).textContent =
-        orders.length;
+    const customerCount =
+        customers.length;
+
+
+    const pending =
+        topups.filter(
+            item =>
+                item.status ===
+                "CHO_DUYET"
+        ).length;
+
+
+    document
+    .getElementById(
+        "totalAccounts"
+    )
+    .textContent =
+        total;
+
+
+    document
+    .getElementById(
+        "availableAccounts"
+    )
+    .textContent =
+        available;
+
+
+    document
+    .getElementById(
+        "soldAccounts"
+    )
+    .textContent =
+        sold;
+
+
+    document
+    .getElementById(
+        "totalCustomers"
+    )
+    .textContent =
+        customerCount;
+
+
+    document
+    .getElementById(
+        "pendingTopups"
+    )
+    .textContent =
+        pending;
+
+
+    document
+    .getElementById(
+        "dashboardAvailable"
+    )
+    .textContent =
+        available;
+
+
+    document
+    .getElementById(
+        "dashboardSold"
+    )
+    .textContent =
+        sold;
 
 }
 
 
-/* =====================================
-   ESCAPE HTML
-===================================== */
+/* =================================================
+   REFRESH
+================================================= */
 
-function escapeHTML(value){
+async function refreshAll(){
+
+    await loadAccounts();
+
+    await loadCustomers();
+
+    await loadTopups();
+
+    updateDashboard();
+
+}
+
+
+/* =================================================
+   MESSAGE
+================================================= */
+
+function showMessage(
+    id,
+    message,
+    success
+){
+
+    const box =
+        document
+        .getElementById(
+            id
+        );
+
+
+    box.textContent =
+        message;
+
+
+    box.className =
+        success
+            ? "success"
+            : "error";
+
+}
+
+
+/* =================================================
+   ESCAPE
+================================================= */
+
+function esc(value){
 
     return String(
         value ?? ""
     )
-
     .replace(
         /&/g,
         "&amp;"
     )
-
     .replace(
         /</g,
         "&lt;"
     )
-
     .replace(
         />/g,
         "&gt;"
     )
-
     .replace(
         /"/g,
         "&quot;"
     )
-
     .replace(
         /'/g,
         "&#039;"
@@ -1337,37 +2097,23 @@ function escapeHTML(value){
 }
 
 
-/* =====================================
-   ĐĂNG XUẤT
-===================================== */
+function escAttr(value){
 
-function logoutAdmin(){
-
-    sessionStorage.removeItem(
-        "adminLoggedIn"
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /\\/g,
+        "\\\\"
+    )
+    .replace(
+        /'/g,
+        "\\'"
     );
-
-
-    window.location.href =
-        "login.html";
 
 }
 
-
-/* =====================================
-   KHỞI ĐỘNG
-===================================== */
-
-renderCustomers();
-
-renderInventory();
-
-renderDelivered();
-
-updateStats();
-
 </script>
-
 
 </body>
 </html>
