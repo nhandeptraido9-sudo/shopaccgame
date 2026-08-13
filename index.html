@@ -2,128 +2,137 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>SHOPACCGAME</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f4f6f9;
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3f4f6;
+color:#111827
 }
-
 header{
-    background:#111827;
-    color:white;
-    padding:15px 25px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    flex-wrap:wrap;
+background:#111827;
+color:white;
+padding:14px 5%;
+display:flex;
+align-items:center;
+justify-content:space-between
 }
-
 .logo{
-    font-size:22px;
-    font-weight:bold;
+font-size:23px;
+font-weight:bold
 }
-
-.menu{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
+.nav{
+display:flex;
+align-items:center;
+gap:10px
 }
-
-.menu a{
-    color:white;
-    text-decoration:none;
-    padding:10px 14px;
-    border-radius:8px;
-    font-weight:bold;
+.nav a{
+color:white;
+text-decoration:none;
+padding:10px
 }
-
-.menu a:hover{
-    background:#2563eb;
+.customer-area{
+position:relative
 }
-
+.customer-button{
+border:0;
+background:#2563eb;
+color:white;
+padding:10px 15px;
+border-radius:9px;
+cursor:pointer;
+font-weight:bold
+}
+.customer-menu{
+display:none;
+position:absolute;
+right:0;
+top:48px;
+width:280px;
+background:white;
+color:#111;
+border-radius:12px;
+box-shadow:0 8px 30px #0003;
+padding:12px;
+z-index:9999
+}
+.customer-menu.show{
+display:block
+}
+.customer-title{
+font-size:18px;
+font-weight:bold;
+padding:8px;
+border-bottom:1px solid #ddd
+}
+.customer-info{
+padding:8px;
+font-size:14px
+}
+.customer-menu button{
+width:100%;
+border:0;
+padding:11px;
+margin-top:6px;
+border-radius:8px;
+cursor:pointer;
+text-align:left
+}
+.logout-button{
+background:#fee2e2!important;
+color:#b91c1c
+}
 .hero{
-    max-width:1100px;
-    margin:30px auto;
-    padding:45px 20px;
-    text-align:center;
-    border-radius:20px;
-    background:linear-gradient(
-        135deg,
-        #2563eb,
-        #7c3aed
-    );
-    color:white;
+text-align:center;
+padding:45px 20px;
+background:white
 }
-
 .hero h1{
-    margin:0;
-    font-size:38px;
+margin:0 0 10px;
+font-size:34px
 }
-
-.hero p{
-    font-size:18px;
-}
-
-.button{
-    display:inline-block;
-    margin:8px;
-    padding:13px 22px;
-    border-radius:10px;
-    text-decoration:none;
-    font-weight:bold;
-    background:white;
-    color:#2563eb;
-}
-
 .container{
-    max-width:1100px;
-    margin:auto;
-    padding:20px;
+max-width:1100px;
+margin:30px auto;
+padding:0 15px
 }
-
-.title{
-    text-align:center;
+.status{
+padding:15px;
+background:white;
+border-radius:10px;
+margin-bottom:20px;
+text-align:center
 }
-
-.products{
-    display:grid;
-    grid-template-columns:
-    repeat(auto-fit,minmax(220px,1fr));
-    gap:20px;
+.packages{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:18px
 }
-
 .card{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    text-align:center;
-    box-shadow:0 4px 15px rgba(0,0,0,.08);
+background:white;
+border-radius:14px;
+padding:20px;
+box-shadow:0 3px 15px #0001
 }
-
-.card a{
-    display:block;
-    background:#2563eb;
-    color:white;
-    text-decoration:none;
-    padding:12px;
-    border-radius:8px;
-    font-weight:bold;
+.price{
+font-size:21px;
+font-weight:bold;
+color:#2563eb;
+margin:12px 0
 }
-
-footer{
-    margin-top:40px;
-    background:#111827;
-    color:white;
-    text-align:center;
-    padding:25px;
+.buy{
+width:100%;
+padding:12px;
+border:0;
+border-radius:9px;
+background:#16a34a;
+color:white;
+font-weight:bold;
+cursor:pointer
 }
 </style>
 </head>
@@ -136,103 +145,425 @@ footer{
 SHOPACCGAME
 </div>
 
-<nav class="menu">
+<div class="nav">
 
-<a href="index.html">
-🏠 Trang chủ
-</a>
+<a href="index.html">Trang chủ</a>
 
-<a href="tui-mu.html">
-🎁 Túi mù
-</a>
+<div class="customer-area">
 
-<a href="login.html">
-👤 Khách hàng
-</a>
+<button
+class="customer-button"
+onclick="toggleCustomerMenu()">
+👤 <span id="customerName">Khách hàng</span> ▾
+</button>
 
-</nav>
+<div id="customerMenu" class="customer-menu">
 
+<div class="customer-title">
+👤 Tài khoản khách hàng
+</div>
+
+<div class="customer-info">
+Tài khoản:
+<b id="menuUsername">Chưa đăng nhập</b>
+</div>
+
+<div class="customer-info">
+💰 Số dư:
+<b id="menuBalance">0đ</b>
+</div>
+
+<button onclick="viewMyAccounts()">
+📦 Thông tin acc đã mua
+</button>
+
+<button onclick="goLogin()">
+🔐 Đăng nhập
+</button>
+
+<button
+class="logout-button"
+onclick="logoutCustomer()">
+🚪 Đăng xuất
+</button>
+
+</div>
+</div>
+
+</div>
 </header>
-
-
 <section class="hero">
 
-<h1>
-SHOPACCGAME
-</h1>
+<h1>🎮 SHOPACCGAME</h1>
 
-<p>
-Shop tài khoản game và túi mù
-</p>
-
-<a
-class="button"
-href="tui-mu.html"
->
-🎁 Mua túi mù
-</a>
-
-<a
-class="button"
-href="login.html"
->
-👤 Khách hàng
-</a>
+<p>Shop bán tài khoản game nhanh chóng và tiện lợi</p>
 
 </section>
 
-
 <div class="container">
 
-<h2 class="title">
-🎮 Danh mục
-</h2>
+<div id="status" class="status">
+Đang tải kho acc...
+</div>
 
-<div class="products">
+<h2>🔥 Kho tài khoản</h2>
 
-<div class="card">
-
-<h3>
-🎁 Túi mù
-</h3>
-
-<p>
-Mua túi mù và nhận tài khoản.
-</p>
-
-<a href="tui-mu.html">
-Xem túi mù
-</a>
+<div id="packages" class="packages"></div>
 
 </div>
 
+<script>
 
-<div class="card">
+const API_URL =
+"https://script.google.com/macros/s/AKfycbyrF_FUCu_yCPEf9TL-140ElpNZqdrUy6yGnWpAUvBB5W00jJu3Xw4Mfne2Jd5IIfBDgA/exec";
 
-<h3>
-👤 Khách hàng
-</h3>
 
-<p>
-Đăng nhập hoặc đăng ký tài khoản.
-</p>
+function getCurrentCustomer(){
 
-<a href="login.html">
-Đăng nhập
-</a>
+return (
+localStorage.getItem("currentUser") ||
+localStorage.getItem("username") ||
+localStorage.getItem("user") ||
+""
+).trim();
 
+}
+
+
+function toggleCustomerMenu(){
+
+document
+.getElementById("customerMenu")
+.classList.toggle("show");
+
+}
+
+
+function goLogin(){
+
+window.location.href="login.html";
+
+}
+
+
+function logoutCustomer(){
+
+localStorage.removeItem("currentUser");
+localStorage.removeItem("username");
+localStorage.removeItem("user");
+
+window.location.reload();
+
+}
+
+
+function viewMyAccounts(){
+
+if(!getCurrentCustomer()){
+
+alert("Bạn chưa đăng nhập!");
+
+window.location.href="login.html";
+
+return;
+
+}
+
+window.location.href="khach-hang.html";
+
+}
+
+
+async function updateCustomer(){
+
+const username=getCurrentCustomer();
+
+document.getElementById("customerName")
+.textContent=username || "Khách hàng";
+
+document.getElementById("menuUsername")
+.textContent=username || "Chưa đăng nhập";
+
+if(!username)return;
+
+try{
+
+const res=await fetch(
+API_URL+
+"?action=getBalance&username="+
+encodeURIComponent(username)
+);
+
+const data=await res.json();
+
+if(data.ok){
+
+document.getElementById("menuBalance")
+.textContent=
+Number(data.balance||0)
+.toLocaleString("vi-VN")+"đ";
+
+}
+
+}catch(e){
+
+console.log(e);
+
+}
+
+}
+
+
+function money(number){
+
+return Number(number||0)
+.toLocaleString("vi-VN")+"đ";
+
+}
+
+
+async function loadAccounts(){
+
+const status=document.getElementById("status");
+const box=document.getElementById("packages");
+
+status.textContent="Đang tải kho acc...";
+box.innerHTML="";
+
+try{
+
+const res=await fetch(
+API_URL+"?action=getAccounts"
+);
+
+const data=await res.json();
+
+if(!data.ok){
+
+status.textContent=
+data.message||"Lỗi tải kho";
+
+return;
+
+}
+
+const accounts=data.accounts.filter(
+a=>String(a.status).toUpperCase()==="CON_HANG"
+);
+
+if(accounts.length===0){
+
+status.textContent="Kho hiện đang hết acc.";
+
+return;
+
+}
+
+status.textContent=
+"Kho đang có "+accounts.length+" tài khoản.";
+
+accounts.forEach(account=>{
+
+const card=document.createElement("div");
+
+card.className="card";
+
+card.innerHTML=`
+
+<h3>🎁 Gói ${account.package}</h3>
+
+<div>Mệnh giá:</div>
+
+<div class="price">
+${money(account.price)}
 </div>
 
-</div>
+<button
+class="buy"
+onclick="buyAccount(
+${Number(account.price)},
+'${String(account.package).replace(/'/g,"\\'")}'
+)">
+🛒 Mua ngay
+</button>
 
-</div>
+`;
+
+box.appendChild(card);
+
+});
+
+}catch(e){
+
+console.log(e);
+
+status.textContent=
+"Không kết nối được Apps Script.";
+
+}
+
+}
 
 
-<footer>
+document.addEventListener(
+"DOMContentLoaded",
+function(){
 
+updateCustomer();
+loadAccounts();
+
+});
+
+</script>
+<footer style="
+margin-top:50px;
+padding:25px;
+background:#111827;
+color:white;
+text-align:center;
+">
 © 2026 SHOPACCGAME
-
 </footer>
+
+<script>
+
+let selectedPrice=0;
+let selectedPackage="";
+
+
+function buyAccount(price,packageNumber){
+
+const username=getCurrentCustomer();
+
+if(!username){
+
+alert("Bạn cần đăng nhập trước khi mua acc!");
+
+window.location.href="login.html";
+
+return;
+
+}
+
+selectedPrice=Number(price);
+selectedPackage=String(packageNumber);
+
+
+const confirmBuy=
+confirm(
+"Mua gói "+selectedPackage+
+" giá "+money(selectedPrice)+"?"
+);
+
+
+if(!confirmBuy)return;
+
+
+purchaseAccount(username);
+
+}
+
+
+async function purchaseAccount(username){
+
+try{
+
+const response=await fetch(
+API_URL,
+{
+method:"POST",
+
+headers:{
+"Content-Type":
+"text/plain;charset=utf-8"
+},
+
+body:JSON.stringify({
+
+action:"getAccount",
+
+username:username,
+
+price:selectedPrice,
+
+package:selectedPackage
+
+})
+
+}
+);
+
+
+const data=await response.json();
+
+
+if(!data.ok){
+
+alert(
+data.message||
+"Mua acc thất bại!"
+);
+
+return;
+
+}
+
+
+alert(
+"MUA ACC THÀNH CÔNG!\n\n"+
+"Mã đơn: "+data.orderId+
+"\nTên acc: "+data.accountName+
+"\nMật khẩu: "+data.accountPass+
+"\nSố dư còn lại: "+
+money(data.balance)
+);
+
+
+updateCustomer();
+
+loadAccounts();
+
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Không kết nối được Apps Script!"
+);
+
+}
+
+}
+
+
+document.addEventListener(
+"click",
+function(event){
+
+const area=
+document.querySelector(
+".customer-area"
+);
+
+const menu=
+document.getElementById(
+"customerMenu"
+);
+
+if(
+area &&
+menu &&
+!area.contains(event.target)
+){
+
+menu.classList.remove("show");
+
+}
+
+});
+
+</script>
 
 </body>
 </html>
