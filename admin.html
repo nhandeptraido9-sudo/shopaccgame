@@ -95,12 +95,6 @@ button{
     margin-bottom:15px;
 }
 
-.delete{
-    background:#e53935;
-    color:white;
-    margin-top:10px;
-}
-
 .logout{
     width:100%;
     background:#e53935;
@@ -143,15 +137,15 @@ button{
     margin-top:5px;
 }
 
-.account{
+.package{
     background:#f5f7fb;
     padding:15px;
     margin-top:10px;
     border-radius:12px;
 }
 
-.package{
-    background:#f5f7fb;
+.account{
+    background:white;
     padding:15px;
     margin-top:10px;
     border-radius:12px;
@@ -162,6 +156,23 @@ button{
     padding:15px;
     margin-top:10px;
     border-radius:12px;
+}
+
+.order{
+    background:#f5f7fb;
+    padding:15px;
+    margin-top:10px;
+    border-radius:12px;
+}
+
+.status-good{
+    color:#008c55;
+    font-weight:bold;
+}
+
+.status-sold{
+    color:#e53935;
+    font-weight:bold;
 }
 
 .empty{
@@ -269,12 +280,14 @@ class="stat-number">
 🎮
 </div>
 
-<div class="stat-number">
-Kho chung
+<div
+id="stockCount"
+class="stat-number">
+0
 </div>
 
 <div class="stat-name">
-Google Sheets
+Acc còn hàng
 </div>
 
 </div>
@@ -290,7 +303,7 @@ Google Sheets
 
 <div class="box">
 
-<h2>🎮 Thêm acc Blox Fruits</h2>
+<h2>🎮 Thêm acc Blox Fruits vào kho</h2>
 
 
 <label>
@@ -299,29 +312,17 @@ Google Sheets
 
 <select id="price">
 
-<option value="0">
-0K
-</option>
+<option value="0">0K</option>
 
-<option value="10000">
-10K
-</option>
+<option value="10000">10K</option>
 
-<option value="20000">
-20K
-</option>
+<option value="20000">20K</option>
 
-<option value="50000">
-50K
-</option>
+<option value="50000">50K</option>
 
-<option value="80000">
-80K
-</option>
+<option value="80000">80K</option>
 
-<option value="100000">
-100K
-</option>
+<option value="100000">100K</option>
 
 </select>
 
@@ -332,37 +333,21 @@ Google Sheets
 
 <select id="package">
 
-<option value="1">
-Gói 1
-</option>
+<option value="1">Gói 1</option>
 
-<option value="2">
-Gói 2
-</option>
+<option value="2">Gói 2</option>
 
-<option value="3">
-Gói 3
-</option>
+<option value="3">Gói 3</option>
 
-<option value="4">
-Gói 4
-</option>
+<option value="4">Gói 4</option>
 
-<option value="5">
-Gói 5
-</option>
+<option value="5">Gói 5</option>
 
-<option value="6">
-Gói 6
-</option>
+<option value="6">Gói 6</option>
 
-<option value="7">
-Gói 7
-</option>
+<option value="7">Gói 7</option>
 
-<option value="8">
-Gói 8
-</option>
+<option value="8">Gói 8</option>
 
 </select>
 
@@ -407,14 +392,12 @@ class="message">
 
 
 <!-- ==========================
-     KIỂM TRA KHO
+     KHO ACC
 ========================== -->
 
 <div class="box">
 
-<h2>
-📦 Kiểm tra kho acc
-</h2>
+<h2>📦 Kho acc chung</h2>
 
 <button
 class="refresh"
@@ -424,10 +407,11 @@ onclick="loadInventory()">
 
 </button>
 
+
 <div id="inventory">
 
 <div class="empty">
-Bấm "Làm mới kho" để xem.
+Đang tải kho...
 </div>
 
 </div>
@@ -441,12 +425,10 @@ Bấm "Làm mới kho" để xem.
 
 <div class="box">
 
-<h2>
-👥 Tài khoản khách hàng
-</h2>
+<h2>👥 Tài khoản khách hàng</h2>
 
 <p>
-Danh sách khách được lưu trên hệ thống cũ của shop.
+Tên tài khoản khách đã đăng ký trên trình duyệt này.
 </p>
 
 <button
@@ -457,10 +439,39 @@ onclick="loadCustomers()">
 
 </button>
 
+
 <div id="customerList">
 
 <div class="empty">
 Chưa tải danh sách.
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ==========================
+     ĐƠN HÀNG
+========================== -->
+
+<div class="box">
+
+<h2>📋 Đơn hàng</h2>
+
+<button
+class="refresh"
+onclick="loadOrders()">
+
+🔄 Làm mới đơn hàng
+
+</button>
+
+
+<div id="orderList">
+
+<div class="empty">
+Chưa tải đơn hàng.
 </div>
 
 </div>
@@ -501,11 +512,11 @@ class="back">
 
 
 /* ==================================
-   URL GOOGLE APPS SCRIPT
+   API APPS SCRIPT
 ================================== */
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbzqCYfhotvUcjQ79gkdW7RLCMqIufypG7RJDNAhrlu9ejzBovL3Ilt4nOu815pyFB0irw/exec";
+"https://script.google.com/macros/s/AKfycbyF1CkNgj6wXjsBj6c8qve0W_5WBqFgq1i9Gic_MI5czERAPfgw2pxD1KMxEp7QCMWMCg/exec";
 
 
 /* ==================================
@@ -677,9 +688,7 @@ document.getElementById(
 box.innerHTML = `
 
 <div class="empty">
-
 ⏳ Đang tải kho...
-
 </div>
 
 `;
@@ -689,7 +698,8 @@ try{
 
 const response =
 await fetch(
-API_URL
+API_URL +
+"?action=getAccounts"
 );
 
 
@@ -704,9 +714,7 @@ if(
 box.innerHTML = `
 
 <div class="empty">
-
 ❌ Không tải được kho.
-
 </div>
 
 `;
@@ -716,17 +724,32 @@ return;
 }
 
 
+const accounts =
+result.accounts || [];
+
+
+const available =
+accounts.filter(
+a =>
+a.status ===
+"CON_HANG"
+);
+
+
+document.getElementById(
+"stockCount"
+).textContent =
+available.length;
+
+
 if(
-!result.accounts ||
-result.accounts.length===0
+accounts.length===0
 ){
 
 box.innerHTML = `
 
 <div class="empty">
-
 📦 Kho chưa có acc.
-
 </div>
 
 `;
@@ -739,35 +762,58 @@ return;
 box.innerHTML = "";
 
 
-result.accounts.forEach(
+accounts
+.slice()
+.reverse()
+.forEach(
 account=>{
+
 
 const item =
 document.createElement(
 "div"
 );
 
+
 item.className =
 "package";
+
+
+const statusHTML =
+account.status ===
+"CON_HANG"
+
+?
+
+`<span class="status-good">
+🟢 CÒN HÀNG
+</span>`
+
+:
+
+`<span class="status-sold">
+🔴 ĐÃ BÁN
+</span>`;
 
 
 item.innerHTML = `
 
 <b>
-🎁 Mệnh giá:
-${escapeHTML(
+💰 ${escapeHTML(
 account.price
 )}
 </b>
 
-<br>
+&nbsp;
 
-🎁 Gói:
-<b>
-${escapeHTML(
+🎁 Gói ${escapeHTML(
 account.package
 )}
-</b>
+
+<br><br>
+
+${statusHTML}
+
 
 <div class="account">
 
@@ -791,13 +837,12 @@ account.accountPass
 
 <br><br>
 
-📌 Trạng thái:
+📌 Khách:
 
-<b>
 ${escapeHTML(
-account.status
+account.customer ||
+"Chưa có"
 )}
-</b>
 
 </div>
 
@@ -817,9 +862,7 @@ console.error(error);
 box.innerHTML = `
 
 <div class="empty">
-
 ❌ Không kết nối được Google Sheets.
-
 </div>
 
 `;
@@ -891,6 +934,7 @@ document.createElement(
 "div"
 );
 
+
 item.className =
 "customer";
 
@@ -902,6 +946,146 @@ item.innerHTML = `
 <b>
 ${escapeHTML(
 username
+)}
+</b>
+
+`;
+
+box.appendChild(
+item
+);
+
+});
+
+}
+
+
+/* ==================================
+   ĐƠN HÀNG
+================================== */
+
+function loadOrders(){
+
+const orders =
+JSON.parse(
+
+localStorage.getItem(
+"shopOrders"
+)||"[]"
+
+);
+
+
+const box =
+document.getElementById(
+"orderList"
+);
+
+
+box.innerHTML="";
+
+
+document.getElementById(
+"orderCount"
+).textContent =
+orders.length;
+
+
+if(
+orders.length===0
+){
+
+box.innerHTML = `
+
+<div class="empty">
+
+📦 Chưa có đơn hàng.
+
+</div>
+
+`;
+
+return;
+
+}
+
+
+orders
+.slice()
+.reverse()
+.forEach(
+order=>{
+
+const item =
+document.createElement(
+"div"
+);
+
+
+item.className =
+"order";
+
+
+item.innerHTML = `
+
+📦 Mã đơn:
+
+<b>
+${escapeHTML(
+order.id ||
+order.orderId ||
+""
+)}
+</b>
+
+<br><br>
+
+👤 Khách:
+
+<b>
+${escapeHTML(
+order.username ||
+""
+)}
+</b>
+
+<br><br>
+
+💰 Giá:
+
+${escapeHTML(
+order.price ||
+""
+)}
+
+<br><br>
+
+🎁 Gói:
+
+${escapeHTML(
+order.package ||
+""
+)}
+
+<br><br>
+
+👤 Name acc:
+
+<b>
+${escapeHTML(
+order.accountName ||
+""
+)}
+</b>
+
+<br><br>
+
+🔑 Pass acc:
+
+<b>
+${escapeHTML(
+order.accountPass ||
+""
 )}
 </b>
 
@@ -978,8 +1162,9 @@ loadInventory();
 
 loadCustomers();
 
-</script>
+loadOrders();
 
+</script>
 
 </body>
 </html>
