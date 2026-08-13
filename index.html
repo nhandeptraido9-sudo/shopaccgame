@@ -2,42 +2,62 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SHOPACCGAME</title>
 
 <style>
-*{box-sizing:border-box}
+
+*{
+box-sizing:border-box;
+}
+
 body{
 margin:0;
 font-family:Arial,sans-serif;
 background:#f3f4f6;
-color:#111827
+color:#111827;
 }
+
 header{
+position:sticky;
+top:0;
+z-index:1000;
 background:#111827;
 color:white;
 padding:14px 5%;
 display:flex;
 align-items:center;
-justify-content:space-between
+justify-content:space-between;
+gap:20px;
 }
+
 .logo{
 font-size:23px;
-font-weight:bold
+font-weight:bold;
 }
+
 .nav{
 display:flex;
 align-items:center;
-gap:10px
+gap:10px;
 }
+
 .nav a{
 color:white;
 text-decoration:none;
-padding:10px
+padding:10px 13px;
+border-radius:8px;
 }
+
+.nav a:hover{
+background:#2563eb;
+}
+
 .customer-area{
-position:relative
+position:relative;
 }
+
 .customer-button{
 border:0;
 background:#2563eb;
@@ -45,8 +65,10 @@ color:white;
 padding:10px 15px;
 border-radius:9px;
 cursor:pointer;
-font-weight:bold
+font-size:15px;
+font-weight:bold;
 }
+
 .customer-menu{
 display:none;
 position:absolute;
@@ -54,76 +76,124 @@ right:0;
 top:48px;
 width:280px;
 background:white;
-color:#111;
+color:#111827;
 border-radius:12px;
-box-shadow:0 8px 30px #0003;
+box-shadow:0 8px 30px rgba(0,0,0,.2);
 padding:12px;
-z-index:9999
+z-index:9999;
 }
+
 .customer-menu.show{
-display:block
+display:block;
 }
+
 .customer-title{
 font-size:18px;
 font-weight:bold;
 padding:8px;
-border-bottom:1px solid #ddd
+border-bottom:1px solid #e5e7eb;
+margin-bottom:8px;
 }
+
 .customer-info{
 padding:8px;
-font-size:14px
+font-size:14px;
 }
+
 .customer-menu button{
 width:100%;
 border:0;
 padding:11px;
 margin-top:6px;
 border-radius:8px;
+background:#f3f4f6;
 cursor:pointer;
-text-align:left
+text-align:left;
+font-size:14px;
 }
+
+.customer-menu button:hover{
+background:#e5e7eb;
+}
+
 .logout-button{
 background:#fee2e2!important;
-color:#b91c1c
+color:#b91c1c;
 }
+
 .hero{
 text-align:center;
-padding:45px 20px;
-background:white
+padding:50px 20px;
+background:white;
 }
+
 .hero h1{
 margin:0 0 10px;
-font-size:34px
+font-size:35px;
 }
+
+.hero p{
+color:#6b7280;
+}
+
 .container{
 max-width:1100px;
 margin:30px auto;
-padding:0 15px
+padding:0 15px;
 }
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:20px;
+}
+
+.topbar h2{
+margin:0;
+}
+
+.refresh{
+border:0;
+background:#2563eb;
+color:white;
+padding:10px 15px;
+border-radius:8px;
+cursor:pointer;
+}
+
 .status{
 padding:15px;
 background:white;
 border-radius:10px;
 margin-bottom:20px;
-text-align:center
+text-align:center;
 }
+
 .packages{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:18px
+gap:18px;
 }
+
 .card{
 background:white;
 border-radius:14px;
 padding:20px;
-box-shadow:0 3px 15px #0001
+box-shadow:0 3px 15px rgba(0,0,0,.08);
 }
+
+.card h3{
+margin-top:0;
+}
+
 .price{
 font-size:21px;
 font-weight:bold;
 color:#2563eb;
-margin:12px 0
+margin:12px 0;
 }
+
 .buy{
 width:100%;
 padding:12px;
@@ -131,9 +201,40 @@ border:0;
 border-radius:9px;
 background:#16a34a;
 color:white;
+font-size:15px;
 font-weight:bold;
-cursor:pointer
+cursor:pointer;
 }
+
+.buy:hover{
+background:#15803d;
+}
+
+footer{
+margin-top:50px;
+padding:25px;
+background:#111827;
+color:white;
+text-align:center;
+}
+
+@media(max-width:700px){
+
+header{
+flex-wrap:wrap;
+}
+
+.nav{
+width:100%;
+justify-content:flex-end;
+}
+
+.hero h1{
+font-size:28px;
+}
+
+}
+
 </style>
 </head>
 
@@ -147,17 +248,23 @@ SHOPACCGAME
 
 <div class="nav">
 
-<a href="index.html">Trang chủ</a>
+<a href="index.html">
+Trang chủ
+</a>
 
 <div class="customer-area">
 
 <button
 class="customer-button"
-onclick="toggleCustomerMenu()">
+onclick="toggleCustomerMenu()"
+>
 👤 <span id="customerName">Khách hàng</span> ▾
 </button>
 
-<div id="customerMenu" class="customer-menu">
+<div
+id="customerMenu"
+class="customer-menu"
+>
 
 <div class="customer-title">
 👤 Tài khoản khách hàng
@@ -183,39 +290,77 @@ Tài khoản:
 
 <button
 class="logout-button"
-onclick="logoutCustomer()">
+onclick="logoutCustomer()"
+>
 🚪 Đăng xuất
 </button>
 
 </div>
+
 </div>
 
 </div>
+
 </header>
 <section class="hero">
 
 <h1>🎮 SHOPACCGAME</h1>
 
-<p>Shop bán tài khoản game nhanh chóng và tiện lợi</p>
+<p>
+Shop bán tài khoản game nhanh chóng và tiện lợi
+</p>
 
 </section>
 
+
 <div class="container">
 
-<div id="status" class="status">
+<div
+id="status"
+class="status"
+>
 Đang tải kho acc...
 </div>
 
-<h2>🔥 Kho tài khoản</h2>
 
-<div id="packages" class="packages"></div>
+<div class="topbar">
+
+<h2>
+🔥 Kho tài khoản
+</h2>
+
+<button
+class="refresh"
+onclick="loadAccounts()"
+>
+🔄 Làm mới
+</button>
 
 </div>
+
+
+<div
+id="packages"
+class="packages"
+></div>
+
+</div>
+
+
+<footer>
+© 2026 SHOPACCGAME
+</footer>
+
 
 <script>
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbyrF_FUCu_yCPEf9TL-140ElpNZqdrUy6yGnWpAUvBB5W00jJu3Xw4Mfne2Jd5IIfBDgA/exec";
+
+
+let selectedPrice=0;
+
+let selectedPackage="";
 
 
 function getCurrentCustomer(){
@@ -249,8 +394,14 @@ window.location.href="login.html";
 function logoutCustomer(){
 
 localStorage.removeItem("currentUser");
+
 localStorage.removeItem("username");
+
 localStorage.removeItem("user");
+
+localStorage.removeItem("adminUser");
+
+localStorage.removeItem("isAdmin");
 
 window.location.reload();
 
@@ -259,57 +410,24 @@ window.location.reload();
 
 function viewMyAccounts(){
 
-if(!getCurrentCustomer()){
+const username=
+getCurrentCustomer();
 
-alert("Bạn chưa đăng nhập!");
+if(!username){
 
-window.location.href="login.html";
+alert(
+"Bạn chưa đăng nhập!"
+);
+
+window.location.href=
+"login.html";
 
 return;
 
 }
 
-window.location.href="khach-hang.html";
-
-}
-
-
-async function updateCustomer(){
-
-const username=getCurrentCustomer();
-
-document.getElementById("customerName")
-.textContent=username || "Khách hàng";
-
-document.getElementById("menuUsername")
-.textContent=username || "Chưa đăng nhập";
-
-if(!username)return;
-
-try{
-
-const res=await fetch(
-API_URL+
-"?action=getBalance&username="+
-encodeURIComponent(username)
-);
-
-const data=await res.json();
-
-if(data.ok){
-
-document.getElementById("menuBalance")
-.textContent=
-Number(data.balance||0)
-.toLocaleString("vi-VN")+"đ";
-
-}
-
-}catch(e){
-
-console.log(e);
-
-}
+window.location.href=
+"khach-hang.html";
 
 }
 
@@ -322,80 +440,231 @@ return Number(number||0)
 }
 
 
-async function loadAccounts(){
+async function updateCustomer(){
 
-const status=document.getElementById("status");
-const box=document.getElementById("packages");
+const username=
+getCurrentCustomer();
 
-status.textContent="Đang tải kho acc...";
-box.innerHTML="";
+
+const name=
+document.getElementById(
+"customerName"
+);
+
+const menuUsername=
+document.getElementById(
+"menuUsername"
+);
+
+const menuBalance=
+document.getElementById(
+"menuBalance"
+);
+
+
+if(!username){
+
+name.textContent=
+"Khách hàng";
+
+menuUsername.textContent=
+"Chưa đăng nhập";
+
+menuBalance.textContent=
+"0đ";
+
+return;
+
+}
+
+
+name.textContent=
+username;
+
+menuUsername.textContent=
+username;
+
 
 try{
 
-const res=await fetch(
-API_URL+"?action=getAccounts"
+const response=
+await fetch(
+API_URL+
+"?action=getBalance&username="+
+encodeURIComponent(username)
 );
 
-const data=await res.json();
+
+const data=
+await response.json();
+
+
+if(data.ok){
+
+menuBalance.textContent=
+money(data.balance);
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+
+async function loadAccounts(){
+
+const status=
+document.getElementById(
+"status"
+);
+
+const packages=
+document.getElementById(
+"packages"
+);
+
+
+status.textContent=
+"Đang tải kho acc...";
+
+packages.innerHTML="";
+
+
+try{
+
+const response=
+await fetch(
+API_URL+
+"?action=getAccounts"
+);
+
+
+const data=
+await response.json();
+
 
 if(!data.ok){
 
 status.textContent=
-data.message||"Lỗi tải kho";
+data.message||
+"Không tải được kho acc";
 
 return;
 
 }
 
-const accounts=data.accounts.filter(
-a=>String(a.status).toUpperCase()==="CON_HANG"
+
+const accounts=
+(data.accounts||[]).filter(
+account=>
+String(
+account.status
+).trim().toUpperCase()
+==="CON_HANG"
 );
+
 
 if(accounts.length===0){
 
-status.textContent="Kho hiện đang hết acc.";
+status.textContent=
+"Kho hiện đang hết acc.";
 
 return;
 
 }
 
+
 status.textContent=
-"Kho đang có "+accounts.length+" tài khoản.";
+"Kho đang có "+
+accounts.length+
+" tài khoản.";
 
-accounts.forEach(account=>{
 
-const card=document.createElement("div");
+accounts.forEach(
+function(account){
 
-card.className="card";
+const card=
+document.createElement(
+"div"
+);
 
-card.innerHTML=`
+card.className=
+"card";
 
-<h3>🎁 Gói ${account.package}</h3>
 
-<div>Mệnh giá:</div>
+const title=
+document.createElement(
+"h3"
+);
 
-<div class="price">
-${money(account.price)}
-</div>
+title.textContent=
+"🎁 Gói "+
+account.package;
 
-<button
-class="buy"
-onclick="buyAccount(
-${Number(account.price)},
-'${String(account.package).replace(/'/g,"\\'")}'
-)">
-🛒 Mua ngay
-</button>
 
-`;
+const label=
+document.createElement(
+"div"
+);
 
-box.appendChild(card);
+label.textContent=
+"Mệnh giá:";
+
+
+const price=
+document.createElement(
+"div"
+);
+
+price.className=
+"price";
+
+price.textContent=
+money(account.price);
+
+
+const button=
+document.createElement(
+"button"
+);
+
+button.className=
+"buy";
+
+button.textContent=
+"🛒 Mua ngay";
+
+
+button.onclick=
+function(){
+
+buyAccount(
+Number(account.price),
+String(account.package)
+);
+
+};
+
+
+card.appendChild(title);
+
+card.appendChild(label);
+
+card.appendChild(price);
+
+card.appendChild(button);
+
+packages.appendChild(card);
 
 });
 
-}catch(e){
+}catch(error){
 
-console.log(e);
+console.error(error);
 
 status.textContent=
 "Không kết nối được Apps Script.";
@@ -405,70 +674,62 @@ status.textContent=
 }
 
 
-document.addEventListener(
-"DOMContentLoaded",
-function(){
+function buyAccount(
+price,
+packageNumber
+){
 
-updateCustomer();
-loadAccounts();
+const username=
+getCurrentCustomer();
 
-});
-
-</script>
-<footer style="
-margin-top:50px;
-padding:25px;
-background:#111827;
-color:white;
-text-align:center;
-">
-© 2026 SHOPACCGAME
-</footer>
-
-<script>
-
-let selectedPrice=0;
-let selectedPackage="";
-
-
-function buyAccount(price,packageNumber){
-
-const username=getCurrentCustomer();
 
 if(!username){
 
-alert("Bạn cần đăng nhập trước khi mua acc!");
+alert(
+"Bạn cần đăng nhập trước khi mua acc!"
+);
 
-window.location.href="login.html";
+window.location.href=
+"login.html";
 
 return;
 
 }
 
-selectedPrice=Number(price);
-selectedPackage=String(packageNumber);
+
+selectedPrice=
+Number(price);
+
+selectedPackage=
+String(packageNumber);
 
 
-const confirmBuy=
+const ok=
 confirm(
-"Mua gói "+selectedPackage+
-" giá "+money(selectedPrice)+"?"
-);
+"Mua gói "+
+selectedPackage+
+" giá "+
+money(selectedPrice)+
+"?");
 
-
-if(!confirmBuy)return;
+if(!ok)return;
 
 
 purchaseAccount(username);
 
 }
 
+</script>
+<script>
 
-async function purchaseAccount(username){
+async function purchaseAccount(
+username
+){
 
 try{
 
-const response=await fetch(
+const response=
+await fetch(
 API_URL,
 {
 method:"POST",
@@ -494,7 +755,8 @@ package:selectedPackage
 );
 
 
-const data=await response.json();
+const data=
+await response.json();
 
 
 if(!data.ok){
@@ -511,9 +773,12 @@ return;
 
 alert(
 "MUA ACC THÀNH CÔNG!\n\n"+
-"Mã đơn: "+data.orderId+
-"\nTên acc: "+data.accountName+
-"\nMật khẩu: "+data.accountPass+
+"Mã đơn: "+
+data.orderId+
+"\nTên acc: "+
+data.accountName+
+"\nMật khẩu: "+
+data.accountPass+
 "\nSố dư còn lại: "+
 money(data.balance)
 );
@@ -551,17 +816,32 @@ document.getElementById(
 "customerMenu"
 );
 
+
 if(
 area &&
 menu &&
 !area.contains(event.target)
 ){
 
-menu.classList.remove("show");
+menu.classList.remove(
+"show"
+);
 
 }
 
 });
+
+
+document.addEventListener(
+"DOMContentLoaded",
+function(){
+
+updateCustomer();
+
+loadAccounts();
+
+});
+
 
 </script>
 
