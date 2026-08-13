@@ -1,20 +1,351 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Acc Blox Fruits - SHOPACCGAME</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+    color: #172033;
+}
+
+.header {
+    padding: 25px 15px;
+    text-align: center;
+    background: linear-gradient(135deg,#111827,#2563eb);
+    color: white;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.header p {
+    margin-bottom: 0;
+}
+
+.container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 25px auto;
+}
+
+/* QUAY LẠI */
+
+.back-shop {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 11px 18px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.back-shop:hover {
+    background: #1d4ed8;
+}
+
+/* 6 GÓI */
+
+.packages {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(250px,1fr));
+    gap: 18px;
+}
+
+.package {
+    background: white;
+    border: 3px solid #c4e1ff;
+    border-radius: 16px;
+    padding: 8px;
+    text-align: center;
+    box-shadow: 0 3px 10px rgba(0,0,0,.08);
+    transition: .2s;
+}
+
+.package:hover {
+    transform: translateY(-4px);
+}
+
+.package img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 13px;
+}
+
+.package-name {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.package-price {
+    margin-top: 10px;
+    color: #555;
+}
+
+.package-price strong {
+    color: #e11d48;
+    font-size: 20px;
+}
+
+.package-stock {
+    margin-top: 8px;
+    color: #333;
+}
+
+.buy-button {
+    display: block;
+    margin: 14px 5px 5px;
+    padding: 11px;
+    background: linear-gradient(90deg,#48a9f8,#596ed8);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.buy-button:hover {
+    opacity: .9;
+}
+</style>
+
 </head>
 
 <body>
 
-<h1>🎮 ACC BLOX FRUITS</h1>
+<div class="header">
 
-<a href="index.html">← Quay lại Shop</a>
+    <h1>🎮 ACC BLOX FRUITS TỰ CHỌN</h1>
 
-<hr>
+    <p>
+        Chọn gói tài khoản bạn muốn mua
+    </p>
 
-<h2>6 gói tài khoản</h2>
+</div>
+
+<div class="container">
+
+    <a
+        href="index.html"
+        class="back-shop"
+    >
+        ← Quay lại Shop
+    </a>
+
+    <div class="packages">
+
+        <!-- GÓI 1 -->
+
+        <div class="package">
+
+            <img
+                src="blox-fruit.jpg"
+                alt="Acc Blox Fruits"
+            >
+
+            <div class="package-name">
+                ACC BLOX FRUITS GÓI 1
+            </div>
+
+            <div class="package-price">
+                Giá:
+                <strong>130.000đ</strong>
+            </div>
+
+            <div class="package-stock">
+                Còn 6
+            </div>
+
+            <a
+                href="giao-acc.html?price=130000"
+                class="buy-button"
+            >
+                XEM ACC →
+            </a>
+
+        </div>
+
+
+        <!-- GÓI 2 -->
+
+        <div class="package">
+
+            <img
+                src="blox-fruit.jpg"
+                alt="Acc Blox Fruits"
+            >
+
+            <div class="package-name">
+                ACC BLOX FRUITS GÓI 2
+            </div>
+
+            <div class="package-price">
+                Giá:
+                <strong>150.000đ</strong>
+            </div>
+
+            <div class="package-stock">
+                Còn 6
+            </div>
+
+            <a
+                href="giao-acc.html?price=150000"
+                class="buy-button"
+            >
+                XEM ACC →
+            </a>
+
+        </div>
+
+
+        <!-- GÓI 3 -->
+
+        <div class="package">
+
+            <img
+                src="blox-fruit.jpg"
+                alt="Acc Blox Fruits"
+            >
+
+            <div class="package-name">
+                ACC BLOX FRUITS GÓI 3
+            </div>
+
+            <div class="package-price">
+                Giá:
+                <strong>180.000đ</strong>
+            </div>
+
+            <div class="package-stock">
+                Còn 6
+            </div>
+
+            <a
+                href="giao-acc.html?price=180000"
+                class="buy-button"
+            >
+                XEM ACC →
+            </a>
+
+        </div>
+
+
+        <!-- GÓI 4 -->
+
+        <div class="package">
+
+            <img
+                src="blox-fruit.jpg"
+                alt="Acc Blox Fruits"
+            >
+
+            <div class="package-name">
+                ACC BLOX FRUITS GÓI 4
+            </div>
+
+            <div class="package-price">
+                Giá:
+                <strong>200.000đ</strong>
+            </div>
+
+            <div class="package-stock">
+                Còn 6
+            </div>
+
+            <a
+                href="giao-acc.html?price=200000"
+                class="buy-button"
+            >
+                XEM ACC →
+            </a>
+
+        </div>
+
+
+        <!-- GÓI 5 -->
+
+        <div class="package">
+
+            <img
+                src="blox-fruit.jpg"
+                alt="Acc Blox Fruits"
+            >
+
+            <div class="package-name">
+                ACC BLOX FRUITS GÓI 5
+            </div>
+
+            <div class="package-price">
+                Giá:
+                <strong>250.000đ</strong>
+            </div>
+
+            <div class="package-stock">
+                Còn 6
+            </div>
+
+            <a
+                href="giao-acc.html?price=250000"
+                class="buy-button"
+            >
+                XEM ACC →
+            </a>
+
+        </div>
+
+
+        <!-- GÓI 6 -->
+
+        <div class="package">
+
+            <img
+                src="blox-fruit.jpg"
+                alt="Acc Blox Fruits"
+            >
+
+            <div class="package-name">
+                ACC BLOX FRUITS GÓI 6
+            </div>
+
+            <div class="package-price">
+                Giá:
+                <strong>300.000đ</strong>
+            </div>
+
+            <div class="package-stock">
+                Còn 6
+            </div>
+
+            <a
+                href="giao-acc.html?price=300000"
+                class="buy-button"
+            >
+                XEM ACC →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
 
 </body>
 </html>
+```
