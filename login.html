@@ -6,9 +6,7 @@
 <title>Đăng nhập - SHOPACCGAME</title>
 
 <style>
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
 margin:0;
@@ -24,8 +22,8 @@ background:#111827;
 color:white;
 padding:15px 25px;
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 }
 
 .logo{
@@ -33,33 +31,28 @@ font-size:22px;
 font-weight:bold;
 }
 
-.menu{
-display:flex;
-gap:8px;
-}
-
-.menu a{
+nav a{
 color:white;
 text-decoration:none;
-padding:10px 13px;
+margin-left:10px;
+padding:9px 12px;
 border-radius:8px;
-font-weight:bold;
 }
 
-.menu a:hover{
+nav a:hover{
 background:#2563eb;
 }
 
 .container{
 width:100%;
 max-width:430px;
-margin:50px auto;
-padding:20px;
+margin:45px auto;
+padding:15px;
 }
 
 .box{
 background:white;
-padding:30px;
+padding:28px;
 border-radius:18px;
 box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
@@ -69,25 +62,54 @@ text-align:center;
 margin-top:0;
 }
 
+.tabs{
+display:flex;
+gap:8px;
+margin-bottom:20px;
+}
+
+.tab{
+flex:1;
+padding:12px;
+border:0;
+border-radius:9px;
+cursor:pointer;
+font-weight:bold;
+background:#e5e7eb;
+}
+
+.tab.active{
+background:#2563eb;
+color:white;
+}
+
+.form{
+display:none;
+}
+
+.form.active{
+display:block;
+}
+
 label{
 display:block;
-margin-top:15px;
 font-weight:bold;
+margin-top:14px;
 }
 
 input{
 width:100%;
-padding:13px;
-margin-top:7px;
+padding:12px;
+margin-top:6px;
 border:1px solid #ddd;
-border-radius:9px;
+border-radius:8px;
 font-size:16px;
 }
 
-button{
+button.submit{
 width:100%;
-padding:13px;
 margin-top:20px;
+padding:13px;
 border:0;
 border-radius:9px;
 background:#2563eb;
@@ -97,40 +119,32 @@ font-weight:bold;
 cursor:pointer;
 }
 
-button:hover{
+button.submit:hover{
 background:#1d4ed8;
 }
 
 .register{
-background:#16a34a;
+background:#16a34a !important;
 }
 
 .message{
+display:none;
 margin-top:15px;
 padding:12px;
 border-radius:8px;
-display:none;
 text-align:center;
 }
 
 .success{
+display:block;
 background:#dcfce7;
 color:#166534;
 }
 
 .error{
+display:block;
 background:#fee2e2;
 color:#991b1b;
-}
-
-.user-info{
-margin-top:20px;
-text-align:center;
-display:none;
-}
-
-.user-info button{
-background:#dc2626;
 }
 
 footer{
@@ -151,36 +165,54 @@ padding:20px;
 SHOPACCGAME
 </div>
 
-<nav class="menu">
-
-<a href="index.html">
-🏠 Trang chủ
-</a>
-
-<a href="tui-mu.html">
-🎁 Túi mù
-</a>
-
+<nav>
+<a href="index.html">🏠 Trang chủ</a>
 </nav>
 
 </header>
+
 <div class="container">
 
 <div class="box">
 
-<h1>
-👤 Đăng nhập
-</h1>
+<h1>🔐 Đăng nhập</h1>
+
+<div class="tabs">
+
+<button
+class="tab active"
+onclick="showForm('customer')"
+id="customerTab"
+>
+👤 Khách hàng
+</button>
+
+<button
+class="tab"
+onclick="showForm('admin')"
+id="adminTab"
+>
+🛡️ Admin
+</button>
+
+</div>
+<!-- =========================
+     KHÁCH HÀNG
+========================= -->
+
+<div
+id="customerForm"
+class="form active"
+>
 
 <label>
 Tên tài khoản
 </label>
 
 <input
+id="customerUsername"
 type="text"
-id="username"
 placeholder="Nhập tên tài khoản"
-autocomplete="username"
 >
 
 <label>
@@ -188,43 +220,71 @@ Mật khẩu
 </label>
 
 <input
+id="customerPassword"
 type="password"
-id="password"
 placeholder="Nhập mật khẩu"
-autocomplete="current-password"
 >
 
-<button onclick="login()">
-Đăng nhập
+<button
+class="submit"
+onclick="customerLogin()"
+>
+Đăng nhập khách hàng
 </button>
 
 <button
-class="register"
-onclick="register()"
+class="submit register"
+onclick="customerRegister()"
 >
 Đăng ký tài khoản
 </button>
+
+</div>
+
+
+<!-- =========================
+     ADMIN
+========================= -->
+
+<div
+id="adminForm"
+class="form"
+>
+
+<label>
+Tên Admin
+</label>
+
+<input
+id="adminUsername"
+type="text"
+placeholder="Tên Admin"
+>
+
+<label>
+Mật khẩu Admin
+</label>
+
+<input
+id="adminPassword"
+type="password"
+placeholder="Mật khẩu Admin"
+>
+
+<button
+class="submit"
+onclick="adminLogin()"
+>
+🛡️ Đăng nhập Admin
+</button>
+
+</div>
+
 
 <div
 id="message"
 class="message"
 ></div>
-
-<div
-id="userInfo"
-class="user-info"
->
-
-<div>
-Đang đăng nhập:
-<strong id="loggedUser"></strong>
-</div>
-
-<button onclick="logout()">
-Đăng xuất
-</button>
-
-</div>
 
 </div>
 
@@ -234,295 +294,101 @@ class="user-info"
 <footer>
 © 2026 SHOPACCGAME
 </footer>
-<script>
-
-function showMessage(text,type){
-
-const box =
-document.getElementById("message");
-
-box.textContent=text;
-
-box.className=
-"message " + type;
-
-box.style.display="block";
-
-}
-
-
-function getUsers(){
-
-try{
-
-return JSON.parse(
-localStorage.getItem("shopUsers")
-) || {};
-
-}catch(e){
-
-return {};
-
-}
-
-}
-
-
-function register(){
-
-const username =
-document.getElementById("username")
-.value.trim();
-
-const password =
-document.getElementById("password")
-.value;
-
-if(!username){
-
-showMessage(
-"Vui lòng nhập tên tài khoản",
-"error"
-);
-
-return;
-
-}
-
-if(username.length < 3){
-
-showMessage(
-"Tên tài khoản phải có ít nhất 3 ký tự",
-"error"
-);
-
-return;
-
-}
-
-if(!password){
-
-showMessage(
-"Vui lòng nhập mật khẩu",
-"error"
-);
-
-return;
-
-}
-
-if(password.length < 4){
-
-showMessage(
-"Mật khẩu phải có ít nhất 4 ký tự",
-"error"
-);
-
-return;
-
-}
-
-
-const users =
-getUsers();
-
-const key =
-username.toLowerCase();
-
-
-if(users[key]){
-
-showMessage(
-"Tài khoản đã tồn tại",
-"error"
-);
-
-return;
-
-}
-
-
-users[key]={
-username:username,
-password:password
-};
-
-localStorage.setItem(
-"shopUsers",
-JSON.stringify(users)
-);
-
-
-showMessage(
-"Đăng ký thành công! Bạn có thể đăng nhập.",
-"success"
-);
-
-}
-
-
-function login(){
-
-const username =
-document.getElementById("username")
-.value.trim();
-
-const password =
-document.getElementById("password")
-.value;
-
-
-if(!username || !password){
-
-showMessage(
-"Vui lòng nhập đầy đủ tài khoản và mật khẩu",
-"error"
-);
-
-return;
-
-}
-
-
-const users =
-getUsers();
-
-const key =
-username.toLowerCase();
-
-const user =
-users[key];
-
-
-if(!user){
-
-showMessage(
-"Tài khoản không tồn tại. Hãy đăng ký trước.",
-"error"
-);
-
-return;
-
-}
-
-
-if(user.password !== password){
-
-showMessage(
-"Sai mật khẩu",
-"error"
-);
-
-return;
-
-}
-
-
-/*
-ĐỒNG BỘ TÊN KHÁCH
-CHO TOÀN BỘ SHOP
-*/
-
-localStorage.setItem(
-"currentUser",
-user.username
-);
-
-localStorage.setItem(
-"username",
-user.username
-);
-
-localStorage.setItem(
-"user",
-user.username
-);
-
-localStorage.setItem(
-"taikhoan",
-user.username
-);
-
-
-showMessage(
-"Đăng nhập thành công!",
-"success"
-);
-
-
-setTimeout(function(){
-
-window.location.href =
-"index.html";
-
-},800);
-
-}
-
-
-function logout(){
-
-localStorage.removeItem(
-"currentUser"
-);
-
-localStorage.removeItem(
-"username"
-);
-
-localStorage.removeItem(
-"user"
-);
-
-localStorage.removeItem(
-"taikhoan"
-);
-
-document.getElementById(
-"userInfo"
-).style.display="none";
-
-showMessage(
-"Đã đăng xuất",
-"success"
-);
-
-}
-
-
-function checkLogin(){
-
-const username =
-localStorage.getItem(
-"currentUser"
-);
-
-if(username){
-
-document.getElementById(
-"loggedUser"
-).textContent=
-username;
-
-document.getElementById(
-"userInfo"
-).style.display="block";
-
-}
-
-}
-
-
-document.addEventListener(
-"DOMContentLoaded",
-function(){
-
-checkLogin();
-
-}
-);
-
-</script>
-
-</body>
-</html>
+<!-- =========================
+     KHÁCH HÀNG
+========================= -->
+
+<div
+id="customerForm"
+class="form active"
+>
+
+<label>
+Tên tài khoản
+</label>
+
+<input
+id="customerUsername"
+type="text"
+placeholder="Nhập tên tài khoản"
+>
+
+<label>
+Mật khẩu
+</label>
+
+<input
+id="customerPassword"
+type="password"
+placeholder="Nhập mật khẩu"
+>
+
+<button
+class="submit"
+onclick="customerLogin()"
+>
+Đăng nhập khách hàng
+</button>
+
+<button
+class="submit register"
+onclick="customerRegister()"
+>
+Đăng ký tài khoản
+</button>
+
+</div>
+
+
+<!-- =========================
+     ADMIN
+========================= -->
+
+<div
+id="adminForm"
+class="form"
+>
+
+<label>
+Tên Admin
+</label>
+
+<input
+id="adminUsername"
+type="text"
+placeholder="Tên Admin"
+>
+
+<label>
+Mật khẩu Admin
+</label>
+
+<input
+id="adminPassword"
+type="password"
+placeholder="Mật khẩu Admin"
+>
+
+<button
+class="submit"
+onclick="adminLogin()"
+>
+🛡️ Đăng nhập Admin
+</button>
+
+</div>
+
+
+<div
+id="message"
+class="message"
+></div>
+
+</div>
+
+</div>
+
+
+<footer>
+© 2026 SHOPACCGAME
+</footer>
