@@ -4,14 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SHOPACCGAME</title>
+
 <style>
-*{box-sizing:border-box}
+*{
+box-sizing:border-box
+}
+
 body{
 margin:0;
 font-family:Arial,sans-serif;
 background:#f4f6f9;
 color:#222
 }
+
 header{
 background:#111827;
 color:white;
@@ -23,13 +28,19 @@ position:sticky;
 top:0;
 z-index:100
 }
-.logo{font-size:22px;font-weight:bold}
+
+.logo{
+font-size:22px;
+font-weight:bold
+}
+
 .menu{
 display:flex;
 align-items:center;
 gap:8px;
 flex-wrap:wrap
 }
+
 .menu a{
 color:white;
 text-decoration:none;
@@ -37,25 +48,34 @@ padding:10px 12px;
 border-radius:8px;
 font-weight:bold
 }
-.menu a:hover{background:#2563eb}
-.balance{
-background:#2563eb;
-color:white;
-padding:10px 12px;
-border-radius:8px;
-font-weight:bold
+
+.menu a:hover{
+background:#2563eb
 }
+
 .hero{
 max-width:1100px;
 margin:30px auto;
 padding:50px 20px;
 border-radius:20px;
-background:linear-gradient(135deg,#2563eb,#7c3aed);
+background:linear-gradient(
+135deg,
+#2563eb,
+#7c3aed
+);
 color:white;
 text-align:center
 }
-.hero h1{font-size:38px;margin:0}
-.hero p{font-size:18px}
+
+.hero h1{
+font-size:38px;
+margin:0
+}
+
+.hero p{
+font-size:18px
+}
+
 .btn{
 display:inline-block;
 padding:13px 22px;
@@ -64,26 +84,39 @@ border-radius:10px;
 text-decoration:none;
 font-weight:bold
 }
-.btn-white{background:white;color:#2563eb}
-.btn-green{background:#16a34a;color:white}
+
+.btn-white{
+background:white;
+color:#2563eb
+}
+
 .container{
 max-width:1100px;
 margin:auto;
 padding:0 15px 40px
 }
-.title{text-align:center;margin:35px 0 20px}
+
+.title{
+text-align:center;
+margin:35px 0 20px
+}
+
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
 gap:20px
 }
+
 .product{
 background:white;
 padding:22px;
 border-radius:15px;
 text-align:center;
-box-shadow:0 4px 15px rgba(0,0,0,.08)
+box-shadow:
+0 4px 15px rgba(0,0,0,.08)
 }
+
 .product a{
 display:block;
 background:#2563eb;
@@ -93,12 +126,14 @@ border-radius:9px;
 text-decoration:none;
 font-weight:bold
 }
+
 .price{
 color:#2563eb;
 font-size:20px;
 font-weight:bold;
 margin:12px
 }
+
 footer{
 background:#111827;
 color:white;
@@ -107,8 +142,9 @@ padding:25px
 }
 </style>
 </head>
+
 <body>
-<header>
+  <header>
 
 <div class="logo">
 SHOPACCGAME
@@ -124,14 +160,6 @@ SHOPACCGAME
 🎁 Túi mù
 </a>
 
-<a href="nap-tien.html">
-💰 Nạp tiền
-</a>
-
-<span id="balanceBox" class="balance">
-Số dư: 0đ
-</span>
-
 <a href="login.html">
 👤 Đăng nhập
 </a>
@@ -140,6 +168,7 @@ Số dư: 0đ
 
 </header>
 
+
 <section class="hero">
 
 <h1>
@@ -147,18 +176,18 @@ SHOPACCGAME
 </h1>
 
 <p>
-Shop tài khoản game - Túi mù - Nạp tiền
+Shop tài khoản game - Túi mù
 </p>
 
-<a class="btn btn-white" href="tui-mu.html">
+<a
+class="btn btn-white"
+href="tui-mu.html"
+>
 🎁 Mua túi mù
 </a>
 
-<a class="btn btn-green" href="nap-tien.html">
-💰 Nạp tiền
-</a>
-
 </section>
+
 
 <div class="container">
 
@@ -169,115 +198,65 @@ Shop tài khoản game - Túi mù - Nạp tiền
 <div class="products">
 
 <div class="product">
-<h3>🎁 Túi mù</h3>
-<p>Mua túi mù và nhận tài khoản.</p>
-<div class="price">Nhiều mệnh giá</div>
+
+<h3>
+🎁 Túi mù
+</h3>
+
+<p>
+Mua túi mù và nhận tài khoản.
+</p>
+
+<div class="price">
+Nhiều mệnh giá
+</div>
+
 <a href="tui-mu.html">
 Xem túi mù
 </a>
+
 </div>
 
-<div class="product">
-<h3>💰 Nạp tiền</h3>
-<p>Nạp tiền bằng ngân hàng hoặc thẻ cào.</p>
-<div class="price">Nạp ngay</div>
-<a href="nap-tien.html">
-Nạp tiền
-</a>
-</div>
 
 <div class="product">
-<h3>👤 Tài khoản</h3>
-<p>Đăng nhập để quản lý tài khoản.</p>
-<div class="price">Thành viên</div>
+
+<h3>
+👤 Tài khoản
+</h3>
+
+<p>
+Đăng nhập để quản lý tài khoản.
+</p>
+
+<div class="price">
+Thành viên
+</div>
+
 <a href="login.html">
 Đăng nhập
 </a>
-</div>
 
 </div>
 
 </div>
+
+</div>
+
 
 <footer>
+
 © 2026 SHOPACCGAME
+
 </footer>
-  <script>
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxVOLUsIdJ0fGc9hMzUklnumAQUYtqmyhkfsMK7x3acF7fmQT27JL3e12_GZGWAiZ6Fgw/exec";
-
-
-function getUsername(){
-
-return (
-localStorage.getItem("username") ||
-localStorage.getItem("user") ||
-localStorage.getItem("taikhoan") ||
-""
-).trim();
-
-}
-
-
-function formatMoney(number){
-
-return Number(number || 0)
-.toLocaleString("vi-VN") + "đ";
-
-}
-
-
-async function loadBalance(){
-
-const username =
-getUsername();
-
-const box =
-document.getElementById("balanceBox");
-
-if(!username){
-
-box.textContent="Số dư: 0đ";
-
-return;
-
-}
-
-try{
-
-const response =
-await fetch(
-API_URL +
-"?action=getBalance&username=" +
-encodeURIComponent(username)
-);
-
-const data =
-await response.json();
-
-if(data.ok){
-
-box.textContent =
-"Số dư: " +
-formatMoney(data.balance);
-
-}
-
-}catch(error){
-
-console.log(error);
-
-}
-
-}
-
+<script>
 
 document.addEventListener(
 "DOMContentLoaded",
 function(){
 
-loadBalance();
+console.log(
+"SHOPACCGAME đã hoạt động"
+);
 
 }
 );
