@@ -1045,5 +1045,74 @@ renderOrders();
     <div id="orderMessage"></div>
 
 </div>
+<script>
+
+function showAccHistory(){
+
+    const orders =
+        JSON.parse(
+            localStorage.getItem("shopOrders") || "[]"
+        );
+
+    const box =
+        document.getElementById("accHistory");
+
+    if(orders.length === 0){
+
+        box.innerHTML =
+            "<p>Chưa có acc nào được giao.</p>";
+
+        return;
+    }
+
+    box.innerHTML = "";
+
+    orders.forEach(order => {
+
+        const item =
+            document.createElement("div");
+
+        item.style.cssText = `
+            background:#f5f7fb;
+            padding:15px;
+            margin-top:12px;
+            border-radius:12px;
+        `;
+
+        item.innerHTML = `
+
+            <b>📦 ${order.id}</b><br><br>
+
+            👤 Khách:
+            <b>${order.username}</b><br>
+
+            🎮 ${order.product}<br>
+
+            💰 ${order.price}<br><br>
+
+            👤 Name:
+            <b>${order.accountName}</b><br>
+
+            🔑 Pass:
+            <b>${order.accountPass}</b>
+
+        `;
+
+        box.appendChild(item);
+
+    });
+
+}
+
+showAccHistory();
+
+</script>
 </body>
+<div class="box">
+
+    <h2>🎮 Acc đã giao cho khách</h2>
+
+    <div id="accHistory"></div>
+
+</div>
 </html>
