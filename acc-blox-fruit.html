@@ -1,190 +1,168 @@
 ```html
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ACC BLOX FRUIT - SHOPACCGAME</title>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>ACC BLOX FRUIT</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    color: #172033;
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
 }
 
-.header {
-    background: linear-gradient(135deg, #111827, #2563eb);
-    color: white;
-    text-align: center;
-    padding: 25px 15px;
+.header{
+    background:
+        linear-gradient(135deg,#111827,#2563eb);
+    color:white;
+    text-align:center;
+    padding:25px;
 }
 
-.header h1 {
-    margin: 0;
-    font-size: 28px;
+.container{
+    width:95%;
+    max-width:1100px;
+    margin:25px auto;
 }
 
-.container {
-    width: 95%;
-    max-width: 1100px;
-    margin: 25px auto;
+.back{
+    display:inline-block;
+    padding:11px 18px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:9px;
+    font-weight:bold;
+    margin-bottom:20px;
 }
 
-.back-shop {
-    display: inline-block;
-    margin-bottom: 20px;
-    padding: 11px 18px;
-    background: #2563eb;
-    color: white;
-    text-decoration: none;
-    border-radius: 9px;
-    font-weight: bold;
+.packages{
+    display:grid;
+    grid-template-columns:
+        repeat(auto-fit,minmax(240px,1fr));
+    gap:18px;
 }
 
-.back-shop:hover {
-    background: #1d4ed8;
+.package{
+    background:white;
+    border:2px solid #c9e3ff;
+    border-radius:15px;
+    padding:10px;
+    text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-.packages {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 18px;
+.package img{
+    width:100%;
+    height:160px;
+    object-fit:cover;
+    border-radius:10px;
 }
 
-.package {
-    background: white;
-    border: 2px solid #c9e3ff;
-    border-radius: 15px;
-    padding: 8px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+.package h2{
+    font-size:18px;
 }
 
-.package img {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    border-radius: 10px;
+.price{
+    color:#e11d48;
+    font-size:21px;
+    font-weight:bold;
 }
 
-.package h2 {
-    font-size: 18px;
-    margin: 15px 5px 8px;
-}
-
-.price {
-    color: #e11d48;
-    font-size: 21px;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.stock {
-    color: #555;
-    margin-bottom: 12px;
-}
-
-.buy {
-    display: block;
-    padding: 11px;
-    margin: 5px;
-    background: linear-gradient(90deg, #48a9f8, #596ed8);
-    color: white;
-    text-decoration: none;
-    border-radius: 9px;
-    font-weight: bold;
-}
-
-.buy:hover {
-    opacity: .9;
+.buy{
+    display:block;
+    margin-top:13px;
+    padding:11px;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    border-radius:9px;
+    font-weight:bold;
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="header">
     <h1>🎮 ACC BLOX FRUIT</h1>
-    <p>Chọn gói tài khoản bạn muốn mua</p>
+    <p>Chọn gói tài khoản</p>
 </div>
 
 <div class="container">
 
-<a href="index.html" class="back-shop">
+<a href="index.html" class="back">
     ← Quay lại Shop
 </a>
 
 <div class="packages">
 
-    <div class="package">
-        <img src="blox-fruit.jpg" alt="ACC BLOX FRUIT">
-        <h2>ACC BLOX FRUIT - GÓI 1</h2>
-        <div class="price">130.000đ</div>
-        <div class="stock">Còn hàng</div>
-        <a href="giao-acc.html?price=130000" class="buy">
-            XEM ACC →
-        </a>
-    </div>
-
-    <div class="package">
-        <img src="blox-fruit.jpg" alt="ACC BLOX FRUIT">
-        <h2>ACC BLOX FRUIT - GÓI 2</h2>
-        <div class="price">150.000đ</div>
-        <div class="stock">Còn hàng</div>
-        <a href="giao-acc.html?price=150000" class="buy">
-            XEM ACC →
-        </a>
-    </div>
-
-    <div class="package">
-        <img src="blox-fruit.jpg" alt="ACC BLOX FRUIT">
-        <h2>ACC BLOX FRUIT - GÓI 3</h2>
-        <div class="price">180.000đ</div>
-        <div class="stock">Còn hàng</div>
-        <a href="giao-acc.html?price=180000" class="buy">
-            XEM ACC →
-        </a>
-    </div>
-
-    <div class="package">
-        <img src="blox-fruit.jpg" alt="ACC BLOX FRUIT">
-        <h2>ACC BLOX FRUIT - GÓI 4</h2>
-        <div class="price">200.000đ</div>
-        <div class="stock">Còn hàng</div>
-        <a href="giao-acc.html?price=200000" class="buy">
-            XEM ACC →
-        </a>
-    </div>
-
-    <div class="package">
-        <img src="blox-fruit.jpg" alt="ACC BLOX FRUIT">
-        <h2>ACC BLOX FRUIT - GÓI 5</h2>
-        <div class="price">250.000đ</div>
-        <div class="stock">Còn hàng</div>
-        <a href="giao-acc.html?price=250000" class="buy">
-            XEM ACC →
-        </a>
-    </div>
-
-    <div class="package">
-        <img src="blox-fruit.jpg" alt="ACC BLOX FRUIT">
-        <h2>ACC BLOX FRUIT - GÓI 6</h2>
-        <div class="price">300.000đ</div>
-        <div class="stock">Còn hàng</div>
-        <a href="giao-acc.html?price=300000" class="buy">
-            XEM ACC →
-        </a>
-    </div>
-
+<div class="package">
+<img src="blox-fruit.jpg">
+<h2>GÓI 1</h2>
+<div class="price">130.000đ</div>
+<a href="giao-acc.html?price=130000" class="buy">
+XEM ACC →
+</a>
 </div>
 
+<div class="package">
+<img src="blox-fruit.jpg">
+<h2>GÓI 2</h2>
+<div class="price">150.000đ</div>
+<a href="giao-acc.html?price=150000" class="buy">
+XEM ACC →
+</a>
+</div>
+
+<div class="package">
+<img src="blox-fruit.jpg">
+<h2>GÓI 3</h2>
+<div class="price">180.000đ</div>
+<a href="giao-acc.html?price=180000" class="buy">
+XEM ACC →
+</a>
+</div>
+
+<div class="package">
+<img src="blox-fruit.jpg">
+<h2>GÓI 4</h2>
+<div class="price">200.000đ</div>
+<a href="giao-acc.html?price=200000" class="buy">
+XEM ACC →
+</a>
+</div>
+
+<div class="package">
+<img src="blox-fruit.jpg">
+<h2>GÓI 5</h2>
+<div class="price">250.000đ</div>
+<a href="giao-acc.html?price=250000" class="buy">
+XEM ACC →
+</a>
+</div>
+
+<div class="package">
+<img src="blox-fruit.jpg">
+<h2>GÓI 6</h2>
+<div class="price">300.000đ</div>
+<a href="giao-acc.html?price=300000" class="buy">
+XEM ACC →
+</a>
+</div>
+
+</div>
 </div>
 
 </body>
