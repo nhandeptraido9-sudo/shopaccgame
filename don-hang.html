@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Đơn hàng - SHOPACCGAME</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef2f7;
+    color:#182238;
+}
+
+header{
+    background:linear-gradient(90deg,#5137df,#347bf0);
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+}
+
+header h1{
+    margin:0 0 8px;
+}
+
+.container{
+    max-width:850px;
+    margin:30px auto;
+    padding:15px;
+}
+
+.box{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
+}
+
+.order{
+    border:1px solid #e1e5ee;
+    border-radius:14px;
+    padding:18px;
+    margin-top:15px;
+}
+
+.order-title{
+    font-size:19px;
+    font-weight:bold;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    margin-top:10px;
+    color:#555;
+}
+
+.status{
+    display:inline-block;
+    margin-top:12px;
+    padding:7px 12px;
+    border-radius:8px;
+    background:#dff7e7;
+    color:#168044;
+    font-weight:bold;
+    font-size:13px;
+}
+
+.account{
+    display:none;
+    margin-top:15px;
+    padding:15px;
+    background:#f5f7fb;
+    border-radius:12px;
+}
+
+.account div{
+    margin:8px 0;
+}
+
+.account strong{
+    display:inline-block;
+    min-width:80px;
+}
+
+.show-btn{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:0;
+    border-radius:10px;
+    background:#5137df;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.back{
+    display:block;
+    margin-top:20px;
+    padding:13px;
+    text-align:center;
+    border-radius:10px;
+    background:#edf0f7;
+    color:#5137df;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.empty{
+    text-align:center;
+    padding:30px 10px;
+    color:#777;
+}
+
+@media(max-width:600px){
+
+    .row{
+        flex-direction:column;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <h1>📦 SHOPACCGAME</h1>
+
+    <p>Đơn hàng đã mua</p>
+
+</header>
+
+
+<div class="container">
+
+<div class="box">
+
+    <h2>
+        📦 Đơn hàng của bạn
+    </h2>
+
+    <div id="orders"></div>
+
+    <a
+        href="khach-hang.html"
+        class="back">
+
+        ← Quay lại khách hàng
+
+    </a>
+
+</div>
+
+</div>
+
+
+<script>
+
+/*
+========================================
+TÀI KHOẢN ĐANG ĐĂNG NHẬP
+========================================
+*/
+
+const currentUser =
+    localStorage.getItem("currentUser");
+
+
+const ordersBox =
+    document.getElementById("orders");
+
+
+/*
+========================================
+NẾU CHƯA ĐĂNG NHẬP
+========================================
+*/
+
+if(!currentUser){
+
+    ordersBox.innerHTML = `
+
+        <div class="empty">
+
+            🔐 Bạn chưa đăng nhập.
+
+            <br><br>
+
+            <a href="login.html">
+                Đăng nhập
+            </a>
+
+        </div>
+
+    `;
+
+}else{
+
+
+    /*
+    ========================================
+    LẤY ĐƠN HÀNG
+    ========================================
+    */
+
+    const allOrders =
+        JSON.parse(
+            localStorage.getItem("shopOrders")
+            || "[]"
+        );
+
+
+    /*
+    ========================================
+    CHỈ LẤY ĐƠN CỦA KHÁCH HIỆN TẠI
+    ========================================
+    */
+
+    const myOrders =
+        allOrders.filter(
+            order =>
+                order.username === currentUser
+        );
+
+
+    /*
+    ========================================
+    KHÔNG CÓ ĐƠN
+    ========================================
+    */
+
+    if(myOrders.length === 0){
+
+        ordersBox.innerHTML = `
+
+            <div class="empty">
+
+                📦 Bạn chưa có đơn hàng nào.
+
+            </div>
+
+        `;
+
+    }else{
+
+
+        /*
+        ====================================
+        HIỂN THỊ ĐƠN
+        ====================================
+        */
+
+        myOrders.forEach(
+            (order,index) => {
+
+            const div =
+                document.createElement("div");
+
+            div.className =
+                "order";
+
+
+            div.innerHTML = `
+
+                <div class="order-title">
+
+                    🎮 ${order.product}
+
+                </div>
+
+
+                <div class="row">
+
+                    <span>
+                        Mã đơn:
+                        <b>${order.id}</b>
+                    </span>
+
+                    <span>
+                        💰 ${order.price}
+                    </span>
+
+                </div>
+
+
+                <div class="row">
+
+                    <span>
+                        Ngày mua:
+                        ${order.date}
+                    </span>
+
+                    <span>
+                        Trạng thái:
+                        ${order.status}
+                    </span>
+
+                </div>
+
+
+                <span class="status">
+
+                    ✅ Đã giao
+
+                </span>
+
+
+                <button
+                    class="show-btn"
+                    onclick="showAccount(${index})">
+
+                    👁 Xem tài khoản
+
+                </button>
+
+
+                <div
+                    class="account"
+                    id="account-${index}">
+
+                    <div>
+                        <strong>👤 Name:</strong>
+                        ${order.accountName}
+                    </div>
+
+                    <div>
+                        <strong>🔑 Pass:</strong>
+                        ${order.accountPass}
+                    </div>
+
+                </div>
+
+            `;
+
+
+            ordersBox.appendChild(div);
+
+        });
+
+    }
+
+}
+
+
+/*
+========================================
+HIỆN / ẨN TÀI KHOẢN
+========================================
+*/
+
+function showAccount(index){
+
+    const account =
+        document.getElementById(
+            "account-" + index
+        );
+
+
+    if(
+        account.style.display === "block"
+    ){
+
+        account.style.display =
+            "none";
+
+    }else{
+
+        account.style.display =
+            "block";
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
