@@ -2,12 +2,10 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>SHOPACCGAME</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SHOPACCGAME - Shop Acc Game</title>
 
 <style>
-
 *{
 box-sizing:border-box;
 }
@@ -15,43 +13,44 @@ box-sizing:border-box;
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#f3f4f6;
-color:#111827;
+background:#0b1020;
+color:#fff;
 }
 
 header{
-position:sticky;
-top:0;
-z-index:1000;
-background:#111827;
-color:white;
-padding:14px 5%;
+height:70px;
+background:#11182d;
 display:flex;
 align-items:center;
 justify-content:space-between;
-gap:20px;
+padding:0 6%;
+border-bottom:1px solid #26304d;
+position:sticky;
+top:0;
+z-index:1000;
 }
 
 .logo{
 font-size:23px;
-font-weight:bold;
+font-weight:900;
+color:#38bdf8;
 }
 
 .nav{
 display:flex;
 align-items:center;
-gap:10px;
+gap:8px;
 }
 
 .nav a{
-color:white;
+color:#dbeafe;
 text-decoration:none;
-padding:10px 13px;
+padding:11px 15px;
 border-radius:8px;
 }
 
 .nav a:hover{
-background:#2563eb;
+background:#1e293b;
 }
 
 .customer-area{
@@ -62,25 +61,23 @@ position:relative;
 border:0;
 background:#2563eb;
 color:white;
-padding:10px 15px;
+padding:11px 16px;
 border-radius:9px;
-cursor:pointer;
-font-size:15px;
 font-weight:bold;
+cursor:pointer;
 }
 
 .customer-menu{
 display:none;
 position:absolute;
 right:0;
-top:48px;
+top:50px;
 width:280px;
-background:white;
-color:#111827;
+background:#172036;
+border:1px solid #334155;
 border-radius:12px;
-box-shadow:0 8px 30px rgba(0,0,0,.2);
 padding:12px;
-z-index:9999;
+box-shadow:0 15px 40px #0008;
 }
 
 .customer-menu.show{
@@ -88,74 +85,106 @@ display:block;
 }
 
 .customer-title{
-font-size:18px;
+font-size:17px;
 font-weight:bold;
 padding:8px;
-border-bottom:1px solid #e5e7eb;
-margin-bottom:8px;
+border-bottom:1px solid #334155;
 }
 
 .customer-info{
 padding:8px;
+color:#cbd5e1;
 font-size:14px;
+}
+
+.customer-info b{
+color:white;
 }
 
 .customer-menu button{
 width:100%;
 border:0;
+background:#24304a;
+color:white;
 padding:11px;
 margin-top:6px;
 border-radius:8px;
-background:#f3f4f6;
 cursor:pointer;
 text-align:left;
-font-size:14px;
 }
 
 .customer-menu button:hover{
-background:#e5e7eb;
+background:#334155;
 }
 
 .logout-button{
-background:#fee2e2!important;
-color:#b91c1c;
+background:#7f1d1d!important;
 }
 
 .hero{
-text-align:center;
-padding:50px 20px;
-background:white;
+max-width:1200px;
+margin:25px auto;
+padding:55px 30px;
+border-radius:20px;
+background:
+linear-gradient(135deg,#172554,#0f172a);
+border:1px solid #263b70;
+}
+
+.hero-small{
+color:#38bdf8;
+font-weight:bold;
 }
 
 .hero h1{
-margin:0 0 10px;
-font-size:35px;
+font-size:42px;
+margin:10px 0;
 }
 
 .hero p{
-color:#6b7280;
+color:#94a3b8;
+font-size:17px;
+}
+
+.hero-buttons{
+display:flex;
+gap:10px;
+margin-top:25px;
+}
+
+.hero-button{
+padding:12px 18px;
+border-radius:9px;
+text-decoration:none;
+font-weight:bold;
+background:#2563eb;
+color:white;
+}
+
+.hero-button.secondary{
+background:#1e293b;
 }
 
 .container{
-max-width:1100px;
-margin:30px auto;
-padding:0 15px;
+max-width:1200px;
+margin:auto;
+padding:20px;
 }
 
-.topbar{
+.section-title{
 display:flex;
 align-items:center;
 justify-content:space-between;
-margin-bottom:20px;
+margin-bottom:18px;
 }
 
-.topbar h2{
+.section-title h2{
 margin:0;
 }
 
 .refresh{
 border:0;
-background:#2563eb;
+background:#1e293b;
 color:white;
 padding:10px 15px;
 border-radius:8px;
@@ -163,35 +192,52 @@ cursor:pointer;
 }
 
 .status{
-padding:15px;
-background:white;
-border-radius:10px;
+background:#11182d;
+border:1px solid #26304d;
+padding:13px;
+border-radius:9px;
 margin-bottom:20px;
-text-align:center;
+color:#cbd5e1;
 }
 
 .packages{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+grid-template-columns:
+repeat(auto-fill,minmax(250px,1fr));
 gap:18px;
 }
 
 .card{
-background:white;
-border-radius:14px;
+background:#11182d;
+border:1px solid #26304d;
+border-radius:15px;
 padding:20px;
-box-shadow:0 3px 15px rgba(0,0,0,.08);
+transition:.2s;
+}
+
+.card:hover{
+transform:translateY(-4px);
+border-color:#2563eb;
+}
+
+.card-icon{
+font-size:35px;
 }
 
 .card h3{
-margin-top:0;
+margin:12px 0 5px;
+}
+
+.card-text{
+color:#94a3b8;
+font-size:14px;
 }
 
 .price{
-font-size:21px;
+font-size:24px;
 font-weight:bold;
-color:#2563eb;
-margin:12px 0;
+color:#38bdf8;
+margin:15px 0;
 }
 
 .buy{
@@ -199,42 +245,49 @@ width:100%;
 padding:12px;
 border:0;
 border-radius:9px;
-background:#16a34a;
+background:#2563eb;
 color:white;
-font-size:15px;
 font-weight:bold;
+font-size:15px;
 cursor:pointer;
 }
 
 .buy:hover{
-background:#15803d;
+background:#1d4ed8;
 }
 
 footer{
 margin-top:50px;
-padding:25px;
-background:#111827;
-color:white;
+padding:30px;
+background:#080c18;
 text-align:center;
+color:#64748b;
 }
 
 @media(max-width:700px){
 
 header{
-flex-wrap:wrap;
+padding:0 15px;
 }
 
-.nav{
-width:100%;
-justify-content:flex-end;
+.nav a{
+display:none;
+}
+
+.hero{
+margin:15px;
+padding:35px 20px;
 }
 
 .hero h1{
-font-size:28px;
+font-size:30px;
+}
+
+.hero-buttons{
+flex-wrap:wrap;
 }
 
 }
-
 </style>
 </head>
 
@@ -243,7 +296,7 @@ font-size:28px;
 <header>
 
 <div class="logo">
-SHOPACCGAME
+🎮 SHOPACCGAME
 </div>
 
 <div class="nav">
@@ -256,32 +309,34 @@ Trang chủ
 
 <button
 class="customer-button"
-onclick="toggleCustomerMenu()"
->
+onclick="toggleCustomerMenu()">
 👤 <span id="customerName">Khách hàng</span> ▾
 </button>
 
 <div
 id="customerMenu"
-class="customer-menu"
->
+class="customer-menu">
 
 <div class="customer-title">
-👤 Tài khoản khách hàng
+👤 Tài khoản
 </div>
 
 <div class="customer-info">
 Tài khoản:
-<b id="menuUsername">Chưa đăng nhập</b>
+<b id="menuUsername">
+Chưa đăng nhập
+</b>
 </div>
 
 <div class="customer-info">
 💰 Số dư:
-<b id="menuBalance">0đ</b>
+<b id="menuBalance">
+0đ
+</b>
 </div>
 
 <button onclick="viewMyAccounts()">
-📦 Thông tin acc đã mua
+📦 Acc đã mua
 </button>
 
 <button onclick="goLogin()">
@@ -290,40 +345,55 @@ Tài khoản:
 
 <button
 class="logout-button"
-onclick="logoutCustomer()"
->
+onclick="logoutCustomer()">
 🚪 Đăng xuất
 </button>
 
 </div>
-
 </div>
 
 </div>
-
 </header>
 <section class="hero">
 
-<h1>🎮 SHOPACCGAME</h1>
+<div class="hero-small">
+🔥 SHOP ACC GAME UY TÍN
+</div>
+
+<h1>
+Mua Acc Game<br>
+Nhanh Chóng & Tiện Lợi
+</h1>
 
 <p>
-Shop bán tài khoản game nhanh chóng và tiện lợi
+Kho tài khoản đa dạng - giao acc tự động -
+thanh toán nhanh chóng.
 </p>
+
+<div class="hero-buttons">
+
+<a
+class="hero-button"
+href="#kho">
+🛒 Xem kho acc
+</a>
+
+<a
+class="hero-button secondary"
+href="login.html">
+🔐 Đăng nhập
+</a>
+
+</div>
 
 </section>
 
 
-<div class="container">
-
 <div
-id="status"
-class="status"
->
-Đang tải kho acc...
-</div>
+class="container"
+id="kho">
 
-
-<div class="topbar">
+<div class="section-title">
 
 <h2>
 🔥 Kho tài khoản
@@ -331,24 +401,34 @@ class="status"
 
 <button
 class="refresh"
-onclick="loadAccounts()"
->
+onclick="loadAccounts()">
 🔄 Làm mới
 </button>
 
 </div>
 
+<div
+id="status"
+class="status">
+Đang tải kho acc...
+</div>
 
 <div
 id="packages"
-class="packages"
-></div>
+class="packages">
+</div>
 
 </div>
 
 
 <footer>
-© 2026 SHOPACCGAME
+
+🎮 SHOPACCGAME
+
+<br><br>
+
+Shop tài khoản game - © 2026
+
 </footer>
 
 
@@ -359,7 +439,6 @@ const API_URL =
 
 
 let selectedPrice=0;
-
 let selectedPackage="";
 
 
@@ -375,11 +454,20 @@ localStorage.getItem("user") ||
 }
 
 
+function money(number){
+
+return Number(number||0)
+.toLocaleString("vi-VN")+"đ";
+
+}
+
+
 function toggleCustomerMenu(){
 
 document
 .getElementById("customerMenu")
-.classList.toggle("show");
+.classList
+.toggle("show");
 
 }
 
@@ -394,14 +482,8 @@ window.location.href="login.html";
 function logoutCustomer(){
 
 localStorage.removeItem("currentUser");
-
 localStorage.removeItem("username");
-
 localStorage.removeItem("user");
-
-localStorage.removeItem("adminUser");
-
-localStorage.removeItem("isAdmin");
 
 window.location.reload();
 
@@ -410,98 +492,52 @@ window.location.reload();
 
 function viewMyAccounts(){
 
-const username=
-getCurrentCustomer();
+if(!getCurrentCustomer()){
 
-if(!username){
+alert("Bạn chưa đăng nhập!");
 
-alert(
-"Bạn chưa đăng nhập!"
-);
-
-window.location.href=
-"login.html";
+window.location.href="login.html";
 
 return;
 
 }
 
-window.location.href=
-"khach-hang.html";
-
-}
-
-
-function money(number){
-
-return Number(number||0)
-.toLocaleString("vi-VN")+"đ";
+window.location.href="khach-hang.html";
 
 }
 
 
 async function updateCustomer(){
 
-const username=
-getCurrentCustomer();
+const username=getCurrentCustomer();
 
-
-const name=
 document.getElementById(
 "customerName"
-);
+).textContent=
+username || "Khách hàng";
 
-const menuUsername=
 document.getElementById(
 "menuUsername"
-);
+).textContent=
+username || "Chưa đăng nhập";
 
-const menuBalance=
-document.getElementById(
-"menuBalance"
-);
-
-
-if(!username){
-
-name.textContent=
-"Khách hàng";
-
-menuUsername.textContent=
-"Chưa đăng nhập";
-
-menuBalance.textContent=
-"0đ";
-
-return;
-
-}
-
-
-name.textContent=
-username;
-
-menuUsername.textContent=
-username;
-
+if(!username)return;
 
 try{
 
-const response=
-await fetch(
+const response=await fetch(
 API_URL+
 "?action=getBalance&username="+
 encodeURIComponent(username)
 );
 
-
-const data=
-await response.json();
-
+const data=await response.json();
 
 if(data.ok){
 
-menuBalance.textContent=
+document.getElementById(
+"menuBalance"
+).textContent=
 money(data.balance);
 
 }
@@ -518,34 +554,25 @@ console.log(error);
 async function loadAccounts(){
 
 const status=
-document.getElementById(
-"status"
-);
+document.getElementById("status");
 
-const packages=
-document.getElementById(
-"packages"
-);
-
+const box=
+document.getElementById("packages");
 
 status.textContent=
 "Đang tải kho acc...";
 
-packages.innerHTML="";
-
+box.innerHTML="";
 
 try{
 
 const response=
 await fetch(
-API_URL+
-"?action=getAccounts"
+API_URL+"?action=getAccounts"
 );
-
 
 const data=
 await response.json();
-
 
 if(!data.ok){
 
@@ -557,16 +584,13 @@ return;
 
 }
 
-
 const accounts=
 (data.accounts||[]).filter(
 account=>
-String(
-account.status
-).trim().toUpperCase()
+String(account.status)
+.toUpperCase()
 ==="CON_HANG"
 );
-
 
 if(accounts.length===0){
 
@@ -577,70 +601,46 @@ return;
 
 }
 
-
 status.textContent=
-"Kho đang có "+
+"🔥 Đang có "+
 accounts.length+
-" tài khoản.";
-
+" acc trong kho";
 
 accounts.forEach(
 function(account){
 
 const card=
-document.createElement(
-"div"
-);
+document.createElement("div");
 
-card.className=
-"card";
+card.className="card";
 
+card.innerHTML=`
 
-const title=
-document.createElement(
-"h3"
-);
+<div class="card-icon">
+🎮
+</div>
 
-title.textContent=
-"🎁 Gói "+
-account.package;
+<h3>
+Gói ${account.package}
+</h3>
 
+<div class="card-text">
+Tài khoản game
+</div>
 
-const label=
-document.createElement(
-"div"
-);
+<div class="price">
+${money(account.price)}
+</div>
 
-label.textContent=
-"Mệnh giá:";
+<button class="buy">
+🛒 Mua ngay
+</button>
 
+`;
 
-const price=
-document.createElement(
-"div"
-);
-
-price.className=
-"price";
-
-price.textContent=
-money(account.price);
-
-
-const button=
-document.createElement(
-"button"
-);
-
-button.className=
-"buy";
-
-button.textContent=
-"🛒 Mua ngay";
-
-
-button.onclick=
-function(){
+card
+.querySelector(".buy")
+.onclick=function(){
 
 buyAccount(
 Number(account.price),
@@ -649,16 +649,7 @@ String(account.package)
 
 };
 
-
-card.appendChild(title);
-
-card.appendChild(label);
-
-card.appendChild(price);
-
-card.appendChild(button);
-
-packages.appendChild(card);
+box.appendChild(card);
 
 });
 
@@ -673,6 +664,8 @@ status.textContent=
 
 }
 
+</script>
+<script>
 
 function buyAccount(
 price,
@@ -682,20 +675,17 @@ packageNumber
 const username=
 getCurrentCustomer();
 
-
 if(!username){
 
 alert(
 "Bạn cần đăng nhập trước khi mua acc!"
 );
 
-window.location.href=
-"login.html";
+window.location.href="login.html";
 
 return;
 
 }
-
 
 selectedPrice=
 Number(price);
@@ -703,24 +693,21 @@ Number(price);
 selectedPackage=
 String(packageNumber);
 
-
 const ok=
 confirm(
-"Mua gói "+
+"Bạn có chắc muốn mua Gói "+
 selectedPackage+
-" giá "+
+" với giá "+
 money(selectedPrice)+
-"?");
+"?"
+);
 
 if(!ok)return;
-
 
 purchaseAccount(username);
 
 }
 
-</script>
-<script>
 
 async function purchaseAccount(
 username
@@ -753,7 +740,6 @@ package:selectedPackage
 
 }
 );
-
 
 const data=
 await response.json();
@@ -815,7 +801,6 @@ const menu=
 document.getElementById(
 "customerMenu"
 );
-
 
 if(
 area &&
