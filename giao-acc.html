@@ -1,324 +1,657 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Thông tin Acc Blox Fruits</title>
+<title>Giao Acc - Shop Karot</title>
 
 <style>
+*{box-sizing:border-box}
+
 body{
-  margin:0;
-  background:#eef3f8;
-  font-family:Arial,sans-serif;
-  color:#172033;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef2f7;
+    color:#182238;
+}
+
+header{
+    background:linear-gradient(90deg,#5137df,#347bf0);
+    color:white;
+    text-align:center;
+    padding:25px 15px;
+}
+
+header h1{
+    margin:0 0 8px;
+}
+
+.container{
+    max-width:600px;
+    margin:35px auto;
+    padding:15px;
 }
 
 .box{
-  max-width:600px;
-  margin:45px auto;
-  background:white;
-  border-radius:18px;
-  padding:25px;
-  box-shadow:0 5px 25px #0002;
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 5px 20px #0002;
+}
+
+.package{
+    text-align:center;
+    background:#f3f5fa;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.package-price{
+    font-size:27px;
+    font-weight:bold;
+    color:#5137df;
 }
 
 .info{
-  padding:15px;
-  margin:10px 0;
-  background:#f4f7fb;
-  border-radius:10px;
+    background:#f5f7fb;
+    padding:16px;
+    border-radius:10px;
+    margin:12px 0;
 }
 
-.account{
-  margin-top:20px;
-  padding:20px;
-  background:#ecfdf3;
-  border-radius:12px;
+.label{
+    color:#777;
+    font-size:14px;
+    margin-bottom:6px;
+}
+
+.value{
+    font-size:20px;
+    font-weight:bold;
+    word-break:break-all;
 }
 
 .copy{
-  width:100%;
-  padding:13px;
-  border:0;
-  border-radius:10px;
-  background:#2563eb;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-  margin-top:10px;
+    width:100%;
+    padding:13px;
+    margin-top:15px;
+    border:0;
+    border-radius:10px;
+    background:#5137df;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 .back{
-  display:inline-block;
-  margin-top:15px;
+    display:block;
+    text-align:center;
+    margin-top:20px;
+    color:#5137df;
+    text-decoration:none;
+}
+
+.warning{
+    margin-top:18px;
+    padding:12px;
+    border-radius:10px;
+    background:#fff3cd;
+    color:#735a16;
+    font-size:13px;
 }
 </style>
 </head>
 
 <body>
 
+<header>
+    <h1>🎮 SHOP KAROT</h1>
+    <p>Thông tin tài khoản</p>
+</header>
+
+
+<div class="container">
+
 <div class="box">
 
-<h1>🎮 Thông tin Acc Blox Fruits</h1>
+    <div class="package">
 
-<div class="info">
-🎁 Gói túi:
-<b id="bag">-</b>
+        <h2 id="packageName">
+            Gói
+        </h2>
+
+        <div
+            class="package-price"
+            id="packagePrice">
+            0K
+        </div>
+
+    </div>
+
+
+    <div class="info">
+
+        <div class="label">
+            👤 Name
+        </div>
+
+        <div
+            class="value"
+            id="accountName">
+            ---
+        </div>
+
+    </div>
+
+
+    <div class="info">
+
+        <div class="label">
+            🔑 Pass
+        </div>
+
+        <div
+            class="value"
+            id="accountPass">
+            ---
+        </div>
+
+    </div>
+
+
+    <button
+        class="copy"
+        onclick="copyAccount()">
+
+        📋 Sao chép Name + Pass
+
+    </button>
+
+
+    <div class="warning">
+
+        ⚠️ Đây là dữ liệu demo.
+        Không đưa mật khẩu tài khoản thật
+        vào GitHub Public.
+
+    </div>
+
+
+    <a
+        class="back"
+        href="tui-mu.html">
+
+        ← Chọn gói khác
+
+    </a>
+
 </div>
 
-<div class="info">
-💰 Mệnh giá:
-<b id="price">-</b>
 </div>
 
-<div class="account">
-
-<h3>✅ Acc của bạn</h3>
-
-<p>
-👤 Username:
-<b id="username">-</b>
-</p>
-
-<p>
-🔑 Password:
-<b id="password">-</b>
-</p>
-
-<button class="copy" onclick="copyAccount()">
-📋 SAO CHÉP THÔNG TIN
-</button>
-
-</div>
-
-<a class="back" href="index.html">
-← Về shop
-</a>
-
-</div>
 
 <script>
 
-const q = new URLSearchParams(location.search);
-
-const bag = q.get("bag") || "1";
-const price = Number(q.get("price") || 0);
-
-document.getElementById("bag").textContent =
-"Túi số " + bag;
-
-document.getElementById("price").textContent =
-price.toLocaleString("vi-VN") + " ₫";
-
-
 /*
 ==================================================
-MỖI GÓI + MỆNH GIÁ = MỘT ACC KHÁC NHAU
+48 GÓI
 ==================================================
 
-Key có dạng:
+Mỗi mệnh giá có 8 gói.
 
-"TÚI_MỆNHGIÁ"
+Cấu trúc:
 
-Ví dụ:
+mệnh giá:
+    gói 1
+    gói 2
+    ...
+    gói 8
 
-"1_0"       = Túi 1 - 0đ
-"1_10000"   = Túi 1 - 10K
-"2_10000"   = Túi 2 - 10K
-"8_20000"   = Túi 8 - 20K
+Các Name + Pass dưới đây là DỮ LIỆU MẪU.
 */
 
-const accounts = {
 
-  /* ===== TÚI 1 ===== */
-
-  "1_0":{
-    username:"bvcbcvb",
-    password:"shoprobloxK"
-  },
-
-  "1_10000":{
-    username:"DEMO_1_10K",
-    password:"PASS_1_10K"
-  },
-
-  "1_20000":{
-    username:"DEMO_1_20K",
-    password:"PASS_1_20K"
-  },
+const ACCOUNTS = {
 
 
-  /* ===== TÚI 2 ===== */
+/* =========================
+   0K - 8 GÓI
+========================= */
 
-  "2_0":{
-    username:"DEMO_2_0K",
-    password:"PASS_2_0K"
-  },
+"0": [
 
-  "2_10000":{
-    username:"DEMO_2_10K",
-    password:"PASS_2_10K"
-  },
+    {
+        name:"ACC_0K_01",
+        pass:"PASS_0K_01"
+    },
 
-  "2_20000":{
-    username:"DEMO_2_20K",
-    password:"PASS_2_20K"
-  },
+    {
+        name:"ACC_0K_02",
+        pass:"PASS_0K_02"
+    },
 
+    {
+        name:"ACC_0K_03",
+        pass:"PASS_0K_03"
+    },
 
-  /* ===== TÚI 3 ===== */
+    {
+        name:"ACC_0K_04",
+        pass:"PASS_0K_04"
+    },
 
-  "3_0":{
-    username:"DEMO_3_0K",
-    password:"PASS_3_0K"
-  },
+    {
+        name:"ACC_0K_05",
+        pass:"PASS_0K_05"
+    },
 
-  "3_10000":{
-    username:"DEMO_3_10K",
-    password:"PASS_3_10K"
-  },
+    {
+        name:"ACC_0K_06",
+        pass:"PASS_0K_06"
+    },
 
-  "3_20000":{
-    username:"DEMO_3_20K",
-    password:"PASS_3_20K"
-  },
+    {
+        name:"ACC_0K_07",
+        pass:"PASS_0K_07"
+    },
 
+    {
+        name:"ACC_0K_08",
+        pass:"PASS_0K_08"
+    }
 
-  /* ===== TÚI 4 ===== */
-
-  "4_0":{
-    username:"DEMO_4_0K",
-    password:"PASS_4_0K"
-  },
-
-  "4_10000":{
-    username:"DEMO_4_10K",
-    password:"PASS_4_10K"
-  },
-
-  "4_20000":{
-    username:"DEMO_4_20K",
-    password:"PASS_4_20K"
-  },
+],
 
 
-  /* ===== TÚI 5 ===== */
+/* =========================
+   10K - 8 GÓI
+========================= */
 
-  "5_0":{
-    username:"DEMO_5_0K",
-    password:"PASS_5_0K"
-  },
+"10000": [
 
-  "5_10000":{
-    username:"DEMO_5_10K",
-    password:"PASS_5_10K"
-  },
+    {
+        name:"ACC_10K_01",
+        pass:"PASS_10K_01"
+    },
 
-  "5_20000":{
-    username:"DEMO_5_20K",
-    password:"PASS_5_20K"
-  },
+    {
+        name:"ACC_10K_02",
+        pass:"PASS_10K_02"
+    },
 
+    {
+        name:"ACC_10K_03",
+        pass:"PASS_10K_03"
+    },
 
-  /* ===== TÚI 6 ===== */
+    {
+        name:"ACC_10K_04",
+        pass:"PASS_10K_04"
+    },
 
-  "6_0":{
-    username:"DEMO_6_0K",
-    password:"PASS_6_0K"
-  },
+    {
+        name:"ACC_10K_05",
+        pass:"PASS_10K_05"
+    },
 
-  "6_10000":{
-    username:"DEMO_6_10K",
-    password:"PASS_6_10K"
-  },
+    {
+        name:"ACC_10K_06",
+        pass:"PASS_10K_06"
+    },
 
-  "6_20000":{
-    username:"DEMO_6_20K",
-    password:"PASS_6_20K"
-  },
+    {
+        name:"ACC_10K_07",
+        pass:"PASS_10K_07"
+    },
 
+    {
+        name:"ACC_10K_08",
+        pass:"PASS_10K_08"
+    }
 
-  /* ===== TÚI 7 ===== */
-
-  "7_0":{
-    username:"DEMO_7_0K",
-    password:"PASS_7_0K"
-  },
-
-  "7_10000":{
-    username:"DEMO_7_10K",
-    password:"PASS_7_10K"
-  },
-
-  "7_20000":{
-    username:"DEMO_7_20K",
-    password:"PASS_7_20K"
-  },
+],
 
 
-  /* ===== TÚI 8 ===== */
+/* =========================
+   20K - 8 GÓI
+========================= */
 
-  "8_0":{
-    username:"DEMO_8_0K",
-    password:"PASS_8_0K"
-  },
+"20000": [
 
-  "8_10000":{
-    username:"DEMO_8_10K",
-    password:"PASS_8_10K"
-  },
+    {
+        name:"ACC_20K_01",
+        pass:"PASS_20K_01"
+    },
 
-  "8_20000":{
-    username:"DEMO_8_20K",
-    password:"PASS_8_20K"
-  }
+    {
+        name:"ACC_20K_02",
+        pass:"PASS_20K_02"
+    },
+
+    {
+        name:"ACC_20K_03",
+        pass:"PASS_20K_03"
+    },
+
+    {
+        name:"ACC_20K_04",
+        pass:"PASS_20K_04"
+    },
+
+    {
+        name:"ACC_20K_05",
+        pass:"PASS_20K_05"
+    },
+
+    {
+        name:"ACC_20K_06",
+        pass:"PASS_20K_06"
+    },
+
+    {
+        name:"ACC_20K_07",
+        pass:"PASS_20K_07"
+    },
+
+    {
+        name:"ACC_20K_08",
+        pass:"PASS_20K_08"
+    }
+
+],
+
+
+/* =========================
+   80K - 8 GÓI
+========================= */
+
+"80000": [
+
+    {
+        name:"ACC_80K_01",
+        pass:"PASS_80K_01"
+    },
+
+    {
+        name:"ACC_80K_02",
+        pass:"PASS_80K_02"
+    },
+
+    {
+        name:"ACC_80K_03",
+        pass:"PASS_80K_03"
+    },
+
+    {
+        name:"ACC_80K_04",
+        pass:"PASS_80K_04"
+    },
+
+    {
+        name:"ACC_80K_05",
+        pass:"PASS_80K_05"
+    },
+
+    {
+        name:"ACC_80K_06",
+        pass:"PASS_80K_06"
+    },
+
+    {
+        name:"ACC_80K_07",
+        pass:"PASS_80K_07"
+    },
+
+    {
+        name:"ACC_80K_08",
+        pass:"PASS_80K_08"
+    }
+
+],
+
+
+/* =========================
+   50K - 8 GÓI
+========================= */
+
+"50000": [
+
+    {
+        name:"ACC_50K_01",
+        pass:"PASS_50K_01"
+    },
+
+    {
+        name:"ACC_50K_02",
+        pass:"PASS_50K_02"
+    },
+
+    {
+        name:"ACC_50K_03",
+        pass:"PASS_50K_03"
+    },
+
+    {
+        name:"ACC_50K_04",
+        pass:"PASS_50K_04"
+    },
+
+    {
+        name:"ACC_50K_05",
+        pass:"PASS_50K_05"
+    },
+
+    {
+        name:"ACC_50K_06",
+        pass:"PASS_50K_06"
+    },
+
+    {
+        name:"ACC_50K_07",
+        pass:"PASS_50K_07"
+    },
+
+    {
+        name:"ACC_50K_08",
+        pass:"PASS_50K_08"
+    }
+
+],
+
+
+/* =========================
+   100K - 8 GÓI
+========================= */
+
+"100000": [
+
+    {
+        name:"ACC_100K_01",
+        pass:"PASS_100K_01"
+    },
+
+    {
+        name:"ACC_100K_02",
+        pass:"PASS_100K_02"
+    },
+
+    {
+        name:"ACC_100K_03",
+        pass:"PASS_100K_03"
+    },
+
+    {
+        name:"ACC_100K_04",
+        pass:"PASS_100K_04"
+    },
+
+    {
+        name:"ACC_100K_05",
+        pass:"PASS_100K_05"
+    },
+
+    {
+        name:"ACC_100K_06",
+        pass:"PASS_100K_06"
+    },
+
+    {
+        name:"ACC_100K_07",
+        pass:"PASS_100K_07"
+    },
+
+    {
+        name:"ACC_100K_08",
+        pass:"PASS_100K_08"
+    }
+
+]
 
 };
 
 
-/* LẤY ĐÚNG ACC */
+/*
+==================================================
+ĐỌC LINK
+==================================================
+*/
 
-const key = bag + "_" + price;
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
 
-const account = accounts[key];
+
+const price =
+    params.get("price");
+
+
+const packageNumber =
+    Number(
+        params.get("package")
+    );
+
+
+/*
+==================================================
+HIỂN THỊ GÓI
+==================================================
+*/
+
+const priceNames = {
+
+    "0":"0K",
+
+    "10000":"10K",
+
+    "20000":"20K",
+
+    "80000":"80K",
+
+    "50000":"50K",
+
+    "100000":"100K"
+
+};
+
+
+const priceText =
+    priceNames[price] || "Không xác định";
+
+
+document.getElementById(
+    "packageName"
+).textContent =
+    "🎁 Gói " + packageNumber;
+
+
+document.getElementById(
+    "packagePrice"
+).textContent =
+    priceText;
+
+
+/*
+==================================================
+LẤY ACC
+==================================================
+*/
+
+const list =
+    ACCOUNTS[price];
+
+
+const account =
+    list &&
+    list[packageNumber - 1];
 
 
 if(account){
 
-  document.getElementById("username").textContent =
-    account.username;
+    document.getElementById(
+        "accountName"
+    ).textContent =
+        account.name;
 
-  document.getElementById("password").textContent =
-    account.password;
+
+    document.getElementById(
+        "accountPass"
+    ).textContent =
+        account.pass;
 
 }else{
 
-  document.getElementById("username").textContent =
-    "Không có acc";
+    document.getElementById(
+        "accountName"
+    ).textContent =
+        "Không tìm thấy";
 
-  document.getElementById("password").textContent =
-    "Không có acc";
+
+    document.getElementById(
+        "accountPass"
+    ).textContent =
+        "---";
 
 }
 
 
-/* COPY */
+/*
+==================================================
+COPY
+==================================================
+*/
 
 function copyAccount(){
 
-  const username =
-    document.getElementById("username").textContent;
+    if(!account){
 
-  const password =
-    document.getElementById("password").textContent;
+        alert(
+            "❌ Không có thông tin acc."
+        );
 
-  const text =
-    "Username: " + username +
-    "\nPassword: " + password;
+        return;
 
-  navigator.clipboard.writeText(text);
+    }
 
-  alert("Đã sao chép thông tin acc!");
+
+    const text =
+        "Name: "
+        + account.name
+        + "\nPass: "
+        + account.pass;
+
+
+    navigator.clipboard
+        .writeText(text)
+        .then(function(){
+
+            alert(
+                "✅ Đã sao chép Name + Pass!"
+            );
+
+        });
 
 }
 
