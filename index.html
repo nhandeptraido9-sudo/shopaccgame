@@ -2,403 +2,271 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SHOPACCGAME</title>
-
 <style>
 *{box-sizing:border-box}
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:#f3f4f6;
-color:#111827
+background:#f4f6f9;
+color:#222
 }
 header{
 background:#111827;
 color:white;
-padding:14px 5%;
+padding:15px 25px;
 display:flex;
 align-items:center;
-justify-content:space-between
+justify-content:space-between;
+position:sticky;
+top:0;
+z-index:100
 }
-.logo{
-font-size:23px;
-font-weight:bold
-}
-.nav{
+.logo{font-size:22px;font-weight:bold}
+.menu{
 display:flex;
 align-items:center;
-gap:10px
+gap:8px;
+flex-wrap:wrap
 }
-.nav a{
+.menu a{
 color:white;
 text-decoration:none;
-padding:10px
-}
-.customer-area{
-position:relative
-}
-.customer-button{
-border:0;
-background:#2563eb;
-color:white;
-padding:10px 15px;
-border-radius:9px;
-cursor:pointer;
+padding:10px 12px;
+border-radius:8px;
 font-weight:bold
 }
-.customer-menu{
-display:none;
-position:absolute;
-right:0;
-top:48px;
-width:280px;
-background:white;
-color:#111;
-border-radius:12px;
-box-shadow:0 8px 30px #0003;
-padding:12px;
-z-index:9999
-}
-.customer-menu.show{
-display:block
-}
-.customer-title{
-font-size:18px;
-font-weight:bold;
-padding:8px;
-border-bottom:1px solid #ddd
-}
-.customer-info{
-padding:8px;
-font-size:14px
-}
-.customer-menu button{
-width:100%;
-border:0;
-padding:11px;
-margin-top:6px;
+.menu a:hover{background:#2563eb}
+.balance{
+background:#2563eb;
+color:white;
+padding:10px 12px;
 border-radius:8px;
-cursor:pointer;
-text-align:left
-}
-.logout-button{
-background:#fee2e2!important;
-color:#b91c1c
+font-weight:bold
 }
 .hero{
-text-align:center;
-padding:45px 20px;
-background:white
-}
-.hero h1{
-margin:0 0 10px;
-font-size:34px
-}
-.container{
 max-width:1100px;
 margin:30px auto;
-padding:0 15px
-}
-.status{
-padding:15px;
-background:white;
-border-radius:10px;
-margin-bottom:20px;
+padding:50px 20px;
+border-radius:20px;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+color:white;
 text-align:center
 }
-.packages{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:18px
+.hero h1{font-size:38px;margin:0}
+.hero p{font-size:18px}
+.btn{
+display:inline-block;
+padding:13px 22px;
+margin:5px;
+border-radius:10px;
+text-decoration:none;
+font-weight:bold
 }
-.card{
+.btn-white{background:white;color:#2563eb}
+.btn-green{background:#16a34a;color:white}
+.container{
+max-width:1100px;
+margin:auto;
+padding:0 15px 40px
+}
+.title{text-align:center;margin:35px 0 20px}
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px
+}
+.product{
 background:white;
-border-radius:14px;
-padding:20px;
-box-shadow:0 3px 15px #0001
+padding:22px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,.08)
+}
+.product a{
+display:block;
+background:#2563eb;
+color:white;
+padding:12px;
+border-radius:9px;
+text-decoration:none;
+font-weight:bold
 }
 .price{
-font-size:21px;
-font-weight:bold;
 color:#2563eb;
-margin:12px 0
-}
-.buy{
-width:100%;
-padding:12px;
-border:0;
-border-radius:9px;
-background:#16a34a;
-color:white;
+font-size:20px;
 font-weight:bold;
-cursor:pointer
+margin:12px
+}
+footer{
+background:#111827;
+color:white;
+text-align:center;
+padding:25px
 }
 </style>
 </head>
-
 <body>
-
 <header>
 
 <div class="logo">
 SHOPACCGAME
 </div>
 
-<div class="nav">
+<nav class="menu">
 
-<a href="index.html">Trang chủ</a>
+<a href="index.html">
+🏠 Trang chủ
+</a>
 
-<div class="customer-area">
+<a href="tui-mu.html">
+🎁 Túi mù
+</a>
 
-<button
-class="customer-button"
-onclick="toggleCustomerMenu()">
-👤 <span id="customerName">Khách hàng</span> ▾
-</button>
+<a href="nap-tien.html">
+💰 Nạp tiền
+</a>
 
-<div id="customerMenu" class="customer-menu">
+<span id="balanceBox" class="balance">
+Số dư: 0đ
+</span>
 
-<div class="customer-title">
-👤 Tài khoản khách hàng
-</div>
+<a href="login.html">
+👤 Đăng nhập
+</a>
 
-<div class="customer-info">
-Tài khoản:
-<b id="menuUsername">Chưa đăng nhập</b>
-</div>
+</nav>
 
-<div class="customer-info">
-💰 Số dư:
-<b id="menuBalance">0đ</b>
-</div>
-
-<button onclick="viewMyAccounts()">
-📦 Thông tin acc đã mua
-</button>
-
-<button onclick="goLogin()">
-🔐 Đăng nhập
-</button>
-
-<button
-class="logout-button"
-onclick="logoutCustomer()">
-🚪 Đăng xuất
-</button>
-
-</div>
-</div>
-
-</div>
 </header>
+
 <section class="hero">
 
-<h1>🎮 SHOPACCGAME</h1>
+<h1>
+SHOPACCGAME
+</h1>
 
-<p>Shop bán tài khoản game nhanh chóng và tiện lợi</p>
+<p>
+Shop tài khoản game - Túi mù - Nạp tiền
+</p>
+
+<a class="btn btn-white" href="tui-mu.html">
+🎁 Mua túi mù
+</a>
+
+<a class="btn btn-green" href="nap-tien.html">
+💰 Nạp tiền
+</a>
 
 </section>
 
 <div class="container">
 
-<div id="status" class="status">
-Đang tải kho acc...
+<h2 class="title">
+🎮 Danh mục
+</h2>
+
+<div class="products">
+
+<div class="product">
+<h3>🎁 Túi mù</h3>
+<p>Mua túi mù và nhận tài khoản.</p>
+<div class="price">Nhiều mệnh giá</div>
+<a href="tui-mu.html">
+Xem túi mù
+</a>
 </div>
 
-<h2>🔥 Kho tài khoản</h2>
+<div class="product">
+<h3>💰 Nạp tiền</h3>
+<p>Nạp tiền bằng ngân hàng hoặc thẻ cào.</p>
+<div class="price">Nạp ngay</div>
+<a href="nap-tien.html">
+Nạp tiền
+</a>
+</div>
 
-<div id="packages" class="packages"></div>
+<div class="product">
+<h3>👤 Tài khoản</h3>
+<p>Đăng nhập để quản lý tài khoản.</p>
+<div class="price">Thành viên</div>
+<a href="login.html">
+Đăng nhập
+</a>
+</div>
 
 </div>
 
-<script>
+</div>
+
+<footer>
+© 2026 SHOPACCGAME
+</footer>
+  <script>
 
 const API_URL =
-"https://script.google.com/macros/s/AKfycbyrF_FUCu_yCPEf9TL-140ElpNZqdrUy6yGnWpAUvBB5W00jJu3Xw4Mfne2Jd5IIfBDgA/exec";
+"https://script.google.com/macros/s/AKfycbxVOLUsIdJ0fGc9hMzUklnumAQUYtqmyhkfsMK7x3acF7fmQT27JL3e12_GZGWAiZ6Fgw/exec";
 
 
-function getCurrentCustomer(){
+function getUsername(){
 
 return (
-localStorage.getItem("currentUser") ||
 localStorage.getItem("username") ||
 localStorage.getItem("user") ||
+localStorage.getItem("taikhoan") ||
 ""
 ).trim();
 
 }
 
 
-function toggleCustomerMenu(){
+function formatMoney(number){
 
-document
-.getElementById("customerMenu")
-.classList.toggle("show");
-
-}
-
-
-function goLogin(){
-
-window.location.href="login.html";
+return Number(number || 0)
+.toLocaleString("vi-VN") + "đ";
 
 }
 
 
-function logoutCustomer(){
+async function loadBalance(){
 
-localStorage.removeItem("currentUser");
-localStorage.removeItem("username");
-localStorage.removeItem("user");
+const username =
+getUsername();
 
-window.location.reload();
+const box =
+document.getElementById("balanceBox");
 
-}
+if(!username){
 
-
-function viewMyAccounts(){
-
-if(!getCurrentCustomer()){
-
-alert("Bạn chưa đăng nhập!");
-
-window.location.href="login.html";
+box.textContent="Số dư: 0đ";
 
 return;
 
 }
 
-window.location.href="khach-hang.html";
-
-}
-
-
-async function updateCustomer(){
-
-const username=getCurrentCustomer();
-
-document.getElementById("customerName")
-.textContent=username || "Khách hàng";
-
-document.getElementById("menuUsername")
-.textContent=username || "Chưa đăng nhập";
-
-if(!username)return;
-
 try{
 
-const res=await fetch(
-API_URL+
-"?action=getBalance&username="+
+const response =
+await fetch(
+API_URL +
+"?action=getBalance&username=" +
 encodeURIComponent(username)
 );
 
-const data=await res.json();
+const data =
+await response.json();
 
 if(data.ok){
 
-document.getElementById("menuBalance")
-.textContent=
-Number(data.balance||0)
-.toLocaleString("vi-VN")+"đ";
+box.textContent =
+"Số dư: " +
+formatMoney(data.balance);
 
 }
 
-}catch(e){
+}catch(error){
 
-console.log(e);
-
-}
-
-}
-
-
-function money(number){
-
-return Number(number||0)
-.toLocaleString("vi-VN")+"đ";
-
-}
-
-
-async function loadAccounts(){
-
-const status=document.getElementById("status");
-const box=document.getElementById("packages");
-
-status.textContent="Đang tải kho acc...";
-box.innerHTML="";
-
-try{
-
-const res=await fetch(
-API_URL+"?action=getAccounts"
-);
-
-const data=await res.json();
-
-if(!data.ok){
-
-status.textContent=
-data.message||"Lỗi tải kho";
-
-return;
-
-}
-
-const accounts=data.accounts.filter(
-a=>String(a.status).toUpperCase()==="CON_HANG"
-);
-
-if(accounts.length===0){
-
-status.textContent="Kho hiện đang hết acc.";
-
-return;
-
-}
-
-status.textContent=
-"Kho đang có "+accounts.length+" tài khoản.";
-
-accounts.forEach(account=>{
-
-const card=document.createElement("div");
-
-card.className="card";
-
-card.innerHTML=`
-
-<h3>🎁 Gói ${account.package}</h3>
-
-<div>Mệnh giá:</div>
-
-<div class="price">
-${money(account.price)}
-</div>
-
-<button
-class="buy"
-onclick="buyAccount(
-${Number(account.price)},
-'${String(account.package).replace(/'/g,"\\'")}'
-)">
-🛒 Mua ngay
-</button>
-
-`;
-
-box.appendChild(card);
-
-});
-
-}catch(e){
-
-console.log(e);
-
-status.textContent=
-"Không kết nối được Apps Script.";
+console.log(error);
 
 }
 
@@ -409,159 +277,10 @@ document.addEventListener(
 "DOMContentLoaded",
 function(){
 
-updateCustomer();
-loadAccounts();
-
-});
-
-</script>
-<footer style="
-margin-top:50px;
-padding:25px;
-background:#111827;
-color:white;
-text-align:center;
-">
-© 2026 SHOPACCGAME
-</footer>
-
-<script>
-
-let selectedPrice=0;
-let selectedPackage="";
-
-
-function buyAccount(price,packageNumber){
-
-const username=getCurrentCustomer();
-
-if(!username){
-
-alert("Bạn cần đăng nhập trước khi mua acc!");
-
-window.location.href="login.html";
-
-return;
-
-}
-
-selectedPrice=Number(price);
-selectedPackage=String(packageNumber);
-
-
-const confirmBuy=
-confirm(
-"Mua gói "+selectedPackage+
-" giá "+money(selectedPrice)+"?"
-);
-
-
-if(!confirmBuy)return;
-
-
-purchaseAccount(username);
-
-}
-
-
-async function purchaseAccount(username){
-
-try{
-
-const response=await fetch(
-API_URL,
-{
-method:"POST",
-
-headers:{
-"Content-Type":
-"text/plain;charset=utf-8"
-},
-
-body:JSON.stringify({
-
-action:"getAccount",
-
-username:username,
-
-price:selectedPrice,
-
-package:selectedPackage
-
-})
+loadBalance();
 
 }
 );
-
-
-const data=await response.json();
-
-
-if(!data.ok){
-
-alert(
-data.message||
-"Mua acc thất bại!"
-);
-
-return;
-
-}
-
-
-alert(
-"MUA ACC THÀNH CÔNG!\n\n"+
-"Mã đơn: "+data.orderId+
-"\nTên acc: "+data.accountName+
-"\nMật khẩu: "+data.accountPass+
-"\nSố dư còn lại: "+
-money(data.balance)
-);
-
-
-updateCustomer();
-
-loadAccounts();
-
-
-}catch(error){
-
-console.error(error);
-
-alert(
-"Không kết nối được Apps Script!"
-);
-
-}
-
-}
-
-
-document.addEventListener(
-"click",
-function(event){
-
-const area=
-document.querySelector(
-".customer-area"
-);
-
-const menu=
-document.getElementById(
-"customerMenu"
-);
-
-if(
-area &&
-menu &&
-!area.contains(event.target)
-){
-
-menu.classList.remove("show");
-
-}
-
-});
 
 </script>
 
