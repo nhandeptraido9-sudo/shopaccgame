@@ -980,6 +980,70 @@ renderOrders();
 
 
 </script>
+<!-- ==============================
+     TẠO ĐƠN HÀNG
+============================== -->
 
+<div class="box">
+
+    <h2>📦 Tạo đơn hàng</h2>
+
+    <label>👤 Tên khách hàng</label>
+
+    <input
+        id="orderUsername"
+        type="text"
+        placeholder="Nhập tên tài khoản khách"
+    >
+
+
+    <label>🎮 Sản phẩm</label>
+
+    <input
+        id="orderProduct"
+        type="text"
+        value="Acc Blox Fruits"
+    >
+
+
+    <label>💰 Giá</label>
+
+    <input
+        id="orderPrice"
+        type="text"
+        placeholder="Ví dụ: 50.000đ"
+    >
+
+
+    <label>👤 Name Acc Blox Fruits</label>
+
+    <input
+        id="accountName"
+        type="text"
+        placeholder="Nhập Name acc"
+    >
+
+
+    <label>🔑 Pass Acc Blox Fruits</label>
+
+    <input
+        id="accountPass"
+        type="password"
+        placeholder="Nhập Pass acc"
+    >
+
+
+    <button
+        type="button"
+        onclick="createOrder()">
+
+        📦 Giao đơn hàng
+
+    </button>
+
+
+    <div id="orderMessage"></div>
+
+</div>
 </body>
 </html>
