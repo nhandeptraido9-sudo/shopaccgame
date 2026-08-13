@@ -7,7 +7,6 @@
 <title>Túi Mù - SHOPKAROT</title>
 
 <style>
-
 *{
     box-sizing:border-box;
 }
@@ -21,37 +20,32 @@ body{
 
 header{
     background:linear-gradient(90deg,#5137df,#347bf0);
-    color:white;
+    color:#fff;
     text-align:center;
-    padding:28px 15px;
+    padding:30px 15px;
 }
 
 header h1{
     margin:0 0 8px;
 }
 
-header p{
-    margin:0;
-}
-
 .container{
-    max-width:1050px;
+    width:min(1050px,94%);
     margin:30px auto;
-    padding:15px;
 }
 
 .box{
-    background:white;
+    background:#fff;
     padding:25px;
     border-radius:18px;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
     margin-bottom:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
 label{
     display:block;
-    margin:15px 0 7px;
     font-weight:bold;
+    margin:15px 0 7px;
 }
 
 input,
@@ -61,54 +55,47 @@ select{
     border:1px solid #ccd2df;
     border-radius:10px;
     font-size:16px;
-    outline:none;
-}
-
-input:focus,
-select:focus{
-    border-color:#5137df;
 }
 
 .info{
     background:#fff7dc;
-    padding:14px;
     border-radius:10px;
+    padding:14px;
     margin-bottom:20px;
 }
 
 .package-list{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:15px;
-    margin-top:20px;
+    gap:16px;
 }
 
 .package{
     background:#f7f8fc;
-    border:1px solid #e0e4ed;
+    border:1px solid #e1e5ee;
     border-radius:15px;
     padding:20px;
 }
 
 .package h3{
-    margin-top:0;
     color:#5137df;
+    margin-top:0;
 }
 
 .package-info{
     line-height:1.8;
-    margin-bottom:15px;
 }
 
 .package-price{
-    font-size:22px;
-    font-weight:bold;
     color:#5137df;
+    font-weight:bold;
+    font-size:20px;
 }
 
 .buy-btn{
     width:100%;
-    padding:13px;
+    margin-top:15px;
+    padding:14px;
     border:0;
     border-radius:10px;
     background:linear-gradient(90deg,#6647ee,#3e79ee);
@@ -116,10 +103,6 @@ select:focus{
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
-}
-
-.buy-btn:hover{
-    opacity:.9;
 }
 
 .buy-btn:disabled{
@@ -130,23 +113,23 @@ select:focus{
 .message{
     text-align:center;
     min-height:25px;
-    margin-top:18px;
+    margin-top:20px;
     font-weight:bold;
 }
 
 .result{
     display:none;
-    margin-top:20px;
     background:#f5f7fb;
     padding:20px;
     border-radius:14px;
+    margin-top:20px;
 }
 
 .account-box{
     background:white;
-    padding:16px;
-    margin-top:10px;
-    border-radius:12px;
+    padding:15px;
+    border-radius:10px;
+    margin-top:8px;
     word-break:break-word;
 }
 
@@ -159,14 +142,6 @@ select:focus{
     color:#5137df;
     font-weight:bold;
     cursor:pointer;
-}
-
-.copy-btn:hover{
-    background:#e0e4ef;
-}
-
-.history{
-    margin-top:20px;
 }
 
 .order{
@@ -194,588 +169,509 @@ select:focus{
 }
 
 @media(max-width:700px){
-
     .package-list{
         grid-template-columns:1fr;
     }
-
-    .container{
-        padding:10px;
-    }
-
-    .box{
-        padding:18px;
-    }
-
 }
-
 </style>
 </head>
 
-
 <body>
 
-
 <header>
-
-<h1>🎁 TÚI MÙ ACC BLOX FRUITS</h1>
-
-<p>
-Chọn mệnh giá → chọn gói → Mua ngay
-</p>
-
+    <h1>🎁 TÚI MÙ ACC BLOX FRUITS</h1>
+    <p>Chọn mệnh giá và chọn gói muốn mua</p>
 </header>
 
 
 <div class="container">
 
 
-<!-- ==================================
-     THÔNG TIN MUA
-================================== -->
+<!-- THÔNG TIN -->
 
 <div class="box">
 
-<h2>🛒 Mua Túi Mù</h2>
+    <h2>🛒 Thông tin mua hàng</h2>
+
+    <div class="info">
+        ⚠️ Chọn đúng mệnh giá và gói.
+        Hệ thống sẽ lấy acc đúng
+        <b>mệnh giá + gói</b>.
+    </div>
 
 
-<div class="info">
+    <label>
+        👤 Tên khách hàng
+    </label>
 
-⚠️ Chọn đúng mệnh giá và gói.
-Hệ thống sẽ lấy <b>1 acc còn hàng</b> đúng với mệnh giá + gói bạn chọn.
+    <input
+        id="customerName"
+        type="text"
+        placeholder="Nhập tên khách hàng"
+    >
+
+
+    <label>
+        💰 Mệnh giá
+    </label>
+
+    <!-- 0K ĐƯỢC ĐẶT ĐẦU TIÊN -->
+
+    <select
+        id="price"
+        onchange="updatePrices()">
+
+        <option value="0">
+            0K
+        </option>
+
+        <option value="10000">
+            10K
+        </option>
+
+        <option value="20000">
+            20K
+        </option>
+
+        <option value="50000">
+            50K
+        </option>
+
+        <option value="80000">
+            80K
+        </option>
+
+        <option value="100000">
+            100K
+        </option>
+
+    </select>
 
 </div>
 
 
-<label>
-👤 Tên khách hàng
-</label>
-
-<input
-id="customerName"
-type="text"
-placeholder="Nhập tên tài khoản khách"
->
-
-
-<label>
-💰 Chọn mệnh giá
-</label>
-
-<select
-id="price"
-onchange="updatePrice()">
-
-<option value="0">
-0K
-</option>
-
-<option value="10000">
-10K
-</option>
-
-<option value="20000">
-20K
-</option>
-
-<option value="50000">
-50K
-</option>
-
-<option value="80000">
-80K
-</option>
-
-<option value="100000">
-100K
-</option>
-
-</select>
-
-</div>
-
-
-<!-- ==================================
-     8 GÓI
-================================== -->
+<!-- 8 GÓI -->
 
 <div class="box">
 
-<h2>
-🎁 Chọn gói
-</h2>
+    <h2>🎁 Chọn gói</h2>
 
+    <div class="package-list">
 
-<div class="package-list">
 
+        <!-- GÓI 1 -->
 
-<!-- GÓI 1 -->
+        <div class="package">
 
-<div class="package">
+            <h3>🎁 Gói 1</h3>
 
-<h3>
-🎁 Gói 1
-</h3>
+            <div class="package-info">
 
-<div class="package-info">
+                💰 Giá:
+                <span
+                    id="price1"
+                    class="package-price">
+                    0K
+                </span>
 
-💰 Mệnh giá:
+                <br>
 
-<span
-class="package-price"
-id="price1">
+                🎮 Sản phẩm:
+                Acc Blox Fruits
 
-0K
+                <br>
 
-</span>
+                📦 Gói:
+                <b>1</b>
 
-<br>
+            </div>
 
-🎮 Acc Blox Fruits
+            <button
+                class="buy-btn"
+                onclick="buyPackage(1)">
 
-<br>
+                🛒 MUA GÓI 1
 
-📦 Gói số: <b>1</b>
+            </button>
 
-</div>
+        </div>
 
-<button
-class="buy-btn"
-onclick="buyPackage(1)">
 
-🛒 MUA GÓI 1
+        <!-- GÓI 2 -->
 
-</button>
+        <div class="package">
 
-</div>
+            <h3>🎁 Gói 2</h3>
 
+            <div class="package-info">
 
-<!-- GÓI 2 -->
+                💰 Giá:
+                <span
+                    id="price2"
+                    class="package-price">
+                    0K
+                </span>
 
-<div class="package">
+                <br>
 
-<h3>
-🎁 Gói 2
-</h3>
+                🎮 Sản phẩm:
+                Acc Blox Fruits
 
-<div class="package-info">
+                <br>
 
-💰 Mệnh giá:
+                📦 Gói:
+                <b>2</b>
 
-<span
-class="package-price"
-id="price2">
+            </div>
 
-0K
+            <button
+                class="buy-btn"
+                onclick="buyPackage(2)">
 
-</span>
+                🛒 MUA GÓI 2
 
-<br>
+            </button>
 
-🎮 Acc Blox Fruits
+        </div>
 
-<br>
 
-📦 Gói số: <b>2</b>
+        <!-- GÓI 3 -->
 
-</div>
+        <div class="package">
 
-<button
-class="buy-btn"
-onclick="buyPackage(2)">
+            <h3>🎁 Gói 3</h3>
 
-🛒 MUA GÓI 2
+            <div class="package-info">
 
-</button>
+                💰 Giá:
+                <span
+                    id="price3"
+                    class="package-price">
+                    0K
+                </span>
 
-</div>
+                <br>
 
+                🎮 Sản phẩm:
+                Acc Blox Fruits
 
-<!-- GÓI 3 -->
+                <br>
 
-<div class="package">
+                📦 Gói:
+                <b>3</b>
 
-<h3>
-🎁 Gói 3
-</h3>
+            </div>
 
-<div class="package-info">
+            <button
+                class="buy-btn"
+                onclick="buyPackage(3)">
 
-💰 Mệnh giá:
+                🛒 MUA GÓI 3
 
-<span
-class="package-price"
-id="price3">
+            </button>
 
-0K
+        </div>
 
-</span>
 
-<br>
+        <!-- GÓI 4 -->
 
-🎮 Acc Blox Fruits
+        <div class="package">
 
-<br>
+            <h3>🎁 Gói 4</h3>
 
-📦 Gói số: <b>3</b>
+            <div class="package-info">
 
-</div>
+                💰 Giá:
+                <span
+                    id="price4"
+                    class="package-price">
+                    0K
+                </span>
 
-<button
-class="buy-btn"
-onclick="buyPackage(3)">
+                <br>
 
-🛒 MUA GÓI 3
+                🎮 Sản phẩm:
+                Acc Blox Fruits
 
-</button>
+                <br>
 
-</div>
+                📦 Gói:
+                <b>4</b>
 
+            </div>
 
-<!-- GÓI 4 -->
+            <button
+                class="buy-btn"
+                onclick="buyPackage(4)">
 
-<div class="package">
+                🛒 MUA GÓI 4
 
-<h3>
-🎁 Gói 4
-</h3>
+            </button>
 
-<div class="package-info">
+        </div>
 
-💰 Mệnh giá:
 
-<span
-class="package-price"
-id="price4">
+        <!-- GÓI 5 -->
 
-0K
+        <div class="package">
 
-</span>
+            <h3>🎁 Gói 5</h3>
 
-<br>
+            <div class="package-info">
 
-🎮 Acc Blox Fruits
+                💰 Giá:
+                <span
+                    id="price5"
+                    class="package-price">
+                    0K
+                </span>
 
-<br>
+                <br>
 
-📦 Gói số: <b>4</b>
+                🎮 Sản phẩm:
+                Acc Blox Fruits
 
-</div>
+                <br>
 
-<button
-class="buy-btn"
-onclick="buyPackage(4)">
+                📦 Gói:
+                <b>5</b>
 
-🛒 MUA GÓI 4
+            </div>
 
-</button>
+            <button
+                class="buy-btn"
+                onclick="buyPackage(5)">
 
-</div>
+                🛒 MUA GÓI 5
 
+            </button>
 
-<!-- GÓI 5 -->
+        </div>
 
-<div class="package">
 
-<h3>
-🎁 Gói 5
-</h3>
+        <!-- GÓI 6 -->
 
-<div class="package-info">
+        <div class="package">
 
-💰 Mệnh giá:
+            <h3>🎁 Gói 6</h3>
 
-<span
-class="package-price"
-id="price5">
+            <div class="package-info">
 
-0K
+                💰 Giá:
+                <span
+                    id="price6"
+                    class="package-price">
+                    0K
+                </span>
 
-</span>
+                <br>
 
-<br>
+                🎮 Sản phẩm:
+                Acc Blox Fruits
 
-🎮 Acc Blox Fruits
+                <br>
 
-<br>
+                📦 Gói:
+                <b>6</b>
 
-📦 Gói số: <b>5</b>
+            </div>
 
-</div>
+            <button
+                class="buy-btn"
+                onclick="buyPackage(6)">
 
-<button
-class="buy-btn"
-onclick="buyPackage(5)">
+                🛒 MUA GÓI 6
 
-🛒 MUA GÓI 5
+            </button>
 
-</button>
+        </div>
 
-</div>
 
+        <!-- GÓI 7 -->
 
-<!-- GÓI 6 -->
+        <div class="package">
 
-<div class="package">
+            <h3>🎁 Gói 7</h3>
 
-<h3>
-🎁 Gói 6
-</h3>
+            <div class="package-info">
 
-<div class="package-info">
+                💰 Giá:
+                <span
+                    id="price7"
+                    class="package-price">
+                    0K
+                </span>
 
-💰 Mệnh giá:
+                <br>
 
-<span
-class="package-price"
-id="price6">
+                🎮 Sản phẩm:
+                Acc Blox Fruits
 
-0K
+                <br>
 
-</span>
+                📦 Gói:
+                <b>7</b>
 
-<br>
+            </div>
 
-🎮 Acc Blox Fruits
+            <button
+                class="buy-btn"
+                onclick="buyPackage(7)">
 
-<br>
+                🛒 MUA GÓI 7
 
-📦 Gói số: <b>6</b>
+            </button>
 
-</div>
+        </div>
 
-<button
-class="buy-btn"
-onclick="buyPackage(6)">
 
-🛒 MUA GÓI 6
+        <!-- GÓI 8 -->
 
-</button>
+        <div class="package">
 
-</div>
+            <h3>🎁 Gói 8</h3>
 
+            <div class="package-info">
 
-<!-- GÓI 7 -->
+                💰 Giá:
+                <span
+                    id="price8"
+                    class="package-price">
+                    0K
+                </span>
 
-<div class="package">
+                <br>
 
-<h3>
-🎁 Gói 7
-</h3>
+                🎮 Sản phẩm:
+                Acc Blox Fruits
 
-<div class="package-info">
+                <br>
 
-💰 Mệnh giá:
+                📦 Gói:
+                <b>8</b>
 
-<span
-class="package-price"
-id="price7">
+            </div>
 
-0K
+            <button
+                class="buy-btn"
+                onclick="buyPackage(8)">
 
-</span>
+                🛒 MUA GÓI 8
 
-<br>
+            </button>
 
-🎮 Acc Blox Fruits
+        </div>
 
-<br>
 
-📦 Gói số: <b>7</b>
+    </div>
 
-</div>
 
-<button
-class="buy-btn"
-onclick="buyPackage(7)">
+    <div
+        id="message"
+        class="message">
+    </div>
 
-🛒 MUA GÓI 7
 
-</button>
+    <!-- KẾT QUẢ -->
 
-</div>
+    <div
+        id="result"
+        class="result">
 
+        <h2>🎉 MUA THÀNH CÔNG</h2>
 
-<!-- GÓI 8 -->
+        <p>📦 Mã đơn:</p>
 
-<div class="package">
+        <div class="account-box">
+            <b id="orderId"></b>
+        </div>
 
-<h3>
-🎁 Gói 8
-</h3>
 
-<div class="package-info">
+        <p>👤 Khách:</p>
 
-💰 Mệnh giá:
+        <div class="account-box">
+            <b id="resultCustomer"></b>
+        </div>
 
-<span
-class="package-price"
-id="price8">
 
-0K
+        <p>💰 Mệnh giá:</p>
 
-</span>
+        <div class="account-box">
+            <b id="resultPrice"></b>
+        </div>
 
-<br>
 
-🎮 Acc Blox Fruits
+        <p>🎁 Gói:</p>
 
-<br>
+        <div class="account-box">
+            <b id="resultPackage"></b>
+        </div>
 
-📦 Gói số: <b>8</b>
 
-</div>
+        <p>👤 Name acc:</p>
 
-<button
-class="buy-btn"
-onclick="buyPackage(8)">
+        <div class="account-box">
 
-🛒 MUA GÓI 8
+            <b id="accountName"></b>
 
-</button>
+            <br>
 
-</div>
+            <button
+                class="copy-btn"
+                onclick="copyName()">
 
+                📋 Sao chép Name
 
-</div>
+            </button>
 
+        </div>
 
-<div
-id="message"
-class="message">
-</div>
 
+        <p>🔑 Pass acc:</p>
 
-<!-- ==================================
-     KẾT QUẢ GIAO ACC
-================================== -->
+        <div class="account-box">
 
-<div
-id="result"
-class="result">
+            <b id="accountPass"></b>
 
-<h2>
-🎉 MUA THÀNH CÔNG
-</h2>
+            <br>
 
+            <button
+                class="copy-btn"
+                onclick="copyPass()">
 
-<p>
-📦 Mã đơn:
-</p>
+                📋 Sao chép Pass
 
-<div class="account-box">
+            </button>
 
-<b id="orderId"></b>
+        </div>
 
-</div>
-
-
-<p>
-👤 Khách:
-</p>
-
-<div class="account-box">
-
-<b id="resultCustomer"></b>
-
-</div>
-
-
-<p>
-💰 Mệnh giá:
-</p>
-
-<div class="account-box">
-
-<b id="resultPrice"></b>
-
-</div>
-
-
-<p>
-🎁 Gói:
-</p>
-
-<div class="account-box">
-
-<b id="resultPackage"></b>
+    </div>
 
 </div>
 
 
-<p>
-👤 Name acc:
-</p>
-
-<div class="account-box">
-
-<b id="accountName"></b>
-
-<br>
-
-<button
-class="copy-btn"
-onclick="copyAccountName()">
-
-📋 Sao chép Name
-
-</button>
-
-</div>
-
-
-<p>
-🔑 Pass acc:
-</p>
-
-<div class="account-box">
-
-<b id="accountPass"></b>
-
-<br>
-
-<button
-class="copy-btn"
-onclick="copyAccountPass()">
-
-📋 Sao chép Pass
-
-</button>
-
-</div>
-
-
-</div>
-
-</div>
-
-
-<!-- ==================================
-     LỊCH SỬ ĐƠN
-================================== -->
+<!-- LỊCH SỬ -->
 
 <div class="box">
 
-<h2>
-📦 Đơn hàng của bạn
-</h2>
+    <h2>📦 Đơn hàng của bạn</h2>
 
-<div id="orderHistory">
+    <div id="orderHistory">
 
-<div class="empty">
-Chưa có đơn hàng.
-</div>
+        <div class="empty">
+            Chưa có đơn hàng.
+        </div>
 
-</div>
+    </div>
 
 </div>
 
 
 <a
-href="index.html"
-class="back">
+    href="index.html"
+    class="back">
 
-← Quay lại Shop
+    ← Quay lại Shop
 
 </a>
 
@@ -785,42 +681,19 @@ class="back">
 
 <script>
 
-
-/* ==================================
-   APPS SCRIPT API
-================================== */
+/* =================================
+   GOOGLE APPS SCRIPT
+================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbyF1CkNgj6wXjsBj6c8qve0W_5WBqFgq1i9Gic_MI5czERAPfgw2pxD1KMxEp7QCMWMCg/exec";
 
 
-/* ==================================
-   FORMAT GIÁ
-================================== */
+/* =================================
+   ĐỔI GIÁ CHO 8 GÓI
+================================= */
 
-function formatPrice(value){
-
-    const number =
-        Number(value);
-
-    if(
-        isNaN(number)
-    ){
-        return value;
-    }
-
-    return (
-        number / 1000
-    ) + "K";
-
-}
-
-
-/* ==================================
-   CẬP NHẬT GIÁ CHO 8 GÓI
-================================== */
-
-function updatePrice(){
+function updatePrices(){
 
     const price =
         document
@@ -849,9 +722,35 @@ function updatePrice(){
 }
 
 
-/* ==================================
-   MUA GÓI
-================================== */
+/* =================================
+   FORMAT GIÁ
+================================= */
+
+function formatPrice(value){
+
+    const number =
+        Number(value);
+
+
+    if(
+        number === 0
+    ){
+
+        return "0K";
+
+    }
+
+
+    return (
+        number / 1000
+    ) + "K";
+
+}
+
+
+/* =================================
+   MUA ACC
+================================= */
 
 async function buyPackage(
     packageNumber
@@ -896,13 +795,7 @@ async function buyPackage(
             "#e53935";
 
         message.textContent =
-            "❌ Vui lòng nhập tên tài khoản khách.";
-
-        document
-        .getElementById(
-            "customerName"
-        )
-        .focus();
+            "❌ Vui lòng nhập tên khách hàng.";
 
         return;
 
@@ -937,22 +830,6 @@ async function buyPackage(
 
         }
     );
-
-
-    const clickedButton =
-        buttons[
-            packageNumber - 1
-        ];
-
-
-    if(
-        clickedButton
-    ){
-
-        clickedButton.textContent =
-            "⏳ Đang mua...";
-
-    }
 
 
     try{
@@ -1007,8 +884,7 @@ async function buyPackage(
                 "orderId"
             )
             .textContent =
-                data.orderId ||
-                "";
+                data.orderId || "";
 
 
             document
@@ -1043,8 +919,7 @@ async function buyPackage(
                 "accountName"
             )
             .textContent =
-                data.accountName ||
-                "";
+                data.accountName || "";
 
 
             document
@@ -1052,8 +927,7 @@ async function buyPackage(
                 "accountPass"
             )
             .textContent =
-                data.accountPass ||
-                "";
+                data.accountPass || "";
 
 
             result.style.display =
@@ -1083,7 +957,7 @@ async function buyPackage(
                 "❌ " +
                 (
                     data.message ||
-                    "Gói này hiện đã hết acc."
+                    "Gói này đã hết acc."
                 );
 
         }
@@ -1091,9 +965,7 @@ async function buyPackage(
 
     }catch(error){
 
-        console.error(
-            error
-        );
+        console.error(error);
 
         message.style.color =
             "#e53935";
@@ -1113,23 +985,12 @@ async function buyPackage(
         }
     );
 
-
-    if(
-        clickedButton
-    ){
-
-        clickedButton.textContent =
-            "🛒 MUA GÓI " +
-            packageNumber;
-
-    }
-
 }
 
 
-/* ==================================
+/* =================================
    LƯU ĐƠN
-================================== */
+================================= */
 
 function saveOrder(
     data,
@@ -1138,11 +999,9 @@ function saveOrder(
 
     const orders =
         JSON.parse(
-
             localStorage.getItem(
                 "shopOrders"
             ) || "[]"
-
         );
 
 
@@ -1183,19 +1042,17 @@ function saveOrder(
 }
 
 
-/* ==================================
-   LỊCH SỬ ĐƠN
-================================== */
+/* =================================
+   HIỂN THỊ ĐƠN
+================================= */
 
 function loadOrders(){
 
     const orders =
         JSON.parse(
-
             localStorage.getItem(
                 "shopOrders"
             ) || "[]"
-
         );
 
 
@@ -1210,13 +1067,8 @@ function loadOrders(){
         orders.length === 0
     ){
 
-        box.innerHTML = `
-
-            <div class="empty">
-                📦 Chưa có đơn hàng.
-            </div>
-
-        `;
+        box.innerHTML =
+            '<div class="empty">📦 Chưa có đơn hàng.</div>';
 
         return;
 
@@ -1247,61 +1099,43 @@ function loadOrders(){
             item.innerHTML = `
 
                 📦 Mã đơn:
-
                 <b>
-                    ${escapeHTML(
-                        order.id
-                    )}
+                    ${escapeHTML(order.id)}
                 </b>
 
                 <br><br>
 
                 👤 Khách:
-
                 <b>
-                    ${escapeHTML(
-                        order.username
-                    )}
+                    ${escapeHTML(order.username)}
                 </b>
 
                 <br><br>
 
                 💰 Giá:
-
                 ${escapeHTML(
-                    formatPrice(
-                        order.price
-                    )
+                    formatPrice(order.price)
                 )}
 
                 <br><br>
 
                 🎁 Gói:
-
                 <b>
-                    Gói ${escapeHTML(
-                        order.package
-                    )}
+                    Gói ${escapeHTML(order.package)}
                 </b>
 
                 <br><br>
 
                 👤 Name:
-
                 <b>
-                    ${escapeHTML(
-                        order.accountName
-                    )}
+                    ${escapeHTML(order.accountName)}
                 </b>
 
                 <br><br>
 
                 🔑 Pass:
-
                 <b>
-                    ${escapeHTML(
-                        order.accountPass
-                    )}
+                    ${escapeHTML(order.accountPass)}
                 </b>
 
             `;
@@ -1317,11 +1151,11 @@ function loadOrders(){
 }
 
 
-/* ==================================
+/* =================================
    COPY NAME
-================================== */
+================================= */
 
-function copyAccountName(){
+function copyName(){
 
     const value =
         document
@@ -1331,18 +1165,22 @@ function copyAccountName(){
         .textContent;
 
 
-    copyText(
-        value
+    navigator.clipboard
+    .writeText(value)
+    .then(
+        () => alert(
+            "✅ Đã sao chép Name!"
+        )
     );
 
 }
 
 
-/* ==================================
+/* =================================
    COPY PASS
-================================== */
+================================= */
 
-function copyAccountPass(){
+function copyPass(){
 
     const value =
         document
@@ -1352,83 +1190,42 @@ function copyAccountPass(){
         .textContent;
 
 
-    copyText(
-        value
+    navigator.clipboard
+    .writeText(value)
+    .then(
+        () => alert(
+            "✅ Đã sao chép Pass!"
+        )
     );
 
 }
 
 
-/* ==================================
-   COPY
-================================== */
+/* =================================
+   ESCAPE
+================================= */
 
-function copyText(
-    value
-){
-
-    if(
-        navigator.clipboard
-    ){
-
-        navigator
-        .clipboard
-        .writeText(
-            value
-        )
-        .then(
-            function(){
-
-                alert(
-                    "✅ Đã sao chép!"
-                );
-
-            }
-        );
-
-    }else{
-
-        alert(
-            value
-        );
-
-    }
-
-}
-
-
-/* ==================================
-   ESCAPE HTML
-================================== */
-
-function escapeHTML(
-    value
-){
+function escapeHTML(value){
 
     return String(
         value ?? ""
     )
-
     .replace(
         /&/g,
         "&amp;"
     )
-
     .replace(
         /</g,
         "&lt;"
     )
-
     .replace(
         />/g,
         "&gt;"
     )
-
     .replace(
         /"/g,
         "&quot;"
     )
-
     .replace(
         /'/g,
         "&#039;"
@@ -1437,11 +1234,11 @@ function escapeHTML(
 }
 
 
-/* ==================================
+/* =================================
    KHỞI ĐỘNG
-================================== */
+================================= */
 
-updatePrice();
+updatePrices();
 
 loadOrders();
 
