@@ -15,7 +15,7 @@
 body{
     margin:0;
     font-family:Arial,sans-serif;
-    background:#f1f4f9;
+    background:#eef2f7;
     color:#182238;
 }
 
@@ -35,7 +35,7 @@ header p{
 }
 
 .container{
-    max-width:1000px;
+    max-width:1050px;
     margin:30px auto;
     padding:15px;
 }
@@ -44,8 +44,8 @@ header p{
     background:white;
     padding:25px;
     border-radius:18px;
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
     margin-bottom:20px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
 label{
@@ -61,6 +61,19 @@ select{
     border:1px solid #ccd2df;
     border-radius:10px;
     font-size:16px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#5137df;
+}
+
+.info{
+    background:#fff7dc;
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:20px;
 }
 
 .package-list{
@@ -83,8 +96,14 @@ select{
 }
 
 .package-info{
-    line-height:1.7;
+    line-height:1.8;
     margin-bottom:15px;
+}
+
+.package-price{
+    font-size:22px;
+    font-weight:bold;
+    color:#5137df;
 }
 
 .buy-btn{
@@ -97,6 +116,10 @@ select{
     font-size:16px;
     font-weight:bold;
     cursor:pointer;
+}
+
+.buy-btn:hover{
+    opacity:.9;
 }
 
 .buy-btn:disabled{
@@ -138,22 +161,8 @@ select{
     cursor:pointer;
 }
 
-.info{
-    background:#fff7dc;
-    padding:14px;
-    border-radius:10px;
-    margin-bottom:15px;
-}
-
-.back{
-    display:block;
-    text-align:center;
-    padding:14px;
-    background:#e9edf5;
-    color:#5137df;
-    text-decoration:none;
-    border-radius:10px;
-    font-weight:bold;
+.copy-btn:hover{
+    background:#e0e4ef;
 }
 
 .history{
@@ -171,6 +180,17 @@ select{
     text-align:center;
     color:#777;
     padding:15px;
+}
+
+.back{
+    display:block;
+    text-align:center;
+    padding:14px;
+    background:#e9edf5;
+    color:#5137df;
+    text-decoration:none;
+    border-radius:10px;
+    font-weight:bold;
 }
 
 @media(max-width:700px){
@@ -192,6 +212,7 @@ select{
 </style>
 </head>
 
+
 <body>
 
 
@@ -199,7 +220,9 @@ select{
 
 <h1>🎁 TÚI MÙ ACC BLOX FRUITS</h1>
 
-<p>Chọn mệnh giá → chọn đúng gói → Mua ngay</p>
+<p>
+Chọn mệnh giá → chọn gói → Mua ngay
+</p>
 
 </header>
 
@@ -208,24 +231,24 @@ select{
 
 
 <!-- ==================================
-     MUA TÚI MÙ
+     THÔNG TIN MUA
 ================================== -->
 
 <div class="box">
 
-<h2>🛒 Chọn túi mù</h2>
+<h2>🛒 Mua Túi Mù</h2>
 
 
 <div class="info">
 
-⚠️ Chọn đúng mệnh giá trước khi mua.
-Mỗi gói sẽ lấy <b>1 acc</b> đúng với mệnh giá và số gói.
+⚠️ Chọn đúng mệnh giá và gói.
+Hệ thống sẽ lấy <b>1 acc còn hàng</b> đúng với mệnh giá + gói bạn chọn.
 
 </div>
 
 
 <label>
-👤 Tên tài khoản khách
+👤 Tên khách hàng
 </label>
 
 <input
@@ -239,7 +262,13 @@ placeholder="Nhập tên tài khoản khách"
 💰 Chọn mệnh giá
 </label>
 
-<select id="price">
+<select
+id="price"
+onchange="updatePrice()">
+
+<option value="0">
+0K
+</option>
 
 <option value="10000">
 10K
@@ -263,10 +292,19 @@ placeholder="Nhập tên tài khoản khách"
 
 </select>
 
+</div>
+
 
 <!-- ==================================
      8 GÓI
 ================================== -->
+
+<div class="box">
+
+<h2>
+🎁 Chọn gói
+</h2>
+
 
 <div class="package-list">
 
@@ -282,19 +320,22 @@ placeholder="Nhập tên tài khoản khách"
 <div class="package-info">
 
 💰 Mệnh giá:
-<b class="show-price">
-10K
-</b>
+
+<span
+class="package-price"
+id="price1">
+
+0K
+
+</span>
 
 <br>
 
-📦 Sản phẩm:
-Acc Blox Fruits
+🎮 Acc Blox Fruits
 
 <br>
 
-🔢 Gói:
-Gói 1
+📦 Gói số: <b>1</b>
 
 </div>
 
@@ -320,19 +361,22 @@ onclick="buyPackage(1)">
 <div class="package-info">
 
 💰 Mệnh giá:
-<b class="show-price">
-10K
-</b>
+
+<span
+class="package-price"
+id="price2">
+
+0K
+
+</span>
 
 <br>
 
-📦 Sản phẩm:
-Acc Blox Fruits
+🎮 Acc Blox Fruits
 
 <br>
 
-🔢 Gói:
-Gói 2
+📦 Gói số: <b>2</b>
 
 </div>
 
@@ -358,19 +402,22 @@ onclick="buyPackage(2)">
 <div class="package-info">
 
 💰 Mệnh giá:
-<b class="show-price">
-10K
-</b>
+
+<span
+class="package-price"
+id="price3">
+
+0K
+
+</span>
 
 <br>
 
-📦 Sản phẩm:
-Acc Blox Fruits
+🎮 Acc Blox Fruits
 
 <br>
 
-🔢 Gói:
-Gói 3
+📦 Gói số: <b>3</b>
 
 </div>
 
@@ -396,19 +443,22 @@ onclick="buyPackage(3)">
 <div class="package-info">
 
 💰 Mệnh giá:
-<b class="show-price">
-10K
-</b>
+
+<span
+class="package-price"
+id="price4">
+
+0K
+
+</span>
 
 <br>
 
-📦 Sản phẩm:
-Acc Blox Fruits
+🎮 Acc Blox Fruits
 
 <br>
 
-🔢 Gói:
-Gói 4
+📦 Gói số: <b>4</b>
 
 </div>
 
@@ -434,19 +484,22 @@ onclick="buyPackage(4)">
 <div class="package-info">
 
 💰 Mệnh giá:
-<b class="show-price">
-10K
-</b>
+
+<span
+class="package-price"
+id="price5">
+
+0K
+
+</span>
 
 <br>
 
-📦 Sản phẩm:
-Acc Blox Fruits
+🎮 Acc Blox Fruits
 
 <br>
 
-🔢 Gói:
-Gói 5
+📦 Gói số: <b>5</b>
 
 </div>
 
@@ -472,19 +525,22 @@ onclick="buyPackage(5)">
 <div class="package-info">
 
 💰 Mệnh giá:
-<b class="show-price">
-10K
-</b>
+
+<span
+class="package-price"
+id="price6">
+
+0K
+
+</span>
 
 <br>
 
-📦 Sản phẩm:
-Acc Blox Fruits
+🎮 Acc Blox Fruits
 
 <br>
 
-🔢 Gói:
-Gói 6
+📦 Gói số: <b>6</b>
 
 </div>
 
@@ -510,19 +566,22 @@ onclick="buyPackage(6)">
 <div class="package-info">
 
 💰 Mệnh giá:
-<b class="show-price">
-10K
-</b>
+
+<span
+class="package-price"
+id="price7">
+
+0K
+
+</span>
 
 <br>
 
-📦 Sản phẩm:
-Acc Blox Fruits
+🎮 Acc Blox Fruits
 
 <br>
 
-🔢 Gói:
-Gói 7
+📦 Gói số: <b>7</b>
 
 </div>
 
@@ -548,19 +607,22 @@ onclick="buyPackage(7)">
 <div class="package-info">
 
 💰 Mệnh giá:
-<b class="show-price">
-10K
-</b>
+
+<span
+class="package-price"
+id="price8">
+
+0K
+
+</span>
 
 <br>
 
-📦 Sản phẩm:
-Acc Blox Fruits
+🎮 Acc Blox Fruits
 
 <br>
 
-🔢 Gói:
-Gói 8
+📦 Gói số: <b>8</b>
 
 </div>
 
@@ -609,6 +671,17 @@ class="result">
 
 
 <p>
+👤 Khách:
+</p>
+
+<div class="account-box">
+
+<b id="resultCustomer"></b>
+
+</div>
+
+
+<p>
 💰 Mệnh giá:
 </p>
 
@@ -642,7 +715,7 @@ class="result">
 
 <button
 class="copy-btn"
-onclick="copyText('accountName')">
+onclick="copyAccountName()">
 
 📋 Sao chép Name
 
@@ -663,13 +736,14 @@ onclick="copyText('accountName')">
 
 <button
 class="copy-btn"
-onclick="copyText('accountPass')">
+onclick="copyAccountPass()">
 
 📋 Sao chép Pass
 
 </button>
 
 </div>
+
 
 </div>
 
@@ -713,7 +787,7 @@ class="back">
 
 
 /* ==================================
-   API
+   APPS SCRIPT API
 ================================== */
 
 const API_URL =
@@ -721,64 +795,56 @@ const API_URL =
 
 
 /* ==================================
-   ĐỔI MỆNH GIÁ TRÊN 8 GÓI
+   FORMAT GIÁ
 ================================== */
-
-const priceSelect =
-document.getElementById(
-"price"
-);
-
-
-priceSelect.addEventListener(
-"change",
-updatePrices
-);
-
-
-function updatePrices(){
-
-const price =
-priceSelect.value;
-
-
-const text =
-formatPrice(price);
-
-
-document
-.querySelectorAll(
-".show-price"
-)
-.forEach(
-element => {
-
-element.textContent =
-text;
-
-});
-
-}
-
 
 function formatPrice(value){
 
-const number =
-Number(value);
+    const number =
+        Number(value);
 
+    if(
+        isNaN(number)
+    ){
+        return value;
+    }
 
-if(
-number === 0
-){
-
-return "0K";
+    return (
+        number / 1000
+    ) + "K";
 
 }
 
 
-return (
-number / 1000
-) + "K";
+/* ==================================
+   CẬP NHẬT GIÁ CHO 8 GÓI
+================================== */
+
+function updatePrice(){
+
+    const price =
+        document
+        .getElementById("price")
+        .value;
+
+    const text =
+        formatPrice(price);
+
+
+    for(
+        let i = 1;
+        i <= 8;
+        i++
+    ){
+
+        document
+        .getElementById(
+            "price" + i
+        )
+        .textContent =
+            text;
+
+    }
 
 }
 
@@ -788,446 +854,507 @@ number / 1000
 ================================== */
 
 async function buyPackage(
-packageNumber
+    packageNumber
 ){
 
-const customerName =
-document
-.getElementById(
-"customerName"
-)
-.value
-.trim();
+    const customerName =
+        document
+        .getElementById(
+            "customerName"
+        )
+        .value
+        .trim();
 
 
-const price =
-document
-.getElementById(
-"price"
-)
-.value;
+    const price =
+        document
+        .getElementById(
+            "price"
+        )
+        .value;
 
 
-const message =
-document
-.getElementById(
-"message"
-);
+    const message =
+        document
+        .getElementById(
+            "message"
+        );
 
 
-const result =
-document
-.getElementById(
-"result"
-);
+    const result =
+        document
+        .getElementById(
+            "result"
+        );
 
 
-if(
-!customerName
-){
+    if(
+        !customerName
+    ){
 
-message.style.color =
-"#e53935";
+        message.style.color =
+            "#e53935";
 
-message.textContent =
-"❌ Vui lòng nhập tên tài khoản khách.";
+        message.textContent =
+            "❌ Vui lòng nhập tên tài khoản khách.";
 
-return;
+        document
+        .getElementById(
+            "customerName"
+        )
+        .focus();
 
-}
+        return;
 
+    }
 
-message.style.color =
-"#5137df";
 
-message.textContent =
-"⏳ Đang kiểm tra kho...";
+    message.style.color =
+        "#5137df";
 
+    message.textContent =
+        "⏳ Đang lấy acc Gói " +
+        packageNumber +
+        "...";
 
-result.style.display =
-"none";
 
+    result.style.display =
+        "none";
 
-const buttons =
-document
-.querySelectorAll(
-".buy-btn"
-);
 
+    const buttons =
+        document
+        .querySelectorAll(
+            ".buy-btn"
+        );
 
-buttons.forEach(
-button => {
 
-button.disabled =
-true;
+    buttons.forEach(
+        button => {
 
-});
+            button.disabled =
+                true;
 
+        }
+    );
 
-const clickedButton =
-buttons[
-packageNumber - 1
-];
 
+    const clickedButton =
+        buttons[
+            packageNumber - 1
+        ];
 
-if(clickedButton){
 
-clickedButton.textContent =
-"⏳ Đang mua...";
+    if(
+        clickedButton
+    ){
 
-}
+        clickedButton.textContent =
+            "⏳ Đang mua...";
 
+    }
 
-try{
 
+    try{
 
-const response =
-await fetch(
-API_URL,
-{
+        const response =
+            await fetch(
+                API_URL,
+                {
 
-method:"POST",
+                    method:"POST",
 
-body:JSON.stringify({
+                    body:
+                    JSON.stringify({
 
-action:
-"getAccount",
+                        action:
+                            "getAccount",
 
-price:
-price,
+                        price:
+                            price,
 
-package:
-String(
-packageNumber
-),
+                        package:
+                            String(
+                                packageNumber
+                            ),
 
-username:
-customerName
+                        username:
+                            customerName
 
-})
+                    })
 
-}
-);
+                }
+            );
 
 
-const data =
-await response.json();
+        const data =
+            await response.json();
 
 
-if(
-data.ok
-){
+        if(
+            data.ok
+        ){
 
-message.style.color =
-"#00a66a";
+            message.style.color =
+                "#00a66a";
 
-message.textContent =
-"✅ Đã giao acc thành công!";
+            message.textContent =
+                "✅ Đã giao acc thành công!";
 
 
-document
-.getElementById(
-"orderId"
-)
-.textContent =
-data.orderId;
+            document
+            .getElementById(
+                "orderId"
+            )
+            .textContent =
+                data.orderId ||
+                "";
 
 
-document
-.getElementById(
-"resultPrice"
-)
-.textContent =
-formatPrice(
-data.price
-);
+            document
+            .getElementById(
+                "resultCustomer"
+            )
+            .textContent =
+                customerName;
 
 
-document
-.getElementById(
-"resultPackage"
-)
-.textContent =
-"Gói " +
-data.package;
+            document
+            .getElementById(
+                "resultPrice"
+            )
+            .textContent =
+                formatPrice(
+                    data.price
+                );
 
 
-document
-.getElementById(
-"accountName"
-)
-.textContent =
-data.accountName;
+            document
+            .getElementById(
+                "resultPackage"
+            )
+            .textContent =
+                "Gói " +
+                data.package;
 
 
-document
-.getElementById(
-"accountPass"
-)
-.textContent =
-data.accountPass;
+            document
+            .getElementById(
+                "accountName"
+            )
+            .textContent =
+                data.accountName ||
+                "";
 
 
-result.style.display =
-"block";
+            document
+            .getElementById(
+                "accountPass"
+            )
+            .textContent =
+                data.accountPass ||
+                "";
 
 
-saveOrder(
-data
-);
+            result.style.display =
+                "block";
 
 
-loadOrders();
+            saveOrder(
+                data,
+                customerName
+            );
 
 
-/*
-   Cuộn xuống phần
-   tài khoản
-*/
+            loadOrders();
 
-setTimeout(
-function(){
 
-result.scrollIntoView({
-behavior:"smooth"
-});
+            result.scrollIntoView({
+                behavior:"smooth"
+            });
 
-},
-200
-);
 
+        }else{
 
-}else{
+            message.style.color =
+                "#e53935";
 
-message.style.color =
-"#e53935";
+            message.textContent =
+                "❌ " +
+                (
+                    data.message ||
+                    "Gói này hiện đã hết acc."
+                );
 
-message.textContent =
-"❌ " +
-(
-data.message ||
-"Gói này hiện đã hết acc."
-);
+        }
 
-}
 
+    }catch(error){
 
-}catch(error){
+        console.error(
+            error
+        );
 
-console.error(error);
+        message.style.color =
+            "#e53935";
 
-message.style.color =
-"#e53935";
+        message.textContent =
+            "❌ Không kết nối được máy chủ.";
 
-message.textContent =
-"❌ Không kết nối được máy chủ.";
+    }
 
-}finally{
 
+    buttons.forEach(
+        button => {
 
-buttons.forEach(
-button => {
+            button.disabled =
+                false;
 
-button.disabled =
-false;
+        }
+    );
 
-});
 
+    if(
+        clickedButton
+    ){
 
-if(clickedButton){
+        clickedButton.textContent =
+            "🛒 MUA GÓI " +
+            packageNumber;
 
-clickedButton.textContent =
-"🛒 MUA GÓI " +
-packageNumber;
-
-}
-
-}
+    }
 
 }
 
 
 /* ==================================
-   LƯU ĐƠN KHÁCH
+   LƯU ĐƠN
 ================================== */
 
-function saveOrder(data){
+function saveOrder(
+    data,
+    customerName
+){
 
-const orders =
-JSON.parse(
+    const orders =
+        JSON.parse(
 
-localStorage.getItem(
-"shopOrders"
-) || "[]"
+            localStorage.getItem(
+                "shopOrders"
+            ) || "[]"
 
-);
-
-
-orders.push({
-
-id:
-data.orderId,
-
-username:
-data.username,
-
-price:
-data.price,
-
-package:
-data.package,
-
-accountName:
-data.accountName,
-
-accountPass:
-data.accountPass,
-
-time:
-new Date()
-.toISOString()
-
-});
+        );
 
 
-localStorage.setItem(
-"shopOrders",
-JSON.stringify(
-orders
-)
-);
+    orders.push({
+
+        id:
+            data.orderId,
+
+        username:
+            customerName,
+
+        price:
+            data.price,
+
+        package:
+            data.package,
+
+        accountName:
+            data.accountName,
+
+        accountPass:
+            data.accountPass,
+
+        time:
+            new Date()
+            .toISOString()
+
+    });
+
+
+    localStorage.setItem(
+        "shopOrders",
+        JSON.stringify(
+            orders
+        )
+    );
 
 }
 
 
 /* ==================================
-   HIỂN THỊ LỊCH SỬ
+   LỊCH SỬ ĐƠN
 ================================== */
 
 function loadOrders(){
 
-const orders =
-JSON.parse(
+    const orders =
+        JSON.parse(
 
-localStorage.getItem(
-"shopOrders"
-) || "[]"
+            localStorage.getItem(
+                "shopOrders"
+            ) || "[]"
 
-);
-
-
-const box =
-document
-.getElementById(
-"orderHistory"
-);
+        );
 
 
-if(
-orders.length === 0
-){
+    const box =
+        document
+        .getElementById(
+            "orderHistory"
+        );
 
-box.innerHTML = `
 
-<div class="empty">
-📦 Chưa có đơn hàng.
-</div>
+    if(
+        orders.length === 0
+    ){
 
-`;
+        box.innerHTML = `
 
-return;
+            <div class="empty">
+                📦 Chưa có đơn hàng.
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    box.innerHTML =
+        "";
+
+
+    orders
+    .slice()
+    .reverse()
+    .forEach(
+        order => {
+
+            const item =
+                document
+                .createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "order";
+
+
+            item.innerHTML = `
+
+                📦 Mã đơn:
+
+                <b>
+                    ${escapeHTML(
+                        order.id
+                    )}
+                </b>
+
+                <br><br>
+
+                👤 Khách:
+
+                <b>
+                    ${escapeHTML(
+                        order.username
+                    )}
+                </b>
+
+                <br><br>
+
+                💰 Giá:
+
+                ${escapeHTML(
+                    formatPrice(
+                        order.price
+                    )
+                )}
+
+                <br><br>
+
+                🎁 Gói:
+
+                <b>
+                    Gói ${escapeHTML(
+                        order.package
+                    )}
+                </b>
+
+                <br><br>
+
+                👤 Name:
+
+                <b>
+                    ${escapeHTML(
+                        order.accountName
+                    )}
+                </b>
+
+                <br><br>
+
+                🔑 Pass:
+
+                <b>
+                    ${escapeHTML(
+                        order.accountPass
+                    )}
+                </b>
+
+            `;
+
+
+            box.appendChild(
+                item
+            );
+
+        }
+    );
 
 }
 
 
-box.innerHTML =
-"";
+/* ==================================
+   COPY NAME
+================================== */
+
+function copyAccountName(){
+
+    const value =
+        document
+        .getElementById(
+            "accountName"
+        )
+        .textContent;
 
 
-orders
-.slice()
-.reverse()
-.forEach(
-order => {
+    copyText(
+        value
+    );
+
+}
 
 
-const item =
-document
-.createElement(
-"div"
-);
+/* ==================================
+   COPY PASS
+================================== */
+
+function copyAccountPass(){
+
+    const value =
+        document
+        .getElementById(
+            "accountPass"
+        )
+        .textContent;
 
 
-item.className =
-"order";
-
-
-item.innerHTML = `
-
-📦 Mã đơn:
-
-<b>
-${escapeHTML(
-order.id
-)}
-</b>
-
-<br><br>
-
-👤 Khách:
-
-<b>
-${escapeHTML(
-order.username
-)}
-</b>
-
-<br><br>
-
-💰 Giá:
-
-${escapeHTML(
-formatPrice(
-order.price
-)
-)}
-
-<br><br>
-
-🎁 Gói:
-
-Gói ${escapeHTML(
-order.package
-)}
-
-<br><br>
-
-👤 Name:
-
-<b>
-${escapeHTML(
-order.accountName
-)}
-</b>
-
-<br><br>
-
-🔑 Pass:
-
-<b>
-${escapeHTML(
-order.accountPass
-)}
-</b>
-
-`;
-
-
-box.appendChild(
-item
-);
-
-});
+    copyText(
+        value
+    );
 
 }
 
@@ -1237,81 +1364,75 @@ item
 ================================== */
 
 function copyText(
-elementId
+    value
 ){
 
-const value =
-document
-.getElementById(
-elementId
-)
-.textContent;
+    if(
+        navigator.clipboard
+    ){
 
+        navigator
+        .clipboard
+        .writeText(
+            value
+        )
+        .then(
+            function(){
 
-if(
-navigator.clipboard
-){
+                alert(
+                    "✅ Đã sao chép!"
+                );
 
-navigator.clipboard
-.writeText(
-value
-)
-.then(
-function(){
+            }
+        );
 
-alert(
-"✅ Đã sao chép!"
-);
+    }else{
 
-});
+        alert(
+            value
+        );
 
-}else{
-
-alert(
-value
-);
-
-}
+    }
 
 }
 
 
 /* ==================================
-   BẢO VỆ HTML
+   ESCAPE HTML
 ================================== */
 
 function escapeHTML(
-value
+    value
 ){
 
-return String(
-value ?? ""
-)
+    return String(
+        value ?? ""
+    )
 
-.replace(
-/&/g,
-"&amp;"
-)
+    .replace(
+        /&/g,
+        "&amp;"
+    )
 
-.replace(
-/</g,
-"&lt;"
-)
+    .replace(
+        /</g,
+        "&lt;"
+    )
 
-.replace(
-/>/g,
-"&gt;"
-)
+    .replace(
+        />/g,
+        "&gt;"
+    )
 
-.replace(
-/"/g,
-"&quot;"
-)
+    .replace(
+        /"/g,
+        "&quot;"
+    )
 
-.replace(
-/'/g,
-"&#039;"
-);
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
@@ -1320,7 +1441,7 @@ value ?? ""
    KHỞI ĐỘNG
 ================================== */
 
-updatePrices();
+updatePrice();
 
 loadOrders();
 
