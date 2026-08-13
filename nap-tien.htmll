@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nạp tiền - ShopAccGame</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #222;
+}
+
+.header {
+  background: #111827;
+  color: white;
+  padding: 18px 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.header a {
+  color: white;
+  text-decoration: none;
+  margin-left: 15px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 15px;
+}
+
+.balance {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+  text-align: center;
+}
+
+.balance-title {
+  color: #666;
+  font-size: 15px;
+}
+
+.balance-money {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,.08);
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 13px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #e5e7eb;
+  font-weight: bold;
+}
+
+.tab.active {
+  background: #2563eb;
+  color: white;
+}
+
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+label {
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 6px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 9px;
+  font-size: 15px;
+}
+
+button.submit {
+  width: 100%;
+  margin-top: 18px;
+  padding: 13px;
+  border: 0;
+  border-radius: 9px;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button.submit:hover {
+  background: #1d4ed8;
+}
+
+.bank-box {
+  background: #f3f4f6;
+  border-radius: 12px;
+  padding: 18px;
+  line-height: 1.8;
+  margin-top: 15px;
+}
+
+.bank-box b {
+  color: #111827;
+}
+
+.note {
+  background: #fff7ed;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.message {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 9px;
+  display: none;
+}
+
+.success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.history {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.history th,
+.history td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  font-size: 14px;
+}
+
+.history th {
+  background: #f3f4f6;
+}
+
+.status {
+  font-weight: bold;
+}
+
+@media(max-width:600px) {
+  .header {
+    padding: 15px;
+  }
+
+  .tabs {
+    flex-direction: column;
+  }
+
+  .history {
+    font-size: 12px;
+  }
+
+  .history th,
+  .history td {
+    padding: 7px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="logo">SHOPACCGAME</div>
+
+  <div>
+    <a href="index.html">Trang chủ</a>
+    <a href="login.html">Đăng nhập</a>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- SỐ DƯ -->
+
+  <div class="balance">
+
+    <div class="balance-title">
+      Số dư tài khoản
+    </div>
+
+    <div
+      id="balance"
+      class="balance-money"
+    >
+      0đ
+    </div>
+
+    <div
+      id="usernameDisplay"
+      style="margin-top:8px;color:#666"
+    >
+      Chưa đăng nhập
+    </div>
+
+  </div>
+
+
+  <!-- NẠP TIỀN -->
+
+  <div class="card">
+
+    <div class="tabs">
+
+      <button
+        class="tab active"
+        onclick="showTab('bank',this)"
+      >
+        🏦 Ngân hàng
+      </button>
+
+      <button
+        class="tab"
+        onclick="showTab('card',this)"
+      >
+        🎫 Thẻ cào
+      </button>
+
+    </div>
+
+
+    <!-- NGÂN HÀNG -->
+
+    <div
+      id="bank"
+      class="panel active"
+    >
+
+      <h2>Nạp tiền ngân hàng</h2>
+
+      <div class="bank-box">
+
+        <div>
+          <b>Ngân hàng:</b>
+          MB BANK
+        </div>
+
+        <div>
+          <b>Số tài khoản:</b>
+          0000000000
+        </div>
+
+        <div>
+          <b>Chủ tài khoản:</b>
+          SHOPACCGAME
+        </div>
+
+        <div>
+          <b>Nội dung:</b>
+          <span id="transferNote">
+            NAPTIEN
+          </span>
+        </div>
+
+      </div>
+
+      <div class="note">
+        Sau khi chuyển khoản, nhập số tiền và
+        nội dung chuyển khoản chính xác rồi
+        bấm gửi yêu cầu.
+      </div>
+
+      <label>Số tiền</label>
+
+      <input
+        id="bankAmount"
+        type="number"
+        min="1000"
+        placeholder="Ví dụ: 50000"
+      >
+
+      <label>
+        Nội dung chuyển khoản
+      </label>
+
+      <input
+        id="bankNote"
+        type="text"
+        placeholder="Ví dụ: NAPTIEN"
+      >
+
+      <button
+        class="submit"
+        onclick="submitBank()"
+      >
+        Gửi yêu cầu nạp
+      </button>
+
+    </div>
+
+
+    <!-- THẺ CÀO -->
+
+    <div
+      id="card"
+      class="panel"
+    >
+
+      <h2>Nạp thẻ cào</h2>
+
+      <label>Nhà mạng</label>
+
+      <select id="provider">
+
+        <option value="">
+          -- Chọn nhà mạng --
+        </option>
+
+        <option value="VIETTEL">
+          Viettel
+        </option>
+
+        <option value="VINAPHONE">
+          VinaPhone
+        </option>
+
+        <option value="MOBIFONE">
+          MobiFone
+        </option>
+
+      </select>
+
+
+      <label>Mệnh giá</label>
+
+      <select id="cardAmount">
+
+        <option value="">
+          -- Chọn mệnh giá --
+        </option>
+
+        <option value="10000">
+          10.000đ
+        </option>
+
+        <option value="20000">
+          20.000đ
+        </option>
+
+        <option value="50000">
+          50.000đ
+        </option>
+
+        <option value="100000">
+          100.000đ
+        </option>
+
+        <option value="200000">
+          200.000đ
+        </option>
+
+        <option value="500000">
+          500.000đ
+        </option>
+
+      </select>
+
+
+      <label>Serial</label>
+
+      <input
+        id="serial"
+        type="text"
+        placeholder="Nhập Serial"
+      >
+
+
+      <label>Mã thẻ</label>
+
+      <input
+        id="cardCode"
+        type="text"
+        placeholder="Nhập mã thẻ"
+      >
+
+
+      <button
+        class="submit"
+        onclick="submitCard()"
+      >
+        Gửi thẻ cào
+      </button>
+
+    </div>
+
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+  </div>
+
+
+  <!-- LỊCH SỬ -->
+
+  <div class="card">
+
+    <h2>Lịch sử nạp tiền</h2>
+
+    <table class="history">
+
+      <thead>
+
+        <tr>
+          <th>Mã</th>
+          <th>Hình thức</th>
+          <th>Số tiền</th>
+          <th>Trạng thái</th>
+        </tr>
+
+      </thead>
+
+      <tbody id="historyBody">
+
+        <tr>
+          <td colspan="4">
+            Chưa có dữ liệu
+          </td>
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   APPS SCRIPT
+========================================== */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxVOLUsIdJ0fGc9hMzUklnumAQUYtqmyhkfsMK7x3acF7fmQT27JL3e12_GZGWAiZ6Fgw/exec";
+
+
+/* ==========================================
+   LẤY USERNAME
+========================================== */
+
+function getUsername() {
+
+  return (
+    localStorage.getItem("username") ||
+    localStorage.getItem("user") ||
+    localStorage.getItem("taikhoan") ||
+    ""
+  ).trim();
+
+}
+
+
+/* ==========================================
+   FORMAT TIỀN
+========================================== */
+
+function money(number) {
+
+  return Number(number || 0)
+    .toLocaleString("vi-VN")
+    + "đ";
+
+}
+
+
+/* ==========================================
+   TAB
+========================================== */
+
+function showTab(name, button) {
+
+  document
+    .querySelectorAll(".panel")
+    .forEach(function(panel) {
+
+      panel.classList.remove("active");
+
+    });
+
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(function(tab) {
+
+      tab.classList.remove("active");
+
+    });
+
+
+  document
+    .getElementById(name)
+    .classList.add("active");
+
+
+  button.classList.add("active");
+
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+function showMessage(text, success) {
+
+  const box =
+    document.getElementById("message");
+
+  box.style.display = "block";
+
+  box.className =
+    "message " +
+    (success ? "success" : "error");
+
+  box.textContent = text;
+
+}
+
+
+/* ==========================================
+   LOAD SỐ DƯ
+========================================== */
+
+async function loadBalance() {
+
+  const username =
+    getUsername();
+
+
+  if (!username) {
+
+    document.getElementById(
+      "usernameDisplay"
+    ).textContent =
+      "Chưa đăng nhập";
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    "usernameDisplay"
+  ).textContent =
+    "Tài khoản: " + username;
+
+
+  try {
+
+    const response =
+      await fetch(
+        API_URL +
+        "?action=getBalance&username=" +
+        encodeURIComponent(username)
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (data.ok) {
+
+      document.getElementById(
+        "balance"
+      ).textContent =
+        money(data.balance);
+
+    }
+
+  }
+
+  catch(error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* ==========================================
+   NẠP NGÂN HÀNG
+========================================== */
+
+async function submitBank() {
+
+  const username =
+    getUsername();
+
+
+  if (!username) {
+
+    showMessage(
+      "Bạn chưa đăng nhập.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  const amount =
+    Number(
+      document.getElementById(
+        "bankAmount"
+      ).value
+    );
+
+
+  const note =
+    document.getElementById(
+      "bankNote"
+    ).value.trim();
+
+
+  if (!amount || amount <= 0) {
+
+    showMessage(
+      "Vui lòng nhập số tiền.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if (!note) {
+
+    showMessage(
+      "Vui lòng nhập nội dung chuyển khoản.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    showMessage(
+      "Đang gửi yêu cầu...",
+      true
+    );
+
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body:JSON.stringify({
+
+            action:
+              "napNganHang",
+
+            username:
+              username,
+
+            amount:
+              amount,
+
+            note:
+              note
+
+          })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (data.ok) {
+
+      showMessage(
+        data.message +
+        " Mã nạp: " +
+        data.id,
+        true
+      );
+
+
+      document.getElementById(
+        "bankAmount"
+      ).value = "";
+
+
+      document.getElementById(
+        "bankNote"
+      ).value = "";
+
+
+      loadHistory();
+
+    }
+
+    else {
+
+      showMessage(
+        data.message,
+        false
+      );
+
+    }
+
+  }
+
+  catch(error) {
+
+    showMessage(
+      "Không thể kết nối máy chủ.",
+      false
+    );
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* ==========================================
+   NẠP THẺ CÀO
+========================================== */
+
+async function submitCard() {
+
+  const username =
+    getUsername();
+
+
+  if (!username) {
+
+    showMessage(
+      "Bạn chưa đăng nhập.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  const provider =
+    document.getElementById(
+      "provider"
+    ).value;
+
+
+  const amount =
+    Number(
+      document.getElementById(
+        "cardAmount"
+      ).value
+    );
+
+
+  const serial =
+    document.getElementById(
+      "serial"
+    ).value.trim();
+
+
+  const code =
+    document.getElementById(
+      "cardCode"
+    ).value.trim();
+
+
+  if (!provider) {
+
+    showMessage(
+      "Vui lòng chọn nhà mạng.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if (!amount) {
+
+    showMessage(
+      "Vui lòng chọn mệnh giá.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  if (!serial || !code) {
+
+    showMessage(
+      "Vui lòng nhập Serial và mã thẻ.",
+      false
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    showMessage(
+      "Đang gửi thẻ...",
+      true
+    );
+
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "text/plain;charset=utf-8"
+          },
+
+          body:JSON.stringify({
+
+            action:
+              "napTheCao",
+
+            username:
+              username,
+
+            amount:
+              amount,
+
+            provider:
+              provider,
+
+            serial:
+              serial,
+
+            code:
+              code
+
+          })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (data.ok) {
+
+      showMessage(
+        data.message +
+        " Mã nạp: " +
+        data.id,
+        true
+      );
+
+
+      document.getElementById(
+        "serial"
+      ).value = "";
+
+
+      document.getElementById(
+        "cardCode"
+      ).value = "";
+
+
+      loadHistory();
+
+    }
+
+    else {
+
+      showMessage(
+        data.message,
+        false
+      );
+
+    }
+
+  }
+
+  catch(error) {
+
+    showMessage(
+      "Không thể kết nối máy chủ.",
+      false
+    );
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* ==========================================
+   LỊCH SỬ NẠP
+========================================== */
+
+async function loadHistory() {
+
+  const username =
+    getUsername();
+
+
+  if (!username)
+    return;
+
+
+  try {
+
+    const response =
+      await fetch(
+        API_URL +
+        "?action=getTopups"
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!data.ok)
+      return;
+
+
+    const list =
+      data.topups.filter(
+        function(item) {
+
+          return (
+            String(item.username)
+              .toLowerCase()
+            ===
+            username.toLowerCase()
+          );
+
+        }
+      );
+
+
+    const body =
+      document.getElementById(
+        "historyBody"
+      );
+
+
+    if (!list.length) {
+
+      body.innerHTML =
+        "<tr>" +
+        "<td colspan='4'>" +
+        "Chưa có lịch sử nạp" +
+        "</td>" +
+        "</tr>";
+
+      return;
+
+    }
+
+
+    body.innerHTML =
+      list
+        .reverse()
+        .map(function(item) {
+
+          let status =
+            item.status;
+
+
+          if (
+            status === "DA_DUYET"
+          ) {
+
+            status =
+              "Đã duyệt";
+
+          }
+
+          else if (
+            status === "TU_CHOI"
+          ) {
+
+            status =
+              "Từ chối";
+
+          }
+
+          else {
+
+            status =
+              "Chờ duyệt";
+
+          }
+
+
+          let method =
+            item.method ===
+            "NGAN_HANG"
+              ? "Ngân hàng"
+              : "Thẻ cào";
+
+
+          return (
+
+            "<tr>" +
+
+            "<td>" +
+            escapeHtml(item.id) +
+            "</td>" +
+
+            "<td>" +
+            method +
+            "</td>" +
+
+            "<td>" +
+            money(item.amount) +
+            "</td>" +
+
+            "<td class='status'>" +
+            status +
+            "</td>" +
+
+            "</tr>"
+
+          );
+
+        })
+        .join("");
+
+  }
+
+  catch(error) {
+
+    console.error(error);
+
+  }
+
+}
+
+
+/* ==========================================
+   CHỐNG HTML
+========================================== */
+
+function escapeHtml(value) {
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* ==========================================
+   KHỞI ĐỘNG
+========================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    loadBalance();
+
+    loadHistory();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
