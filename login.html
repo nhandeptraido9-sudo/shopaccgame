@@ -2,157 +2,174 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Đăng nhập - SHOPACCGAME</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    box-sizing:border-box;
+}
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f4f6f9;
-min-height:100vh;
-display:flex;
-flex-direction:column;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f3f4f6;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
 }
 
 header{
-background:#111827;
-color:white;
-padding:15px 25px;
-display:flex;
-justify-content:space-between;
-align-items:center;
+    background:#111827;
+    color:white;
+    padding:15px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 .logo{
-font-size:22px;
-font-weight:bold;
+    font-size:22px;
+    font-weight:bold;
 }
 
-nav a{
-color:white;
-text-decoration:none;
-margin-left:10px;
-padding:9px 12px;
-border-radius:8px;
+header a{
+    color:white;
+    text-decoration:none;
+    padding:9px 13px;
+    border-radius:8px;
 }
 
-nav a:hover{
-background:#2563eb;
+header a:hover{
+    background:#2563eb;
 }
 
 .container{
-width:100%;
-max-width:430px;
-margin:45px auto;
-padding:15px;
+    width:100%;
+    max-width:440px;
+    margin:45px auto;
+    padding:15px;
 }
 
 .box{
-background:white;
-padding:28px;
-border-radius:18px;
-box-shadow:0 5px 20px rgba(0,0,0,.1);
+    background:white;
+    border-radius:18px;
+    padding:30px;
+    box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
 h1{
-text-align:center;
-margin-top:0;
+    text-align:center;
+    margin-top:0;
 }
 
 .tabs{
-display:flex;
-gap:8px;
-margin-bottom:20px;
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
 }
 
 .tab{
-flex:1;
-padding:12px;
-border:0;
-border-radius:9px;
-cursor:pointer;
-font-weight:bold;
-background:#e5e7eb;
+    flex:1;
+    padding:12px;
+    border:0;
+    border-radius:9px;
+    background:#e5e7eb;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:15px;
 }
 
 .tab.active{
-background:#2563eb;
-color:white;
+    background:#2563eb;
+    color:white;
 }
 
 .form{
-display:none;
+    display:none;
 }
 
 .form.active{
-display:block;
+    display:block;
 }
 
 label{
-display:block;
-font-weight:bold;
-margin-top:14px;
+    display:block;
+    margin-top:14px;
+    font-weight:bold;
 }
 
 input{
-width:100%;
-padding:12px;
-margin-top:6px;
-border:1px solid #ddd;
-border-radius:8px;
-font-size:16px;
+    width:100%;
+    padding:13px;
+    margin-top:6px;
+    border:1px solid #d1d5db;
+    border-radius:9px;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus{
+    border-color:#2563eb;
 }
 
 button.submit{
-width:100%;
-margin-top:20px;
-padding:13px;
-border:0;
-border-radius:9px;
-background:#2563eb;
-color:white;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
+    width:100%;
+    padding:13px;
+    margin-top:20px;
+    border:0;
+    border-radius:9px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
 button.submit:hover{
-background:#1d4ed8;
+    background:#1d4ed8;
 }
 
 .register{
-background:#16a34a !important;
+    background:#16a34a !important;
+}
+
+.admin-button{
+    background:#dc2626 !important;
+}
+
+.admin-button:hover{
+    background:#b91c1c !important;
 }
 
 .message{
-display:none;
-margin-top:15px;
-padding:12px;
-border-radius:8px;
-text-align:center;
+    display:none;
+    margin-top:15px;
+    padding:12px;
+    border-radius:9px;
+    text-align:center;
+    font-weight:bold;
 }
 
-.success{
-display:block;
-background:#dcfce7;
-color:#166534;
+.message.success{
+    display:block;
+    background:#dcfce7;
+    color:#166534;
 }
 
-.error{
-display:block;
-background:#fee2e2;
-color:#991b1b;
+.message.error{
+    display:block;
+    background:#fee2e2;
+    color:#991b1b;
 }
 
 footer{
-margin-top:auto;
-background:#111827;
-color:white;
-text-align:center;
-padding:20px;
+    margin-top:auto;
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:20px;
 }
 </style>
 </head>
@@ -165,9 +182,9 @@ padding:20px;
 SHOPACCGAME
 </div>
 
-<nav>
-<a href="index.html">🏠 Trang chủ</a>
-</nav>
+<a href="index.html">
+🏠 Trang chủ
+</a>
 
 </header>
 
@@ -180,25 +197,25 @@ SHOPACCGAME
 <div class="tabs">
 
 <button
+type="button"
 class="tab active"
-onclick="showForm('customer')"
 id="customerTab"
+onclick="showForm('customer')"
 >
 👤 Khách hàng
 </button>
 
 <button
+type="button"
 class="tab"
-onclick="showForm('admin')"
 id="adminTab"
+onclick="showForm('admin')"
 >
 🛡️ Admin
 </button>
 
 </div>
-<!-- =========================
-     KHÁCH HÀNG
-========================= -->
+<!-- ================= KHÁCH HÀNG ================= -->
 
 <div
 id="customerForm"
@@ -210,9 +227,10 @@ Tên tài khoản
 </label>
 
 <input
-id="customerUsername"
 type="text"
+id="customerUsername"
 placeholder="Nhập tên tài khoản"
+autocomplete="username"
 >
 
 <label>
@@ -220,31 +238,32 @@ Mật khẩu
 </label>
 
 <input
-id="customerPassword"
 type="password"
+id="customerPassword"
 placeholder="Nhập mật khẩu"
+autocomplete="current-password"
 >
 
 <button
+type="button"
 class="submit"
 onclick="customerLogin()"
 >
-Đăng nhập khách hàng
+👤 Đăng nhập khách hàng
 </button>
 
 <button
+type="button"
 class="submit register"
 onclick="customerRegister()"
 >
-Đăng ký tài khoản
+📝 Đăng ký tài khoản
 </button>
 
 </div>
 
 
-<!-- =========================
-     ADMIN
-========================= -->
+<!-- ================= ADMIN ================= -->
 
 <div
 id="adminForm"
@@ -256,9 +275,10 @@ Tên Admin
 </label>
 
 <input
-id="adminUsername"
 type="text"
-placeholder="Tên Admin"
+id="adminUsername"
+placeholder="Nhập tên Admin"
+autocomplete="username"
 >
 
 <label>
@@ -266,13 +286,15 @@ Mật khẩu Admin
 </label>
 
 <input
-id="adminPassword"
 type="password"
-placeholder="Mật khẩu Admin"
+id="adminPassword"
+placeholder="Nhập mật khẩu Admin"
+autocomplete="current-password"
 >
 
 <button
-class="submit"
+type="button"
+class="submit admin-button"
 onclick="adminLogin()"
 >
 🛡️ Đăng nhập Admin
@@ -290,105 +312,407 @@ class="message"
 
 </div>
 
-
 <footer>
 © 2026 SHOPACCGAME
 </footer>
-<!-- =========================
-     KHÁCH HÀNG
-========================= -->
+<script>
 
-<div
-id="customerForm"
-class="form active"
->
+/* =========================================
+   LINK APPS SCRIPT MỚI
+========================================= */
 
-<label>
-Tên tài khoản
-</label>
-
-<input
-id="customerUsername"
-type="text"
-placeholder="Nhập tên tài khoản"
->
-
-<label>
-Mật khẩu
-</label>
-
-<input
-id="customerPassword"
-type="password"
-placeholder="Nhập mật khẩu"
->
-
-<button
-class="submit"
-onclick="customerLogin()"
->
-Đăng nhập khách hàng
-</button>
-
-<button
-class="submit register"
-onclick="customerRegister()"
->
-Đăng ký tài khoản
-</button>
-
-</div>
+const API_URL =
+"https://script.google.com/macros/s/AKfycbyrF_FUCu_yCPEf9TL-140ElpNZqdrUy6yGnWpAUvBB5W00jJu3Xw4Mfne2Jd5IIfBDgA/exec";
 
 
-<!-- =========================
-     ADMIN
-========================= -->
+/* =========================================
+   CHUYỂN KHÁCH / ADMIN
+========================================= */
 
-<div
-id="adminForm"
-class="form"
->
+function showForm(type){
 
-<label>
-Tên Admin
-</label>
+    const customerForm =
+        document.getElementById("customerForm");
 
-<input
-id="adminUsername"
-type="text"
-placeholder="Tên Admin"
->
+    const adminForm =
+        document.getElementById("adminForm");
 
-<label>
-Mật khẩu Admin
-</label>
+    const customerTab =
+        document.getElementById("customerTab");
 
-<input
-id="adminPassword"
-type="password"
-placeholder="Mật khẩu Admin"
->
+    const adminTab =
+        document.getElementById("adminTab");
 
-<button
-class="submit"
-onclick="adminLogin()"
->
-🛡️ Đăng nhập Admin
-</button>
+    customerForm.classList.remove("active");
+    adminForm.classList.remove("active");
 
-</div>
+    customerTab.classList.remove("active");
+    adminTab.classList.remove("active");
 
+    clearMessage();
 
-<div
-id="message"
-class="message"
-></div>
+    if(type === "customer"){
 
-</div>
+        customerForm.classList.add("active");
+        customerTab.classList.add("active");
 
-</div>
+    }else{
+
+        adminForm.classList.add("active");
+        adminTab.classList.add("active");
+
+    }
+}
 
 
-<footer>
-© 2026 SHOPACCGAME
-</footer>
+/* =========================================
+   THÔNG BÁO
+========================================= */
+
+function showMessage(text,type){
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = text;
+
+    box.className =
+        "message " + type;
+}
+
+function clearMessage(){
+
+    const box =
+        document.getElementById("message");
+
+    box.textContent = "";
+
+    box.className = "message";
+}
+
+
+/* =========================================
+   LẤY TÀI KHOẢN KHÁCH
+========================================= */
+
+function getUsers(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem("shopUsers")
+        ) || {};
+
+    }catch(error){
+
+        return {};
+
+    }
+}
+
+
+/* =========================================
+   ĐĂNG KÝ KHÁCH
+========================================= */
+
+function customerRegister(){
+
+    const username =
+        document
+        .getElementById("customerUsername")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("customerPassword")
+        .value;
+
+    if(username.length < 3){
+
+        showMessage(
+            "Tên tài khoản phải có ít nhất 3 ký tự",
+            "error"
+        );
+
+        return;
+    }
+
+    if(password.length < 4){
+
+        showMessage(
+            "Mật khẩu phải có ít nhất 4 ký tự",
+            "error"
+        );
+
+        return;
+    }
+
+    const users = getUsers();
+
+    const key =
+        username.toLowerCase();
+
+    if(users[key]){
+
+        showMessage(
+            "Tài khoản đã tồn tại",
+            "error"
+        );
+
+        return;
+    }
+
+    users[key] = {
+        username:username,
+        password:password
+    };
+
+    localStorage.setItem(
+        "shopUsers",
+        JSON.stringify(users)
+    );
+
+    showMessage(
+        "Đăng ký thành công! Hãy đăng nhập.",
+        "success"
+    );
+}
+
+
+/* =========================================
+   ĐĂNG NHẬP KHÁCH
+========================================= */
+
+function customerLogin(){
+
+    const username =
+        document
+        .getElementById("customerUsername")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("customerPassword")
+        .value;
+
+    if(!username || !password){
+
+        showMessage(
+            "Vui lòng nhập đầy đủ tài khoản và mật khẩu",
+            "error"
+        );
+
+        return;
+    }
+
+    const users = getUsers();
+
+    const key =
+        username.toLowerCase();
+
+    const user = users[key];
+
+    if(!user){
+
+        showMessage(
+            "Tài khoản không tồn tại. Hãy đăng ký trước.",
+            "error"
+        );
+
+        return;
+    }
+
+    if(user.password !== password){
+
+        showMessage(
+            "Sai mật khẩu",
+            "error"
+        );
+
+        return;
+    }
+
+    /*
+       LƯU TÊN KHÁCH ĐỂ INDEX CŨ
+       CÓ THỂ ĐỌC ĐƯỢC
+    */
+
+    localStorage.setItem(
+        "currentUser",
+        user.username
+    );
+
+    localStorage.setItem(
+        "username",
+        user.username
+    );
+
+    localStorage.setItem(
+        "user",
+        user.username
+    );
+
+    localStorage.setItem(
+        "taikhoan",
+        user.username
+    );
+
+    showMessage(
+        "Đăng nhập thành công!",
+        "success"
+    );
+
+    setTimeout(function(){
+
+        window.location.href =
+            "index.html";
+
+    },700);
+}
+
+
+/* =========================================
+   ĐĂNG NHẬP ADMIN
+========================================= */
+
+async function adminLogin(){
+
+    const username =
+        document
+        .getElementById("adminUsername")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("adminPassword")
+        .value;
+
+    if(!username || !password){
+
+        showMessage(
+            "Vui lòng nhập tên Admin và mật khẩu",
+            "error"
+        );
+
+        return;
+    }
+
+    showMessage(
+        "Đang kiểm tra Admin...",
+        "success"
+    );
+
+    try{
+
+        const response =
+            await fetch(API_URL,{
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:JSON.stringify({
+
+                    action:"adminLogin",
+
+                    username:username,
+
+                    password:password
+
+                })
+            });
+
+        const data =
+            await response.json();
+
+        if(!data.ok){
+
+            showMessage(
+                data.message ||
+                "Đăng nhập Admin thất bại",
+                "error"
+            );
+
+            return;
+        }
+
+        /*
+           LƯU PHIÊN ADMIN
+        */
+
+        localStorage.setItem(
+            "adminUser",
+            data.username || username
+        );
+
+        localStorage.setItem(
+            "adminToken",
+            data.token || ""
+        );
+
+        localStorage.setItem(
+            "isAdmin",
+            "true"
+        );
+
+        showMessage(
+            "Đăng nhập Admin thành công!",
+            "success"
+        );
+
+        setTimeout(function(){
+
+            window.location.href =
+                "admin.html";
+
+        },700);
+
+    }catch(error){
+
+        console.error(error);
+
+        showMessage(
+            "Không kết nối được Apps Script. Hãy kiểm tra Web App đã Deploy phiên bản mới chưa.",
+            "error"
+        );
+    }
+}
+
+
+/* =========================================
+   ENTER ĐỂ ĐĂNG NHẬP
+========================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key !== "Enter"){
+            return;
+        }
+
+        const adminForm =
+            document
+            .getElementById("adminForm");
+
+        if(adminForm.classList.contains("active")){
+
+            adminLogin();
+
+        }else{
+
+            customerLogin();
+
+        }
+    }
+);
+
+</script>
+
+</body>
+</html>
