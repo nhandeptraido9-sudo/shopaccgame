@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Khách hàng - Shop KAROT</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#eef2f7;
+    color:#182238;
+}
+
+/* HEADER */
+
+header{
+    background:linear-gradient(90deg,#5137df,#347bf0);
+    color:white;
+    text-align:center;
+    padding:28px 15px;
+}
+
+header h1{
+    margin:0 0 8px;
+    font-size:30px;
+}
+
+header p{
+    margin:0;
+}
+
+/* CONTAINER */
+
+.container{
+    max-width:900px;
+    margin:35px auto;
+    padding:15px;
+}
+
+/* BOX */
+
+.box{
+    background:white;
+    border-radius:18px;
+    padding:25px;
+    margin-bottom:20px;
+    box-shadow:0 5px 20px #0002;
+}
+
+.box h2{
+    margin-top:0;
+}
+
+/* FORM */
+
+.input{
+    width:100%;
+    padding:14px;
+    margin:8px 0 15px;
+
+    border:1px solid #ddd;
+    border-radius:10px;
+
+    font-size:16px;
+    outline:none;
+}
+
+.input:focus{
+    border-color:#5137df;
+}
+
+/* BUTTON */
+
+button{
+    width:100%;
+    padding:14px;
+
+    border:0;
+    border-radius:10px;
+
+    background:linear-gradient(135deg,#5137df,#347bf0);
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+/* CUSTOMER INFO */
+
+.customer-info{
+    display:none;
+}
+
+.info{
+    background:#f5f7fb;
+    padding:15px;
+    border-radius:12px;
+    margin:10px 0;
+}
+
+.label{
+    color:#777;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.value{
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* ORDER */
+
+.order{
+    border:1px solid #e3e6ee;
+    border-radius:12px;
+    padding:15px;
+    margin-top:12px;
+}
+
+.order-title{
+    font-weight:bold;
+    font-size:18px;
+}
+
+.status{
+    display:inline-block;
+    margin-top:8px;
+    padding:6px 10px;
+    border-radius:8px;
+
+    background:#dff7e7;
+    color:#188344;
+
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* BACK */
+
+.back{
+    display:block;
+    text-align:center;
+    margin:25px 0;
+
+    color:#5137df;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+/* FLOATING BUTTON */
+
+.customer-btn{
+    position:fixed;
+
+    right:20px;
+    bottom:20px;
+
+    z-index:9999;
+
+    padding:13px 18px;
+
+    background:linear-gradient(135deg,#5137df,#347bf0);
+
+    color:white;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+    border-radius:14px;
+
+    box-shadow:0 5px 18px #0004;
+
+    transition:.2s;
+}
+
+.customer-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* MOBILE */
+
+@media(max-width:500px){
+
+    header h1{
+        font-size:25px;
+    }
+
+    .box{
+        padding:18px;
+    }
+
+    .customer-btn{
+        right:12px;
+        bottom:12px;
+        padding:11px 14px;
+        font-size:14px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header>
+
+    <h1>👤 SHOP KAROT</h1>
+
+    <p>Khu vực khách hàng</p>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- ĐĂNG NHẬP -->
+
+    <div class="box" id="loginBox">
+
+        <h2>🔐 Đăng nhập khách hàng</h2>
+
+        <p>
+            Nhập tên khách hàng để xem thông tin đơn hàng.
+        </p>
+
+        <input
+            class="input"
+            id="customerName"
+            type="text"
+            placeholder="Nhập tên khách hàng"
+        >
+
+        <button onclick="loginCustomer()">
+            👤 Vào tài khoản
+        </button>
+
+    </div>
+
+
+
+    <!-- THÔNG TIN KHÁCH -->
+
+    <div
+        class="customer-info"
+        id="customerInfo"
+    >
+
+        <div class="box">
+
+            <h2>👤 Thông tin khách hàng</h2>
+
+
+            <div class="info">
+
+                <div class="label">
+                    Tên khách hàng
+                </div>
+
+                <div
+                    class="value"
+                    id="showName">
+                    ---
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="label">
+                    Mã khách hàng
+                </div>
+
+                <div
+                    class="value"
+                    id="showID">
+                    ---
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ĐƠN HÀNG -->
+
+        <div class="box">
+
+            <h2>📦 Đơn hàng của bạn</h2>
+
+            <div id="orders">
+
+                <p>
+                    Chưa có đơn hàng.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <button onclick="logout()">
+            🚪 Đăng xuất
+        </button>
+
+    </div>
+
+
+    <a
+        href="index.html"
+        class="back">
+
+        ← Quay lại Shop KAROT
+
+    </a>
+
+</div>
+
+
+
+<!-- NÚT KHÁCH HÀNG GÓC MÀN HÌNH -->
+
+<a
+    href="khach-hang.html"
+    class="customer-btn">
+
+    👤 Khách hàng
+
+</a>
+
+
+
+<script>
+
+/* ==========================================
+   DỮ LIỆU KHÁCH HÀNG MẪU
+========================================== */
+
+const CUSTOMERS = {
+
+    "khach1": {
+
+        name:"Khách hàng 1",
+
+        id:"KAROT001",
+
+        orders:[
+
+            {
+                package:"Túi 10K - Gói 1",
+                price:"10.000đ",
+                status:"Đã giao"
+            }
+
+        ]
+
+    },
+
+
+    "khach2": {
+
+        name:"Khách hàng 2",
+
+        id:"KAROT002",
+
+        orders:[
+
+            {
+                package:"Túi 50K - Gói 3",
+                price:"50.000đ",
+                status:"Đã giao"
+            },
+
+            {
+                package:"Túi 100K - Gói 8",
+                price:"100.000đ",
+                status:"Đang xử lý"
+            }
+
+        ]
+
+    }
+
+};
+
+
+
+/* ==========================================
+   ĐĂNG NHẬP
+========================================== */
+
+function loginCustomer(){
+
+    const input =
+        document
+        .getElementById("customerName")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    if(!input){
+
+        alert(
+            "⚠️ Vui lòng nhập tên khách hàng!"
+        );
+
+        return;
+
+    }
+
+
+    const customer =
+        CUSTOMERS[input];
+
+
+    if(!customer){
+
+        alert(
+            "❌ Không tìm thấy khách hàng!"
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "karot_customer",
+        input
+    );
+
+
+    showCustomer(customer);
+
+}
+
+
+
+/* ==========================================
+   HIỂN THỊ KHÁCH HÀNG
+========================================== */
+
+function showCustomer(customer){
+
+    document
+    .getElementById("loginBox")
+    .style.display = "none";
+
+
+    document
+    .getElementById("customerInfo")
+    .style.display = "block";
+
+
+    document
+    .getElementById("showName")
+    .textContent =
+        customer.name;
+
+
+    document
+    .getElementById("showID")
+    .textContent =
+        customer.id;
+
+
+
+    const orders =
+        document
+        .getElementById("orders");
+
+
+    orders.innerHTML = "";
+
+
+
+    if(
+        !customer.orders ||
+        customer.orders.length === 0
+    ){
+
+        orders.innerHTML =
+            "<p>Chưa có đơn hàng.</p>";
+
+        return;
+
+    }
+
+
+
+    customer.orders.forEach(
+        function(order){
+
+            const div =
+                document.createElement("div");
+
+
+            div.className =
+                "order";
+
+
+            div.innerHTML = `
+
+                <div class="order-title">
+                    📦 ${order.package}
+                </div>
+
+                <p>
+                    💰 Giá:
+                    <b>${order.price}</b>
+                </p>
+
+                <span class="status">
+                    ${order.status}
+                </span>
+
+            `;
+
+
+            orders.appendChild(div);
+
+        }
+    );
+
+}
+
+
+
+/* ==========================================
+   ĐĂNG XUẤT
+========================================== */
+
+function logout(){
+
+    localStorage.removeItem(
+        "karot_customer"
+    );
+
+
+    document
+    .getElementById("customerInfo")
+    .style.display = "none";
+
+
+    document
+    .getElementById("loginBox")
+    .style.display = "block";
+
+}
+
+
+
+/* ==========================================
+   TỰ ĐĂNG NHẬP LẠI
+========================================== */
+
+const savedCustomer =
+    localStorage.getItem(
+        "karot_customer"
+    );
+
+
+if(savedCustomer){
+
+    const customer =
+        CUSTOMERS[savedCustomer];
+
+
+    if(customer){
+
+        showCustomer(customer);
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>
