@@ -1,10 +1,10 @@
 ```html
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>SHOPACCGAME</title>
 
@@ -15,101 +15,143 @@
 
 body{
     margin:0;
+    background:#eef3f8;
     font-family:Arial,sans-serif;
-    background:#f4f6f9;
-    color:#172033;
+    color:#182238;
 }
 
-.header{
-    background:linear-gradient(135deg,#111827,#2563eb);
-    color:white;
-    padding:22px;
+/* THANH TRÊN */
+
+.top{
+    padding:25px 16px;
     text-align:center;
 }
 
-.header h1{
-    margin:0;
+.search{
+    width:320px;
+    max-width:90%;
+    padding:12px 16px;
+    border:2px solid #7258ff;
+    border-radius:14px;
+    outline:none;
 }
 
-.user-bar{
-    background:white;
-    padding:12px 20px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
-}
+/* KHU SẢN PHẨM */
 
-.logout{
-    padding:8px 14px;
-    background:#dc2626;
-    color:white;
-    border:0;
-    border-radius:7px;
-    cursor:pointer;
-}
-
-.container{
-    width:95%;
-    max-width:1200px;
-    margin:25px auto;
-}
-
-.products{
+.grid{
     display:grid;
-    grid-template-columns:
-        repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    padding:10px 16px;
 }
 
 /* Ô ACC BLOX FRUIT */
 
-.acc-blox-card{
-    width:280px;
-    max-width:100%;
+.card{
     background:#fff;
-    border:2px solid #c9e3ff;
-    border-radius:15px;
-    padding:8px;
+    border:2px solid #b6c5ff;
+    border-radius:16px;
+    padding:5px;
     text-align:center;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-    transition:.2s;
+    max-width:300px;
 }
 
-.acc-blox-card:hover{
-    transform:translateY(-4px);
+.pic{
+    height:190px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#168cf0,#ffd33b);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+    font-size:26px;
+    font-weight:900;
+    text-shadow:2px 2px #07509b;
 }
 
-.acc-blox-card img{
-    width:100%;
-    height:170px;
-    object-fit:cover;
-    border-radius:10px;
+.card h3{
+    margin:14px 5px 8px;
 }
 
-.acc-blox-card h2{
-    font-size:19px;
-    margin:16px 0 8px;
-}
-
-.stock{
-    color:#555;
-    margin:0 0 13px;
-}
-
-.view-all{
+.card b{
     display:block;
-    padding:11px;
-    background:
-        linear-gradient(90deg,#48a9f8,#596ed8);
+    margin-bottom:8px;
+}
+
+.btn{
+    display:block;
+    margin:8px 0;
+    padding:12px;
+
+    background:linear-gradient(90deg,#1598f4,#5968dc);
+
     color:white;
     text-decoration:none;
     border-radius:9px;
     font-weight:bold;
 }
 
-.view-all:hover{
+.btn:hover{
     opacity:.9;
+}
+
+/* NÚT KHÁCH HÀNG */
+
+.customer-btn{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:99999;
+
+    padding:13px 18px;
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#5137df,#347bf0);
+
+    color:white;
+    text-decoration:none;
+
+    font-size:16px;
+    font-weight:bold;
+
+    box-shadow:0 5px 18px #0004;
+
+    transition:.2s;
+}
+
+.customer-btn:hover{
+    transform:translateY(-3px);
+}
+
+/* ĐIỆN THOẠI */
+
+@media(max-width:850px){
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:500px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        max-width:none;
+    }
+
+    .customer-btn{
+        right:12px;
+        bottom:12px;
+        padding:11px 14px;
+        font-size:14px;
+    }
+
 }
 </style>
 
@@ -117,102 +159,58 @@ body{
 
 <body>
 
-<div class="header">
-    <h1>🎮 SHOPACCGAME</h1>
-</div>
+<!-- THANH TÌM KIẾM -->
 
-<div class="user-bar">
+<div class="top">
 
-    <div>
-        👤 Xin chào,
-        <b id="username"></b>
-    </div>
-
-    <button
-        class="logout"
-        onclick="logout()"
+    <input
+        class="search"
+        placeholder="🔎 Tìm game..."
     >
-        Đăng xuất
-    </button>
 
 </div>
 
-<div class="container">
 
-    <h2>🔥 KHO TÀI KHOẢN</h2>
+<!-- KHO ACC -->
 
-    <div class="products">
+<div class="grid">
 
-        <!-- CHỈ 1 Ô ACC BLOX FRUIT -->
+    <!-- CHỈ 1 Ô ACC BLOX FRUIT -->
 
-        <div class="acc-blox-card">
+    <div class="card">
 
-            <img
-                src="blox-fruit.jpg"
-                alt="ACC BLOX FRUIT"
-            >
-
-            <h2>
-                ACC BLOX FRUIT
-            </h2>
-
-            <p class="stock">
-                Còn 6
-            </p>
-
-            <a
-                href="acc-blox-fruit.html"
-                class="view-all"
-            >
-                XEM TẤT CẢ →
-            </a>
-
+        <div class="pic">
+            ACC<br>BLOX FRUIT
         </div>
 
+        <h3>
+            ACC BLOX FRUIT
+        </h3>
+
+        <b>
+            Còn 6
+        </b>
+
+        <a
+            class="btn"
+            href="acc-blox-fruit.html"
+        >
+            XEM TẤT CẢ →
+        </a>
+
     </div>
 
 </div>
 
-<script>
 
-/* KIỂM TRA ĐĂNG NHẬP */
+<!-- NÚT KHÁCH HÀNG -->
 
-const loggedIn =
-    localStorage.getItem("shop_logged_in");
-
-if(loggedIn !== "true"){
-
-    window.location.href =
-        "login.html";
-
-}
-
-/* HIỆN TÊN KHÁCH */
-
-document.getElementById("username")
-    .textContent =
-    localStorage.getItem(
-        "shop_current_user"
-    ) || "Khách hàng";
-
-
-/* ĐĂNG XUẤT */
-
-function logout(){
-
-    localStorage.removeItem(
-        "shop_logged_in"
-    );
-
-    localStorage.removeItem(
-        "shop_current_user"
-    );
-
-    window.location.href =
-        "login.html";
-}
-
-</script>
+<a
+    href="khach-hang.html"
+    class="customer-btn"
+>
+    👤 Khách hàng
+</a>
 
 </body>
 </html>
