@@ -590,7 +590,14 @@ document.getElementById(
     orderElements.length;
 
 </script>
+function logoutCustomer(){
 
+    localStorage.removeItem("currentUser");
+
+    alert("✅ Đã đăng xuất!");
+
+    window.location.href = "login.html";
+}
 
 </body>
 
