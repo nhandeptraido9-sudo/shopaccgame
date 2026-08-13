@@ -3,13 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Admin - SHOPACCGAME</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
     margin:0;
@@ -21,12 +18,8 @@ body{
 header{
     background:linear-gradient(90deg,#5137df,#347bf0);
     color:white;
-    padding:25px 15px;
     text-align:center;
-}
-
-header h1{
-    margin:0 0 8px;
+    padding:25px 15px;
 }
 
 .container{
@@ -43,43 +36,14 @@ header h1{
     box-shadow:0 5px 20px #0002;
 }
 
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.stat{
-    background:#f5f7fb;
-    padding:20px;
-    border-radius:14px;
-    text-align:center;
-}
-
-.stat-icon{
-    font-size:30px;
-}
-
-.stat-number{
-    font-size:27px;
-    font-weight:bold;
-    color:#5137df;
-    margin-top:8px;
-}
-
-.stat-name{
-    color:#777;
-    margin-top:5px;
-}
-
 label{
     display:block;
-    margin-top:15px;
-    margin-bottom:6px;
+    margin:15px 0 6px;
     font-weight:bold;
 }
 
-input,select{
+select,
+input{
     width:100%;
     padding:13px;
     border:1px solid #ccd2df;
@@ -95,7 +59,7 @@ button{
     cursor:pointer;
 }
 
-.main-btn{
+.save{
     width:100%;
     margin-top:20px;
     background:linear-gradient(90deg,#6647ee,#3e79ee);
@@ -103,17 +67,17 @@ button{
     font-size:16px;
 }
 
-.refresh-btn{
-    background:#edf0f7;
-    color:#5137df;
-    margin-bottom:10px;
-}
-
-.logout-btn{
+.clear{
     width:100%;
+    margin-top:10px;
     background:#e53935;
     color:white;
-    margin-top:10px;
+}
+
+.refresh{
+    background:#edf0f7;
+    color:#5137df;
+    margin-bottom:15px;
 }
 
 .message{
@@ -123,69 +87,29 @@ button{
     font-weight:bold;
 }
 
-.order{
-    background:#f8f9fc;
-    border:1px solid #e1e5ee;
-    border-radius:14px;
-    padding:18px;
-    margin-top:15px;
-}
-
-.order-title{
-    font-size:18px;
-    font-weight:bold;
-    margin-bottom:12px;
-}
-
-.order-row{
-    margin-top:8px;
-}
-
-.status{
-    display:inline-block;
+.package{
+    background:#f5f7fb;
+    padding:16px;
+    border-radius:12px;
     margin-top:12px;
-    padding:7px 12px;
-    border-radius:8px;
-    background:#dff7e7;
-    color:#168044;
-    font-size:13px;
+}
+
+.package-title{
     font-weight:bold;
+    font-size:17px;
 }
 
 .account{
-    display:none;
-    margin-top:15px;
-    padding:15px;
+    margin-top:10px;
+    padding:12px;
     background:white;
     border-radius:10px;
-    border:1px solid #ddd;
-}
-
-.show-btn{
-    width:100%;
-    margin-top:12px;
-    background:#5137df;
-    color:white;
-}
-
-.delete-btn{
-    width:100%;
-    margin-top:12px;
-    background:#e53935;
-    color:white;
-}
-
-.customer{
-    padding:15px;
-    margin-top:12px;
-    background:#f5f7fb;
-    border-radius:12px;
 }
 
 .empty{
-    text-align:center;
-    padding:25px;
     color:#777;
+    text-align:center;
+    padding:20px;
 }
 
 .back{
@@ -199,12 +123,20 @@ button{
     font-weight:bold;
 }
 
-@media(max-width:700px){
+.logout{
+    width:100%;
+    background:#e53935;
+    color:white;
+}
 
-    .stats{
-        grid-template-columns:1fr;
+@media(max-width:600px){
+    .container{
+        padding:10px;
     }
 
+    .box{
+        padding:18px;
+    }
 }
 </style>
 </head>
@@ -212,11 +144,8 @@ button{
 <body>
 
 <header>
-
     <h1>🛠️ SHOPACCGAME ADMIN</h1>
-
-    <p>Quản lý shop</p>
-
+    <p>Quản lý kho acc túi mù</p>
 </header>
 
 
@@ -224,130 +153,44 @@ button{
 
 
 <!-- =========================
-     THỐNG KÊ
+     THÊM ACC
 ========================= -->
 
 <div class="box">
 
-    <h2>📊 Thống kê</h2>
+    <h2>🎮 Thêm acc Blox Fruits</h2>
 
-    <div class="stats">
+    <label>💰 Mệnh giá</label>
 
-        <div class="stat">
+    <select id="price">
 
-            <div class="stat-icon">
-                👥
-            </div>
-
-            <div
-                id="customerCount"
-                class="stat-number">
-                0
-            </div>
-
-            <div class="stat-name">
-                Khách hàng
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-                📦
-            </div>
-
-            <div
-                id="orderCount"
-                class="stat-number">
-                0
-            </div>
-
-            <div class="stat-name">
-                Đơn hàng
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div class="stat-icon">
-                🎮
-            </div>
-
-            <div
-                id="deliveredCount"
-                class="stat-number">
-                0
-            </div>
-
-            <div class="stat-name">
-                Acc đã giao
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- =========================
-     KHÁCH HÀNG
-========================= -->
-
-<div class="box">
-
-    <h2>👥 Khách hàng</h2>
-
-    <div id="customerList"></div>
-
-</div>
-
-
-<!-- =========================
-     TẠO ĐƠN
-========================= -->
-
-<div class="box">
-
-    <h2>📦 Tạo đơn hàng</h2>
-
-
-    <label>👤 Tên khách hàng</label>
-
-    <input
-        id="orderUsername"
-        type="text"
-        placeholder="Nhập tên tài khoản khách">
-
-
-    <label>🎮 Sản phẩm</label>
-
-    <select id="orderProduct">
-
-        <option value="Acc Blox Fruits">
-            Acc Blox Fruits
-        </option>
-
-        <option value="Acc Roblox">
-            Acc Roblox
-        </option>
+        <option value="0">0K</option>
+        <option value="10000">10K</option>
+        <option value="20000">20K</option>
+        <option value="50000">50K</option>
+        <option value="80000">80K</option>
+        <option value="100000">100K</option>
 
     </select>
 
 
-    <label>💰 Giá</label>
+    <label>🎁 Gói</label>
 
-    <input
-        id="orderPrice"
-        type="text"
-        placeholder="Ví dụ: 50.000đ">
+    <select id="package">
+
+        <option value="1">Gói 1</option>
+        <option value="2">Gói 2</option>
+        <option value="3">Gói 3</option>
+        <option value="4">Gói 4</option>
+        <option value="5">Gói 5</option>
+        <option value="6">Gói 6</option>
+        <option value="7">Gói 7</option>
+        <option value="8">Gói 8</option>
+
+    </select>
 
 
-    <label>👤 Name Acc</label>
+    <label>👤 Name acc Blox Fruits</label>
 
     <input
         id="accountName"
@@ -355,7 +198,7 @@ button{
         placeholder="Nhập Name acc">
 
 
-    <label>🔑 Pass Acc</label>
+    <label>🔑 Pass acc Blox Fruits</label>
 
     <input
         id="accountPass"
@@ -364,16 +207,25 @@ button{
 
 
     <button
-        class="main-btn"
-        onclick="createOrder()">
+        class="save"
+        onclick="saveAccount()">
 
-        📦 Giao đơn hàng
+        💾 Lưu acc vào kho
+
+    </button>
+
+
+    <button
+        class="clear"
+        onclick="clearForm()">
+
+        🧹 Xóa ô nhập
 
     </button>
 
 
     <div
-        id="orderMessage"
+        id="message"
         class="message">
     </div>
 
@@ -381,22 +233,23 @@ button{
 
 
 <!-- =========================
-     ACC ĐÃ GIAO
+     KHO ACC
 ========================= -->
 
 <div class="box">
 
-    <h2>🎮 Acc đã giao cho khách</h2>
+    <h2>📦 Kho 48 gói túi mù</h2>
 
     <button
-        class="refresh-btn"
-        onclick="renderOrders()">
+        class="refresh"
+        onclick="renderInventory()">
 
-        🔄 Làm mới
+        🔄 Làm mới kho
 
     </button>
 
-    <div id="accHistory"></div>
+
+    <div id="inventory"></div>
 
 </div>
 
@@ -408,7 +261,7 @@ button{
 <div class="box">
 
     <button
-        class="logout-btn"
+        class="logout"
         onclick="logoutAdmin()">
 
         🚪 Đăng xuất Admin
@@ -432,13 +285,14 @@ button{
 
 <script>
 
-/* =========================
+/* =================================
    KIỂM TRA ADMIN
-========================= */
+================================= */
 
 if(
-    sessionStorage.getItem("adminLoggedIn")
-    !== "true"
+    sessionStorage.getItem(
+        "adminLoggedIn"
+    ) !== "true"
 ){
 
     window.location.href =
@@ -447,108 +301,160 @@ if(
 }
 
 
-/* =========================
-   TẠO ĐƠN
-========================= */
+/* =================================
+   DANH SÁCH MỆNH GIÁ
+================================= */
 
-function createOrder(){
+const prices = [
 
-    const username =
-        document
-        .getElementById("orderUsername")
-        .value
-        .trim();
+    {
+        value:"0",
+        label:"0K"
+    },
 
-    const product =
-        document
-        .getElementById("orderProduct")
-        .value;
+    {
+        value:"10000",
+        label:"10K"
+    },
+
+    {
+        value:"20000",
+        label:"20K"
+    },
+
+    {
+        value:"50000",
+        label:"50K"
+    },
+
+    {
+        value:"80000",
+        label:"80K"
+    },
+
+    {
+        value:"100000",
+        label:"100K"
+    }
+
+];
+
+
+/* =================================
+   LẤY KHO ACC
+================================= */
+
+function getInventory(){
+
+    return JSON.parse(
+
+        localStorage.getItem(
+            "shopInventory"
+        ) || "{}"
+
+    );
+
+}
+
+
+/* =================================
+   LƯU KHO
+================================= */
+
+function saveInventory(inventory){
+
+    localStorage.setItem(
+
+        "shopInventory",
+
+        JSON.stringify(
+            inventory
+        )
+
+    );
+
+}
+
+
+/* =================================
+   THÊM ACC
+================================= */
+
+function saveAccount(){
 
     const price =
-        document
-        .getElementById("orderPrice")
-        .value
-        .trim();
+        document.getElementById(
+            "price"
+        ).value;
 
-    const accountName =
-        document
-        .getElementById("accountName")
-        .value
-        .trim();
 
-    const accountPass =
-        document
-        .getElementById("accountPass")
-        .value;
+    const packageNumber =
+        document.getElementById(
+            "package"
+        ).value;
+
+
+    const name =
+        document.getElementById(
+            "accountName"
+        ).value.trim();
+
+
+    const pass =
+        document.getElementById(
+            "accountPass"
+        ).value;
+
 
     const message =
-        document
-        .getElementById("orderMessage");
+        document.getElementById(
+            "message"
+        );
 
 
-    if(
-        !username ||
-        !product ||
-        !price ||
-        !accountName ||
-        !accountPass
-    ){
+    if(!name || !pass){
 
         message.style.color =
             "#e53935";
 
         message.textContent =
-            "❌ Vui lòng nhập đầy đủ thông tin.";
+            "❌ Vui lòng nhập Name và Pass.";
 
         return;
 
     }
 
 
-    let orders =
-        JSON.parse(
-            localStorage.getItem(
-                "shopOrders"
-            ) || "[]"
-        );
+    let inventory =
+        getInventory();
 
 
-    const order = {
+    if(!inventory[price]){
 
-        id:
-            "DH" + Date.now(),
+        inventory[price] = {};
 
-        username:
-            username,
+    }
 
-        product:
-            product,
 
-        price:
-            price,
+    /*
+       Mỗi gói chỉ giữ 1 acc
+    */
 
-        date:
+    inventory[price][packageNumber] = {
+
+        name:name,
+
+        pass:pass,
+
+        addedAt:
             new Date()
-            .toLocaleString("vi-VN"),
-
-        status:
-            "Đã giao",
-
-        accountName:
-            accountName,
-
-        accountPass:
-            accountPass
+            .toLocaleString("vi-VN")
 
     };
 
 
-    orders.push(order);
-
-
-    localStorage.setItem(
-        "shopOrders",
-        JSON.stringify(orders)
+    saveInventory(
+        inventory
     );
 
 
@@ -556,212 +462,206 @@ function createOrder(){
         "#00a66a";
 
     message.textContent =
-        "✅ Giao đơn hàng thành công!";
+        "✅ Đã lưu acc vào " +
+        getPriceLabel(price) +
+        " - Gói " +
+        packageNumber;
 
-
-    document.getElementById(
-        "orderUsername"
-    ).value = "";
-
-    document.getElementById(
-        "orderPrice"
-    ).value = "";
 
     document.getElementById(
         "accountName"
     ).value = "";
+
 
     document.getElementById(
         "accountPass"
     ).value = "";
 
 
-    renderOrders();
+    renderInventory();
 
 }
 
 
-/* =========================
-   HIỂN THỊ ĐƠN
-========================= */
+/* =================================
+   HIỂN THỊ KHO
+================================= */
 
-function renderOrders(){
+function renderInventory(){
 
-    const orders =
-        JSON.parse(
-            localStorage.getItem(
-                "shopOrders"
-            ) || "[]"
-        );
+    const inventory =
+        getInventory();
 
 
     const box =
         document.getElementById(
-            "accHistory"
+            "inventory"
         );
 
 
     box.innerHTML = "";
 
 
-    if(orders.length === 0){
+    prices.forEach(
+        price => {
 
-        box.innerHTML =
-            '<div class="empty">' +
-            '📦 Chưa có acc nào được giao.' +
-            '</div>';
-
-        updateStats(orders);
-
-        return;
-
-    }
+            const title =
+                document.createElement(
+                    "h3"
+                );
 
 
-    orders
-    .slice()
-    .reverse()
-    .forEach(
-        (order,index) => {
-
-            const realIndex =
-                orders.length - 1 - index;
+            title.textContent =
+                "🎁 " +
+                price.label;
 
 
-            const item =
-                document.createElement("div");
-
-            item.className =
-                "order";
+            box.appendChild(
+                title
+            );
 
 
-            item.innerHTML = `
+            for(
+                let i=1;
+                i<=8;
+                i++
+            ){
 
-                <div class="order-title">
-                    📦 ${escapeHTML(order.id)}
-                </div>
-
-                <div class="order-row">
-                    👤 Khách:
-                    <b>
-                        ${escapeHTML(order.username)}
-                    </b>
-                </div>
-
-                <div class="order-row">
-                    🎮 ${escapeHTML(order.product)}
-                </div>
-
-                <div class="order-row">
-                    💰 ${escapeHTML(order.price)}
-                </div>
-
-                <div class="order-row">
-                    📅 ${escapeHTML(order.date)}
-                </div>
-
-                <span class="status">
-                    🟢 ${escapeHTML(order.status)}
-                </span>
+                const account =
+                    inventory[
+                        price.value
+                    ] &&
+                    inventory[
+                        price.value
+                    ][i];
 
 
-                <button
-                    class="show-btn"
-                    onclick="toggleAccount(${realIndex})">
-
-                    👁 Xem Name + Pass
-
-                </button>
+                const item =
+                    document.createElement(
+                        "div"
+                    );
 
 
-                <div
-                    class="account"
-                    id="account-${realIndex}">
+                item.className =
+                    "package";
 
-                    <div>
-                        👤 Name:
-                        <b>
+
+                if(account){
+
+                    item.innerHTML = `
+
+                        <div class="package-title">
+
+                            🎁 Gói ${i}
+
+                            <span
+                                style="
+                                color:#00a66a;
+                                ">
+                                🟢 Có acc
+                            </span>
+
+                        </div>
+
+
+                        <div class="account">
+
+                            👤 Name:
+
+                            <b>
+                                ${escapeHTML(
+                                    account.name
+                                )}
+                            </b>
+
+                            <br><br>
+
+                            🔑 Pass:
+
+                            <b>
+                                ${escapeHTML(
+                                    account.pass
+                                )}
+                            </b>
+
+                            <br><br>
+
+                            📅 Thêm:
+
                             ${escapeHTML(
-                                order.accountName
+                                account.addedAt
                             )}
-                        </b>
-                    </div>
 
-                    <br>
+                            <br><br>
 
-                    <div>
-                        🔑 Pass:
-                        <b>
-                            ${escapeHTML(
-                                order.accountPass
-                            )}
-                        </b>
-                    </div>
+                            <button
+                                style="
+                                background:#e53935;
+                                color:white;
+                                width:100%;
+                                "
+                                onclick="
+                                deleteAccount(
+                                    '${price.value}',
+                                    '${i}'
+                                )">
+
+                                🗑️ Xóa acc
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+                }else{
+
+                    item.innerHTML = `
+
+                        <div class="package-title">
+
+                            🎁 Gói ${i}
+
+                            <span
+                                style="
+                                color:#e53935;
+                                ">
+
+                                🔴 Chưa có acc
+
+                            </span>
+
+                        </div>
+
+                    `;
+
+                }
 
 
-                    <button
-                        class="delete-btn"
-                        onclick="deleteOrder(${realIndex})">
+                box.appendChild(
+                    item
+                );
 
-                        🗑️ Xóa đơn
-
-                    </button>
-
-                </div>
-
-            `;
-
-
-            box.appendChild(item);
+            }
 
         }
     );
 
-
-    updateStats(orders);
-
 }
 
 
-/* =========================
-   XEM ACC
-========================= */
+/* =================================
+   XÓA ACC
+================================= */
 
-function toggleAccount(index){
-
-    const account =
-        document.getElementById(
-            "account-" + index
-        );
-
-
-    if(
-        account.style.display ===
-        "block"
-    ){
-
-        account.style.display =
-            "none";
-
-    }else{
-
-        account.style.display =
-            "block";
-
-    }
-
-}
-
-
-/* =========================
-   XÓA ĐƠN
-========================= */
-
-function deleteOrder(index){
+function deleteAccount(
+    price,
+    packageNumber
+){
 
     if(
         !confirm(
-            "Bạn có chắc muốn xóa đơn này?"
+            "Bạn có chắc muốn xóa acc này?"
         )
     ){
 
@@ -770,147 +670,116 @@ function deleteOrder(index){
     }
 
 
-    let orders =
-        JSON.parse(
-            localStorage.getItem(
-                "shopOrders"
-            ) || "[]"
-        );
+    let inventory =
+        getInventory();
 
 
-    orders.splice(index,1);
+    if(
+        inventory[price] &&
+        inventory[price][packageNumber]
+    ){
 
-
-    localStorage.setItem(
-        "shopOrders",
-        JSON.stringify(orders)
-    );
-
-
-    renderOrders();
-
-}
-
-
-/* =========================
-   KHÁCH HÀNG
-========================= */
-
-function renderCustomers(){
-
-    const users =
-        JSON.parse(
-            localStorage.getItem(
-                "shopUsers"
-            ) || "{}"
-        );
-
-
-    const box =
-        document.getElementById(
-            "customerList"
-        );
-
-
-    box.innerHTML = "";
-
-
-    const names =
-        Object.keys(users);
-
-
-    if(names.length === 0){
-
-        box.innerHTML =
-            '<div class="empty">' +
-            '👥 Chưa có khách hàng.' +
-            '</div>';
-
-        return;
+        delete inventory[
+            price
+        ][
+            packageNumber
+        ];
 
     }
 
 
-    names.forEach(username => {
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "customer";
+    saveInventory(
+        inventory
+    );
 
 
-        item.innerHTML = `
-
-            👤 Tên khách:
-
-            <b>
-                ${escapeHTML(username)}
-            </b>
-
-        `;
-
-
-        box.appendChild(item);
-
-    });
+    renderInventory();
 
 }
 
 
-/* =========================
-   THỐNG KÊ
-========================= */
+/* =================================
+   XÓA Ô NHẬP
+================================= */
 
-function updateStats(orders){
+function clearForm(){
 
-    const users =
-        JSON.parse(
-            localStorage.getItem(
-                "shopUsers"
-            ) || "{}"
+    document.getElementById(
+        "accountName"
+    ).value = "";
+
+
+    document.getElementById(
+        "accountPass"
+    ).value = "";
+
+
+    document.getElementById(
+        "message"
+    ).textContent = "";
+
+}
+
+
+/* =================================
+   TÊN MỆNH GIÁ
+================================= */
+
+function getPriceLabel(
+    price
+){
+
+    const found =
+        prices.find(
+            item =>
+                item.value ===
+                String(price)
         );
 
 
-    document.getElementById(
-        "customerCount"
-    ).textContent =
-        Object.keys(users).length;
-
-
-    document.getElementById(
-        "orderCount"
-    ).textContent =
-        orders.length;
-
-
-    document.getElementById(
-        "deliveredCount"
-    ).textContent =
-        orders.length;
+    return found
+        ? found.label
+        : price;
 
 }
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+/* =================================
+   CHỐNG HTML
+================================= */
 
 function escapeHTML(value){
 
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+    return String(
+        value ?? ""
+    )
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
 
-/* =========================
-   ĐĂNG XUẤT ADMIN
-========================= */
+/* =================================
+   ĐĂNG XUẤT
+================================= */
 
 function logoutAdmin(){
 
@@ -918,19 +787,18 @@ function logoutAdmin(){
         "adminLoggedIn"
     );
 
+
     window.location.href =
         "login.html";
 
 }
 
 
-/* =========================
-   KHỞI ĐỘNG
-========================= */
+/* =================================
+   CHẠY KHI MỞ TRANG
+================================= */
 
-renderCustomers();
-
-renderOrders();
+renderInventory();
 
 </script>
 
