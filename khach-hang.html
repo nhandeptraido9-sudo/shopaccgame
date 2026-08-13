@@ -553,8 +553,13 @@ trên trình duyệt hiện tại.
 
 try{
 
-    const currentUser =
+   const currentUser =
     localStorage.getItem("currentUser");
+
+document.getElementById(
+    "customerName"
+).textContent =
+    currentUser || "Chưa đăng nhập";
 
 
     const customerCount =
