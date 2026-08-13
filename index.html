@@ -1,288 +1,56 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOPACCGAME</title>
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FreeGame Store</title>
 <style>
-*{box-sizing:border-box}
-body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f4f6f9;
-color:#222
+body{margin:0;background:#eef3f8;font-family:Arial;color:#182238}.top{padding:25px 16px}.search{width:320px;max-width:90%;padding:12px 16px;border:2px solid #7258ff;border-radius:14px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;padding:10px 16px}.card{background:#fff;border:2px solid #b6c5ff;border-radius:16px;padding:5px;text-align:center}.pic{height:190px;border-radius:13px;background:linear-gradient(135deg,#168cf0,#ffd33b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:900;text-shadow:2px 2px #07509b}.btn{display:block;margin:8px 0;padding:12px;background:linear-gradient(90deg,#1598f4,#5968dc);color:white;text-decoration:none;border-radius:9px;font-weight:bold}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr}}
+</style></head><body>
+<div class="top"><input class="search" placeholder="🔎 Tìm game..."></div>
+<div class="grid">
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>NOOB<br>0K</div><h3>TÚI MÙ BLOX FRUITS 0K</h3><b>0 ₫</b><a class="btn" href="tui-mu.html?price=0">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>10K</div><h3>TÚI MÙ BLOX FRUITS 10K</h3><b>10.000 ₫</b><a class="btn" href="tui-mu.html?price=10000">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>20K</div><h3>TÚI MÙ BLOX FRUITS 20K</h3><b>20.000 ₫</b><a class="btn" href="tui-mu.html?price=20000">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>80K</div><h3>TÚI MÙ BLOX FRUITS 80K</h3><b>80.000 ₫</b><a class="btn" href="tui-mu.html?price=80000">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>50K</div><h3>TÚI MÙ BLOX FRUITS 50K</h3><b>50.000 ₫</b><a class="btn" href="tui-mu.html?price=50000">MUA NGAY →</a></div>
+<div class="card"><div class="pic">XÉ TÚI MÙ<br>100K</div><h3>TÚI MÙ BLOX FRUITS 100K</h3><b>100.000 ₫</b><a class="btn" href="tui-mu.html?price=100000">MUA NGAY →</a></div>
+</div></body>
+  <!-- NÚT KHÁCH HÀNG -->
+<a href="khach-hang.html" class="customer-btn">
+    👤 Khách hàng
+</a>
+
+<style>
+.customer-btn{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:99999;
+
+    padding:13px 18px;
+    border-radius:14px;
+
+    background:linear-gradient(135deg,#5137df,#347bf0);
+    color:white;
+
+    text-decoration:none;
+    font-size:16px;
+    font-weight:bold;
+
+    box-shadow:0 5px 18px #0004;
+    transition:0.2s;
 }
-header{
-background:#111827;
-color:white;
-padding:15px 25px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-position:sticky;
-top:0;
-z-index:100
+
+.customer-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 8px 22px #0005;
 }
-.logo{font-size:22px;font-weight:bold}
-.menu{
-display:flex;
-align-items:center;
-gap:8px;
-flex-wrap:wrap
-}
-.menu a{
-color:white;
-text-decoration:none;
-padding:10px 12px;
-border-radius:8px;
-font-weight:bold
-}
-.menu a:hover{background:#2563eb}
-.balance{
-background:#2563eb;
-color:white;
-padding:10px 12px;
-border-radius:8px;
-font-weight:bold
-}
-.hero{
-max-width:1100px;
-margin:30px auto;
-padding:50px 20px;
-border-radius:20px;
-background:linear-gradient(135deg,#2563eb,#7c3aed);
-color:white;
-text-align:center
-}
-.hero h1{font-size:38px;margin:0}
-.hero p{font-size:18px}
-.btn{
-display:inline-block;
-padding:13px 22px;
-margin:5px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold
-}
-.btn-white{background:white;color:#2563eb}
-.btn-green{background:#16a34a;color:white}
-.container{
-max-width:1100px;
-margin:auto;
-padding:0 15px 40px
-}
-.title{text-align:center;margin:35px 0 20px}
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px
-}
-.product{
-background:white;
-padding:22px;
-border-radius:15px;
-text-align:center;
-box-shadow:0 4px 15px rgba(0,0,0,.08)
-}
-.product a{
-display:block;
-background:#2563eb;
-color:white;
-padding:12px;
-border-radius:9px;
-text-decoration:none;
-font-weight:bold
-}
-.price{
-color:#2563eb;
-font-size:20px;
-font-weight:bold;
-margin:12px
-}
-footer{
-background:#111827;
-color:white;
-text-align:center;
-padding:25px
+
+@media(max-width:500px){
+    .customer-btn{
+        right:12px;
+        bottom:12px;
+        padding:11px 14px;
+        font-size:14px;
+    }
 }
 </style>
-</head>
-<body>
-<header>
-
-<div class="logo">
-SHOPACCGAME
-</div>
-
-<nav class="menu">
-
-<a href="index.html">
-🏠 Trang chủ
-</a>
-
-<a href="tui-mu.html">
-🎁 Túi mù
-</a>
-
-<a href="nap-tien.html">
-💰 Nạp tiền
-</a>
-
-<span id="balanceBox" class="balance">
-Số dư: 0đ
-</span>
-
-<a href="login.html">
-👤 Đăng nhập
-</a>
-
-</nav>
-
-</header>
-
-<section class="hero">
-
-<h1>
-SHOPACCGAME
-</h1>
-
-<p>
-Shop tài khoản game - Túi mù - Nạp tiền
-</p>
-
-<a class="btn btn-white" href="tui-mu.html">
-🎁 Mua túi mù
-</a>
-
-<a class="btn btn-green" href="nap-tien.html">
-💰 Nạp tiền
-</a>
-
-</section>
-
-<div class="container">
-
-<h2 class="title">
-🎮 Danh mục
-</h2>
-
-<div class="products">
-
-<div class="product">
-<h3>🎁 Túi mù</h3>
-<p>Mua túi mù và nhận tài khoản.</p>
-<div class="price">Nhiều mệnh giá</div>
-<a href="tui-mu.html">
-Xem túi mù
-</a>
-</div>
-
-<div class="product">
-<h3>💰 Nạp tiền</h3>
-<p>Nạp tiền bằng ngân hàng hoặc thẻ cào.</p>
-<div class="price">Nạp ngay</div>
-<a href="nap-tien.html">
-Nạp tiền
-</a>
-</div>
-
-<div class="product">
-<h3>👤 Tài khoản</h3>
-<p>Đăng nhập để quản lý tài khoản.</p>
-<div class="price">Thành viên</div>
-<a href="login.html">
-Đăng nhập
-</a>
-</div>
-
-</div>
-
-</div>
-
-<footer>
-© 2026 SHOPACCGAME
-</footer>
-  <script>
-
-const API_URL =
-"https://script.google.com/macros/s/AKfycbxVOLUsIdJ0fGc9hMzUklnumAQUYtqmyhkfsMK7x3acF7fmQT27JL3e12_GZGWAiZ6Fgw/exec";
-
-
-function getUsername(){
-
-return (
-localStorage.getItem("username") ||
-localStorage.getItem("user") ||
-localStorage.getItem("taikhoan") ||
-""
-).trim();
-
-}
-
-
-function formatMoney(number){
-
-return Number(number || 0)
-.toLocaleString("vi-VN") + "đ";
-
-}
-
-
-async function loadBalance(){
-
-const username =
-getUsername();
-
-const box =
-document.getElementById("balanceBox");
-
-if(!username){
-
-box.textContent="Số dư: 0đ";
-
-return;
-
-}
-
-try{
-
-const response =
-await fetch(
-API_URL +
-"?action=getBalance&username=" +
-encodeURIComponent(username)
-);
-
-const data =
-await response.json();
-
-if(data.ok){
-
-box.textContent =
-"Số dư: " +
-formatMoney(data.balance);
-
-}
-
-}catch(error){
-
-console.log(error);
-
-}
-
-}
-
-
-document.addEventListener(
-"DOMContentLoaded",
-function(){
-
-loadBalance();
-
-}
-);
-
-</script>
-
-</body>
 </html>
