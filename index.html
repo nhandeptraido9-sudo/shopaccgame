@@ -2,149 +2,135 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SHOPACCGAME</title>
 
 <style>
 *{
-box-sizing:border-box
+    box-sizing:border-box;
 }
 
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:#f4f6f9;
-color:#222
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f6f9;
 }
 
 header{
-background:#111827;
-color:white;
-padding:15px 25px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-position:sticky;
-top:0;
-z-index:100
+    background:#111827;
+    color:white;
+    padding:15px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
 }
 
 .logo{
-font-size:22px;
-font-weight:bold
+    font-size:22px;
+    font-weight:bold;
 }
 
 .menu{
-display:flex;
-align-items:center;
-gap:8px;
-flex-wrap:wrap
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
 }
 
 .menu a{
-color:white;
-text-decoration:none;
-padding:10px 12px;
-border-radius:8px;
-font-weight:bold
+    color:white;
+    text-decoration:none;
+    padding:10px 14px;
+    border-radius:8px;
+    font-weight:bold;
 }
 
 .menu a:hover{
-background:#2563eb
+    background:#2563eb;
 }
 
 .hero{
-max-width:1100px;
-margin:30px auto;
-padding:50px 20px;
-border-radius:20px;
-background:linear-gradient(
-135deg,
-#2563eb,
-#7c3aed
-);
-color:white;
-text-align:center
+    max-width:1100px;
+    margin:30px auto;
+    padding:45px 20px;
+    text-align:center;
+    border-radius:20px;
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #7c3aed
+    );
+    color:white;
 }
 
 .hero h1{
-font-size:38px;
-margin:0
+    margin:0;
+    font-size:38px;
 }
 
 .hero p{
-font-size:18px
+    font-size:18px;
 }
 
-.btn{
-display:inline-block;
-padding:13px 22px;
-margin:5px;
-border-radius:10px;
-text-decoration:none;
-font-weight:bold
-}
-
-.btn-white{
-background:white;
-color:#2563eb
+.button{
+    display:inline-block;
+    margin:8px;
+    padding:13px 22px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:bold;
+    background:white;
+    color:#2563eb;
 }
 
 .container{
-max-width:1100px;
-margin:auto;
-padding:0 15px 40px
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
 }
 
 .title{
-text-align:center;
-margin:35px 0 20px
+    text-align:center;
 }
 
 .products{
-display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
-gap:20px
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
 }
 
-.product{
-background:white;
-padding:22px;
-border-radius:15px;
-text-align:center;
-box-shadow:
-0 4px 15px rgba(0,0,0,.08)
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
-.product a{
-display:block;
-background:#2563eb;
-color:white;
-padding:12px;
-border-radius:9px;
-text-decoration:none;
-font-weight:bold
-}
-
-.price{
-color:#2563eb;
-font-size:20px;
-font-weight:bold;
-margin:12px
+.card a{
+    display:block;
+    background:#2563eb;
+    color:white;
+    text-decoration:none;
+    padding:12px;
+    border-radius:8px;
+    font-weight:bold;
 }
 
 footer{
-background:#111827;
-color:white;
-text-align:center;
-padding:25px
+    margin-top:40px;
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:25px;
 }
 </style>
 </head>
 
 <body>
-  <header>
+
+<header>
 
 <div class="logo">
 SHOPACCGAME
@@ -161,7 +147,7 @@ SHOPACCGAME
 </a>
 
 <a href="login.html">
-👤 Đăng nhập
+👤 Khách hàng
 </a>
 
 </nav>
@@ -176,14 +162,21 @@ SHOPACCGAME
 </h1>
 
 <p>
-Shop tài khoản game - Túi mù
+Shop tài khoản game và túi mù
 </p>
 
 <a
-class="btn btn-white"
+class="button"
 href="tui-mu.html"
 >
 🎁 Mua túi mù
+</a>
+
+<a
+class="button"
+href="login.html"
+>
+👤 Khách hàng
 </a>
 
 </section>
@@ -197,7 +190,7 @@ href="tui-mu.html"
 
 <div class="products">
 
-<div class="product">
+<div class="card">
 
 <h3>
 🎁 Túi mù
@@ -207,10 +200,6 @@ href="tui-mu.html"
 Mua túi mù và nhận tài khoản.
 </p>
 
-<div class="price">
-Nhiều mệnh giá
-</div>
-
 <a href="tui-mu.html">
 Xem túi mù
 </a>
@@ -218,19 +207,15 @@ Xem túi mù
 </div>
 
 
-<div class="product">
+<div class="card">
 
 <h3>
-👤 Tài khoản
+👤 Khách hàng
 </h3>
 
 <p>
-Đăng nhập để quản lý tài khoản.
+Đăng nhập hoặc đăng ký tài khoản.
 </p>
-
-<div class="price">
-Thành viên
-</div>
 
 <a href="login.html">
 Đăng nhập
@@ -248,20 +233,6 @@ Thành viên
 © 2026 SHOPACCGAME
 
 </footer>
-<script>
-
-document.addEventListener(
-"DOMContentLoaded",
-function(){
-
-console.log(
-"SHOPACCGAME đã hoạt động"
-);
-
-}
-);
-
-</script>
 
 </body>
 </html>
