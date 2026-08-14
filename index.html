@@ -410,6 +410,71 @@ body{
 
 }
 
+
+/* ================= SHOP MỚI - CHUYỂN QUA KIỂM TRA ================= */
+.new-shop-banner{
+    width:calc(100% - 32px);
+    margin:0 16px 18px;
+    padding:15px 16px;
+    background:#fff;
+    border:1px solid #e21b23;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    text-align:center;
+}
+
+.new-shop-title{
+    color:#d01018;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.new-shop-text{
+    color:#182238;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.new-shop-status{
+    margin-bottom:12px;
+    color:#d01018;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.new-shop-banner a{
+    display:inline-block;
+    padding:9px 15px;
+    border-radius:8px;
+    background:#d01018;
+    color:#fff;
+    font-size:13px;
+    font-weight:bold;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.new-shop-banner a:hover{
+    background:#a80e12;
+    transform:translateY(-1px);
+}
+
+@media(max-width:600px){
+    .new-shop-banner{
+        flex-direction:column;
+        gap:8px;
+    }
+
+    .new-shop-banner a{
+        width:100%;
+    }
+}
+
 </style>
 
 </head>
@@ -429,6 +494,28 @@ body{
 
 </div>
 
+<!-- ================= SHOP MỚI ================= -->
+
+<div class="new-shop-banner">
+
+    <div class="new-shop-title">
+        🚀 SHOP MỚI
+    </div>
+
+    <div class="new-shop-text">
+        Shop mới chuyển qua kiểm tra
+    </div>
+
+    <div class="new-shop-status">
+        🔴 Hoạt động Shop mới: <b>CHƯA HOẠT ĐỘNG</b>
+    </div>
+
+    <a
+        href="https://nhandeptraido9-sudo.github.io/Shopkarot.com.vn/index.html">
+        SANG SHOP MỚI →
+    </a>
+
+</div>
 
 <!-- ================= THÔNG TIN SHOPKAROT ================= -->
 
