@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>FreeGame Store</title>
+<title>SHOPACCGAME - Shop cũ</title>
 
 <style>
 
 body{
     margin:0;
     background:#eef3f8;
-    font-family:Arial;
-    color:#182238
+    font-family:Arial,sans-serif;
+    color:#182238;
 }
 
 .top{
-    padding:25px 16px
+    padding:25px 16px 10px;
 }
 
 .search{
@@ -24,46 +24,157 @@ body{
     max-width:90%;
     padding:12px 16px;
     border:2px solid #7258ff;
-    border-radius:14px
+    border-radius:14px;
+    outline:none;
 }
+
+
+/* ================= THÔNG TIN SHOP ================= */
+
+.shop-info{
+    margin:10px 16px 18px;
+    padding:20px;
+
+    background:white;
+
+    border:2px solid #b6c5ff;
+
+    border-radius:16px;
+
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.shop-info h2{
+    margin:0 0 15px;
+
+    color:#5137df;
+
+    font-size:22px;
+}
+
+.shop-info p{
+    margin:9px 0;
+
+    line-height:1.55;
+
+    color:#333;
+}
+
+
+/* SHOP CŨ */
+
+.shop-info .old-shop{
+    padding:13px;
+
+    background:#ffe8e8;
+
+    border:1px solid #ffb5b5;
+
+    border-radius:10px;
+
+    color:#d62828;
+
+    font-weight:bold;
+}
+
+
+/* LƯU Ý */
+
+.shop-info .warning{
+    padding:12px;
+
+    background:#fff4d6;
+
+    border-radius:10px;
+
+    color:#795900;
+}
+
+
+/* CẢM ƠN */
+
+.shop-info .thanks{
+    text-align:center;
+
+    font-weight:bold;
+
+    margin-top:16px;
+}
+
+
+/* ================= DANH SÁCH ================= */
 
 .grid{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:15px;
-    padding:10px 16px
+
+    padding:10px 16px;
 }
 
 .card{
     background:#fff;
+
     border:2px solid #b6c5ff;
+
     border-radius:16px;
+
     padding:5px;
-    text-align:center
+
+    text-align:center;
 }
 
 .pic{
     height:190px;
+
     border-radius:13px;
-    background:linear-gradient(135deg,#168cf0,#ffd33b);
+
+    background:
+        linear-gradient(
+            135deg,
+            #168cf0,
+            #ffd33b
+        );
+
     display:flex;
+
     align-items:center;
     justify-content:center;
+
     color:#fff;
+
     font-size:28px;
+
     font-weight:900;
-    text-shadow:2px 2px #07509b
+
+    text-shadow:
+        2px 2px #07509b;
 }
 
 .btn{
     display:block;
+
     margin:8px 0;
+
     padding:12px;
-    background:linear-gradient(90deg,#1598f4,#5968dc);
+
+    background:
+        linear-gradient(
+            90deg,
+            #1598f4,
+            #5968dc
+        );
+
     color:white;
+
     text-decoration:none;
+
     border-radius:9px;
-    font-weight:bold
+
+    font-weight:bold;
 }
 
 
@@ -71,43 +182,61 @@ body{
 
 .customer-btn{
     position:fixed;
+
     right:20px;
     bottom:20px;
+
     z-index:99999;
 
     padding:13px 18px;
+
     border-radius:14px;
 
-    background:linear-gradient(135deg,#5137df,#347bf0);
+    background:
+        linear-gradient(
+            135deg,
+            #5137df,
+            #347bf0
+        );
+
     color:white;
 
     text-decoration:none;
+
     font-size:16px;
+
     font-weight:bold;
 
-    box-shadow:0 5px 18px #0004;
-    transition:0.2s;
+    box-shadow:
+        0 5px 18px #0004;
+
+    transition:.2s;
 }
 
 .customer-btn:hover{
     transform:translateY(-3px);
-    box-shadow:0 8px 22px #0005;
+
+    box-shadow:
+        0 8px 22px #0005;
 }
 
 
-/* ================= POPUP THÔNG BÁO ================= */
+/* ================= POPUP ================= */
 
 .shop-notice-overlay{
     display:none;
 
     position:fixed;
+
     inset:0;
 
-    background:rgba(0,0,0,.6);
+    background:
+        rgba(0,0,0,.6);
 
     z-index:999999;
 
     align-items:center;
+
     justify-content:center;
 
     padding:15px;
@@ -115,6 +244,7 @@ body{
 
 .shop-notice-box{
     width:100%;
+
     max-width:430px;
 
     background:#fff;
@@ -127,9 +257,11 @@ body{
 
     position:relative;
 
-    box-shadow:0 15px 50px rgba(0,0,0,.3);
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.3);
 
-    animation:shopNoticeShow .25s ease;
+    animation:
+        shopNoticeShow .25s ease;
 }
 
 @keyframes shopNoticeShow{
@@ -153,6 +285,7 @@ body{
     right:13px;
 
     border:0;
+
     background:none;
 
     font-size:30px;
@@ -173,6 +306,7 @@ body{
     background:#eaf3ff;
 
     display:flex;
+
     align-items:center;
     justify-content:center;
 
@@ -199,7 +333,6 @@ body{
 
 .shop-notice-buttons button,
 .shop-notice-buttons a{
-
     flex:1;
 
     padding:12px;
@@ -234,12 +367,13 @@ body{
 }
 
 
-/* ================= RESPONSIVE ================= */
+/* ================= MOBILE ================= */
 
 @media(max-width:850px){
 
     .grid{
-        grid-template-columns:repeat(2,1fr)
+        grid-template-columns:
+            repeat(2,1fr);
     }
 
 }
@@ -247,11 +381,22 @@ body{
 @media(max-width:500px){
 
     .grid{
-        grid-template-columns:1fr
+        grid-template-columns:1fr;
+    }
+
+    .shop-info{
+        margin:8px 10px 15px;
+
+        padding:16px;
+    }
+
+    .shop-info h2{
+        font-size:19px;
     }
 
     .customer-btn{
         right:12px;
+
         bottom:12px;
 
         padding:11px 14px;
@@ -285,6 +430,98 @@ body{
 </div>
 
 
+<!-- ================= THÔNG TIN SHOPKAROT ================= -->
+
+<div class="shop-info">
+
+    <h2>
+        📣 Thông tin Shopkarot
+    </h2>
+
+
+    <p class="old-shop">
+
+        ⚠️ Đây là <b>SHOP CŨ</b> của Karot.
+
+    </p>
+
+
+    <p>
+
+        Hiện tại đây shop chính thức của Karot,
+        các shop khác là giả mạo.
+
+    </p>
+
+
+    <p>
+
+        Shop mình có bán nick và cày thuê Blox Fruits.
+
+    </p>
+
+
+    <p>
+
+        <b>Mình có:</b>
+
+    </p>
+
+
+    <p>
+
+        🔥 Giao acc nhanh sau khi hoàn tất đơn hàng.
+
+    </p>
+
+
+    <p>
+
+        🛡️ Bảo hành theo chính sách của từng sản phẩm.
+
+    </p>
+
+
+    <p>
+
+        💬 Mọi thắc mắc vui lòng liên hệ Admin Shopkarot.
+
+    </p>
+
+
+    <p>
+
+        ShopKarot uy tín, giá rẻ, an toàn,
+        nạp tiền nhanh chóng.
+
+    </p>
+
+
+    <p>
+
+        🕐 <b>Thời hoạt động shop:</b>
+        10h sáng – 8h tối.
+
+    </p>
+
+
+    <p class="warning">
+
+        ⚠️ <b>Lưu ý quan trọng:</b>
+        nên nạp tiền khi admin on.
+
+    </p>
+
+
+    <p class="thanks">
+
+        🖤 Cảm ơn bạn đã ủng hộ SHOPKAROT!
+
+    </p>
+
+</div>
+
+
 <!-- ================= DANH SÁCH TÚI MÙ ================= -->
 
 <div class="grid" id="gameGrid">
@@ -295,23 +532,31 @@ body{
     <div class="card">
 
         <div class="pic">
+
             XÉ TÚI MÙ<br>
             NOOB<br>
             0K
+
         </div>
 
         <h3>
+
             TÚI MÙ BLOX FRUITS 0K
+
         </h3>
 
         <b>
+
             0 ₫
+
         </b>
 
         <a
             class="btn"
             href="tui-mu.html?price=0">
+
             MUA NGAY →
+
         </a>
 
     </div>
@@ -322,22 +567,30 @@ body{
     <div class="card">
 
         <div class="pic">
+
             XÉ TÚI MÙ<br>
             10K
+
         </div>
 
         <h3>
+
             TÚI MÙ BLOX FRUITS 10K
+
         </h3>
 
         <b>
+
             10.000 ₫
+
         </b>
 
         <a
             class="btn"
             href="tui-mu.html?price=10000">
+
             MUA NGAY →
+
         </a>
 
     </div>
@@ -348,22 +601,30 @@ body{
     <div class="card">
 
         <div class="pic">
+
             XÉ TÚI MÙ<br>
             20K
+
         </div>
 
         <h3>
+
             TÚI MÙ BLOX FRUITS 20K
+
         </h3>
 
         <b>
+
             20.000 ₫
+
         </b>
 
         <a
             class="btn"
             href="tui-mu.html?price=20000">
+
             MUA NGAY →
+
         </a>
 
     </div>
@@ -374,22 +635,30 @@ body{
     <div class="card">
 
         <div class="pic">
+
             XÉ TÚI MÙ<br>
             80K
+
         </div>
 
         <h3>
+
             TÚI MÙ BLOX FRUITS 80K
+
         </h3>
 
         <b>
+
             80.000 ₫
+
         </b>
 
         <a
             class="btn"
             href="tui-mu.html?price=80000">
+
             MUA NGAY →
+
         </a>
 
     </div>
@@ -400,22 +669,30 @@ body{
     <div class="card">
 
         <div class="pic">
+
             XÉ TÚI MÙ<br>
             50K
+
         </div>
 
         <h3>
+
             TÚI MÙ BLOX FRUITS 50K
+
         </h3>
 
         <b>
+
             50.000 ₫
+
         </b>
 
         <a
             class="btn"
             href="tui-mu.html?price=50000">
+
             MUA NGAY →
+
         </a>
 
     </div>
@@ -426,22 +703,30 @@ body{
     <div class="card">
 
         <div class="pic">
+
             XÉ TÚI MÙ<br>
             100K
+
         </div>
 
         <h3>
+
             TÚI MÙ BLOX FRUITS 100K
+
         </h3>
 
         <b>
+
             100.000 ₫
+
         </b>
 
         <a
             class="btn"
             href="tui-mu.html?price=100000">
+
             MUA NGAY →
+
         </a>
 
     </div>
@@ -461,7 +746,7 @@ body{
 </a>
 
 
-<!-- ================= POPUP ================= -->
+<!-- ================= POPUP ĐĂNG NHẬP ================= -->
 
 <div
     id="shopNotice"
@@ -469,8 +754,6 @@ body{
 
     <div class="shop-notice-box">
 
-
-        <!-- NÚT ĐÓNG -->
 
         <button
             class="shop-notice-close"
@@ -481,16 +764,12 @@ body{
         </button>
 
 
-        <!-- ICON -->
-
         <div class="shop-notice-icon">
 
             🔔
 
         </div>
 
-
-        <!-- TIÊU ĐỀ -->
 
         <h2>
 
@@ -499,11 +778,11 @@ body{
         </h2>
 
 
-        <!-- NỘI DUNG -->
-
         <p>
 
             Chào mừng bạn đến với Shop Karot.<br>
+
+            Đây là shop cũ của Karot.<br>
 
             Shop đã có phiên bản mới.<br>
 
@@ -511,8 +790,6 @@ body{
 
         </p>
 
-
-        <!-- NÚT -->
 
         <div class="shop-notice-buttons">
 
@@ -544,7 +821,6 @@ body{
 
 <script>
 
-
 /* ================= TÌM KIẾM ================= */
 
 document
@@ -552,7 +828,9 @@ document
 .addEventListener("input", function(){
 
     const keyword =
-        this.value.toLowerCase().trim();
+        this.value
+        .toLowerCase()
+        .trim();
 
     const cards =
         document.querySelectorAll(".card");
@@ -561,7 +839,8 @@ document
     cards.forEach(function(card){
 
         const text =
-            card.innerText.toLowerCase();
+            card.innerText
+            .toLowerCase();
 
 
         if(text.includes(keyword)){
@@ -579,45 +858,35 @@ document
 });
 
 
-/* ================= HIỆN POPUP ================= */
+/* ================= POPUP SAU KHI LOGIN ================= */
 
-/*
+window.addEventListener(
+    "load",
+    function(){
 
-    Khi khach-hang.html đăng nhập thành công,
-    nó sẽ lưu:
-
-    localStorage.setItem(
-        "login_success",
-        "true"
-    );
-
-    Sau đó chuyển về index.html.
-
-*/
-
-window.addEventListener("load", function(){
-
-    const loginSuccess =
-        localStorage.getItem("login_success");
+        const loginSuccess =
+            localStorage.getItem(
+                "login_success"
+            );
 
 
-    if(loginSuccess === "true"){
+        if(loginSuccess === "true"){
 
-        document
-        .getElementById("shopNotice")
-        .style.display = "flex";
+            document
+            .getElementById(
+                "shopNotice"
+            )
+            .style.display = "flex";
 
 
-        /*
-            Xóa trạng thái để F5
-            không hiện popup lại.
-        */
+            localStorage.removeItem(
+                "login_success"
+            );
 
-        localStorage.removeItem("login_success");
+        }
 
     }
-
-});
+);
 
 
 /* ================= ĐÓNG POPUP ================= */
@@ -625,7 +894,9 @@ window.addEventListener("load", function(){
 function closeShopNotice(){
 
     document
-    .getElementById("shopNotice")
+    .getElementById(
+        "shopNotice"
+    )
     .style.display = "none";
 
 }
@@ -635,29 +906,34 @@ function closeShopNotice(){
 
 document
 .getElementById("shopNotice")
-.addEventListener("click", function(event){
+.addEventListener(
+    "click",
+    function(event){
 
-    if(event.target === this){
+        if(event.target === this){
 
-        closeShopNotice();
+            closeShopNotice();
+
+        }
 
     }
-
-});
+);
 
 
 /* ================= PHÍM ESC ================= */
 
-document.addEventListener("keydown", function(event){
+document.addEventListener(
+    "keydown",
+    function(event){
 
-    if(event.key === "Escape"){
+        if(event.key === "Escape"){
 
-        closeShopNotice();
+            closeShopNotice();
+
+        }
 
     }
-
-});
-
+);
 
 </script>
 
