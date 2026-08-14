@@ -216,6 +216,22 @@ hr{
     color:#166534;
 }
 
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:600px){
+
+    .header{
+        padding:15px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+}
 </style>
 </head>
 
@@ -292,6 +308,8 @@ hr{
     class="hidden">
 
 
+    <!-- THÔNG TIN -->
+
     <div class="box">
 
         <h2>
@@ -345,37 +363,14 @@ hr{
 
                 <select id="package0">
 
-                    <option value="1">
-                        Gói 1
-                    </option>
-
-                    <option value="2">
-                        Gói 2
-                    </option>
-
-                    <option value="3">
-                        Gói 3
-                    </option>
-
-                    <option value="4">
-                        Gói 4
-                    </option>
-
-                    <option value="5">
-                        Gói 5
-                    </option>
-
-                    <option value="6">
-                        Gói 6
-                    </option>
-
-                    <option value="7">
-                        Gói 7
-                    </option>
-
-                    <option value="8">
-                        Gói 8
-                    </option>
+                    <option value="1">Gói 1</option>
+                    <option value="2">Gói 2</option>
+                    <option value="3">Gói 3</option>
+                    <option value="4">Gói 4</option>
+                    <option value="5">Gói 5</option>
+                    <option value="6">Gói 6</option>
+                    <option value="7">Gói 7</option>
+                    <option value="8">Gói 8</option>
 
                 </select>
 
@@ -388,8 +383,6 @@ hr{
 
                 </button>
 
-
-                <!-- ĐẾM NGƯỢC -->
 
                 <div
                     id="freeCooldown"
@@ -437,8 +430,7 @@ hr{
 
                 </select>
 
-                <button
-                    onclick="buy(10000,'package10')">
+                <button onclick="buy(10000,'package10')">
                     Mua ngay
                 </button>
 
@@ -470,8 +462,7 @@ hr{
 
                 </select>
 
-                <button
-                    onclick="buy(20000,'package20')">
+                <button onclick="buy(20000,'package20')">
                     Mua ngay
                 </button>
 
@@ -503,8 +494,7 @@ hr{
 
                 </select>
 
-                <button
-                    onclick="buy(50000,'package50')">
+                <button onclick="buy(50000,'package50')">
                     Mua ngay
                 </button>
 
@@ -536,8 +526,7 @@ hr{
 
                 </select>
 
-                <button
-                    onclick="buy(80000,'package80')">
+                <button onclick="buy(80000,'package80')">
                     Mua ngay
                 </button>
 
@@ -569,8 +558,7 @@ hr{
 
                 </select>
 
-                <button
-                    onclick="buy(100000,'package100')">
+                <button onclick="buy(100000,'package100')">
                     Mua ngay
                 </button>
 
@@ -631,8 +619,6 @@ hr{
         <div class="topup-grid">
 
 
-            <!-- NGÂN HÀNG -->
-
             <div class="card">
 
                 <h3>🏦 Ngân hàng</h3>
@@ -651,15 +637,12 @@ hr{
                     id="bankNote"
                     placeholder="Nội dung chuyển khoản">
 
-                <button
-                    onclick="napNganHang()">
+                <button onclick="napNganHang()">
                     Gửi yêu cầu
                 </button>
 
             </div>
 
-
-            <!-- THẺ CÀO -->
 
             <div class="card">
 
@@ -698,8 +681,7 @@ hr{
                     id="cardCode"
                     placeholder="Mã thẻ">
 
-                <button
-                    onclick="napTheCao()">
+                <button onclick="napTheCao()">
                     Gửi thẻ
                 </button>
 
@@ -726,8 +708,7 @@ hr{
             📦 Đơn hàng của tôi
         </h2>
 
-        <button
-            onclick="loadOrders()">
+        <button onclick="loadOrders()">
             Xem đơn hàng
         </button>
 
@@ -755,10 +736,7 @@ const API_URL =
 ========================================== */
 
 let currentUser =
-localStorage.getItem(
-    "shopUsername"
-);
-
+localStorage.getItem("shopUsername");
 
 let freeTimer = null;
 
@@ -769,17 +747,14 @@ let freeTimer = null;
 
 function money(number){
 
-    return Number(
-        number || 0
-    ).toLocaleString(
-        "vi-VN"
-    ) + "đ";
+    return Number(number || 0)
+        .toLocaleString("vi-VN") + "đ";
 
 }
 
 
 /* ==========================================
-   POST API
+   API
 ========================================== */
 
 async function api(data){
@@ -789,8 +764,7 @@ async function api(data){
             API_URL,
             {
                 method:"POST",
-                body:
-                    JSON.stringify(data)
+                body:JSON.stringify(data)
             }
         );
 
@@ -811,7 +785,6 @@ async function login(){
         .value
         .trim();
 
-
     if(!username){
 
         showError(
@@ -823,38 +796,42 @@ async function login(){
 
     }
 
-
-    currentUser =
-        username;
-
+    currentUser = username;
 
     localStorage.setItem(
         "shopUsername",
         username
     );
 
+    showShop();
+
+    await loadBalance();
+
+    await checkFreeCooldown();
+
+}
+
+
+/* ==========================================
+   HIỆN SHOP
+========================================== */
+
+function showShop(){
 
     document
     .getElementById("loginBox")
     .classList
     .add("hidden");
 
-
     document
     .getElementById("shop")
     .classList
     .remove("hidden");
 
-
     document
     .getElementById("customerName")
     .textContent =
-        username;
-
-
-    await loadBalance();
-
-    await checkFreeCooldown();
+        currentUser;
 
 }
 
@@ -865,31 +842,15 @@ async function login(){
 
 window.addEventListener(
     "load",
-    function(){
+    async function(){
 
         if(currentUser){
 
-            document
-            .getElementById("loginBox")
-            .classList
-            .add("hidden");
+            showShop();
 
+            await loadBalance();
 
-            document
-            .getElementById("shop")
-            .classList
-            .remove("hidden");
-
-
-            document
-            .getElementById("customerName")
-            .textContent =
-                currentUser;
-
-
-            loadBalance();
-
-            checkFreeCooldown();
+            await checkFreeCooldown();
 
         }
 
@@ -907,6 +868,16 @@ function logout(){
         "shopUsername"
     );
 
+    if(freeTimer){
+
+        clearInterval(
+            freeTimer
+        );
+
+        freeTimer = null;
+
+    }
+
     location.reload();
 
 }
@@ -921,34 +892,26 @@ async function loadBalance(){
     if(!currentUser)
         return;
 
-
     try{
 
         const result =
             await api({
 
-                action:
-                    "getBalance",
+                action:"getBalance",
 
-                username:
-                    currentUser
+                username:currentUser
 
             });
-
 
         if(result.ok){
 
             const text =
-                money(
-                    result.balance
-                );
-
+                money(result.balance);
 
             document
             .getElementById("balance")
             .textContent =
                 text;
-
 
             document
             .getElementById("balance2")
@@ -968,7 +931,7 @@ async function loadBalance(){
 
 
 /* ==========================================
-   KIỂM TRA 0K
+   KIỂM TRA COOLDOWN 0K
 ========================================== */
 
 async function checkFreeCooldown(){
@@ -977,58 +940,101 @@ async function checkFreeCooldown(){
         return;
 
 
-    try{
-
-        const result =
-            await api({
-
-                action:
-                    "checkFreeCooldown",
-
-                username:
-                    currentUser
-
-            });
+    const localKey =
+        "freeCooldown_" +
+        currentUser;
 
 
-        const button =
-            document
-            .getElementById(
-                "freeBuyButton"
-            );
+    const saved =
+        Number(
+            localStorage.getItem(
+                localKey
+            ) || 0
+        );
 
 
-        if(
-            result.ok === false &&
-            result.remaining
-        ){
-
-            startFreeCountdown(
-                Number(
-                    result.remaining
-                )
-            );
-
-            return;
-
-        }
+    const now =
+        Date.now();
 
 
-        if(
-            result.ok === true
-        ){
+    /*
+       Nếu localStorage còn hạn,
+       hiện ngay thời gian còn lại.
+    */
+
+    if(saved > now){
+
+        startFreeCountdown(
+            saved - now
+        );
+
+    }
+    else{
+
+        localStorage.removeItem(
+            localKey
+        );
+
+        /*
+           Sau đó vẫn hỏi server
+           để chống F5 / xóa dữ liệu
+           ở phía client.
+        */
+
+        try{
+
+            const result =
+                await api({
+
+                    action:
+                        "checkFreeCooldown",
+
+                    username:
+                        currentUser
+
+                });
+
+
+            if(
+                result.ok === false &&
+                result.remaining
+            ){
+
+                const remaining =
+                    Number(
+                        result.remaining
+                    );
+
+
+                localStorage.setItem(
+                    localKey,
+                    String(
+                        Date.now() +
+                        remaining
+                    )
+                );
+
+
+                startFreeCountdown(
+                    remaining
+                );
+
+                return;
+
+            }
+
 
             stopFreeCountdown();
 
         }
+        catch(error){
 
-    }
-    catch(error){
+            console.error(
+                "Không kiểm tra được 0K:",
+                error
+            );
 
-        console.error(
-            "Không kiểm tra được 0K:",
-            error
-        );
+        }
 
     }
 
@@ -1036,7 +1042,7 @@ async function checkFreeCooldown(){
 
 
 /* ==========================================
-   ĐẾM NGƯỢC 0K
+   ĐẾM NGƯỢC
 ========================================== */
 
 function startFreeCountdown(
@@ -1049,13 +1055,11 @@ function startFreeCountdown(
             "freeCooldown"
         );
 
-
     const time =
         document
         .getElementById(
             "freeTime"
         );
-
 
     const button =
         document
@@ -1095,6 +1099,8 @@ function startFreeCountdown(
                 freeTimer
             );
 
+            freeTimer = null;
+
 
             box.innerHTML =
                 "✅ Đã đủ 24 giờ. Bạn có thể nhận Túi 0K tiếp theo.";
@@ -1108,36 +1114,40 @@ function startFreeCountdown(
                 false;
 
 
+            if(currentUser){
+
+                localStorage.removeItem(
+                    "freeCooldown_" +
+                    currentUser
+                );
+
+            }
+
             return;
 
         }
 
 
+        const totalSeconds =
+            Math.floor(
+                milliseconds / 1000
+            );
+
+
         const hours =
             Math.floor(
-                milliseconds /
-                (1000 * 60 * 60)
+                totalSeconds / 3600
             );
 
 
         const minutes =
             Math.floor(
-                (
-                    milliseconds %
-                    (1000 * 60 * 60)
-                ) /
-                (1000 * 60)
+                (totalSeconds % 3600) / 60
             );
 
 
         const seconds =
-            Math.floor(
-                (
-                    milliseconds %
-                    (1000 * 60)
-                ) /
-                1000
-            );
+                totalSeconds % 60;
 
 
         time.textContent =
@@ -1145,23 +1155,18 @@ function startFreeCountdown(
             String(hours)
             .padStart(2,"0")
 
-            + ":"
-
-            +
+            + ":" +
 
             String(minutes)
             .padStart(2,"0")
 
-            + ":"
-
-            +
+            + ":" +
 
             String(seconds)
             .padStart(2,"0");
 
 
-        milliseconds -=
-            1000;
+        milliseconds -= 1000;
 
     }
 
@@ -1179,7 +1184,7 @@ function startFreeCountdown(
 
 
 /* ==========================================
-   DỪNG ĐẾM NGƯỢC
+   DỪNG COOLDOWN
 ========================================== */
 
 function stopFreeCountdown(){
@@ -1190,8 +1195,7 @@ function stopFreeCountdown(){
             freeTimer
         );
 
-        freeTimer =
-            null;
+        freeTimer = null;
 
     }
 
@@ -1258,13 +1262,44 @@ async function buy(
         .value;
 
 
-    /* ======================================
-       RIÊNG TÚI 0K
-    ====================================== */
+    /* ==============================
+       KIỂM TRA TÚI 0K
+    ============================== */
 
     if(price === 0){
 
         try{
+
+            const localKey =
+                "freeCooldown_" +
+                currentUser;
+
+
+            const saved =
+                Number(
+                    localStorage.getItem(
+                        localKey
+                    ) || 0
+                );
+
+
+            if(saved > Date.now()){
+
+                startFreeCountdown(
+                    saved -
+                    Date.now()
+                );
+
+
+                showError(
+                    "buyError",
+                    "Bạn đã nhận Túi 0K. Vui lòng chờ đủ 24 giờ."
+                );
+
+                return;
+
+            }
+
 
             const check =
                 await api({
@@ -1283,10 +1318,23 @@ async function buy(
                 check.remaining
             ){
 
-                startFreeCountdown(
+                const remaining =
                     Number(
                         check.remaining
+                    );
+
+
+                localStorage.setItem(
+                    localKey,
+                    String(
+                        Date.now() +
+                        remaining
                     )
+                );
+
+
+                startFreeCountdown(
+                    remaining
                 );
 
 
@@ -1357,10 +1405,24 @@ async function buy(
                 result.remaining
             ){
 
-                startFreeCountdown(
+                const remaining =
                     Number(
                         result.remaining
+                    );
+
+
+                localStorage.setItem(
+                    "freeCooldown_" +
+                    currentUser,
+                    String(
+                        Date.now() +
+                        remaining
                     )
+                );
+
+
+                startFreeCountdown(
+                    remaining
                 );
 
             }
@@ -1379,9 +1441,9 @@ async function buy(
         }
 
 
-        /* ==================================
-           GIAO ACC
-        ================================== */
+        /* ==============================
+           HIỆN ACC
+        ============================== */
 
         document
         .getElementById("result")
@@ -1416,15 +1478,35 @@ async function buy(
             );
 
 
-        /* ==================================
-           SAU KHI NHẬN 0K
-        ================================== */
+        /* ==============================
+           LƯU 24 GIỜ CHO TÚI 0K
+        ============================== */
 
         if(price === 0){
 
+            const cooldown =
+                Number(
+                    result.remaining ||
+                    24 * 60 * 60 * 1000
+                );
+
+
+            const expireTime =
+                Date.now() +
+                cooldown;
+
+
+            localStorage.setItem(
+                "freeCooldown_" +
+                currentUser,
+                String(
+                    expireTime
+                )
+            );
+
+
             startFreeCountdown(
-                result.remaining ||
-                24 * 60 * 60 * 1000
+                cooldown
             );
 
         }
@@ -1449,6 +1531,8 @@ async function buy(
     }
     catch(error){
 
+        console.error(error);
+
         showError(
             "buyError",
             "Không kết nối được máy chủ"
@@ -1468,6 +1552,18 @@ async function napNganHang(){
     hideError(
         "topupMessage"
     );
+
+
+    if(!currentUser){
+
+        showError(
+            "topupMessage",
+            "Bạn chưa đăng nhập"
+        );
+
+        return;
+
+    }
 
 
     const amount =
@@ -1589,6 +1685,18 @@ async function napTheCao(){
     hideError(
         "topupMessage"
     );
+
+
+    if(!currentUser){
+
+        showError(
+            "topupMessage",
+            "Bạn chưa đăng nhập"
+        );
+
+        return;
+
+    }
 
 
     const provider =
@@ -1767,6 +1875,16 @@ async function loadOrders(){
         );
 
 
+    if(!currentUser){
+
+        box.innerHTML =
+            "<p>Vui lòng đăng nhập.</p>";
+
+        return;
+
+    }
+
+
     box.innerHTML =
         "<p>Đang tải...</p>";
 
@@ -1869,6 +1987,8 @@ async function loadOrders(){
     }
     catch(error){
 
+        console.error(error);
+
         box.innerHTML =
             "<p>Không tải được đơn hàng.</p>";
 
@@ -1902,7 +2022,7 @@ function showError(
 
 
     box.classList
-        .remove("success");
+    .remove("success");
 
 }
 
@@ -1928,7 +2048,7 @@ function showSuccess(
 
 
     box.classList
-        .add("success");
+    .add("success");
 
 }
 
