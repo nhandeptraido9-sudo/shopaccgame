@@ -78,6 +78,12 @@ button:hover{
     opacity:.9;
 }
 
+button:disabled{
+    background:#9ca3af;
+    cursor:not-allowed;
+    opacity:1;
+}
+
 .logout{
     background:#dc2626;
     width:auto;
@@ -180,15 +186,44 @@ hr{
     border-radius:9px;
     font-weight:bold;
 }
+
 .back-shop:hover{
     background:#1d4ed8;
 }
+
+
+/* =========================
+   ĐẾM NGƯỢC TÚI 0K
+========================= */
+
+.free-cooldown{
+    margin-top:12px;
+    padding:10px;
+    border-radius:9px;
+    background:#fff7ed;
+    color:#b45309;
+    font-weight:bold;
+    text-align:center;
+    display:none;
+}
+
+.free-cooldown b{
+    font-size:18px;
+}
+
+.free-ready{
+    background:#ecfdf5;
+    color:#166534;
+}
+
 </style>
 </head>
 
 <body>
 
-<a href="index.html" class="back-shop">← Quay lại Shop</a>
+<a href="index.html" class="back-shop">
+    ← Quay lại Shop
+</a>
 
 
 <header class="header">
@@ -198,6 +233,7 @@ hr{
     </div>
 
     <div>
+
         <span class="balance">
             💰 Số dư:
             <span id="balance">0đ</span>
@@ -208,6 +244,7 @@ hr{
             onclick="logout()">
             Đăng xuất
         </button>
+
     </div>
 
 </header>
@@ -283,13 +320,19 @@ hr{
             acc còn hàng đúng loại.
         </p>
 
+
         <div class="grid">
 
-            <!-- 0K -->
+
+            <!-- =================
+                 TÚI 0K
+            ================== -->
 
             <div class="card">
 
-                <h3>🎁 Túi 0K</h3>
+                <h3>
+                    🎁 Túi 0K
+                </h3>
 
                 <div class="price">
                     0đ
@@ -298,6 +341,7 @@ hr{
                 <div class="package">
                     Chọn gói
                 </div>
+
 
                 <select id="package0">
 
@@ -335,15 +379,38 @@ hr{
 
                 </select>
 
+
                 <button
+                    id="freeBuyButton"
                     onclick="buy(0,'package0')">
+
                     Mua ngay
+
                 </button>
+
+
+                <!-- ĐẾM NGƯỢC -->
+
+                <div
+                    id="freeCooldown"
+                    class="free-cooldown">
+
+                    ⏳ Bạn có thể nhận Túi 0K tiếp theo sau:
+
+                    <br>
+
+                    <b id="freeTime">
+                        24:00:00
+                    </b>
+
+                </div>
 
             </div>
 
 
-            <!-- 10K -->
+            <!-- =================
+                 TÚI 10K
+            ================== -->
 
             <div class="card">
 
@@ -378,7 +445,9 @@ hr{
             </div>
 
 
-            <!-- 20K -->
+            <!-- =================
+                 TÚI 20K
+            ================== -->
 
             <div class="card">
 
@@ -409,7 +478,9 @@ hr{
             </div>
 
 
-            <!-- 50K -->
+            <!-- =================
+                 TÚI 50K
+            ================== -->
 
             <div class="card">
 
@@ -440,7 +511,9 @@ hr{
             </div>
 
 
-            <!-- 80K -->
+            <!-- =================
+                 TÚI 80K
+            ================== -->
 
             <div class="card">
 
@@ -471,7 +544,9 @@ hr{
             </div>
 
 
-            <!-- 100K -->
+            <!-- =================
+                 TÚI 100K
+            ================== -->
 
             <div class="card">
 
@@ -514,7 +589,9 @@ hr{
             id="result"
             class="result">
 
-            <h3>🎉 Giao acc thành công!</h3>
+            <h3>
+                🎉 Giao acc thành công!
+            </h3>
 
             <p>
                 Mã đơn:
@@ -645,7 +722,9 @@ hr{
 
     <div class="box">
 
-        <h2>📦 Đơn hàng của tôi</h2>
+        <h2>
+            📦 Đơn hàng của tôi
+        </h2>
 
         <button
             onclick="loadOrders()">
@@ -681,6 +760,9 @@ localStorage.getItem(
 );
 
 
+let freeTimer = null;
+
+
 /* ==========================================
    FORMAT TIỀN
 ========================================== */
@@ -707,11 +789,8 @@ async function api(data){
             API_URL,
             {
                 method:"POST",
-
                 body:
-                    JSON.stringify(
-                        data
-                    )
+                    JSON.stringify(data)
             }
         );
 
@@ -728,9 +807,7 @@ async function login(){
 
     const username =
         document
-        .getElementById(
-            "username"
-        )
+        .getElementById("username")
         .value
         .trim();
 
@@ -758,30 +835,26 @@ async function login(){
 
 
     document
-    .getElementById(
-        "loginBox"
-    )
+    .getElementById("loginBox")
     .classList
     .add("hidden");
 
 
     document
-    .getElementById(
-        "shop"
-    )
+    .getElementById("shop")
     .classList
     .remove("hidden");
 
 
     document
-    .getElementById(
-        "customerName"
-    )
+    .getElementById("customerName")
     .textContent =
         username;
 
 
     await loadBalance();
+
+    await checkFreeCooldown();
 
 }
 
@@ -797,30 +870,26 @@ window.addEventListener(
         if(currentUser){
 
             document
-            .getElementById(
-                "loginBox"
-            )
+            .getElementById("loginBox")
             .classList
             .add("hidden");
 
 
             document
-            .getElementById(
-                "shop"
-            )
+            .getElementById("shop")
             .classList
             .remove("hidden");
 
 
             document
-            .getElementById(
-                "customerName"
-            )
+            .getElementById("customerName")
             .textContent =
                 currentUser;
 
 
             loadBalance();
+
+            checkFreeCooldown();
 
         }
 
@@ -876,17 +945,13 @@ async function loadBalance(){
 
 
             document
-            .getElementById(
-                "balance"
-            )
+            .getElementById("balance")
             .textContent =
                 text;
 
 
             document
-            .getElementById(
-                "balance2"
-            )
+            .getElementById("balance2")
             .textContent =
                 text;
 
@@ -898,6 +963,263 @@ async function loadBalance(){
         console.error(error);
 
     }
+
+}
+
+
+/* ==========================================
+   KIỂM TRA 0K
+========================================== */
+
+async function checkFreeCooldown(){
+
+    if(!currentUser)
+        return;
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "checkFreeCooldown",
+
+                username:
+                    currentUser
+
+            });
+
+
+        const button =
+            document
+            .getElementById(
+                "freeBuyButton"
+            );
+
+
+        if(
+            result.ok === false &&
+            result.remaining
+        ){
+
+            startFreeCountdown(
+                Number(
+                    result.remaining
+                )
+            );
+
+            return;
+
+        }
+
+
+        if(
+            result.ok === true
+        ){
+
+            stopFreeCountdown();
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Không kiểm tra được 0K:",
+            error
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   ĐẾM NGƯỢC 0K
+========================================== */
+
+function startFreeCountdown(
+    milliseconds
+){
+
+    const box =
+        document
+        .getElementById(
+            "freeCooldown"
+        );
+
+
+    const time =
+        document
+        .getElementById(
+            "freeTime"
+        );
+
+
+    const button =
+        document
+        .getElementById(
+            "freeBuyButton"
+        );
+
+
+    if(freeTimer){
+
+        clearInterval(
+            freeTimer
+        );
+
+    }
+
+
+    box.style.display =
+        "block";
+
+
+    box.classList
+    .remove("free-ready");
+
+
+    button.disabled =
+        true;
+
+
+    function update(){
+
+        if(
+            milliseconds <= 0
+        ){
+
+            clearInterval(
+                freeTimer
+            );
+
+
+            box.innerHTML =
+                "✅ Đã đủ 24 giờ. Bạn có thể nhận Túi 0K tiếp theo.";
+
+
+            box.classList
+            .add("free-ready");
+
+
+            button.disabled =
+                false;
+
+
+            return;
+
+        }
+
+
+        const hours =
+            Math.floor(
+                milliseconds /
+                (1000 * 60 * 60)
+            );
+
+
+        const minutes =
+            Math.floor(
+                (
+                    milliseconds %
+                    (1000 * 60 * 60)
+                ) /
+                (1000 * 60)
+            );
+
+
+        const seconds =
+            Math.floor(
+                (
+                    milliseconds %
+                    (1000 * 60)
+                ) /
+                1000
+            );
+
+
+        time.textContent =
+
+            String(hours)
+            .padStart(2,"0")
+
+            + ":"
+
+            +
+
+            String(minutes)
+            .padStart(2,"0")
+
+            + ":"
+
+            +
+
+            String(seconds)
+            .padStart(2,"0");
+
+
+        milliseconds -=
+            1000;
+
+    }
+
+
+    update();
+
+
+    freeTimer =
+        setInterval(
+            update,
+            1000
+        );
+
+}
+
+
+/* ==========================================
+   DỪNG ĐẾM NGƯỢC
+========================================== */
+
+function stopFreeCountdown(){
+
+    if(freeTimer){
+
+        clearInterval(
+            freeTimer
+        );
+
+        freeTimer =
+            null;
+
+    }
+
+
+    const box =
+        document
+        .getElementById(
+            "freeCooldown"
+        );
+
+
+    const button =
+        document
+        .getElementById(
+            "freeBuyButton"
+        );
+
+
+    box.style.display =
+        "none";
+
+
+    box.classList
+    .remove("free-ready");
+
+
+    button.disabled =
+        false;
 
 }
 
@@ -934,6 +1256,63 @@ async function buy(
             selectId
         )
         .value;
+
+
+    /* ======================================
+       RIÊNG TÚI 0K
+    ====================================== */
+
+    if(price === 0){
+
+        try{
+
+            const check =
+                await api({
+
+                    action:
+                        "checkFreeCooldown",
+
+                    username:
+                        currentUser
+
+                });
+
+
+            if(
+                check.ok === false &&
+                check.remaining
+            ){
+
+                startFreeCountdown(
+                    Number(
+                        check.remaining
+                    )
+                );
+
+
+                showError(
+                    "buyError",
+                    "Bạn đã nhận Túi 0K. Vui lòng chờ đủ 24 giờ."
+                );
+
+
+                return;
+
+            }
+
+        }
+        catch(error){
+
+            showError(
+                "buyError",
+                "Không kiểm tra được thời gian Túi 0K."
+            );
+
+            return;
+
+        }
+
+    }
 
 
     if(
@@ -973,10 +1352,25 @@ async function buy(
 
         if(!result.ok){
 
+            if(
+                price === 0 &&
+                result.remaining
+            ){
+
+                startFreeCountdown(
+                    Number(
+                        result.remaining
+                    )
+                );
+
+            }
+
+
             showError(
                 "buyError",
                 result.message
             );
+
 
             await loadBalance();
 
@@ -985,47 +1379,55 @@ async function buy(
         }
 
 
+        /* ==================================
+           GIAO ACC
+        ================================== */
+
         document
-        .getElementById(
-            "result"
-        )
+        .getElementById("result")
         .style
         .display =
             "block";
 
 
         document
-        .getElementById(
-            "orderId"
-        )
+        .getElementById("orderId")
         .textContent =
             result.orderId;
 
 
         document
-        .getElementById(
-            "accountName"
-        )
+        .getElementById("accountName")
         .textContent =
             result.accountName;
 
 
         document
-        .getElementById(
-            "accountPass"
-        )
+        .getElementById("accountPass")
         .textContent =
             result.accountPass;
 
 
         document
-        .getElementById(
-            "newBalance"
-        )
+        .getElementById("newBalance")
         .textContent =
             money(
                 result.balance
             );
+
+
+        /* ==================================
+           SAU KHI NHẬN 0K
+        ================================== */
+
+        if(price === 0){
+
+            startFreeCountdown(
+                result.remaining ||
+                24 * 60 * 60 * 1000
+            );
+
+        }
 
 
         await loadBalance();
@@ -1037,13 +1439,10 @@ async function buy(
 
             top:
                 document
-                .getElementById(
-                    "result"
-                )
+                .getElementById("result")
                 .offsetTop - 80,
 
-            behavior:
-                "smooth"
+            behavior:"smooth"
 
         });
 
