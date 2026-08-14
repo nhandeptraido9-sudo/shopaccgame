@@ -1,24 +1,74 @@
 <!doctype html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>FreeGame Store</title>
-<style>
-body{margin:0;background:#eef3f8;font-family:Arial;color:#182238}.top{padding:25px 16px}.search{width:320px;max-width:90%;padding:12px 16px;border:2px solid #7258ff;border-radius:14px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;padding:10px 16px}.card{background:#fff;border:2px solid #b6c5ff;border-radius:16px;padding:5px;text-align:center}.pic{height:190px;border-radius:13px;background:linear-gradient(135deg,#168cf0,#ffd33b);display:flex;align-items:center;justify-content:center;color:#fff;font-size:28px;font-weight:900;text-shadow:2px 2px #07509b}.btn{display:block;margin:8px 0;padding:12px;background:linear-gradient(90deg,#1598f4,#5968dc);color:white;text-decoration:none;border-radius:9px;font-weight:bold}@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:500px){.grid{grid-template-columns:1fr}}
-</style></head><body>
-<div class="top"><input class="search" placeholder="🔎 Tìm game..."></div>
-<div class="grid">
-<div class="card"><div class="pic">XÉ TÚI MÙ<br>NOOB<br>0K</div><h3>TÚI MÙ BLOX FRUITS 0K</h3><b>0 ₫</b><a class="btn" href="tui-mu.html?price=0">MUA NGAY →</a></div>
-<div class="card"><div class="pic">XÉ TÚI MÙ<br>10K</div><h3>TÚI MÙ BLOX FRUITS 10K</h3><b>10.000 ₫</b><a class="btn" href="tui-mu.html?price=10000">MUA NGAY →</a></div>
-<div class="card"><div class="pic">XÉ TÚI MÙ<br>20K</div><h3>TÚI MÙ BLOX FRUITS 20K</h3><b>20.000 ₫</b><a class="btn" href="tui-mu.html?price=20000">MUA NGAY →</a></div>
-<div class="card"><div class="pic">XÉ TÚI MÙ<br>80K</div><h3>TÚI MÙ BLOX FRUITS 80K</h3><b>80.000 ₫</b><a class="btn" href="tui-mu.html?price=80000">MUA NGAY →</a></div>
-<div class="card"><div class="pic">XÉ TÚI MÙ<br>50K</div><h3>TÚI MÙ BLOX FRUITS 50K</h3><b>50.000 ₫</b><a class="btn" href="tui-mu.html?price=50000">MUA NGAY →</a></div>
-<div class="card"><div class="pic">XÉ TÚI MÙ<br>100K</div><h3>TÚI MÙ BLOX FRUITS 100K</h3><b>100.000 ₫</b><a class="btn" href="tui-mu.html?price=100000">MUA NGAY →</a></div>
-</div></body>
-  <!-- NÚT KHÁCH HÀNG -->
-<a href="khach-hang.html" class="customer-btn">
-    👤 Khách hàng
-</a>
 
 <style>
+
+body{
+    margin:0;
+    background:#eef3f8;
+    font-family:Arial;
+    color:#182238
+}
+
+.top{
+    padding:25px 16px
+}
+
+.search{
+    width:320px;
+    max-width:90%;
+    padding:12px 16px;
+    border:2px solid #7258ff;
+    border-radius:14px
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    padding:10px 16px
+}
+
+.card{
+    background:#fff;
+    border:2px solid #b6c5ff;
+    border-radius:16px;
+    padding:5px;
+    text-align:center
+}
+
+.pic{
+    height:190px;
+    border-radius:13px;
+    background:linear-gradient(135deg,#168cf0,#ffd33b);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:28px;
+    font-weight:900;
+    text-shadow:2px 2px #07509b
+}
+
+.btn{
+    display:block;
+    margin:8px 0;
+    padding:12px;
+    background:linear-gradient(90deg,#1598f4,#5968dc);
+    color:white;
+    text-decoration:none;
+    border-radius:9px;
+    font-weight:bold
+}
+
+
+/* ================= NÚT KHÁCH HÀNG ================= */
+
 .customer-btn{
     position:fixed;
     right:20px;
@@ -44,13 +94,573 @@ body{margin:0;background:#eef3f8;font-family:Arial;color:#182238}.top{padding:25
     box-shadow:0 8px 22px #0005;
 }
 
+
+/* ================= POPUP THÔNG BÁO ================= */
+
+.shop-notice-overlay{
+    display:none;
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.6);
+
+    z-index:999999;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:15px;
+}
+
+.shop-notice-box{
+    width:100%;
+    max-width:430px;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    padding:28px 22px;
+
+    text-align:center;
+
+    position:relative;
+
+    box-shadow:0 15px 50px rgba(0,0,0,.3);
+
+    animation:shopNoticeShow .25s ease;
+}
+
+@keyframes shopNoticeShow{
+
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+.shop-notice-close{
+    position:absolute;
+
+    top:8px;
+    right:13px;
+
+    border:0;
+    background:none;
+
+    font-size:30px;
+
+    color:#777;
+
+    cursor:pointer;
+}
+
+.shop-notice-icon{
+    width:65px;
+    height:65px;
+
+    margin:0 auto 15px;
+
+    border-radius:50%;
+
+    background:#eaf3ff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:31px;
+}
+
+.shop-notice-box h2{
+    margin:5px 0 10px;
+}
+
+.shop-notice-box p{
+    color:#667085;
+
+    line-height:1.6;
+}
+
+.shop-notice-buttons{
+    display:flex;
+
+    gap:10px;
+
+    margin-top:22px;
+}
+
+.shop-notice-buttons button,
+.shop-notice-buttons a{
+
+    flex:1;
+
+    padding:12px;
+
+    border-radius:9px;
+
+    font-weight:bold;
+
+    text-decoration:none;
+
+    cursor:pointer;
+
+    font-size:14px;
+}
+
+.shop-stay{
+    border:1px solid #ddd;
+
+    background:#f1f3f5;
+
+    color:#333;
+}
+
+.shop-new{
+    background:#1677ff;
+
+    color:white;
+}
+
+.shop-new:hover{
+    background:#0d63d8;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:850px){
+
+    .grid{
+        grid-template-columns:repeat(2,1fr)
+    }
+
+}
+
 @media(max-width:500px){
+
+    .grid{
+        grid-template-columns:1fr
+    }
+
     .customer-btn{
         right:12px;
         bottom:12px;
+
         padding:11px 14px;
+
         font-size:14px;
     }
+
+    .shop-notice-buttons{
+        flex-direction:column;
+    }
+
 }
+
 </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= TÌM GAME ================= -->
+
+<div class="top">
+
+    <input
+        class="search"
+        placeholder="🔎 Tìm game..."
+        id="searchGame">
+
+</div>
+
+
+<!-- ================= DANH SÁCH TÚI MÙ ================= -->
+
+<div class="grid" id="gameGrid">
+
+
+    <!-- TÚI MÙ 0K -->
+
+    <div class="card">
+
+        <div class="pic">
+            XÉ TÚI MÙ<br>
+            NOOB<br>
+            0K
+        </div>
+
+        <h3>
+            TÚI MÙ BLOX FRUITS 0K
+        </h3>
+
+        <b>
+            0 ₫
+        </b>
+
+        <a
+            class="btn"
+            href="tui-mu.html?price=0">
+            MUA NGAY →
+        </a>
+
+    </div>
+
+
+    <!-- TÚI MÙ 10K -->
+
+    <div class="card">
+
+        <div class="pic">
+            XÉ TÚI MÙ<br>
+            10K
+        </div>
+
+        <h3>
+            TÚI MÙ BLOX FRUITS 10K
+        </h3>
+
+        <b>
+            10.000 ₫
+        </b>
+
+        <a
+            class="btn"
+            href="tui-mu.html?price=10000">
+            MUA NGAY →
+        </a>
+
+    </div>
+
+
+    <!-- TÚI MÙ 20K -->
+
+    <div class="card">
+
+        <div class="pic">
+            XÉ TÚI MÙ<br>
+            20K
+        </div>
+
+        <h3>
+            TÚI MÙ BLOX FRUITS 20K
+        </h3>
+
+        <b>
+            20.000 ₫
+        </b>
+
+        <a
+            class="btn"
+            href="tui-mu.html?price=20000">
+            MUA NGAY →
+        </a>
+
+    </div>
+
+
+    <!-- TÚI MÙ 80K -->
+
+    <div class="card">
+
+        <div class="pic">
+            XÉ TÚI MÙ<br>
+            80K
+        </div>
+
+        <h3>
+            TÚI MÙ BLOX FRUITS 80K
+        </h3>
+
+        <b>
+            80.000 ₫
+        </b>
+
+        <a
+            class="btn"
+            href="tui-mu.html?price=80000">
+            MUA NGAY →
+        </a>
+
+    </div>
+
+
+    <!-- TÚI MÙ 50K -->
+
+    <div class="card">
+
+        <div class="pic">
+            XÉ TÚI MÙ<br>
+            50K
+        </div>
+
+        <h3>
+            TÚI MÙ BLOX FRUITS 50K
+        </h3>
+
+        <b>
+            50.000 ₫
+        </b>
+
+        <a
+            class="btn"
+            href="tui-mu.html?price=50000">
+            MUA NGAY →
+        </a>
+
+    </div>
+
+
+    <!-- TÚI MÙ 100K -->
+
+    <div class="card">
+
+        <div class="pic">
+            XÉ TÚI MÙ<br>
+            100K
+        </div>
+
+        <h3>
+            TÚI MÙ BLOX FRUITS 100K
+        </h3>
+
+        <b>
+            100.000 ₫
+        </b>
+
+        <a
+            class="btn"
+            href="tui-mu.html?price=100000">
+            MUA NGAY →
+        </a>
+
+    </div>
+
+
+</div>
+
+
+<!-- ================= NÚT KHÁCH HÀNG ================= -->
+
+<a
+    href="khach-hang.html"
+    class="customer-btn">
+
+    👤 Khách hàng
+
+</a>
+
+
+<!-- ================= POPUP ================= -->
+
+<div
+    id="shopNotice"
+    class="shop-notice-overlay">
+
+    <div class="shop-notice-box">
+
+
+        <!-- NÚT ĐÓNG -->
+
+        <button
+            class="shop-notice-close"
+            onclick="closeShopNotice()">
+
+            ×
+
+        </button>
+
+
+        <!-- ICON -->
+
+        <div class="shop-notice-icon">
+
+            🔔
+
+        </div>
+
+
+        <!-- TIÊU ĐỀ -->
+
+        <h2>
+
+            Đăng nhập thành công!
+
+        </h2>
+
+
+        <!-- NỘI DUNG -->
+
+        <p>
+
+            Chào mừng bạn đến với Shop Karot.<br>
+
+            Shop đã có phiên bản mới.<br>
+
+            Bạn có muốn chuyển sang Shop Mới không?
+
+        </p>
+
+
+        <!-- NÚT -->
+
+        <div class="shop-notice-buttons">
+
+
+            <button
+                class="shop-stay"
+                onclick="closeShopNotice()">
+
+                Ở Lại Shop
+
+            </button>
+
+
+            <a
+                class="shop-new"
+                href="https://nhandeptraido9-sudo.github.io/Shopkarot.com.vn/index.html">
+
+                Vào Shop Mới
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+
+/* ================= TÌM KIẾM ================= */
+
+document
+.getElementById("searchGame")
+.addEventListener("input", function(){
+
+    const keyword =
+        this.value.toLowerCase().trim();
+
+    const cards =
+        document.querySelectorAll(".card");
+
+
+    cards.forEach(function(card){
+
+        const text =
+            card.innerText.toLowerCase();
+
+
+        if(text.includes(keyword)){
+
+            card.style.display = "";
+
+        }else{
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+});
+
+
+/* ================= HIỆN POPUP ================= */
+
+/*
+
+    Khi khach-hang.html đăng nhập thành công,
+    nó sẽ lưu:
+
+    localStorage.setItem(
+        "login_success",
+        "true"
+    );
+
+    Sau đó chuyển về index.html.
+
+*/
+
+window.addEventListener("load", function(){
+
+    const loginSuccess =
+        localStorage.getItem("login_success");
+
+
+    if(loginSuccess === "true"){
+
+        document
+        .getElementById("shopNotice")
+        .style.display = "flex";
+
+
+        /*
+            Xóa trạng thái để F5
+            không hiện popup lại.
+        */
+
+        localStorage.removeItem("login_success");
+
+    }
+
+});
+
+
+/* ================= ĐÓNG POPUP ================= */
+
+function closeShopNotice(){
+
+    document
+    .getElementById("shopNotice")
+    .style.display = "none";
+
+}
+
+
+/* ================= BẤM RA NGOÀI ================= */
+
+document
+.getElementById("shopNotice")
+.addEventListener("click", function(event){
+
+    if(event.target === this){
+
+        closeShopNotice();
+
+    }
+
+});
+
+
+/* ================= PHÍM ESC ================= */
+
+document.addEventListener("keydown", function(event){
+
+    if(event.key === "Escape"){
+
+        closeShopNotice();
+
+    }
+
+});
+
+
+</script>
+
+
+</body>
 </html>
