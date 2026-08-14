@@ -46,112 +46,78 @@ body{
 
 h1{
     text-align:center;
-
     margin:0 0 8px;
-
     color:#202742;
 }
 
 .subtitle{
     text-align:center;
-
     color:#777;
-
     margin-bottom:25px;
 }
 
 
-/* =========================
-   TAB KHÁCH / ADMIN
-========================= */
+/* TAB KHÁCH / ADMIN */
 
 .main-tabs{
     display:flex;
-
     gap:8px;
-
     margin-bottom:12px;
 }
 
 .main-tabs button{
     flex:1;
-
     padding:12px;
-
     border:0;
-
     border-radius:10px;
-
     cursor:pointer;
-
     font-weight:bold;
-
     background:#edf0f7;
 }
 
 .main-tabs button.active{
     background:#5b43e8;
-
     color:white;
 }
 
 
-/* =========================
-   TAB ĐĂNG NHẬP / ĐĂNG KÝ
-========================= */
+/* TAB ĐĂNG NHẬP / ĐĂNG KÝ */
 
 .user-tabs{
     display:flex;
-
     gap:8px;
-
     margin-bottom:20px;
 }
 
 .user-tabs button{
     flex:1;
-
     padding:10px;
-
     border:1px solid #ddd;
-
     border-radius:9px;
-
     background:white;
-
     cursor:pointer;
-
     font-weight:bold;
 }
 
 .user-tabs button.active{
     background:#eeeafe;
-
     border-color:#5b43e8;
-
     color:#5b43e8;
 }
 
 
 label{
     display:block;
-
     margin:12px 0 6px;
-
     font-weight:bold;
 }
 
 input{
     width:100%;
-
     padding:13px;
-
     border:1px solid #ccd2df;
-
     border-radius:10px;
-
     outline:none;
-
     font-size:15px;
 }
 
@@ -162,13 +128,9 @@ input:focus{
 
 .main-btn{
     width:100%;
-
     margin-top:20px;
-
     padding:13px;
-
     border:0;
-
     border-radius:10px;
 
     background:
@@ -179,11 +141,8 @@ input:focus{
         );
 
     color:white;
-
     font-size:16px;
-
     font-weight:bold;
-
     cursor:pointer;
 }
 
@@ -194,39 +153,29 @@ input:focus{
 
 .message{
     text-align:center;
-
     margin-top:15px;
-
     min-height:20px;
-
     font-weight:bold;
 }
 
 
 .back{
     text-align:center;
-
     margin-top:18px;
 }
 
 .back a{
     color:#5b43e8;
-
     text-decoration:none;
 }
 
 
 .note{
     margin-top:20px;
-
     padding:10px;
-
     background:#fff6d8;
-
     border-radius:10px;
-
     color:#735a16;
-
     font-size:12px;
 }
 
@@ -273,7 +222,6 @@ input:focus{
     </div>
 
 
-
     <!-- ĐĂNG NHẬP / ĐĂNG KÝ -->
 
     <div
@@ -301,7 +249,6 @@ input:focus{
     </div>
 
 
-
     <form onsubmit="submitForm(event)">
 
 
@@ -319,7 +266,6 @@ input:focus{
         >
 
 
-
         <label>
             Mật khẩu
         </label>
@@ -332,7 +278,6 @@ input:focus{
             autocomplete="current-password"
             required
         >
-
 
 
         <!-- NHẬP LẠI MẬT KHẨU -->
@@ -354,7 +299,6 @@ input:focus{
         </div>
 
 
-
         <button
             id="submitButton"
             class="main-btn"
@@ -363,7 +307,6 @@ input:focus{
             📝 Tạo tài khoản
 
         </button>
-
 
 
         <div
@@ -375,7 +318,6 @@ input:focus{
     </form>
 
 
-
     <div class="back">
 
         <a href="index.html">
@@ -383,7 +325,6 @@ input:focus{
         </a>
 
     </div>
-
 
 
     <div class="note">
@@ -397,9 +338,7 @@ input:focus{
 </div>
 
 
-
 <script>
-
 
 /* =========================
    TRẠNG THÁI
@@ -410,7 +349,6 @@ let mainMode = "user";
 let userMode = "register";
 
 
-
 /* =========================
    CHUYỂN KHÁCH / ADMIN
 ========================= */
@@ -419,14 +357,12 @@ function changeMainMode(mode){
 
     mainMode = mode;
 
-
     document
         .getElementById("userTab")
         .classList.toggle(
             "active",
             mode === "user"
         );
-
 
     document
         .getElementById("adminTab")
@@ -435,70 +371,45 @@ function changeMainMode(mode){
             mode === "admin"
         );
 
-
     const userTabs =
-        document.getElementById(
-            "userTabs"
-        );
-
+        document.getElementById("userTabs");
 
     const registerFields =
-        document.getElementById(
-            "registerFields"
-        );
-
+        document.getElementById("registerFields");
 
     const submitButton =
-        document.getElementById(
-            "submitButton"
-        );
-
+        document.getElementById("submitButton");
 
     const subtitle =
-        document.querySelector(
-            ".subtitle"
-        );
+        document.querySelector(".subtitle");
 
 
     if(mode === "admin"){
 
-        userTabs.style.display =
-            "none";
+        userTabs.style.display = "none";
 
-
-        registerFields.style.display =
-            "none";
-
+        registerFields.style.display = "none";
 
         submitButton.textContent =
             "🔐 Đăng nhập Admin";
 
-
         subtitle.textContent =
             "Đăng nhập quản trị";
 
-
     }else{
 
-        userTabs.style.display =
-            "flex";
-
+        userTabs.style.display = "flex";
 
         subtitle.textContent =
             "Tài khoản khách hàng";
 
-
-        changeUserMode(
-            userMode
-        );
+        changeUserMode(userMode);
 
     }
-
 
     clearMessage();
 
 }
-
 
 
 /* =========================
@@ -509,14 +420,12 @@ function changeUserMode(mode){
 
     userMode = mode;
 
-
     document
         .getElementById("loginTab")
         .classList.toggle(
             "active",
             mode === "login"
         );
-
 
     document
         .getElementById("registerTab")
@@ -525,17 +434,11 @@ function changeUserMode(mode){
             mode === "register"
         );
 
-
     const registerFields =
-        document.getElementById(
-            "registerFields"
-        );
-
+        document.getElementById("registerFields");
 
     const submitButton =
-        document.getElementById(
-            "submitButton"
-        );
+        document.getElementById("submitButton");
 
 
     if(mode === "login"){
@@ -543,27 +446,22 @@ function changeUserMode(mode){
         registerFields.style.display =
             "none";
 
-
         submitButton.textContent =
             "🔐 Đăng nhập";
-
 
     }else{
 
         registerFields.style.display =
             "block";
 
-
         submitButton.textContent =
             "📝 Tạo tài khoản";
 
     }
 
-
     clearMessage();
 
 }
-
 
 
 /* =========================
@@ -572,16 +470,11 @@ function changeUserMode(mode){
 
 function clearMessage(){
 
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    message.textContent = "";
+    document.getElementById(
+        "message"
+    ).textContent = "";
 
 }
-
 
 
 /* =========================
@@ -606,13 +499,6 @@ function submitForm(event){
         .value;
 
 
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-
     if(!username || !password){
 
         showError(
@@ -620,9 +506,7 @@ function submitForm(event){
         );
 
         return;
-
     }
-
 
 
     /* =========================
@@ -631,11 +515,9 @@ function submitForm(event){
 
     if(mainMode === "admin"){
 
-        const ADMIN_USERNAME =
-            "admin";
+        const ADMIN_USERNAME = "admin";
 
-        const ADMIN_PASSWORD =
-            "123456";
+        const ADMIN_PASSWORD = "123456";
 
 
         if(
@@ -647,7 +529,6 @@ function submitForm(event){
                 "adminLoggedIn",
                 "true"
             );
-
 
             showSuccess(
                 "✅ Đăng nhập Admin thành công!"
@@ -670,15 +551,12 @@ function submitForm(event){
 
         }
 
-
         return;
-
     }
 
 
-
     /* =========================
-       LẤY DANH SÁCH USER
+       LẤY USER
     ========================= */
 
     let users = {};
@@ -700,9 +578,8 @@ function submitForm(event){
     }
 
 
-
     /* =========================
-       ĐĂNG NHẬP KHÁCH
+       ĐĂNG NHẬP
     ========================= */
 
     if(userMode === "login"){
@@ -718,26 +595,39 @@ function submitForm(event){
             );
 
             return;
-
         }
 
 
-        if(
-            user.password !== password
-        ){
+        if(user.password !== password){
 
             showError(
                 "❌ Sai mật khẩu."
             );
 
             return;
-
         }
 
+
+        /*
+        ================================
+        ĐĂNG NHẬP THÀNH CÔNG
+        ================================
+        */
 
         localStorage.setItem(
             "currentUser",
             username
+        );
+
+
+        /*
+        DÒNG NÀY KÍCH HOẠT POPUP
+        TRÊN INDEX.HTML
+        */
+
+        localStorage.setItem(
+            "login_success",
+            "true"
         );
 
 
@@ -755,13 +645,11 @@ function submitForm(event){
 
 
         return;
-
     }
 
 
-
     /* =========================
-       ĐĂNG KÝ KHÁCH
+       ĐĂNG KÝ
     ========================= */
 
     const confirmPassword =
@@ -772,16 +660,13 @@ function submitForm(event){
         .value;
 
 
-    if(
-        password !== confirmPassword
-    ){
+    if(password !== confirmPassword){
 
         showError(
             "❌ Hai mật khẩu không giống nhau."
         );
 
         return;
-
     }
 
 
@@ -792,7 +677,6 @@ function submitForm(event){
         );
 
         return;
-
     }
 
 
@@ -818,6 +702,19 @@ function submitForm(event){
     );
 
 
+    /*
+    ================================
+    ĐĂNG KÝ THÀNH CÔNG
+    CŨNG HIỆN POPUP
+    ================================
+    */
+
+    localStorage.setItem(
+        "login_success",
+        "true"
+    );
+
+
     showSuccess(
         "✅ Tạo tài khoản thành công!"
     );
@@ -833,50 +730,43 @@ function submitForm(event){
 }
 
 
-
 /* =========================
-   THÔNG BÁO
+   THÔNG BÁO LỖI
 ========================= */
 
 function showError(text){
 
     const message =
-        document.getElementById(
-            "message"
-        );
-
+        document.getElementById("message");
 
     message.style.color =
         "#e53935";
 
-
     message.textContent =
         text;
 
 }
 
+
+/* =========================
+   THÔNG BÁO THÀNH CÔNG
+========================= */
 
 function showSuccess(text){
 
     const message =
-        document.getElementById(
-            "message"
-        );
-
+        document.getElementById("message");
 
     message.style.color =
         "#00a66a";
-
 
     message.textContent =
         text;
 
 }
-
 
 </script>
 
 
 </body>
-
 </html>
