@@ -387,84 +387,152 @@ th{
 </div>
 
 
-<!-- =================================================
-     TRẠNG THÁI SHOP
-================================================= -->
+/* =================================================
+   TRẠNG THÁI SHOP CŨ
+   KHÔNG DÙNG CHUNG VỚI SHOP MỚI
+================================================= */
 
-<section class="shop-status-box">
-
-    <h2>
-        ⚙️ Trạng thái Shop
-    </h2>
-
-    <p class="small">
-        Chọn trạng thái Shop. Sau khi lưu,
-        index.html của khách sẽ hiển thị trạng thái này.
-    </p>
+const SHOP_STATUS_KEY =
+    "shopkarot_old_shop_status";
 
 
-    <div class="shop-status-options">
+const SHOP_STATUS_DATA = {
 
-        <button
-            type="button"
-            id="statusActive"
-            class="shop-status-option"
-            onclick="setShopStatus('active')">
+    active:{
+        label:"🟢 SHOP ĐANG HOẠT ĐỘNG",
+        className:"success"
+    },
 
-            🟢 SHOP ĐANG HOẠT ĐỘNG
+    updating:{
+        label:"🟡 SHOP ĐANG CẬP NHẬT",
+        className:"pending"
+    },
 
-        </button>
+    stopped:{
+        label:"🔴 SHOP NGỪNG HOẠT ĐỘNG",
+        className:"error"
+    }
 
-
-        <button
-            type="button"
-            id="statusUpdating"
-            class="shop-status-option"
-            onclick="setShopStatus('updating')">
-
-            🟡 SHOP ĐANG CẬP NHẬT
-
-        </button>
+};
 
 
-        <button
-            type="button"
-            id="statusStopped"
-            class="shop-status-option"
-            onclick="setShopStatus('stopped')">
-
-            🔴 SHOP NGỪNG HOẠT ĐỘNG
-
-        </button>
-
-    </div>
+let selectedShopStatus =
+    localStorage.getItem(
+        SHOP_STATUS_KEY
+    ) || "active";
 
 
-    <div
-        id="shopStatusCurrent"
-        class="shop-status-current">
+function setShopStatus(status){
 
-        Đang tải trạng thái...
+    if(
+        !SHOP_STATUS_DATA[status]
+    ){
 
-    </div>
+        return;
 
-
-    <button
-        type="button"
-        onclick="saveShopStatus()">
-
-        💾 LƯU TRẠNG THÁI SHOP
-
-    </button>
+    }
 
 
-    <div
-        id="shopStatusMessage"
-        class="hidden">
-    </div>
+    selectedShopStatus =
+        status;
 
-</section>
 
+    renderShopStatus();
+
+}
+
+
+function renderShopStatus(){
+
+    document
+    .querySelectorAll(
+        ".shop-status-option"
+    )
+    .forEach(
+        btn =>
+            btn.classList
+            .remove("active")
+    );
+
+
+    const map = {
+
+        active:
+            "statusActive",
+
+        updating:
+            "statusUpdating",
+
+        stopped:
+            "statusStopped"
+
+    };
+
+
+    const selected =
+        document.getElementById(
+            map[selectedShopStatus]
+        );
+
+
+    if(selected){
+
+        selected
+        .classList
+        .add("active");
+
+    }
+
+
+    const box =
+        document.getElementById(
+            "shopStatusCurrent"
+        );
+
+
+    if(box){
+
+        box.textContent =
+            "Trạng thái hiện tại: " +
+            SHOP_STATUS_DATA[
+                selectedShopStatus
+            ].label;
+
+    }
+
+}
+
+
+function saveShopStatus(){
+
+    localStorage.setItem(
+
+        SHOP_STATUS_KEY,
+
+        selectedShopStatus
+
+    );
+
+
+    showMessage(
+
+        "shopStatusMessage",
+
+        "Đã lưu trạng thái Shop cũ: " +
+        SHOP_STATUS_DATA[
+            selectedShopStatus
+        ].label,
+
+        true
+
+    );
+
+}
+
+
+/* Khôi phục trạng thái Shop cũ */
+
+renderShopStatus();
 
 <!-- =================================================
      DASHBOARD
