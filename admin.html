@@ -17,6 +17,10 @@ body{
     color:#111827;
 }
 
+.hidden{
+    display:none !important;
+}
+
 .header{
     background:#111827;
     color:white;
@@ -37,6 +41,11 @@ body{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
+}
+
+.header-right button{
+    width:auto;
+    margin-top:0;
 }
 
 .container{
@@ -257,6 +266,15 @@ th{
     word-break:break-all;
 }
 
+.login-title{
+    text-align:center;
+}
+
+.login-box{
+    max-width:500px;
+    margin:50px auto;
+}
+
 @media(max-width:700px){
 
     table{
@@ -271,6 +289,10 @@ th{
 
     .logo{
         font-size:20px;
+    }
+
+    .login-box{
+        margin:25px auto;
     }
 }
 </style>
@@ -305,29 +327,33 @@ th{
 
 <div class="container">
 
-
 <!-- ==================================================
      LOGIN ADMIN
 ================================================== -->
 
 <div
     id="adminLogin"
-    class="box">
+    class="box login-box">
 
-    <h2>🔐 Đăng nhập Admin</h2>
+    <div class="login-title">
 
-    <p class="small">
-        Nhập mật khẩu Admin để mở trang quản trị.
-    </p>
+        <h2>🔐 Đăng nhập Admin</h2>
+
+        <p class="small">
+            Nhập mật khẩu Admin để mở trang quản trị.
+        </p>
+
+    </div>
 
     <input
         id="adminPassword"
         type="password"
         placeholder="Mật khẩu Admin"
+        autocomplete="current-password"
         onkeydown="if(event.key==='Enter') loginAdmin()">
 
     <button onclick="loginAdmin()">
-        Đăng nhập Admin
+        🔐 Đăng nhập Admin
     </button>
 
     <div
@@ -385,6 +411,7 @@ th{
         <div class="stat-grid">
 
             <div class="stat">
+
                 <div class="stat-title">
                     📦 Tổng acc
                 </div>
@@ -394,10 +421,12 @@ th{
                     class="stat-number">
                     0
                 </div>
+
             </div>
 
 
             <div class="stat">
+
                 <div class="stat-title">
                     🟢 Acc còn hàng
                 </div>
@@ -407,10 +436,12 @@ th{
                     class="stat-number">
                     0
                 </div>
+
             </div>
 
 
             <div class="stat">
+
                 <div class="stat-title">
                     👥 Khách hàng
                 </div>
@@ -420,10 +451,12 @@ th{
                     class="stat-number">
                     0
                 </div>
+
             </div>
 
 
             <div class="stat">
+
                 <div class="stat-title">
                     💳 Nạp chờ duyệt
                 </div>
@@ -433,6 +466,7 @@ th{
                     class="stat-number">
                     0
                 </div>
+
             </div>
 
         </div>
@@ -687,8 +721,7 @@ th{
             <h2>🛒 Đơn hàng</h2>
 
             <p class="small">
-                API hiện tại của Apps Script chỉ hỗ trợ
-                lấy đơn hàng theo tên khách.
+                Nhập tên khách để xem đơn hàng.
             </p>
 
             <input
@@ -724,7 +757,7 @@ th{
 <script>
 
 /* ==================================================
-   API URL
+   API URL SHOP CŨ
 ================================================== */
 
 const API_URL =
@@ -733,8 +766,6 @@ const API_URL =
 
 /* ==================================================
    MẬT KHẨU ADMIN
-
-   ĐỔI MẬT KHẨU Ở ĐÂY
 ================================================== */
 
 const ADMIN_PASSWORD = "admin123";
@@ -772,10 +803,11 @@ window.addEventListener("load",function(){
 
 function loginAdmin(){
 
+    const input =
+        document.getElementById("adminPassword");
+
     const password =
-        document
-        .getElementById("adminPassword")
-        .value;
+        input.value;
 
     if(
         password !== ADMIN_PASSWORD
@@ -786,6 +818,8 @@ function loginAdmin(){
             "❌ Mật khẩu Admin không đúng.",
             "error"
         );
+
+        input.focus();
 
         return;
 
@@ -968,7 +1002,23 @@ async function apiGet(action,params={}){
         );
 
 
-    return await response.json();
+    const text =
+        await response.text();
+
+
+    try{
+
+        return JSON.parse(text);
+
+    }
+    catch(error){
+
+        throw new Error(
+            "API trả về dữ liệu không hợp lệ: " +
+            text
+        );
+
+    }
 
 }
 
@@ -1141,7 +1191,8 @@ async function addAccount(){
 
             showMessage(
                 "accountMessage",
-                "❌ " + result.message,
+                "❌ " +
+                (result.message || "Không thể thêm acc."),
                 "error"
             );
 
@@ -1152,8 +1203,13 @@ async function addAccount(){
 
         showMessage(
             "accountMessage",
-            "✅ " + result.message +
-            " - ID: " + result.id,
+            "✅ " +
+            (result.message || "Đã thêm acc.") +
+            (
+                result.id
+                ? " - ID: " + result.id
+                : ""
+            ),
             "success"
         );
 
@@ -1203,9 +1259,6 @@ async function addAccount(){
 
 /* ==================================================
    LOAD ACCOUNTS
-
-   ĐÚNG ACTION:
-   getAccounts
 ================================================== */
 
 async function loadAccounts(){
@@ -1253,7 +1306,6 @@ async function loadAccounts(){
 
         renderAccounts();
 
-
         updateStats();
 
     }
@@ -1266,6 +1318,8 @@ async function loadAccounts(){
             '<div class="message error">❌ ' +
             escapeHtml(error.message) +
             '</div>';
+
+        throw error;
 
     }
 
@@ -1305,23 +1359,14 @@ function renderAccounts(){
             <tr>
 
                 <th>ID</th>
-
                 <th>Mệnh giá</th>
-
                 <th>Gói</th>
-
                 <th>Tên acc</th>
-
                 <th>Mật khẩu</th>
-
                 <th>Trạng thái</th>
-
                 <th>Khách</th>
-
                 <th>Ngày thêm</th>
-
                 <th>Ngày bán</th>
-
                 <th>Thao tác</th>
 
             </tr>
@@ -1451,9 +1496,6 @@ function renderAccounts(){
 
 /* ==================================================
    XÓA ACC
-
-   ĐÚNG ACTION:
-   deleteAccount
 ================================================== */
 
 async function deleteAccount(id){
@@ -1489,7 +1531,7 @@ async function deleteAccount(id){
 
             alert(
                 "❌ " +
-                result.message
+                (result.message || "Không thể xóa acc.")
             );
 
             return;
@@ -1499,7 +1541,7 @@ async function deleteAccount(id){
 
         alert(
             "✅ " +
-            result.message
+            (result.message || "Đã xóa acc.")
         );
 
 
@@ -1522,9 +1564,6 @@ async function deleteAccount(id){
 
 /* ==================================================
    LOAD CUSTOMERS
-
-   ĐÚNG ACTION:
-   getCustomers
 ================================================== */
 
 async function loadCustomers(){
@@ -1588,6 +1627,8 @@ async function loadCustomers(){
             escapeHtml(error.message) +
             '</div>';
 
+        throw error;
+
     }
 
 }
@@ -1626,15 +1667,10 @@ function renderCustomers(){
             <tr>
 
                 <th>STT</th>
-
                 <th>Tên khách</th>
-
                 <th>Số dư</th>
-
                 <th>Ngày tạo</th>
-
                 <th>Lần nhận Túi 0K</th>
-
                 <th>Thao tác</th>
 
             </tr>
@@ -1717,9 +1753,6 @@ function renderCustomers(){
 
 /* ==================================================
    XÓA KHÁCH
-
-   ĐÚNG ACTION:
-   deleteCustomer
 ================================================== */
 
 async function deleteCustomer(username){
@@ -1755,7 +1788,7 @@ async function deleteCustomer(username){
 
             alert(
                 "❌ " +
-                result.message
+                (result.message || "Không thể xóa khách.")
             );
 
             return;
@@ -1765,7 +1798,7 @@ async function deleteCustomer(username){
 
         alert(
             "✅ " +
-            result.message
+            (result.message || "Đã xóa khách.")
         );
 
 
@@ -1788,9 +1821,6 @@ async function deleteCustomer(username){
 
 /* ==================================================
    LOAD TOPUPS
-
-   ĐÚNG ACTION:
-   getTopups
 ================================================== */
 
 async function loadTopups(){
@@ -1854,6 +1884,8 @@ async function loadTopups(){
             escapeHtml(error.message) +
             '</div>';
 
+        throw error;
+
     }
 
 }
@@ -1892,25 +1924,15 @@ function renderTopups(){
             <tr>
 
                 <th>Mã nạp</th>
-
                 <th>Khách</th>
-
                 <th>Hình thức</th>
-
                 <th>Số tiền</th>
-
                 <th>Nhà mạng</th>
-
                 <th>Serial</th>
-
                 <th>Mã thẻ</th>
-
                 <th>Nội dung CK</th>
-
                 <th>Trạng thái</th>
-
                 <th>Ngày nạp</th>
-
                 <th>Thao tác</th>
 
             </tr>
@@ -2073,9 +2095,6 @@ function renderTopups(){
 
 /* ==================================================
    DUYỆT NẠP
-
-   ĐÚNG ACTION:
-   duyetNap
 ================================================== */
 
 async function approveTopup(id){
@@ -2111,7 +2130,7 @@ async function approveTopup(id){
 
             alert(
                 "❌ " +
-                result.message
+                (result.message || "Không thể duyệt.")
             );
 
             return;
@@ -2122,7 +2141,7 @@ async function approveTopup(id){
         alert(
             "✅ Đã duyệt.\n\n" +
             "Khách: " +
-            result.username +
+            (result.username || "") +
             "\nSố tiền: " +
             money(result.amount) +
             "\nSố dư mới: " +
@@ -2151,9 +2170,6 @@ async function approveTopup(id){
 
 /* ==================================================
    TỪ CHỐI NẠP
-
-   ĐÚNG ACTION:
-   tuChoiNap
 ================================================== */
 
 async function rejectTopup(id){
@@ -2189,7 +2205,7 @@ async function rejectTopup(id){
 
             alert(
                 "❌ " +
-                result.message
+                (result.message || "Không thể từ chối.")
             );
 
             return;
@@ -2199,7 +2215,7 @@ async function rejectTopup(id){
 
         alert(
             "✅ " +
-            result.message
+            (result.message || "Đã từ chối.")
         );
 
 
@@ -2222,9 +2238,6 @@ async function rejectTopup(id){
 
 /* ==================================================
    LOAD ORDERS
-
-   Apps Script hỗ trợ:
-   getOrders + username
 ================================================== */
 
 async function loadOrders(){
@@ -2338,21 +2351,13 @@ function renderOrders(orders){
             <tr>
 
                 <th>Mã đơn</th>
-
                 <th>Khách</th>
-
                 <th>Mệnh giá</th>
-
                 <th>Gói</th>
-
                 <th>Tên acc</th>
-
                 <th>Mật khẩu</th>
-
                 <th>Số tiền trừ</th>
-
                 <th>Ngày mua</th>
-
                 <th>Trạng thái</th>
 
             </tr>
@@ -2509,10 +2514,10 @@ function updateStats(){
 
 function money(value){
 
-    return Number(
-        value || 0
-    )
-    .toLocaleString(
+    const number =
+        Number(value || 0);
+
+    return number.toLocaleString(
         "vi-VN"
     ) + "đ";
 
@@ -2533,8 +2538,9 @@ function showMessage(
         document.getElementById(id);
 
 
-    if(!box)
+    if(!box){
         return;
+    }
 
 
     box.textContent =
