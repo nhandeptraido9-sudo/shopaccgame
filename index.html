@@ -7,7 +7,6 @@
 <title>SHOPACCGAME - Shop cũ</title>
 
 <style>
-
 body{
     margin:0;
     background:#eef3f8;
@@ -15,9 +14,7 @@ body{
     color:#182238;
 }
 
-.top{
-    padding:25px 16px 10px;
-}
+.top{padding:25px 16px 10px}
 
 .search{
     width:320px;
@@ -28,429 +25,258 @@ body{
     outline:none;
 }
 
-
 /* ================= THÔNG TIN SHOP ================= */
-
 .shop-info{
     margin:10px 16px 18px;
     padding:20px;
-
     background:white;
-
     border:2px solid #b6c5ff;
-
     border-radius:16px;
-
     box-shadow:0 4px 15px rgba(0,0,0,.08);
 }
 
 .shop-info h2{
     margin:0 0 15px;
-
     color:#5137df;
-
     font-size:22px;
 }
 
 .shop-info p{
     margin:9px 0;
-
     line-height:1.55;
-
     color:#333;
 }
 
-
-/* SHOP CŨ */
-
 .shop-info .old-shop{
     padding:13px;
-
     background:#ffe8e8;
-
     border:1px solid #ffb5b5;
-
     border-radius:10px;
-
     color:#d62828;
-
     font-weight:bold;
 }
-
-
-/* LƯU Ý */
 
 .shop-info .warning{
     padding:12px;
-
     background:#fff4d6;
-
     border-radius:10px;
-
     color:#795900;
 }
 
-
-/* CẢM ƠN */
-
 .shop-info .thanks{
     text-align:center;
-
     font-weight:bold;
-
     margin-top:16px;
 }
 
-
 /* ================= DANH SÁCH ================= */
-
 .grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(4,1fr);
-
+    grid-template-columns:repeat(4,1fr);
     gap:15px;
-
     padding:10px 16px;
 }
 
 .card{
     background:#fff;
-
     border:2px solid #b6c5ff;
-
     border-radius:16px;
-
     padding:5px;
-
     text-align:center;
 }
 
 .pic{
     height:190px;
-
     border-radius:13px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #168cf0,
-            #ffd33b
-        );
-
+    background:linear-gradient(135deg,#168cf0,#ffd33b);
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     color:#fff;
-
     font-size:28px;
-
     font-weight:900;
-
-    text-shadow:
-        2px 2px #07509b;
+    text-shadow:2px 2px #07509b;
 }
 
 .btn{
     display:block;
-
     margin:8px 0;
-
     padding:12px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #1598f4,
-            #5968dc
-        );
-
+    background:linear-gradient(90deg,#1598f4,#5968dc);
     color:white;
-
     text-decoration:none;
-
     border-radius:9px;
-
     font-weight:bold;
 }
 
-
 /* ================= NÚT KHÁCH HÀNG ================= */
-
 .customer-btn{
     position:fixed;
-
     right:20px;
     bottom:20px;
-
     z-index:99999;
-
     padding:13px 18px;
-
     border-radius:14px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #5137df,
-            #347bf0
-        );
-
+    background:linear-gradient(135deg,#5137df,#347bf0);
     color:white;
-
     text-decoration:none;
-
     font-size:16px;
-
     font-weight:bold;
-
-    box-shadow:
-        0 5px 18px #0004;
-
+    box-shadow:0 5px 18px #0004;
     transition:.2s;
 }
 
 .customer-btn:hover{
     transform:translateY(-3px);
-
-    box-shadow:
-        0 8px 22px #0005;
+    box-shadow:0 8px 22px #0005;
 }
 
-
 /* ================= POPUP ================= */
-
 .shop-notice-overlay{
     display:none;
-
     position:fixed;
-
     inset:0;
-
-    background:
-        rgba(0,0,0,.6);
-
+    background:rgba(0,0,0,.6);
     z-index:999999;
-
     align-items:center;
-
     justify-content:center;
-
     padding:15px;
 }
 
 .shop-notice-box{
     width:100%;
-
     max-width:430px;
-
     background:#fff;
-
     border-radius:18px;
-
     padding:28px 22px;
-
     text-align:center;
-
     position:relative;
-
-    box-shadow:
-        0 15px 50px rgba(0,0,0,.3);
-
-    animation:
-        shopNoticeShow .25s ease;
+    box-shadow:0 15px 50px rgba(0,0,0,.3);
+    animation:shopNoticeShow .25s ease;
 }
 
 @keyframes shopNoticeShow{
-
-    from{
-        opacity:0;
-        transform:scale(.8);
-    }
-
-    to{
-        opacity:1;
-        transform:scale(1);
-    }
-
+    from{opacity:0;transform:scale(.8)}
+    to{opacity:1;transform:scale(1)}
 }
 
 .shop-notice-close{
     position:absolute;
-
     top:8px;
     right:13px;
-
     border:0;
-
     background:none;
-
     font-size:30px;
-
     color:#777;
-
     cursor:pointer;
 }
 
 .shop-notice-icon{
     width:65px;
     height:65px;
-
     margin:0 auto 15px;
-
     border-radius:50%;
-
     background:#eaf3ff;
-
     display:flex;
-
     align-items:center;
     justify-content:center;
-
     font-size:31px;
 }
 
-.shop-notice-box h2{
-    margin:5px 0 10px;
-}
+.shop-notice-box h2{margin:5px 0 10px}
 
 .shop-notice-box p{
     color:#667085;
-
     line-height:1.6;
 }
 
 .shop-notice-buttons{
     display:flex;
-
     gap:10px;
-
     margin-top:22px;
 }
 
 .shop-notice-buttons button,
 .shop-notice-buttons a{
     flex:1;
-
     padding:12px;
-
     border-radius:9px;
-
     font-weight:bold;
-
     text-decoration:none;
-
     cursor:pointer;
-
     font-size:14px;
 }
 
 .shop-stay{
     border:1px solid #ddd;
-
     background:#f1f3f5;
-
     color:#333;
 }
 
 .shop-new{
     background:#1677ff;
-
     color:white;
 }
 
-.shop-new:hover{
-    background:#0d63d8;
-}
+.shop-new:hover{background:#0d63d8}
 
-
-/* ================= MOBILE ================= */
-
-@media(max-width:850px){
-
-    .grid{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:500px){
-
-    .grid{
-        grid-template-columns:1fr;
-    }
-
-    .shop-info{
-        margin:8px 10px 15px;
-
-        padding:16px;
-    }
-
-    .shop-info h2{
-        font-size:19px;
-    }
-
-    .customer-btn{
-        right:12px;
-
-        bottom:12px;
-
-        padding:11px 14px;
-
-        font-size:14px;
-    }
-
-    .shop-notice-buttons{
-        flex-direction:column;
-    }
-
-}
-
-
-/* ================= SHOP MỚI - CHUYỂN QUA KIỂM TRA ================= */
+/* ================= SHOP MỚI ================= */
 .new-shop-banner{
     width:calc(100% - 32px);
     margin:0 16px 18px;
-    padding:15px 16px;
+    padding:16px;
     background:#fff;
-    border:1px solid #e21b23;
-    border-radius:12px;
+    border:2px solid #e21b23;
+    border-radius:14px;
     box-shadow:0 4px 15px rgba(0,0,0,.07);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    flex-wrap:wrap;
     text-align:center;
 }
 
 .new-shop-title{
     color:#d01018;
-    font-size:17px;
-    font-weight:bold;
+    font-size:19px;
+    font-weight:900;
 }
 
 .new-shop-text{
+    margin-top:6px;
     color:#182238;
     font-size:14px;
     font-weight:bold;
 }
 
 .new-shop-status{
-    margin-bottom:12px;
-    color:#d01018;
+    display:inline-block;
+    margin-top:10px;
+    padding:8px 13px;
+    border-radius:20px;
     font-size:13px;
     font-weight:bold;
 }
 
-.new-shop-banner a{
+.new-shop-status.active{
+    background:#e9f9ef;
+    color:#168b42;
+    border:1px solid #9bd7b1;
+}
+
+.new-shop-status.updating{
+    background:#fff7df;
+    color:#9a6a00;
+    border:1px solid #f0d27a;
+}
+
+.new-shop-status.stopped{
+    background:#ffe8e8;
+    color:#d01018;
+    border:1px solid #ffb5b5;
+}
+
+.new-shop-button{
     display:inline-block;
-    padding:9px 15px;
-    border-radius:8px;
+    margin-top:12px;
+    padding:10px 18px;
+    border-radius:9px;
     background:#d01018;
     color:#fff;
     font-size:13px;
@@ -459,43 +285,54 @@ body{
     transition:.2s;
 }
 
-.new-shop-banner a:hover{
+.new-shop-button:hover{
     background:#a80e12;
     transform:translateY(-1px);
 }
 
-@media(max-width:600px){
-    .new-shop-banner{
-        flex-direction:column;
-        gap:8px;
-    }
-
-    .new-shop-banner a{
-        width:100%;
-    }
+/* ================= MOBILE ================= */
+@media(max-width:850px){
+    .grid{grid-template-columns:repeat(2,1fr)}
 }
 
+@media(max-width:500px){
+    .grid{grid-template-columns:1fr}
+
+    .shop-info{
+        margin:8px 10px 15px;
+        padding:16px;
+    }
+
+    .shop-info h2{font-size:19px}
+
+    .customer-btn{
+        right:12px;
+        bottom:12px;
+        padding:11px 14px;
+        font-size:14px;
+    }
+
+    .shop-notice-buttons{flex-direction:column}
+
+    .new-shop-banner{
+        width:calc(100% - 20px);
+        margin:0 10px 15px;
+    }
+}
 </style>
-
 </head>
-
 
 <body>
 
-
 <!-- ================= TÌM GAME ================= -->
-
 <div class="top">
-
     <input
         class="search"
         placeholder="🔎 Tìm game..."
         id="searchGame">
-
 </div>
 
 <!-- ================= SHOP MỚI ================= -->
-
 <div class="new-shop-banner">
 
     <div class="new-shop-title">
@@ -506,11 +343,14 @@ body{
         Shop mới chuyển qua kiểm tra
     </div>
 
-    <div class="new-shop-status">
-        🔴 Hoạt động Shop mới: <b>CHƯA HOẠT ĐỘNG</b>
+    <div id="shopStatus" class="new-shop-status updating">
+        🟡 SHOP ĐANG CẬP NHẬT
     </div>
 
+    <br>
+
     <a
+        class="new-shop-button"
         href="https://nhandeptraido9-sudo.github.io/Shopkarot.com.vn/index.html">
         SANG SHOP MỚI →
     </a>
@@ -518,7 +358,6 @@ body{
 </div>
 
 <!-- ================= THÔNG TIN SHOPKAROT ================= -->
-
 <aside class="card notice">
 
     <h2>📣 Thông tin Shopkarot</h2>
@@ -562,8 +401,6 @@ body{
     <p class="thank">
         🖤 Cảm ơn bạn đã ủng hộ SHOPKAROT!
     </p>
-
-    <!-- ================= LƯU Ý ================= -->
 
     <div style="
         margin-top:22px;
@@ -612,302 +449,151 @@ body{
     </div>
 
 </aside>
-<!-- ================= DANH SÁCH TÚI MÙ ================= -->
 
+<!-- ================= DANH SÁCH TÚI MÙ ================= -->
 <div class="grid" id="gameGrid">
 
-
-    <!-- TÚI MÙ 0K -->
-
     <div class="card">
-
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             NOOB<br>
             0K
-
         </div>
 
-        <h3>
+        <h3>TÚI MÙ BLOX FRUITS 0K</h3>
 
-            TÚI MÙ BLOX FRUITS 0K
+        <b>0 ₫</b>
 
-        </h3>
-
-        <b>
-
-            0 ₫
-
-        </b>
-
-        <a
-            class="btn"
-            href="tui-mu.html?price=0">
-
+        <a class="btn" href="tui-mu.html?price=0">
             MUA NGAY →
-
         </a>
-
     </div>
 
-
-    <!-- TÚI MÙ 10K -->
-
     <div class="card">
-
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             10K
-
         </div>
 
-        <h3>
+        <h3>TÚI MÙ BLOX FRUITS 10K</h3>
 
-            TÚI MÙ BLOX FRUITS 10K
+        <b>10.000 ₫</b>
 
-        </h3>
-
-        <b>
-
-            10.000 ₫
-
-        </b>
-
-        <a
-            class="btn"
-            href="tui-mu.html?price=10000">
-
+        <a class="btn" href="tui-mu.html?price=10000">
             MUA NGAY →
-
         </a>
-
     </div>
 
-
-    <!-- TÚI MÙ 20K -->
-
     <div class="card">
-
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             20K
-
         </div>
 
-        <h3>
+        <h3>TÚI MÙ BLOX FRUITS 20K</h3>
 
-            TÚI MÙ BLOX FRUITS 20K
+        <b>20.000 ₫</b>
 
-        </h3>
-
-        <b>
-
-            20.000 ₫
-
-        </b>
-
-        <a
-            class="btn"
-            href="tui-mu.html?price=20000">
-
+        <a class="btn" href="tui-mu.html?price=20000">
             MUA NGAY →
-
         </a>
-
     </div>
 
-
-    <!-- TÚI MÙ 80K -->
-
     <div class="card">
-
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             80K
-
         </div>
 
-        <h3>
+        <h3>TÚI MÙ BLOX FRUITS 80K</h3>
 
-            TÚI MÙ BLOX FRUITS 80K
+        <b>80.000 ₫</b>
 
-        </h3>
-
-        <b>
-
-            80.000 ₫
-
-        </b>
-
-        <a
-            class="btn"
-            href="tui-mu.html?price=80000">
-
+        <a class="btn" href="tui-mu.html?price=80000">
             MUA NGAY →
-
         </a>
-
     </div>
 
-
-    <!-- TÚI MÙ 50K -->
-
     <div class="card">
-
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             50K
-
         </div>
 
-        <h3>
+        <h3>TÚI MÙ BLOX FRUITS 50K</h3>
 
-            TÚI MÙ BLOX FRUITS 50K
+        <b>50.000 ₫</b>
 
-        </h3>
-
-        <b>
-
-            50.000 ₫
-
-        </b>
-
-        <a
-            class="btn"
-            href="tui-mu.html?price=50000">
-
+        <a class="btn" href="tui-mu.html?price=50000">
             MUA NGAY →
-
         </a>
-
     </div>
-
-
-    <!-- TÚI MÙ 100K -->
 
     <div class="card">
-
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             100K
-
         </div>
 
-        <h3>
+        <h3>TÚI MÙ BLOX FRUITS 100K</h3>
 
-            TÚI MÙ BLOX FRUITS 100K
+        <b>100.000 ₫</b>
 
-        </h3>
-
-        <b>
-
-            100.000 ₫
-
-        </b>
-
-        <a
-            class="btn"
-            href="tui-mu.html?price=100000">
-
+        <a class="btn" href="tui-mu.html?price=100000">
             MUA NGAY →
-
         </a>
-
     </div>
-
 
 </div>
 
-
 <!-- ================= NÚT KHÁCH HÀNG ================= -->
-
-<a
-    href="khach-hang.html"
-    class="customer-btn">
-
+<a href="khach-hang.html" class="customer-btn">
     👤 Khách hàng
-
 </a>
 
-
 <!-- ================= POPUP ĐĂNG NHẬP ================= -->
-
-<div
-    id="shopNotice"
-    class="shop-notice-overlay">
+<div id="shopNotice" class="shop-notice-overlay">
 
     <div class="shop-notice-box">
-
 
         <button
             class="shop-notice-close"
             onclick="closeShopNotice()">
-
             ×
-
         </button>
 
-
         <div class="shop-notice-icon">
-
             🔔
-
         </div>
 
-
         <h2>
-
             Đăng nhập thành công!
-
         </h2>
 
-
         <p>
-
             Chào mừng bạn đến với Shop Karot.<br>
-
             Đây là shop cũ của Karot.<br>
-
             Shop đã có phiên bản mới.<br>
-
             Bạn có muốn chuyển sang Shop Mới không?
-
         </p>
 
-
         <div class="shop-notice-buttons">
-
 
             <button
                 class="shop-stay"
                 onclick="closeShopNotice()">
-
-                Ở Lại Shop
-
+                Ở LẠI SHOP
             </button>
-
 
             <a
                 class="shop-new"
                 href="https://nhandeptraido9-sudo.github.io/Shopkarot.com.vn/index.html">
-
-                Vào Shop Mới
-
+                VÀO SHOP MỚI
             </a>
 
-
         </div>
-
     </div>
-
 </div>
-
 
 <script>
 
@@ -923,8 +609,9 @@ document
         .trim();
 
     const cards =
-        document.querySelectorAll(".card");
-
+        document.querySelectorAll(
+            "#gameGrid .card"
+        );
 
     cards.forEach(function(card){
 
@@ -932,20 +619,64 @@ document
             card.innerText
             .toLowerCase();
 
-
         if(text.includes(keyword)){
-
             card.style.display = "";
-
         }else{
-
             card.style.display = "none";
-
         }
 
     });
 
 });
+
+
+/* ================= TRẠNG THÁI SHOP ================= */
+
+function loadShopStatus(){
+
+    const status =
+        localStorage.getItem(
+            "shopkarot_shop_status"
+        ) || "updating";
+
+    const box =
+        document.getElementById(
+            "shopStatus"
+        );
+
+    if(!box) return;
+
+    box.className =
+        "new-shop-status";
+
+    if(status === "active"){
+
+        box.classList.add("active");
+
+        box.innerHTML =
+            "🟢 SHOP ĐANG HOẠT ĐỘNG";
+
+    }
+
+    else if(status === "stopped"){
+
+        box.classList.add("stopped");
+
+        box.innerHTML =
+            "🔴 SHOP NGỪNG HOẠT ĐỘNG";
+
+    }
+
+    else{
+
+        box.classList.add("updating");
+
+        box.innerHTML =
+            "🟡 SHOP ĐANG CẬP NHẬT";
+
+    }
+
+}
 
 
 /* ================= POPUP SAU KHI LOGIN ================= */
@@ -954,11 +685,12 @@ window.addEventListener(
     "load",
     function(){
 
+        loadShopStatus();
+
         const loginSuccess =
             localStorage.getItem(
                 "login_success"
             );
-
 
         if(loginSuccess === "true"){
 
@@ -967,7 +699,6 @@ window.addEventListener(
                 "shopNotice"
             )
             .style.display = "flex";
-
 
             localStorage.removeItem(
                 "login_success"
@@ -1025,8 +756,26 @@ document.addEventListener(
     }
 );
 
-</script>
 
+/* ================= TỰ CẬP NHẬT ================= */
+
+window.addEventListener(
+    "storage",
+    function(event){
+
+        if(
+            event.key ===
+            "shopkarot_shop_status"
+        ){
+
+            loadShopStatus();
+
+        }
+
+    }
+);
+
+</script>
 
 </body>
 </html>
