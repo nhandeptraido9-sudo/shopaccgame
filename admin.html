@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>SHOPKAROT - ADMIN SHOP CŨ</title>
+<title>SHOPKAROT - ADMIN</title>
 
 <style>
 
@@ -124,7 +124,7 @@ button:hover{
 table{
     width:100%;
     border-collapse:collapse;
-    min-width:900px;
+    min-width:1050px;
 }
 
 th,
@@ -132,6 +132,7 @@ td{
     padding:10px;
     border-bottom:1px solid #e5e7eb;
     text-align:left;
+    vertical-align:middle;
 }
 
 th{
@@ -207,6 +208,10 @@ th{
     background:#6b7280;
 }
 
+.orange{
+    background:#ea580c;
+}
+
 .small{
     font-size:13px;
     color:#64748b;
@@ -215,6 +220,7 @@ th{
 .action{
     display:flex;
     gap:5px;
+    flex-wrap:wrap;
 }
 
 .action button{
@@ -223,10 +229,28 @@ th{
     margin:0;
 }
 
+.action .hide-btn{
+    background:#6b7280;
+}
 
-/* =================================================
-   TRẠNG THÁI SHOP CŨ
-================================================= */
+.action .edit-btn{
+    background:#2563eb;
+}
+
+.action .delete-btn{
+    background:#dc2626;
+}
+
+.customer-hidden{
+    opacity:.45;
+}
+
+.customer-hidden td{
+    text-decoration:line-through;
+}
+
+
+/* ================= TRẠNG THÁI SHOP ================= */
 
 .shop-status-box{
     background:white;
@@ -265,6 +289,51 @@ th{
     font-weight:bold;
 }
 
+
+/* ================= MODAL ================= */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.55);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:15px;
+    z-index:99999;
+}
+
+.modal-overlay.show{
+    display:flex;
+}
+
+.modal{
+    width:100%;
+    max-width:480px;
+    background:white;
+    border-radius:16px;
+    padding:22px;
+    box-shadow:0 15px 50px rgba(0,0,0,.3);
+}
+
+.modal h2{
+    margin-top:0;
+}
+
+.modal-buttons{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.modal-buttons button{
+    flex:1;
+}
+
+.cancel{
+    background:#6b7280;
+}
+
 @media(max-width:700px){
 
     .shop-status-options{
@@ -275,6 +344,7 @@ th{
 
 </style>
 </head>
+
 
 <body>
 
@@ -290,7 +360,7 @@ th{
     <h2>🔐 ADMIN SHOPKAROT</h2>
 
     <p class="small">
-        Đăng nhập khu vực quản trị Shop cũ.
+        Đăng nhập khu vực quản trị.
     </p>
 
     <input
@@ -302,11 +372,8 @@ th{
         type="password"
         placeholder="Mật khẩu Admin">
 
-    <button
-        onclick="adminLogin()">
-
+    <button onclick="adminLogin()">
         Đăng nhập
-
     </button>
 
     <div
@@ -329,15 +396,13 @@ th{
 <header>
 
     <div class="logo">
-        🎮 SHOPKAROT ADMIN - SHOP CŨ
+        🎮 SHOPKAROT ADMIN
     </div>
 
     <button
         class="logout"
         onclick="logout()">
-
         Đăng xuất
-
     </button>
 
 </header>
@@ -352,80 +417,50 @@ th{
 
 <div class="nav">
 
-    <button
-        onclick="showPage('dashboard')">
-
+    <button onclick="showPage('dashboard')">
         📊 Tổng quan
-
     </button>
 
-    <button
-        onclick="showPage('add')">
-
+    <button onclick="showPage('add')">
         ➕ Thêm acc
-
     </button>
 
-    <button
-        onclick="showPage('warehouse')">
-
+    <button onclick="showPage('warehouse')">
         📦 Kho acc
-
     </button>
 
-    <button
-        onclick="showPage('customers')">
-
+    <button onclick="showPage('customers')">
         👥 Khách hàng
-
     </button>
 
-    <button
-        onclick="showPage('topups')">
-
+    <button onclick="showPage('topups')">
         💰 Nạp tiền
-
     </button>
 
-    <button
-        onclick="showPage('orders')">
-
+    <button onclick="showPage('orders')">
         🧾 Đơn hàng
-
     </button>
 
-    <button
-        onclick="refreshAll()">
-
+    <button onclick="refreshAll()">
         🔄 Làm mới
-
     </button>
 
 </div>
 
 
 <!-- =================================================
-     TRẠNG THÁI SHOP CŨ
+     TRẠNG THÁI SHOP
 ================================================= -->
 
 <section class="shop-status-box">
 
     <h2>
-        ⚙️ Trạng thái Shop cũ
+        ⚙️ Trạng thái Shop
     </h2>
 
     <p class="small">
-
-        Admin chọn trạng thái để hiển thị
-        trên <b>ShopKarot cũ</b>.
-
-        <br>
-
-        Trạng thái này được lưu riêng,
-        không dùng chung với Shop mới.
-
+        Admin chọn trạng thái để hiển thị trên Shop cũ.
     </p>
-
 
     <div class="shop-status-options">
 
@@ -439,7 +474,6 @@ th{
 
         </button>
 
-
         <button
             type="button"
             id="statusUpdating"
@@ -449,7 +483,6 @@ th{
             🟡 SHOP ĐANG CẬP NHẬT
 
         </button>
-
 
         <button
             type="button"
@@ -463,7 +496,6 @@ th{
 
     </div>
 
-
     <div
         id="shopStatusCurrent"
         class="shop-status-current">
@@ -472,15 +504,13 @@ th{
 
     </div>
 
-
     <button
         type="button"
         onclick="saveShopStatus()">
 
-        💾 LƯU TRẠNG THÁI SHOP CŨ
+        💾 LƯU TRẠNG THÁI SHOP
 
     </button>
-
 
     <div
         id="shopStatusMessage"
@@ -500,12 +530,9 @@ th{
 
     <div class="grid">
 
-
         <div class="stat">
 
-            <div>
-                📦 Tổng acc
-            </div>
+            <div>📦 Tổng acc</div>
 
             <div
                 id="totalAccounts"
@@ -520,9 +547,7 @@ th{
 
         <div class="stat">
 
-            <div>
-                🟢 Còn hàng
-            </div>
+            <div>🟢 Còn hàng</div>
 
             <div
                 id="availableAccounts"
@@ -537,9 +562,7 @@ th{
 
         <div class="stat">
 
-            <div>
-                🔴 Đã bán
-            </div>
+            <div>🔴 Đã bán</div>
 
             <div
                 id="soldAccounts"
@@ -554,9 +577,7 @@ th{
 
         <div class="stat">
 
-            <div>
-                👥 Khách hàng
-            </div>
+            <div>👥 Khách hàng</div>
 
             <div
                 id="totalCustomers"
@@ -571,9 +592,7 @@ th{
 
         <div class="stat">
 
-            <div>
-                💰 Yêu cầu nạp
-            </div>
+            <div>💰 Yêu cầu nạp</div>
 
             <div
                 id="pendingTopups"
@@ -585,7 +604,6 @@ th{
 
         </div>
 
-
     </div>
 
 
@@ -596,31 +614,21 @@ th{
         </h2>
 
         <p>
-
             Acc còn hàng:
-
             <b id="dashboardAvailable">
                 0
             </b>
-
         </p>
 
         <p>
-
             Acc đã bán:
-
             <b id="dashboardSold">
                 0
             </b>
-
         </p>
 
-
-        <button
-            onclick="refreshAll()">
-
+        <button onclick="refreshAll()">
             🔄 Cập nhật dữ liệu
-
         </button>
 
     </div>
@@ -643,125 +651,63 @@ th{
         </h2>
 
         <p class="small">
-
-            Mỗi acc có thể thuộc một
-            mệnh giá và một trong 8 gói.
-
+            Mỗi acc có thể thuộc một mệnh giá và một trong 8 gói.
         </p>
 
-
-        <label>
-            Mệnh giá
-        </label>
+        <label>Mệnh giá</label>
 
         <select id="addPrice">
 
-            <option value="0">
-                0K
-            </option>
-
-            <option value="10000">
-                10K
-            </option>
-
-            <option value="20000">
-                20K
-            </option>
-
-            <option value="50000">
-                50K
-            </option>
-
-            <option value="80000">
-                80K
-            </option>
-
-            <option value="100000">
-                100K
-            </option>
-
-            <option value="200000">
-                200K
-            </option>
-
-            <option value="500000">
-                500K
-            </option>
+            <option value="0">0K</option>
+            <option value="10000">10K</option>
+            <option value="20000">20K</option>
+            <option value="50000">50K</option>
+            <option value="80000">80K</option>
+            <option value="100000">100K</option>
+            <option value="200000">200K</option>
+            <option value="500000">500K</option>
 
         </select>
 
 
-        <label>
-            Gói
-        </label>
+        <label>Gói</label>
 
         <select id="addPackage">
 
-            <option value="1">
-                Gói 1
-            </option>
-
-            <option value="2">
-                Gói 2
-            </option>
-
-            <option value="3">
-                Gói 3
-            </option>
-
-            <option value="4">
-                Gói 4
-            </option>
-
-            <option value="5">
-                Gói 5
-            </option>
-
-            <option value="6">
-                Gói 6
-            </option>
-
-            <option value="7">
-                Gói 7
-            </option>
-
-            <option value="8">
-                Gói 8
-            </option>
+            <option value="1">Gói 1</option>
+            <option value="2">Gói 2</option>
+            <option value="3">Gói 3</option>
+            <option value="4">Gói 4</option>
+            <option value="5">Gói 5</option>
+            <option value="6">Gói 6</option>
+            <option value="7">Gói 7</option>
+            <option value="8">Gói 8</option>
 
         </select>
 
 
-        <label>
-            Tên tài khoản
-        </label>
+        <label>Tên tài khoản</label>
 
         <input
             id="addName"
             placeholder="Tên acc Roblox">
 
 
-        <label>
-            Mật khẩu
-        </label>
+        <label>Mật khẩu</label>
 
         <input
             id="addPass"
             placeholder="Mật khẩu acc">
 
 
-        <button
-            onclick="addAccount()">
-
+        <button onclick="addAccount()">
             ➕ Thêm vào kho
-
         </button>
 
 
         <div
             id="addMessage"
             class="hidden">
-
         </div>
 
     </div>
@@ -783,15 +729,11 @@ th{
             📦 Kho tài khoản
         </h2>
 
-        <button
-            onclick="loadAccounts()">
-
+        <button onclick="loadAccounts()">
             🔄 Tải lại kho
-
         </button>
 
         <br><br>
-
 
         <div class="table-wrap">
 
@@ -802,31 +744,21 @@ th{
                     <tr>
 
                         <th>ID</th>
-
                         <th>Mệnh giá</th>
-
                         <th>Gói</th>
-
                         <th>Tên acc</th>
-
                         <th>Mật khẩu</th>
-
                         <th>Trạng thái</th>
-
                         <th>Khách</th>
-
                         <th>Ngày thêm</th>
-
                         <th>Ngày bán</th>
+                        <th>Thao tác</th>
 
                     </tr>
 
                 </thead>
 
-
-                <tbody
-                    id="accountsTable">
-
+                <tbody id="accountsTable">
                 </tbody>
 
             </table>
@@ -852,16 +784,24 @@ th{
             👥 Khách hàng
         </h2>
 
+        <p class="small">
+            Nút Xóa ở đây chỉ ẩn khách khỏi danh sách Admin.
+            Tài khoản khách không bị xóa và khách vẫn vào shop bình thường.
+        </p>
+
+        <button onclick="loadCustomers()">
+            🔄 Tải khách hàng
+        </button>
 
         <button
-            onclick="loadCustomers()">
+            class="gray"
+            onclick="restoreHiddenCustomers()">
 
-            🔄 Tải khách hàng
+            ♻️ Hiện lại khách đã ẩn
 
         </button>
 
         <br><br>
-
 
         <div class="table-wrap">
 
@@ -872,19 +812,15 @@ th{
                     <tr>
 
                         <th>Tên khách</th>
-
                         <th>Số dư</th>
-
                         <th>Ngày tạo</th>
+                        <th>Thao tác</th>
 
                     </tr>
 
                 </thead>
 
-
-                <tbody
-                    id="customersTable">
-
+                <tbody id="customersTable">
                 </tbody>
 
             </table>
@@ -910,16 +846,11 @@ th{
             💰 Yêu cầu nạp tiền
         </h2>
 
-
-        <button
-            onclick="loadTopups()">
-
+        <button onclick="loadTopups()">
             🔄 Tải yêu cầu
-
         </button>
 
         <br><br>
-
 
         <div class="table-wrap">
 
@@ -930,33 +861,21 @@ th{
                     <tr>
 
                         <th>Mã nạp</th>
-
                         <th>Khách</th>
-
                         <th>Hình thức</th>
-
                         <th>Số tiền</th>
-
                         <th>Nhà mạng</th>
-
                         <th>Serial</th>
-
                         <th>Mã thẻ</th>
-
                         <th>Nội dung CK</th>
-
                         <th>Trạng thái</th>
-
                         <th>Thao tác</th>
 
                     </tr>
 
                 </thead>
 
-
-                <tbody
-                    id="topupsTable">
-
+                <tbody id="topupsTable">
                 </tbody>
 
             </table>
@@ -982,16 +901,11 @@ th{
             🧾 Đơn hàng
         </h2>
 
-
-        <button
-            onclick="loadAllOrders()">
-
+        <button onclick="loadAllOrders()">
             🔄 Tải đơn hàng
-
         </button>
 
         <br><br>
-
 
         <div class="table-wrap">
 
@@ -1002,31 +916,20 @@ th{
                     <tr>
 
                         <th>Mã đơn</th>
-
                         <th>Khách</th>
-
                         <th>Mệnh giá</th>
-
                         <th>Gói</th>
-
                         <th>Tên acc</th>
-
                         <th>Mật khẩu</th>
-
                         <th>Số tiền</th>
-
                         <th>Ngày mua</th>
-
                         <th>Trạng thái</th>
 
                     </tr>
 
                 </thead>
 
-
-                <tbody
-                    id="ordersTable">
-
+                <tbody id="ordersTable">
                 </tbody>
 
             </table>
@@ -1043,8 +946,84 @@ th{
 </div>
 
 
-<script>
+<!-- =================================================
+     MODAL SỬA ACC
+================================================= -->
 
+<div
+    id="editAccountModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <h2>✏️ Sửa tài khoản</h2>
+
+        <input
+            id="editAccountId"
+            type="hidden">
+
+        <label>Mệnh giá</label>
+
+        <select id="editPrice">
+
+            <option value="0">0K</option>
+            <option value="10000">10K</option>
+            <option value="20000">20K</option>
+            <option value="50000">50K</option>
+            <option value="80000">80K</option>
+            <option value="100000">100K</option>
+            <option value="200000">200K</option>
+            <option value="500000">500K</option>
+
+        </select>
+
+        <label>Gói</label>
+
+        <select id="editPackage">
+
+            <option value="1">Gói 1</option>
+            <option value="2">Gói 2</option>
+            <option value="3">Gói 3</option>
+            <option value="4">Gói 4</option>
+            <option value="5">Gói 5</option>
+            <option value="6">Gói 6</option>
+            <option value="7">Gói 7</option>
+            <option value="8">Gói 8</option>
+
+        </select>
+
+        <label>Tên acc</label>
+
+        <input id="editName">
+
+        <label>Mật khẩu</label>
+
+        <input id="editPass">
+
+        <div class="modal-buttons">
+
+            <button
+                class="cancel"
+                onclick="closeEditAccount()">
+
+                Hủy
+
+            </button>
+
+            <button onclick="saveEditAccount()">
+
+                💾 Lưu
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
 
 /* =================================================
    API
@@ -1055,27 +1034,65 @@ const API_URL =
 
 
 /* =================================================
-   TÀI KHOẢN ADMIN
+   ADMIN LOGIN
 ================================================= */
 
-const ADMIN_USERNAME =
-"admin";
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "123456";
 
-const ADMIN_PASSWORD =
-"123456";
+
+let accounts = [];
+let customers = [];
+let topups = [];
+let orders = [];
 
 
 /* =================================================
-   BIẾN DỮ LIỆU
+   KHÁCH BỊ ẨN
 ================================================= */
 
-let accounts = [];
+const HIDDEN_CUSTOMERS_KEY =
+"shopkarot_hidden_customers";
 
-let customers = [];
 
-let topups = [];
+function getHiddenCustomers(){
 
-let orders = [];
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                HIDDEN_CUSTOMERS_KEY
+            ) || "[]"
+        );
+
+    }
+    catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+function saveHiddenCustomers(list){
+
+    localStorage.setItem(
+        HIDDEN_CUSTOMERS_KEY,
+        JSON.stringify(list)
+    );
+
+}
+
+
+function isCustomerHidden(username){
+
+    return getHiddenCustomers()
+        .includes(
+            String(username)
+        );
+
+}
 
 
 /* =================================================
@@ -1104,11 +1121,8 @@ async function api(data){
             API_URL,
             {
                 method:"POST",
-
                 body:
-                    JSON.stringify(
-                        data
-                    )
+                    JSON.stringify(data)
             }
         );
 
@@ -1125,18 +1139,13 @@ function adminLogin(){
 
     const user =
         document
-        .getElementById(
-            "adminUser"
-        )
+        .getElementById("adminUser")
         .value
         .trim();
 
-
     const pass =
         document
-        .getElementById(
-            "adminPass"
-        )
+        .getElementById("adminPass")
         .value;
 
 
@@ -1146,26 +1155,19 @@ function adminLogin(){
     ){
 
         localStorage.setItem(
-            "shopkarot_old_admin",
+            "shopAdmin",
             "1"
         );
 
-
         document
-        .getElementById(
-            "loginPage"
-        )
+        .getElementById("loginPage")
         .classList
         .add("hidden");
 
-
         document
-        .getElementById(
-            "adminPage"
-        )
+        .getElementById("adminPage")
         .classList
         .remove("hidden");
-
 
         refreshAll();
 
@@ -1174,17 +1176,13 @@ function adminLogin(){
 
         const box =
             document
-            .getElementById(
-                "loginError"
-            );
-
+            .getElementById("loginError");
 
         box.textContent =
             "Sai tên Admin hoặc mật khẩu";
 
-
         box.classList
-        .remove("hidden");
+            .remove("hidden");
 
     }
 
@@ -1201,25 +1199,19 @@ window.addEventListener(
 
         if(
             localStorage.getItem(
-                "shopkarot_old_admin"
+                "shopAdmin"
             ) === "1"
         ){
 
             document
-            .getElementById(
-                "loginPage"
-            )
+            .getElementById("loginPage")
             .classList
             .add("hidden");
 
-
             document
-            .getElementById(
-                "adminPage"
-            )
+            .getElementById("adminPage")
             .classList
             .remove("hidden");
-
 
             refreshAll();
 
@@ -1236,7 +1228,7 @@ window.addEventListener(
 function logout(){
 
     localStorage.removeItem(
-        "shopkarot_old_admin"
+        "shopAdmin"
     );
 
     location.reload();
@@ -1251,9 +1243,7 @@ function logout(){
 function showPage(id){
 
     document
-    .querySelectorAll(
-        ".page"
-    )
+    .querySelectorAll(".page")
     .forEach(
         page =>
             page.classList
@@ -1262,9 +1252,7 @@ function showPage(id){
 
 
     document
-    .getElementById(
-        id
-    )
+    .getElementById(id)
     .classList
     .remove("hidden");
 
@@ -1272,14 +1260,11 @@ function showPage(id){
     if(id === "warehouse")
         loadAccounts();
 
-
     if(id === "customers")
         loadCustomers();
 
-
     if(id === "topups")
         loadTopups();
-
 
     if(id === "orders")
         loadAllOrders();
@@ -1295,34 +1280,23 @@ async function addAccount(){
 
     const price =
         document
-        .getElementById(
-            "addPrice"
-        )
+        .getElementById("addPrice")
         .value;
-
 
     const pack =
         document
-        .getElementById(
-            "addPackage"
-        )
+        .getElementById("addPackage")
         .value;
-
 
     const name =
         document
-        .getElementById(
-            "addName"
-        )
+        .getElementById("addName")
         .value
         .trim();
 
-
     const pass =
         document
-        .getElementById(
-            "addPass"
-        )
+        .getElementById("addPass")
         .value
         .trim();
 
@@ -1345,20 +1319,15 @@ async function addAccount(){
         const result =
             await api({
 
-                action:
-                    "addAccount",
+                action:"addAccount",
 
-                price:
-                    price,
+                price:price,
 
-                package:
-                    pack,
+                package:pack,
 
-                accountName:
-                    name,
+                accountName:name,
 
-                accountPass:
-                    pass
+                accountPass:pass
 
             });
 
@@ -1372,20 +1341,13 @@ async function addAccount(){
                 true
             );
 
-
             document
-            .getElementById(
-                "addName"
-            )
+            .getElementById("addName")
             .value = "";
 
-
             document
-            .getElementById(
-                "addPass"
-            )
+            .getElementById("addPass")
             .value = "";
-
 
             loadAccounts();
 
@@ -1402,8 +1364,6 @@ async function addAccount(){
 
     }
     catch(error){
-
-        console.error(error);
 
         showMessage(
             "addMessage",
@@ -1429,7 +1389,6 @@ async function loadAccounts(){
                 API_URL +
                 "?action=getAccounts"
             );
-
 
         const result =
             await response.json();
@@ -1478,9 +1437,7 @@ function renderAccounts(){
 
             const tr =
                 document
-                .createElement(
-                    "tr"
-                );
+                .createElement("tr");
 
 
             const status =
@@ -1494,18 +1451,15 @@ function renderAccounts(){
 
 
             if(
-                status ===
-                "CON_HANG"
+                status === "CON_HANG"
             ){
 
-                badge +=
-                    " available";
+                badge += " available";
 
             }
             else{
 
-                badge +=
-                    " sold";
+                badge += " sold";
 
             }
 
@@ -1516,17 +1470,11 @@ function renderAccounts(){
 
                 <td>${money(acc.price)}</td>
 
-                <td>
-                    Gói ${esc(acc.package)}
-                </td>
+                <td>Gói ${esc(acc.package)}</td>
 
-                <td>
-                    ${esc(acc.accountName)}
-                </td>
+                <td>${esc(acc.accountName)}</td>
 
-                <td>
-                    ${esc(acc.accountPass)}
-                </td>
+                <td>${esc(acc.accountPass)}</td>
 
                 <td>
                     <span class="${badge}">
@@ -1534,27 +1482,294 @@ function renderAccounts(){
                     </span>
                 </td>
 
-                <td>
-                    ${esc(acc.customer)}
-                </td>
+                <td>${esc(acc.customer)}</td>
+
+                <td>${esc(acc.createdAt)}</td>
+
+                <td>${esc(acc.soldAt)}</td>
 
                 <td>
-                    ${esc(acc.createdAt)}
-                </td>
 
-                <td>
-                    ${esc(acc.soldAt)}
+                    <div class="action">
+
+                        <button
+                            class="edit-btn"
+                            onclick="openEditAccount('${escAttr(acc.id)}')">
+
+                            ✏️ Sửa
+
+                        </button>
+
+                        <button
+                            class="delete-btn"
+                            onclick="deleteAccount('${escAttr(acc.id)}')">
+
+                            🗑️ Xóa
+
+                        </button>
+
+                    </div>
+
                 </td>
 
             `;
 
 
-            tbody.appendChild(
-                tr
-            );
+            tbody.appendChild(tr);
 
         }
     );
+
+}
+
+
+/* =================================================
+   SỬA ACC
+================================================= */
+
+function openEditAccount(id){
+
+    const acc =
+        accounts.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(!acc){
+
+        alert("Không tìm thấy acc.");
+
+        return;
+
+    }
+
+
+    document
+    .getElementById("editAccountId")
+    .value =
+        acc.id || "";
+
+
+    document
+    .getElementById("editPrice")
+    .value =
+        acc.price || "0";
+
+
+    document
+    .getElementById("editPackage")
+    .value =
+        acc.package || "1";
+
+
+    document
+    .getElementById("editName")
+    .value =
+        acc.accountName || "";
+
+
+    document
+    .getElementById("editPass")
+    .value =
+        acc.accountPass || "";
+
+
+    document
+    .getElementById("editAccountModal")
+    .classList
+    .add("show");
+
+}
+
+
+function closeEditAccount(){
+
+    document
+    .getElementById("editAccountModal")
+    .classList
+    .remove("show");
+
+}
+
+
+/*
+   API cũ của bạn chưa cung cấp
+   action updateAccount.
+
+   Vì vậy hàm này sẽ kiểm tra API.
+   Nếu API chưa hỗ trợ thì báo rõ,
+   không làm hỏng dữ liệu.
+*/
+
+async function saveEditAccount(){
+
+    const id =
+        document
+        .getElementById("editAccountId")
+        .value;
+
+    const price =
+        document
+        .getElementById("editPrice")
+        .value;
+
+    const pack =
+        document
+        .getElementById("editPackage")
+        .value;
+
+    const name =
+        document
+        .getElementById("editName")
+        .value
+        .trim();
+
+    const pass =
+        document
+        .getElementById("editPass")
+        .value
+        .trim();
+
+
+    if(!name || !pass){
+
+        alert(
+            "Vui lòng nhập tên acc và mật khẩu."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:"updateAccount",
+
+                id:id,
+
+                price:price,
+
+                package:pack,
+
+                accountName:name,
+
+                accountPass:pass
+
+            });
+
+
+        if(result.ok){
+
+            alert(
+                result.message ||
+                "Đã cập nhật acc."
+            );
+
+            closeEditAccount();
+
+            loadAccounts();
+
+        }
+        else{
+
+            alert(
+                result.message ||
+                "API chưa hỗ trợ sửa acc."
+            );
+
+        }
+
+    }
+    catch(error){
+
+        alert(
+            "API hiện tại chưa hỗ trợ thao tác sửa acc."
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   XÓA ACC
+================================================= */
+
+async function deleteAccount(id){
+
+    const acc =
+        accounts.find(
+            item =>
+                String(item.id) ===
+                String(id)
+        );
+
+
+    if(!acc){
+
+        alert("Không tìm thấy acc.");
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "Bạn có chắc muốn xóa acc ID " +
+            id +
+            "?\n\n" +
+            "Nếu API chưa hỗ trợ xóa, dữ liệu sẽ không bị xóa."
+        )
+    )
+        return;
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:"deleteAccount",
+
+                id:id
+
+            });
+
+
+        if(result.ok){
+
+            alert(
+                result.message ||
+                "Đã xóa acc."
+            );
+
+            loadAccounts();
+
+        }
+        else{
+
+            alert(
+                result.message ||
+                "API chưa hỗ trợ xóa acc."
+            );
+
+        }
+
+    }
+    catch(error){
+
+        alert(
+            "API hiện tại chưa hỗ trợ xóa acc."
+        );
+
+    }
 
 }
 
@@ -1570,8 +1785,7 @@ async function loadCustomers(){
         const result =
             await api({
 
-                action:
-                    "getCustomers"
+                action:"getCustomers"
 
             });
 
@@ -1617,19 +1831,35 @@ function renderCustomers(){
     customers.forEach(
         customer => {
 
+            const username =
+                String(
+                    customer.username || ""
+                );
+
+
+            const hidden =
+                isCustomerHidden(
+                    username
+                );
+
+
             const tr =
                 document
-                .createElement(
-                    "tr"
-                );
+                .createElement("tr");
+
+
+            if(hidden){
+
+                tr.classList
+                .add("customer-hidden");
+
+            }
 
 
             tr.innerHTML = `
 
                 <td>
-                    ${esc(
-                        customer.username
-                    )}
+                    ${esc(username)}
                 </td>
 
                 <td>
@@ -1646,15 +1876,147 @@ function renderCustomers(){
                     )}
                 </td>
 
+                <td>
+
+                    <div class="action">
+
+                        ${
+                            hidden
+
+                            ?
+
+                            `
+                            <button
+                                class="green"
+                                onclick="showCustomer('${escAttr(username)}')">
+
+                                👁️ Hiện
+
+                            </button>
+                            `
+
+                            :
+
+                            `
+                            <button
+                                class="hide-btn"
+                                onclick="hideCustomer('${escAttr(username)}')">
+
+                                🗑️ Xóa khỏi danh sách
+
+                            </button>
+                            `
+                        }
+
+                    </div>
+
+                </td>
+
             `;
 
 
-            tbody.appendChild(
-                tr
-            );
+            tbody.appendChild(tr);
 
         }
     );
+
+}
+
+
+/* =================================================
+   ẨN KHÁCH
+================================================= */
+
+function hideCustomer(username){
+
+    if(!username)
+        return;
+
+
+    if(
+        !confirm(
+            "Ẩn khách \"" +
+            username +
+            "\" khỏi danh sách Admin?\n\n" +
+
+            "Tài khoản khách KHÔNG bị xóa.\n" +
+
+            "Khách vẫn đăng nhập và vào shop bình thường."
+        )
+    )
+        return;
+
+
+    const list =
+        getHiddenCustomers();
+
+
+    if(
+        !list.includes(
+            String(username)
+        )
+    ){
+
+        list.push(
+            String(username)
+        );
+
+    }
+
+
+    saveHiddenCustomers(list);
+
+    renderCustomers();
+
+    alert(
+        "Đã ẩn khách khỏi danh sách Admin."
+    );
+
+}
+
+
+/* =================================================
+   HIỆN LẠI KHÁCH
+================================================= */
+
+function showCustomer(username){
+
+    const list =
+        getHiddenCustomers()
+        .filter(
+            name =>
+                String(name) !==
+                String(username)
+        );
+
+
+    saveHiddenCustomers(list);
+
+    renderCustomers();
+
+}
+
+
+/* =================================================
+   HIỆN LẠI TẤT CẢ
+================================================= */
+
+function restoreHiddenCustomers(){
+
+    if(
+        !confirm(
+            "Hiện lại tất cả khách đã ẩn?"
+        )
+    )
+        return;
+
+
+    localStorage.removeItem(
+        HIDDEN_CUSTOMERS_KEY
+    );
+
+
+    renderCustomers();
 
 }
 
@@ -1670,8 +2032,7 @@ async function loadTopups(){
         const result =
             await api({
 
-                action:
-                    "getTopups"
+                action:"getTopups"
 
             });
 
@@ -1719,9 +2080,7 @@ function renderTopups(){
 
             const tr =
                 document
-                .createElement(
-                    "tr"
-                );
+                .createElement("tr");
 
 
             let statusClass =
@@ -1729,33 +2088,24 @@ function renderTopups(){
 
 
             if(
-                item.status ===
-                "DA_DUYET"
-            ){
-
+                item.status === "DA_DUYET"
+            )
                 statusClass =
                     "approved";
 
-            }
-
 
             if(
-                item.status ===
-                "TU_CHOI"
-            ){
-
+                item.status === "TU_CHOI"
+            )
                 statusClass =
                     "rejected";
-
-            }
 
 
             let action = "";
 
 
             if(
-                item.status ===
-                "CHO_DUYET"
+                item.status === "CHO_DUYET"
             ){
 
                 action = `
@@ -1793,17 +2143,11 @@ function renderTopups(){
 
             tr.innerHTML = `
 
-                <td>
-                    ${esc(item.id)}
-                </td>
+                <td>${esc(item.id)}</td>
 
-                <td>
-                    ${esc(item.username)}
-                </td>
+                <td>${esc(item.username)}</td>
 
-                <td>
-                    ${esc(item.method)}
-                </td>
+                <td>${esc(item.method)}</td>
 
                 <td>
                     <b>
@@ -1811,21 +2155,13 @@ function renderTopups(){
                     </b>
                 </td>
 
-                <td>
-                    ${esc(item.provider)}
-                </td>
+                <td>${esc(item.provider)}</td>
 
-                <td>
-                    ${esc(item.serial)}
-                </td>
+                <td>${esc(item.serial)}</td>
 
-                <td>
-                    ${esc(item.code)}
-                </td>
+                <td>${esc(item.code)}</td>
 
-                <td>
-                    ${esc(item.note)}
-                </td>
+                <td>${esc(item.note)}</td>
 
                 <td>
                     <span class="badge ${statusClass}">
@@ -1840,9 +2176,7 @@ function renderTopups(){
             `;
 
 
-            tbody.appendChild(
-                tr
-            );
+            tbody.appendChild(tr);
 
         }
     );
@@ -1869,11 +2203,9 @@ async function approveTopup(id){
         const result =
             await api({
 
-                action:
-                    "duyetNap",
+                action:"duyetNap",
 
-                id:
-                    id
+                id:id
 
             });
 
@@ -1904,7 +2236,7 @@ async function approveTopup(id){
 
 
 /* =================================================
-   TỪ CHỐI NẠP
+   TỪ CHỐI
 ================================================= */
 
 async function rejectTopup(id){
@@ -1922,11 +2254,9 @@ async function rejectTopup(id){
         const result =
             await api({
 
-                action:
-                    "tuChoiNap",
+                action:"tuChoiNap",
 
-                id:
-                    id
+                id:id
 
             });
 
@@ -1981,8 +2311,7 @@ async function loadAllOrders(){
             const result =
                 await api({
 
-                    action:
-                        "getOrders",
+                    action:"getOrders",
 
                     username:
                         customer.username
@@ -2044,57 +2373,43 @@ function renderOrders(){
 
             const tr =
                 document
-                .createElement(
-                    "tr"
-                );
+                .createElement("tr");
 
 
             tr.innerHTML = `
 
-                <td>
-                    ${esc(order.orderId)}
-                </td>
+                <td>${esc(order.orderId)}</td>
 
-                <td>
-                    ${esc(order.username)}
-                </td>
+                <td>${esc(order.username)}</td>
 
-                <td>
-                    ${money(order.price)}
-                </td>
+                <td>${money(order.price)}</td>
 
                 <td>
                     Gói ${esc(order.package)}
                 </td>
 
-                <td>
-                    ${esc(order.accountName)}
-                </td>
+                <td>${esc(order.accountName)}</td>
+
+                <td>${esc(order.accountPass)}</td>
+
+                <td>${money(order.amount)}</td>
+
+                <td>${esc(order.date)}</td>
 
                 <td>
-                    ${esc(order.accountPass)}
-                </td>
 
-                <td>
-                    ${money(order.amount)}
-                </td>
-
-                <td>
-                    ${esc(order.date)}
-                </td>
-
-                <td>
                     <span class="badge approved">
+
                         ${esc(order.status)}
+
                     </span>
+
                 </td>
 
             `;
 
 
-            tbody.appendChild(
-                tr
-            );
+            tbody.appendChild(tr);
 
         }
     );
@@ -2149,57 +2464,43 @@ function updateDashboard(){
 
 
     document
-    .getElementById(
-        "totalAccounts"
-    )
+    .getElementById("totalAccounts")
     .textContent =
         total;
 
 
     document
-    .getElementById(
-        "availableAccounts"
-    )
+    .getElementById("availableAccounts")
     .textContent =
         available;
 
 
     document
-    .getElementById(
-        "soldAccounts"
-    )
+    .getElementById("soldAccounts")
     .textContent =
         sold;
 
 
     document
-    .getElementById(
-        "totalCustomers"
-    )
+    .getElementById("totalCustomers")
     .textContent =
         customerCount;
 
 
     document
-    .getElementById(
-        "pendingTopups"
-    )
+    .getElementById("pendingTopups")
     .textContent =
         pending;
 
 
     document
-    .getElementById(
-        "dashboardAvailable"
-    )
+    .getElementById("dashboardAvailable")
     .textContent =
         available;
 
 
     document
-    .getElementById(
-        "dashboardSold"
-    )
+    .getElementById("dashboardSold")
     .textContent =
         sold;
 
@@ -2207,40 +2508,28 @@ function updateDashboard(){
 
 
 /* =================================================
-   TRẠNG THÁI SHOP CŨ
-   KEY RIÊNG - KHÔNG ẢNH HƯỞNG SHOP MỚI
+   TRẠNG THÁI SHOP
 ================================================= */
 
 const SHOP_STATUS_KEY =
-    "shopkarot_old_shop_status";
+"shopkarot_shop_status";
 
 
 const SHOP_STATUS_DATA = {
 
     active:{
-        label:
-            "🟢 SHOP ĐANG HOẠT ĐỘNG",
-
-        className:
-            "success"
+        label:"🟢 SHOP ĐANG HOẠT ĐỘNG",
+        className:"success"
     },
-
 
     updating:{
-        label:
-            "🟡 SHOP ĐANG CẬP NHẬT",
-
-        className:
-            "pending"
+        label:"🟡 SHOP ĐANG CẬP NHẬT",
+        className:"pending"
     },
 
-
     stopped:{
-        label:
-            "🔴 SHOP NGỪNG HOẠT ĐỘNG",
-
-        className:
-            "error"
+        label:"🔴 SHOP NGỪNG HOẠT ĐỘNG",
+        className:"error"
     }
 
 };
@@ -2256,11 +2545,8 @@ function setShopStatus(status){
 
     if(
         !SHOP_STATUS_DATA[status]
-    ){
-
+    )
         return;
-
-    }
 
 
     selectedShopStatus =
@@ -2287,35 +2573,33 @@ function renderShopStatus(){
 
     const map = {
 
-        active:
-            "statusActive",
+        active:"statusActive",
 
-        updating:
-            "statusUpdating",
+        updating:"statusUpdating",
 
-        stopped:
-            "statusStopped"
+        stopped:"statusStopped"
 
     };
 
 
     const selected =
-        document.getElementById(
+        document
+        .getElementById(
             map[selectedShopStatus]
         );
 
 
     if(selected){
 
-        selected
-        .classList
-        .add("active");
+        selected.classList
+            .add("active");
 
     }
 
 
     const box =
-        document.getElementById(
+        document
+        .getElementById(
             "shopStatusCurrent"
         );
 
@@ -2336,25 +2620,20 @@ function renderShopStatus(){
 function saveShopStatus(){
 
     localStorage.setItem(
-
         SHOP_STATUS_KEY,
-
         selectedShopStatus
-
     );
 
 
     showMessage(
-
         "shopStatusMessage",
 
-        "Đã lưu trạng thái Shop cũ: " +
+        "Đã lưu: " +
         SHOP_STATUS_DATA[
             selectedShopStatus
         ].label,
 
         true
-
     );
 
 }
@@ -2389,9 +2668,7 @@ function showMessage(
 
     const box =
         document
-        .getElementById(
-            id
-        );
+        .getElementById(id);
 
 
     box.textContent =
@@ -2400,8 +2677,8 @@ function showMessage(
 
     box.className =
         success
-        ? "success"
-        : "error";
+            ? "success"
+            : "error";
 
 }
 
@@ -2457,7 +2734,29 @@ function escAttr(value){
 
 
 /* =================================================
-   KHÔI PHỤC TRẠNG THÁI SHOP CŨ
+   ĐÓNG MODAL KHI BẤM NGOÀI
+================================================= */
+
+document
+.getElementById("editAccountModal")
+.addEventListener(
+    "click",
+    function(event){
+
+        if(
+            event.target === this
+        ){
+
+            closeEditAccount();
+
+        }
+
+    }
+);
+
+
+/* =================================================
+   KHÔI PHỤC TRẠNG THÁI SHOP
 ================================================= */
 
 renderShopStatus();
