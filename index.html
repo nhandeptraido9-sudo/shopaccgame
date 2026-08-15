@@ -401,7 +401,7 @@ body{
 </div>
 
 
-<!-- ================= TRẠNG THÁI SHOP CŨ ================= -->
+<!-- ================= TRẠNG THÁI SHOP ================= -->
 
 <div
     id="shopStatusDisplay"
@@ -410,13 +410,17 @@ body{
     <div
         id="shopStatusTitle"
         class="shop-status-title">
+
         🟢 SHOP ĐANG HOẠT ĐỘNG
+
     </div>
 
     <div
         id="shopStatusNote"
         class="shop-status-note">
-        Trạng thái Shop được cập nhật bởi Admin.
+
+        Đang kiểm tra trạng thái Shop...
+
     </div>
 
 </div>
@@ -449,7 +453,7 @@ body{
 </div>
 
 
-<!-- ================= THÔNG TIN SHOPKAROT ================= -->
+<!-- ================= THÔNG TIN SHOP ================= -->
 
 <aside class="notice">
 
@@ -568,7 +572,7 @@ body{
 </aside>
 
 
-<!-- ================= DANH SÁCH TÚI MÙ ================= -->
+<!-- ================= DANH SÁCH ================= -->
 
 <div
     class="grid"
@@ -580,11 +584,9 @@ body{
     <div class="card">
 
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             NOOB<br>
             0K
-
         </div>
 
         <h3>
@@ -611,10 +613,8 @@ body{
     <div class="card">
 
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             10K
-
         </div>
 
         <h3>
@@ -641,10 +641,8 @@ body{
     <div class="card">
 
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             20K
-
         </div>
 
         <h3>
@@ -666,45 +664,13 @@ body{
     </div>
 
 
-    <!-- 80K -->
-
-    <div class="card">
-
-        <div class="pic">
-
-            XÉ TÚI MÙ<br>
-            80K
-
-        </div>
-
-        <h3>
-            TÚI MÙ BLOX FRUITS 80K
-        </h3>
-
-        <b>
-            80.000 ₫
-        </b>
-
-        <a
-            class="btn"
-            href="tui-mu.html?price=80000">
-
-            MUA NGAY →
-
-        </a>
-
-    </div>
-
-
     <!-- 50K -->
 
     <div class="card">
 
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             50K
-
         </div>
 
         <h3>
@@ -726,15 +692,41 @@ body{
     </div>
 
 
+    <!-- 80K -->
+
+    <div class="card">
+
+        <div class="pic">
+            XÉ TÚI MÙ<br>
+            80K
+        </div>
+
+        <h3>
+            TÚI MÙ BLOX FRUITS 80K
+        </h3>
+
+        <b>
+            80.000 ₫
+        </b>
+
+        <a
+            class="btn"
+            href="tui-mu.html?price=80000">
+
+            MUA NGAY →
+
+        </a>
+
+    </div>
+
+
     <!-- 100K -->
 
     <div class="card">
 
         <div class="pic">
-
             XÉ TÚI MÙ<br>
             100K
-
         </div>
 
         <h3>
@@ -769,7 +761,7 @@ body{
 </a>
 
 
-<!-- ================= POPUP ĐĂNG NHẬP ================= -->
+<!-- ================= POPUP ================= -->
 
 <div
     id="shopNotice"
@@ -811,7 +803,7 @@ body{
                 class="shop-stay"
                 onclick="closeShopNotice()">
 
-                Ở Lại Shop
+                Ở LẠI SHOP
 
             </button>
 
@@ -819,7 +811,7 @@ body{
                 class="shop-new"
                 href="https://nhandeptraido9-sudo.github.io/Shopkarot.com.vn/index.html">
 
-                Vào Shop Mới
+                VÀO SHOP MỚI
 
             </a>
 
@@ -833,7 +825,15 @@ body{
 <script>
 
 /* =================================================
-   TÌM KIẾM GAME
+   API APPS SCRIPT
+================================================= */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxeCb3jzfoX8Jp4mpAwNQ1Nc9YiQO4M3JJZMJ3ZF-DqPYONGmMyZU1KxA9-W3Z8JazVIA/exec";
+
+
+/* =================================================
+   TÌM KIẾM
 ================================================= */
 
 document
@@ -847,31 +847,21 @@ document
             .toLowerCase()
             .trim();
 
-        const cards =
-            document
-            .querySelectorAll(
-                "#gameGrid .card"
-            );
-
-        cards.forEach(
+        document
+        .querySelectorAll(
+            "#gameGrid .card"
+        )
+        .forEach(
             function(card){
 
                 const text =
                     card.innerText
                     .toLowerCase();
 
-                if(
+                card.style.display =
                     text.includes(keyword)
-                ){
-
-                    card.style.display = "";
-
-                }
-                else{
-
-                    card.style.display = "none";
-
-                }
+                    ? ""
+                    : "none";
 
             }
         );
@@ -881,12 +871,8 @@ document
 
 
 /* =================================================
-   TRẠNG THÁI SHOP
+   DỮ LIỆU TRẠNG THÁI SHOP
 ================================================= */
-
-const SHOP_STATUS_KEY =
-    "shopkarot_shop_status";
-
 
 const SHOP_STATUS_DATA = {
 
@@ -911,50 +897,47 @@ const SHOP_STATUS_DATA = {
 };
 
 
-function loadShopStatus(){
+/* =================================================
+   HIỂN THỊ TRẠNG THÁI
+================================================= */
 
-    const savedStatus =
-        localStorage.getItem(
-            SHOP_STATUS_KEY
-        );
+function renderShopStatus(status){
 
+    if(
+        !SHOP_STATUS_DATA[status]
+    ){
 
-    /*
-       Nếu Admin chưa lưu trạng thái
-       thì mặc định là hoạt động.
-    */
+        status = "active";
 
-    const status =
-        SHOP_STATUS_DATA[savedStatus]
-            ? savedStatus
-            : "active";
-
+    }
 
     const data =
         SHOP_STATUS_DATA[status];
-
 
     const box =
         document.getElementById(
             "shopStatusDisplay"
         );
 
-
     const title =
         document.getElementById(
             "shopStatusTitle"
         );
-
 
     const note =
         document.getElementById(
             "shopStatusNote"
         );
 
+    if(
+        !box ||
+        !title ||
+        !note
+    ){
 
-    if(!box || !title || !note)
         return;
 
+    }
 
     box.classList.remove(
         "active",
@@ -962,15 +945,12 @@ function loadShopStatus(){
         "stopped"
     );
 
-
     box.classList.add(
         data.className
     );
 
-
     title.textContent =
         data.title;
-
 
     note.textContent =
         data.note;
@@ -978,39 +958,84 @@ function loadShopStatus(){
 }
 
 
-/*
-   Cập nhật khi mở trang.
-*/
+/* =================================================
+   LẤY TRẠNG THÁI TỪ APPS SCRIPT
+================================================= */
 
-loadShopStatus();
+async function loadShopStatus(){
 
+    try{
 
-/*
-   Nếu Admin và Shop cũ
-   đang mở cùng một trình duyệt,
-   khi Admin đổi trạng thái thì
-   trang này sẽ cập nhật khi quay lại.
-*/
+        const response =
+            await fetch(
+                API_URL +
+                "?action=getShopStatus"
+            );
 
-window.addEventListener(
-    "storage",
-    function(event){
+        const result =
+            await response.json();
+
+        console.log(
+            "Shop status:",
+            result
+        );
 
         if(
-            event.key ===
-            SHOP_STATUS_KEY
+            result &&
+            result.ok &&
+            SHOP_STATUS_DATA[result.status]
         ){
 
-            loadShopStatus();
+            renderShopStatus(
+                result.status
+            );
+
+        }
+        else{
+
+            renderShopStatus(
+                "active"
+            );
 
         }
 
     }
+    catch(error){
+
+        console.error(
+            "Lỗi lấy trạng thái Shop:",
+            error
+        );
+
+        /*
+           Nếu Apps Script tạm lỗi,
+           giữ trạng thái mặc định.
+        */
+
+        renderShopStatus(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* =================================================
+   TỰ ĐỘNG CẬP NHẬT
+================================================= */
+
+loadShopStatus();
+
+
+setInterval(
+    loadShopStatus,
+    10000
 );
 
 
 /* =================================================
-   POPUP SAU KHI LOGIN
+   POPUP SAU LOGIN
 ================================================= */
 
 window.addEventListener(
@@ -1022,18 +1047,21 @@ window.addEventListener(
                 "login_success"
             );
 
-
         if(
             loginSuccess === "true"
         ){
 
-            document
-            .getElementById(
-                "shopNotice"
-            )
-            .style.display =
-                "flex";
+            const popup =
+                document.getElementById(
+                    "shopNotice"
+                );
 
+            if(popup){
+
+                popup.style.display =
+                    "flex";
+
+            }
 
             localStorage.removeItem(
                 "login_success"
@@ -1051,18 +1079,23 @@ window.addEventListener(
 
 function closeShopNotice(){
 
-    document
-    .getElementById(
-        "shopNotice"
-    )
-    .style.display =
-        "none";
+    const popup =
+        document.getElementById(
+            "shopNotice"
+        );
+
+    if(popup){
+
+        popup.style.display =
+            "none";
+
+    }
 
 }
 
 
 /* =================================================
-   BẤM RA NGOÀI POPUP
+   CLICK RA NGOÀI
 ================================================= */
 
 document
