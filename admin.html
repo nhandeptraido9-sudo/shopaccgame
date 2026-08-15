@@ -225,27 +225,41 @@ th{
 
 
 
-.delete-view-btn{
-    width:auto;
+/* ================= TRẠNG THÁI SHOP ================= */
+.shop-status-box{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+    margin-bottom:20px;
+}
+.shop-status-options{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:12px;
+}
+.shop-status-option{
+    width:100%;
     margin:0;
-    padding:7px 12px;
-    border:0;
-    border-radius:7px;
-    background:#dc2626;
-    color:white;
-    font-size:13px;
+    padding:12px;
+    border:2px solid #e5e7eb;
+    background:#f8fafc;
+    color:#111827;
+}
+.shop-status-option.active{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+.shop-status-current{
+    margin-top:14px;
+    padding:12px;
+    border-radius:9px;
+    background:#f8fafc;
     font-weight:bold;
-    cursor:pointer;
-    transition:.2s;
 }
-
-.delete-view-btn:hover{
-    background:#b91c1c;
-    transform:translateY(-1px);
-}
-
-.delete-view-btn:active{
-    transform:scale(.97);
+@media(max-width:700px){
+    .shop-status-options{grid-template-columns:1fr;}
 }
 
 </style>
@@ -360,6 +374,40 @@ th{
     </button>
 
 </div>
+
+
+<!-- =================================================
+     TRẠNG THÁI SHOP
+================================================= -->
+
+<section class="shop-status-box">
+    <h2>⚙️ Trạng thái Shop</h2>
+    <p class="small">Admin chọn trạng thái để sử dụng cho phần thông báo Shop.</p>
+
+    <div class="shop-status-options">
+        <button type="button" id="statusActive" class="shop-status-option" onclick="setShopStatus('active')">
+            🟢 SHOP ĐANG HOẠT ĐỘNG
+        </button>
+
+        <button type="button" id="statusUpdating" class="shop-status-option" onclick="setShopStatus('updating')">
+            🟡 SHOP ĐANG CẬP NHẬT
+        </button>
+
+        <button type="button" id="statusStopped" class="shop-status-option" onclick="setShopStatus('stopped')">
+            🔴 SHOP NGỪNG HOẠT ĐỘNG
+        </button>
+    </div>
+
+    <div id="shopStatusCurrent" class="shop-status-current">
+        Chưa chọn trạng thái
+    </div>
+
+    <button type="button" onclick="saveShopStatus()">
+        💾 LƯU TRẠNG THÁI SHOP
+    </button>
+
+    <div id="shopStatusMessage" class="hidden"></div>
+</section>
 
 
 <!-- =================================================
@@ -715,8 +763,6 @@ th{
                         <th>Số dư</th>
 
                         <th>Ngày tạo</th>
-
-                        <th>Thao tác</th>
 
                     </tr>
 
@@ -1441,16 +1487,19 @@ function renderCustomers(){
             "customersTable"
         );
 
+
     tbody.innerHTML = "";
 
+
     customers.forEach(
-        (customer,index) => {
+        customer => {
 
             const tr =
                 document
                 .createElement(
                     "tr"
                 );
+
 
             tr.innerHTML = `
 
@@ -1474,16 +1523,8 @@ function renderCustomers(){
                     )}
                 </td>
 
-                <td>
-                    <button
-                        type="button"
-                        class="delete-view-btn"
-                        onclick="hideCustomer(${index})">
-                        🗑️ Xóa
-                    </button>
-                </td>
-
             `;
+
 
             tbody.appendChild(
                 tr
@@ -1493,49 +1534,6 @@ function renderCustomers(){
     );
 
 }
-
-/* =================================================
-   ẨN KHÁCH KHỎI DANH SÁCH ĐANG XEM
-   KHÔNG XÓA TÀI KHOẢN / KHÔNG XÓA SỐ DƯ
-   KHÔNG GIẢM TỔNG SỐ KHÁCH TRÊN SERVER
-================================================= */
-
-function hideCustomer(index){
-
-    if(
-        index < 0 ||
-        index >= customers.length
-    ){
-        return;
-    }
-
-    const customer =
-        customers[index];
-
-    const username =
-        customer.username ||
-        "khách hàng";
-
-    if(!confirm(
-        "Ẩn " +
-        username +
-        " khỏi danh sách đang xem?\n\n" +
-        "Tài khoản và số dư vẫn được giữ nguyên."
-    )){
-        return;
-    }
-
-    customers.splice(
-        index,
-        1
-    );
-
-    renderCustomers();
-
-    /* Cố ý không gọi updateDashboard() để
-       tổng số khách không bị giảm. */
-}
-
 
 
 /* =================================================
@@ -2093,6 +2091,83 @@ function updateDashboard(){
 }
 
 
+
+
+/* =================================================
+   TRẠNG THÁI SHOP
+   Lưu vào localStorage để Admin giữ lựa chọn trên trình duyệt.
+================================================= */
+
+const SHOP_STATUS_KEY = "shopkarot_shop_status";
+
+const SHOP_STATUS_DATA = {
+    active:{
+        label:"🟢 SHOP ĐANG HOẠT ĐỘNG",
+        className:"success"
+    },
+    updating:{
+        label:"🟡 SHOP ĐANG CẬP NHẬT",
+        className:"pending"
+    },
+    stopped:{
+        label:"🔴 SHOP NGỪNG HOẠT ĐỘNG",
+        className:"error"
+    }
+};
+
+let selectedShopStatus =
+    localStorage.getItem(SHOP_STATUS_KEY) || "active";
+
+function setShopStatus(status){
+
+    if(!SHOP_STATUS_DATA[status]) return;
+
+    selectedShopStatus = status;
+    renderShopStatus();
+}
+
+function renderShopStatus(){
+
+    document
+        .querySelectorAll(".shop-status-option")
+        .forEach(btn => btn.classList.remove("active"));
+
+    const map = {
+        active:"statusActive",
+        updating:"statusUpdating",
+        stopped:"statusStopped"
+    };
+
+    const selected = document.getElementById(map[selectedShopStatus]);
+
+    if(selected){
+        selected.classList.add("active");
+    }
+
+    const box = document.getElementById("shopStatusCurrent");
+
+    if(box){
+        box.textContent =
+            "Trạng thái hiện tại: " +
+            SHOP_STATUS_DATA[selectedShopStatus].label;
+    }
+}
+
+function saveShopStatus(){
+
+    localStorage.setItem(
+        SHOP_STATUS_KEY,
+        selectedShopStatus
+    );
+
+    showMessage(
+        "shopStatusMessage",
+        "Đã lưu: " +
+        SHOP_STATUS_DATA[selectedShopStatus].label,
+        true
+    );
+}
+
 /* =================================================
    REFRESH
 ================================================= */
@@ -2187,6 +2262,11 @@ function escAttr(value){
     );
 
 }
+
+
+
+/* Khôi phục trạng thái Shop đã lưu */
+renderShopStatus();
 
 </script>
 
