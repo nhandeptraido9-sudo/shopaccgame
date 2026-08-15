@@ -17,10 +17,6 @@ body{
     color:#111827;
 }
 
-.hidden{
-    display:none !important;
-}
-
 .header{
     background:#111827;
     color:white;
@@ -41,11 +37,6 @@ body{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
-}
-
-.header-right button{
-    width:auto;
-    margin-top:0;
 }
 
 .container{
@@ -77,13 +68,19 @@ body{
 
 input,
 select,
-button{
+button,
+textarea{
     width:100%;
     padding:11px;
     margin-top:8px;
     border-radius:9px;
     border:1px solid #d1d5db;
     font-size:15px;
+}
+
+textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
 button{
@@ -117,6 +114,10 @@ button:disabled{
 
 .btn-gray{
     background:#4b5563;
+}
+
+.btn-purple{
+    background:#7c3aed;
 }
 
 .nav{
@@ -266,13 +267,88 @@ th{
     word-break:break-all;
 }
 
-.login-title{
-    text-align:center;
+.shop-status-box{
+    border:2px solid #e5e7eb;
 }
 
-.login-box{
-    max-width:500px;
-    margin:50px auto;
+.shop-status-current{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px;
+    background:#f8fafc;
+    border-radius:12px;
+    margin-bottom:15px;
+}
+
+.shop-status-dot{
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:#9ca3af;
+    flex-shrink:0;
+}
+
+.shop-status-dot.green{
+    background:#22c55e;
+}
+
+.shop-status-dot.orange{
+    background:#f97316;
+}
+
+.shop-status-dot.red{
+    background:#ef4444;
+}
+
+.shop-status-title{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.status-options{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;
+}
+
+.status-option{
+    border:2px solid #e5e7eb;
+    border-radius:12px;
+    padding:15px;
+    cursor:pointer;
+    background:white;
+    transition:.2s;
+}
+
+.status-option:hover{
+    border-color:#2563eb;
+}
+
+.status-option.selected{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+.status-option input{
+    width:auto;
+    margin:0 8px 0 0;
+}
+
+.status-option label{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.shop-preview{
+    margin-top:15px;
+    padding:15px;
+    border-radius:12px;
+    background:#f8fafc;
+}
+
+.hidden{
+    display:none !important;
 }
 
 @media(max-width:700px){
@@ -290,10 +366,6 @@ th{
     .logo{
         font-size:20px;
     }
-
-    .login-box{
-        margin:25px auto;
-    }
 }
 </style>
 </head>
@@ -307,6 +379,12 @@ th{
     </div>
 
     <div class="header-right">
+
+        <button
+            class="btn-purple"
+            onclick="showSection('shopStatus')">
+            ⚙️ Trạng thái Shop
+        </button>
 
         <button
             class="btn-gray"
@@ -324,54 +402,39 @@ th{
 
 </header>
 
-
 <div class="container">
 
 <!-- ==================================================
      LOGIN ADMIN
 ================================================== -->
 
-<div
-    id="adminLogin"
-    class="box login-box">
+<div id="adminLogin" class="box">
 
-    <div class="login-title">
+    <h2>🔐 Đăng nhập Admin</h2>
 
-        <h2>🔐 Đăng nhập Admin</h2>
-
-        <p class="small">
-            Nhập mật khẩu Admin để mở trang quản trị.
-        </p>
-
-    </div>
+    <p class="small">
+        Nhập mật khẩu Admin để mở trang quản trị.
+    </p>
 
     <input
         id="adminPassword"
         type="password"
         placeholder="Mật khẩu Admin"
-        autocomplete="current-password"
         onkeydown="if(event.key==='Enter') loginAdmin()">
 
     <button onclick="loginAdmin()">
-        🔐 Đăng nhập Admin
+        Đăng nhập Admin
     </button>
 
-    <div
-        id="loginMessage"
-        class="message">
-    </div>
+    <div id="loginMessage" class="message"></div>
 
 </div>
-
 
 <!-- ==================================================
      ADMIN PANEL
 ================================================== -->
 
-<div
-    id="adminPanel"
-    class="hidden">
-
+<div id="adminPanel" class="hidden">
 
     <!-- NAV -->
 
@@ -379,6 +442,10 @@ th{
 
         <button onclick="showSection('dashboard')">
             📊 Tổng quan
+        </button>
+
+        <button onclick="showSection('shopStatus')">
+            ⚙️ Trạng thái Shop
         </button>
 
         <button onclick="showSection('accounts')">
@@ -399,78 +466,35 @@ th{
 
     </div>
 
-
     <!-- ==================================================
          DASHBOARD
     ================================================== -->
 
-    <section
-        id="dashboard"
-        class="section active">
+    <section id="dashboard" class="section active">
 
         <div class="stat-grid">
 
             <div class="stat">
-
-                <div class="stat-title">
-                    📦 Tổng acc
-                </div>
-
-                <div
-                    id="statAccounts"
-                    class="stat-number">
-                    0
-                </div>
-
+                <div class="stat-title">📦 Tổng acc</div>
+                <div id="statAccounts" class="stat-number">0</div>
             </div>
 
-
             <div class="stat">
-
-                <div class="stat-title">
-                    🟢 Acc còn hàng
-                </div>
-
-                <div
-                    id="statAvailable"
-                    class="stat-number">
-                    0
-                </div>
-
+                <div class="stat-title">🟢 Acc còn hàng</div>
+                <div id="statAvailable" class="stat-number">0</div>
             </div>
 
-
             <div class="stat">
-
-                <div class="stat-title">
-                    👥 Khách hàng
-                </div>
-
-                <div
-                    id="statCustomers"
-                    class="stat-number">
-                    0
-                </div>
-
+                <div class="stat-title">👥 Khách hàng</div>
+                <div id="statCustomers" class="stat-number">0</div>
             </div>
 
-
             <div class="stat">
-
-                <div class="stat-title">
-                    💳 Nạp chờ duyệt
-                </div>
-
-                <div
-                    id="statPending"
-                    class="stat-number">
-                    0
-                </div>
-
+                <div class="stat-title">💳 Nạp chờ duyệt</div>
+                <div id="statPending" class="stat-number">0</div>
             </div>
 
         </div>
-
 
         <div class="box">
 
@@ -478,10 +502,17 @@ th{
 
             <p>
                 API:
-                <span
-                    id="apiStatus"
-                    class="status status-gray">
+                <span id="apiStatus"
+                      class="status status-gray">
                     Chưa kiểm tra
+                </span>
+            </p>
+
+            <p>
+                Trạng thái Shop:
+                <span id="dashboardShopStatus"
+                      class="status status-gray">
+                    Chưa tải
                 </span>
             </p>
 
@@ -489,23 +520,132 @@ th{
                 🔄 Kiểm tra API và tải dữ liệu
             </button>
 
-            <div
-                id="dashboardMessage"
-                class="message">
+            <div id="dashboardMessage"
+                 class="message">
             </div>
 
         </div>
 
     </section>
 
+    <!-- ==================================================
+         SHOP STATUS
+    ================================================== -->
+
+    <section id="shopStatus" class="section">
+
+        <div class="box shop-status-box">
+
+            <h2>⚙️ Chỉnh trạng thái Shop</h2>
+
+            <p class="small">
+                Chọn trạng thái muốn hiển thị cho khách hàng.
+            </p>
+
+            <div class="shop-status-current">
+
+                <div id="shopStatusDot"
+                     class="shop-status-dot">
+                </div>
+
+                <div>
+                    <div class="small">
+                        Trạng thái hiện tại
+                    </div>
+
+                    <div id="currentShopStatus"
+                         class="shop-status-title">
+                        Chưa tải
+                    </div>
+                </div>
+
+            </div>
+
+            <h3>Chọn trạng thái</h3>
+
+            <div class="status-options">
+
+                <div class="status-option"
+                     id="optionOpen"
+                     onclick="selectShopStatus('OPEN')">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="shopStatus"
+                            value="OPEN">
+                        🟢 Shop đang hoạt động
+                    </label>
+
+                </div>
+
+                <div class="status-option"
+                     id="optionClosed"
+                     onclick="selectShopStatus('CLOSED')">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="shopStatus"
+                            value="CLOSED">
+                        🟠 Shop tạm đóng
+                    </label>
+
+                </div>
+
+                <div class="status-option"
+                     id="optionMaintenance"
+                     onclick="selectShopStatus('MAINTENANCE')">
+
+                    <label>
+                        <input
+                            type="radio"
+                            name="shopStatus"
+                            value="MAINTENANCE">
+                        🔴 Shop bảo trì
+                    </label>
+
+                </div>
+
+            </div>
+
+            <h3>Thông báo cho khách</h3>
+
+            <textarea
+                id="shopNotice"
+                placeholder="Ví dụ: Shop đang bảo trì, vui lòng quay lại sau..."></textarea>
+
+            <button
+                class="btn-green"
+                onclick="saveShopStatus()">
+
+                💾 Lưu trạng thái Shop
+
+            </button>
+
+            <div id="shopStatusMessage"
+                 class="message">
+            </div>
+
+            <div class="shop-preview">
+
+                <b>👀 Xem trước thông báo:</b>
+
+                <p id="shopNoticePreview">
+                    Chưa có nội dung thông báo.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
 
     <!-- ==================================================
          ACCOUNTS
     ================================================== -->
 
-    <section
-        id="accounts"
-        class="section">
+    <section id="accounts" class="section">
 
         <div class="box">
 
@@ -514,7 +654,6 @@ th{
             <div class="grid">
 
                 <div>
-
                     <label>Mệnh giá</label>
 
                     <input
@@ -522,97 +661,56 @@ th{
                         type="number"
                         min="0"
                         placeholder="Ví dụ: 10000">
-
                 </div>
 
-
                 <div>
-
                     <label>Gói</label>
 
                     <select id="accountPackage">
 
-                        <option value="">
-                            Chọn gói
-                        </option>
+                        <option value="">Chọn gói</option>
 
-                        <option value="1">
-                            Gói 1
-                        </option>
-
-                        <option value="2">
-                            Gói 2
-                        </option>
-
-                        <option value="3">
-                            Gói 3
-                        </option>
-
-                        <option value="4">
-                            Gói 4
-                        </option>
-
-                        <option value="5">
-                            Gói 5
-                        </option>
-
-                        <option value="6">
-                            Gói 6
-                        </option>
-
-                        <option value="7">
-                            Gói 7
-                        </option>
-
-                        <option value="8">
-                            Gói 8
-                        </option>
+                        <option value="1">Gói 1</option>
+                        <option value="2">Gói 2</option>
+                        <option value="3">Gói 3</option>
+                        <option value="4">Gói 4</option>
+                        <option value="5">Gói 5</option>
+                        <option value="6">Gói 6</option>
+                        <option value="7">Gói 7</option>
+                        <option value="8">Gói 8</option>
 
                     </select>
-
                 </div>
 
-
                 <div>
-
                     <label>Tên acc</label>
 
                     <input
                         id="accountName"
                         placeholder="Tên tài khoản">
-
                 </div>
 
-
                 <div>
-
                     <label>Mật khẩu</label>
 
                     <input
                         id="accountPass"
                         placeholder="Mật khẩu">
-
                 </div>
 
             </div>
 
-
             <button
                 class="btn-green"
                 onclick="addAccount()">
-
                 ➕ Thêm acc
-
             </button>
 
-
-            <div
-                id="accountMessage"
-                class="message">
+            <div id="accountMessage"
+                 class="message">
             </div>
 
         </div>
-
 
         <div class="box">
 
@@ -621,32 +719,23 @@ th{
             <button
                 class="btn-gray"
                 onclick="loadAccounts()">
-
                 🔄 Tải kho acc
-
             </button>
 
-
-            <div
-                id="accountsTable"
-                class="loading">
-
+            <div id="accountsTable"
+                 class="loading">
                 Chưa tải dữ liệu.
-
             </div>
 
         </div>
 
     </section>
 
-
     <!-- ==================================================
          CUSTOMERS
     ================================================== -->
 
-    <section
-        id="customers"
-        class="section">
+    <section id="customers" class="section">
 
         <div class="box">
 
@@ -655,32 +744,23 @@ th{
             <button
                 class="btn-gray"
                 onclick="loadCustomers()">
-
                 🔄 Tải danh sách khách
-
             </button>
 
-
-            <div
-                id="customersTable"
-                class="loading">
-
+            <div id="customersTable"
+                 class="loading">
                 Chưa tải dữ liệu.
-
             </div>
 
         </div>
 
     </section>
 
-
     <!-- ==================================================
          TOPUPS
     ================================================== -->
 
-    <section
-        id="topups"
-        class="section">
+    <section id="topups" class="section">
 
         <div class="box">
 
@@ -689,75 +769,58 @@ th{
             <button
                 class="btn-gray"
                 onclick="loadTopups()">
-
                 🔄 Tải yêu cầu nạp
-
             </button>
 
-
-            <div
-                id="topupsTable"
-                class="loading">
-
+            <div id="topupsTable"
+                 class="loading">
                 Chưa tải dữ liệu.
-
             </div>
 
         </div>
 
     </section>
 
-
     <!-- ==================================================
          ORDERS
     ================================================== -->
 
-    <section
-        id="orders"
-        class="section">
+    <section id="orders" class="section">
 
         <div class="box">
 
             <h2>🛒 Đơn hàng</h2>
 
             <p class="small">
-                Nhập tên khách để xem đơn hàng.
+                API hiện tại của Apps Script chỉ hỗ trợ
+                lấy đơn hàng theo tên khách.
             </p>
 
             <input
                 id="orderUsername"
                 placeholder="Nhập tên khách">
 
-            <button
-                onclick="loadOrders()">
-
+            <button onclick="loadOrders()">
                 🔄 Xem đơn hàng
-
             </button>
 
-
-            <div
-                id="ordersTable"
-                class="loading">
-
+            <div id="ordersTable"
+                 class="loading">
                 Nhập tên khách để xem đơn.
-
             </div>
 
         </div>
 
     </section>
 
-
 </div>
 
 </div>
-
 
 <script>
 
 /* ==================================================
-   API URL SHOP CŨ
+   API URL
 ================================================== */
 
 const API_URL =
@@ -779,6 +842,9 @@ let accountsData = [];
 let customersData = [];
 let topupsData = [];
 
+let currentShopStatus = "OPEN";
+let currentShopNotice = "";
+
 
 /* ==================================================
    KHỞI ĐỘNG
@@ -798,20 +864,17 @@ window.addEventListener("load",function(){
 
 
 /* ==================================================
-   LOGIN ADMIN
+   LOGIN
 ================================================== */
 
 function loginAdmin(){
 
-    const input =
-        document.getElementById("adminPassword");
-
     const password =
-        input.value;
+        document
+        .getElementById("adminPassword")
+        .value;
 
-    if(
-        password !== ADMIN_PASSWORD
-    ){
+    if(password !== ADMIN_PASSWORD){
 
         showMessage(
             "loginMessage",
@@ -819,10 +882,7 @@ function loginAdmin(){
             "error"
         );
 
-        input.focus();
-
         return;
-
     }
 
     localStorage.setItem(
@@ -872,7 +932,7 @@ function logoutAdmin(){
 
 
 /* ==================================================
-   ẨN / HIỆN SECTION
+   SECTION
 ================================================== */
 
 function showSection(id){
@@ -881,21 +941,16 @@ function showSection(id){
     .querySelectorAll(".section")
     .forEach(function(section){
 
-        section.classList.remove(
-            "active"
-        );
+        section.classList.remove("active");
 
     });
-
 
     const target =
         document.getElementById(id);
 
     if(target){
 
-        target.classList.add(
-            "active"
-        );
+        target.classList.add("active");
 
     }
 
@@ -916,7 +971,6 @@ async function api(data){
 
     }
 
-
     const response =
         await fetch(
             API_URL,
@@ -931,17 +985,14 @@ async function api(data){
             }
         );
 
-
     const text =
         await response.text();
-
 
     let result;
 
     try{
 
-        result =
-            JSON.parse(text);
+        result = JSON.parse(text);
 
     }
     catch(error){
@@ -952,7 +1003,6 @@ async function api(data){
         );
 
     }
-
 
     return result;
 
@@ -973,7 +1023,6 @@ async function apiGet(action,params={}){
 
     }
 
-
     const query =
         new URLSearchParams();
 
@@ -981,7 +1030,6 @@ async function apiGet(action,params={}){
         "action",
         action
     );
-
 
     Object.keys(params)
     .forEach(function(key){
@@ -993,7 +1041,6 @@ async function apiGet(action,params={}){
 
     });
 
-
     const response =
         await fetch(
             API_URL +
@@ -1001,24 +1048,7 @@ async function apiGet(action,params={}){
             query.toString()
         );
 
-
-    const text =
-        await response.text();
-
-
-    try{
-
-        return JSON.parse(text);
-
-    }
-    catch(error){
-
-        throw new Error(
-            "API trả về dữ liệu không hợp lệ: " +
-            text
-        );
-
-    }
+    return await response.json();
 
 }
 
@@ -1034,28 +1064,21 @@ async function loadAll(){
         "status-orange"
     );
 
-
     try{
 
         await Promise.all([
-
             loadAccounts(),
-
             loadCustomers(),
-
-            loadTopups()
-
+            loadTopups(),
+            loadShopStatus()
         ]);
-
 
         setApiStatus(
             "API hoạt động",
             "status-green"
         );
 
-
         updateStats();
-
 
         showMessage(
             "dashboardMessage",
@@ -1068,12 +1091,10 @@ async function loadAll(){
 
         console.error(error);
 
-
         setApiStatus(
             "Lỗi API",
             "status-red"
         );
-
 
         showMessage(
             "dashboardMessage",
@@ -1097,10 +1118,7 @@ function setApiStatus(text,className){
             "apiStatus"
         );
 
-
-    box.textContent =
-        text;
-
+    box.textContent = text;
 
     box.className =
         "status " +
@@ -1110,41 +1128,388 @@ function setApiStatus(text,className){
 
 
 /* ==================================================
-   THÊM ACC
+   SHOP STATUS
+================================================== */
+
+async function loadShopStatus(){
+
+    try{
+
+        /*
+         * Nếu Apps Script có action getShopStatus
+         * thì sẽ lấy trạng thái từ server.
+         */
+
+        const result =
+            await apiGet(
+                "getShopStatus"
+            );
+
+        if(
+            result &&
+            result.ok === true
+        ){
+
+            currentShopStatus =
+                String(
+                    result.status || "OPEN"
+                );
+
+            currentShopNotice =
+                String(
+                    result.notice || ""
+                );
+
+        }
+        else{
+
+            loadLocalShopStatus();
+
+        }
+
+    }
+    catch(error){
+
+        console.warn(
+            "Không lấy được trạng thái shop từ API:",
+            error
+        );
+
+        loadLocalShopStatus();
+
+    }
+
+    renderShopStatus();
+
+}
+
+
+/* ==================================================
+   FALLBACK LOCAL
+================================================== */
+
+function loadLocalShopStatus(){
+
+    currentShopStatus =
+        localStorage.getItem(
+            "shopStatus"
+        ) || "OPEN";
+
+    currentShopNotice =
+        localStorage.getItem(
+            "shopNotice"
+        ) || "";
+
+}
+
+
+/* ==================================================
+   CHỌN TRẠNG THÁI
+================================================== */
+
+function selectShopStatus(status){
+
+    currentShopStatus = status;
+
+    document
+    .querySelectorAll(".status-option")
+    .forEach(function(option){
+
+        option.classList.remove(
+            "selected"
+        );
+
+    });
+
+    if(status === "OPEN"){
+
+        document
+        .getElementById("optionOpen")
+        .classList.add("selected");
+
+    }
+
+    if(status === "CLOSED"){
+
+        document
+        .getElementById("optionClosed")
+        .classList.add("selected");
+
+    }
+
+    if(status === "MAINTENANCE"){
+
+        document
+        .getElementById("optionMaintenance")
+        .classList.add("selected");
+
+    }
+
+    const radio =
+        document.querySelector(
+            'input[name="shopStatus"][value="' +
+            status +
+            '"]'
+        );
+
+    if(radio){
+
+        radio.checked = true;
+
+    }
+
+}
+
+
+/* ==================================================
+   RENDER SHOP STATUS
+================================================== */
+
+function renderShopStatus(){
+
+    let title =
+        "🟢 Shop đang hoạt động";
+
+    let color =
+        "green";
+
+    let statusClass =
+        "status-green";
+
+    if(
+        currentShopStatus === "CLOSED"
+    ){
+
+        title =
+            "🟠 Shop tạm đóng";
+
+        color =
+            "orange";
+
+        statusClass =
+            "status-orange";
+
+    }
+
+    if(
+        currentShopStatus === "MAINTENANCE"
+    ){
+
+        title =
+            "🔴 Shop đang bảo trì";
+
+        color =
+            "red";
+
+        statusClass =
+            "status-red";
+
+    }
+
+    document
+    .getElementById(
+        "currentShopStatus"
+    )
+    .textContent =
+        title;
+
+    const dot =
+        document.getElementById(
+            "shopStatusDot"
+        );
+
+    dot.className =
+        "shop-status-dot " +
+        color;
+
+    document
+    .getElementById(
+        "dashboardShopStatus"
+    )
+    .textContent =
+        title;
+
+    document
+    .getElementById(
+        "dashboardShopStatus"
+    )
+    .className =
+        "status " +
+        statusClass;
+
+    document
+    .getElementById(
+        "shopNotice"
+    )
+    .value =
+        currentShopNotice;
+
+    document
+    .getElementById(
+        "shopNoticePreview"
+    )
+    .textContent =
+        currentShopNotice ||
+        "Chưa có nội dung thông báo.";
+
+    selectShopStatus(
+        currentShopStatus
+    );
+
+}
+
+
+/* ==================================================
+   PREVIEW THÔNG BÁO
+================================================== */
+
+document.addEventListener(
+    "input",
+    function(event){
+
+        if(
+            event.target.id ===
+            "shopNotice"
+        ){
+
+            document
+            .getElementById(
+                "shopNoticePreview"
+            )
+            .textContent =
+                event.target.value ||
+                "Chưa có nội dung thông báo.";
+
+        }
+
+    }
+);
+
+
+/* ==================================================
+   LƯU TRẠNG THÁI SHOP
+================================================== */
+
+async function saveShopStatus(){
+
+    const notice =
+        document
+        .getElementById(
+            "shopNotice"
+        )
+        .value
+        .trim();
+
+    currentShopNotice =
+        notice;
+
+    /*
+     * Luôn lưu local để Admin không mất
+     * trạng thái khi API chưa có action.
+     */
+
+    localStorage.setItem(
+        "shopStatus",
+        currentShopStatus
+    );
+
+    localStorage.setItem(
+        "shopNotice",
+        currentShopNotice
+    );
+
+    try{
+
+        /*
+         * Nếu Apps Script của bạn hỗ trợ
+         * saveShopStatus thì sẽ lưu lên server.
+         */
+
+        const result =
+            await api({
+
+                action:
+                    "saveShopStatus",
+
+                status:
+                    currentShopStatus,
+
+                notice:
+                    currentShopNotice
+
+            });
+
+        if(
+            result &&
+            result.ok === false
+        ){
+
+            throw new Error(
+                result.message ||
+                "Không thể lưu trạng thái Shop"
+            );
+
+        }
+
+        showMessage(
+            "shopStatusMessage",
+            "✅ Đã lưu trạng thái Shop.",
+            "success"
+        );
+
+    }
+    catch(error){
+
+        /*
+         * API chưa có action thì localStorage
+         * vẫn giữ trạng thái trên trình duyệt.
+         */
+
+        console.warn(
+            "API trạng thái Shop:",
+            error
+        );
+
+        showMessage(
+            "shopStatusMessage",
+            "⚠️ Đã lưu trên trình duyệt Admin. API chưa hỗ trợ lưu trạng thái Shop.",
+            "success"
+        );
+
+    }
+
+    renderShopStatus();
+
+}
+
+
+/* ==================================================
+   ADD ACCOUNT
 ================================================== */
 
 async function addAccount(){
 
     const price =
         document
-        .getElementById(
-            "accountPrice"
-        )
+        .getElementById("accountPrice")
         .value;
 
     const packageNumber =
         document
-        .getElementById(
-            "accountPackage"
-        )
+        .getElementById("accountPackage")
         .value;
 
     const accountName =
         document
-        .getElementById(
-            "accountName"
-        )
+        .getElementById("accountName")
         .value
         .trim();
 
     const accountPass =
         document
-        .getElementById(
-            "accountPass"
-        )
+        .getElementById("accountPass")
         .value
         .trim();
-
 
     if(
         price === "" ||
@@ -1162,7 +1527,6 @@ async function addAccount(){
         return;
 
     }
-
 
     try{
 
@@ -1186,13 +1550,11 @@ async function addAccount(){
 
             });
 
-
         if(!result.ok){
 
             showMessage(
                 "accountMessage",
-                "❌ " +
-                (result.message || "Không thể thêm acc."),
+                "❌ " + result.message,
                 "error"
             );
 
@@ -1200,44 +1562,28 @@ async function addAccount(){
 
         }
 
-
         showMessage(
             "accountMessage",
-            "✅ " +
-            (result.message || "Đã thêm acc.") +
-            (
-                result.id
-                ? " - ID: " + result.id
-                : ""
-            ),
+            "✅ " + result.message +
+            " - ID: " + result.id,
             "success"
         );
 
-
         document
-        .getElementById(
-            "accountPrice"
-        )
+        .getElementById("accountPrice")
         .value = "";
 
         document
-        .getElementById(
-            "accountPackage"
-        )
+        .getElementById("accountPackage")
         .value = "";
 
         document
-        .getElementById(
-            "accountName"
-        )
+        .getElementById("accountName")
         .value = "";
 
         document
-        .getElementById(
-            "accountPass"
-        )
+        .getElementById("accountPass")
         .value = "";
-
 
         await loadAccounts();
 
@@ -1268,10 +1614,8 @@ async function loadAccounts(){
             "accountsTable"
         );
 
-
     box.innerHTML =
         '<div class="loading">⏳ Đang tải kho acc...</div>';
-
 
     try{
 
@@ -1279,7 +1623,6 @@ async function loadAccounts(){
             await apiGet(
                 "getAccounts"
             );
-
 
         if(
             !result ||
@@ -1295,14 +1638,12 @@ async function loadAccounts(){
 
         }
 
-
         accountsData =
             Array.isArray(
                 result.accounts
             )
             ? result.accounts
             : [];
-
 
         renderAccounts();
 
@@ -1312,7 +1653,6 @@ async function loadAccounts(){
     catch(error){
 
         console.error(error);
-
 
         box.innerHTML =
             '<div class="message error">❌ ' +
@@ -1327,7 +1667,7 @@ async function loadAccounts(){
 
 
 /* ==================================================
-   HIỂN THỊ ACC
+   RENDER ACCOUNTS
 ================================================== */
 
 function renderAccounts(){
@@ -1336,7 +1676,6 @@ function renderAccounts(){
         document.getElementById(
             "accountsTable"
         );
-
 
     if(
         accountsData.length === 0
@@ -1348,7 +1687,6 @@ function renderAccounts(){
         return;
 
     }
-
 
     let html = `
 
@@ -1374,9 +1712,7 @@ function renderAccounts(){
         </thead>
 
         <tbody>
-
     `;
-
 
     accountsData
     .slice()
@@ -1389,10 +1725,8 @@ function renderAccounts(){
             )
             .toUpperCase();
 
-
         let statusClass =
             "status-gray";
-
 
         if(
             status === "CON_HANG"
@@ -1410,7 +1744,6 @@ function renderAccounts(){
                 "status-red";
 
         }
-
 
         html += `
 
@@ -1437,11 +1770,9 @@ function renderAccounts(){
             </td>
 
             <td>
-
                 <span class="status ${statusClass}">
                     ${escapeHtml(acc.status)}
                 </span>
-
             </td>
 
             <td>
@@ -1473,20 +1804,14 @@ function renderAccounts(){
             </td>
 
         </tr>
-
         `;
 
     });
 
-
     html += `
-
         </tbody>
-
     </table>
-
     `;
-
 
     box.innerHTML =
         html;
@@ -1495,7 +1820,7 @@ function renderAccounts(){
 
 
 /* ==================================================
-   XÓA ACC
+   DELETE ACCOUNT
 ================================================== */
 
 async function deleteAccount(id){
@@ -1512,7 +1837,6 @@ async function deleteAccount(id){
 
     }
 
-
     try{
 
         const result =
@@ -1526,24 +1850,21 @@ async function deleteAccount(id){
 
             });
 
-
         if(!result.ok){
 
             alert(
                 "❌ " +
-                (result.message || "Không thể xóa acc.")
+                result.message
             );
 
             return;
 
         }
 
-
         alert(
             "✅ " +
-            (result.message || "Đã xóa acc.")
+            result.message
         );
-
 
         await loadAccounts();
 
@@ -1573,10 +1894,8 @@ async function loadCustomers(){
             "customersTable"
         );
 
-
     box.innerHTML =
         '<div class="loading">⏳ Đang tải khách hàng...</div>';
-
 
     try{
 
@@ -1587,7 +1906,6 @@ async function loadCustomers(){
                     "getCustomers"
 
             });
-
 
         if(
             !result ||
@@ -1603,14 +1921,12 @@ async function loadCustomers(){
 
         }
 
-
         customersData =
             Array.isArray(
                 result.customers
             )
             ? result.customers
             : [];
-
 
         renderCustomers();
 
@@ -1620,7 +1936,6 @@ async function loadCustomers(){
     catch(error){
 
         console.error(error);
-
 
         box.innerHTML =
             '<div class="message error">❌ ' +
@@ -1635,7 +1950,7 @@ async function loadCustomers(){
 
 
 /* ==================================================
-   HIỂN THỊ KHÁCH
+   RENDER CUSTOMERS
 ================================================== */
 
 function renderCustomers(){
@@ -1644,7 +1959,6 @@ function renderCustomers(){
         document.getElementById(
             "customersTable"
         );
-
 
     if(
         customersData.length === 0
@@ -1656,7 +1970,6 @@ function renderCustomers(){
         return;
 
     }
-
 
     let html = `
 
@@ -1678,9 +1991,7 @@ function renderCustomers(){
         </thead>
 
         <tbody>
-
     `;
-
 
     customersData
     .forEach(function(customer,index){
@@ -1730,20 +2041,14 @@ function renderCustomers(){
             </td>
 
         </tr>
-
         `;
 
     });
 
-
     html += `
-
         </tbody>
-
     </table>
-
     `;
-
 
     box.innerHTML =
         html;
@@ -1752,7 +2057,7 @@ function renderCustomers(){
 
 
 /* ==================================================
-   XÓA KHÁCH
+   DELETE CUSTOMER
 ================================================== */
 
 async function deleteCustomer(username){
@@ -1769,7 +2074,6 @@ async function deleteCustomer(username){
 
     }
 
-
     try{
 
         const result =
@@ -1783,24 +2087,21 @@ async function deleteCustomer(username){
 
             });
 
-
         if(!result.ok){
 
             alert(
                 "❌ " +
-                (result.message || "Không thể xóa khách.")
+                result.message
             );
 
             return;
 
         }
 
-
         alert(
             "✅ " +
-            (result.message || "Đã xóa khách.")
+            result.message
         );
-
 
         await loadCustomers();
 
@@ -1830,10 +2131,8 @@ async function loadTopups(){
             "topupsTable"
         );
 
-
     box.innerHTML =
         '<div class="loading">⏳ Đang tải yêu cầu nạp...</div>';
-
 
     try{
 
@@ -1844,7 +2143,6 @@ async function loadTopups(){
                     "getTopups"
 
             });
-
 
         if(
             !result ||
@@ -1860,14 +2158,12 @@ async function loadTopups(){
 
         }
 
-
         topupsData =
             Array.isArray(
                 result.topups
             )
             ? result.topups
             : [];
-
 
         renderTopups();
 
@@ -1877,7 +2173,6 @@ async function loadTopups(){
     catch(error){
 
         console.error(error);
-
 
         box.innerHTML =
             '<div class="message error">❌ ' +
@@ -1892,7 +2187,7 @@ async function loadTopups(){
 
 
 /* ==================================================
-   HIỂN THỊ TOPUP
+   RENDER TOPUPS
 ================================================== */
 
 function renderTopups(){
@@ -1901,7 +2196,6 @@ function renderTopups(){
         document.getElementById(
             "topupsTable"
         );
-
 
     if(
         topupsData.length === 0
@@ -1913,7 +2207,6 @@ function renderTopups(){
         return;
 
     }
-
 
     let html = `
 
@@ -1940,9 +2233,7 @@ function renderTopups(){
         </thead>
 
         <tbody>
-
     `;
-
 
     topupsData
     .slice()
@@ -1954,10 +2245,8 @@ function renderTopups(){
                 item.status || ""
             );
 
-
         let statusClass =
             "status-gray";
-
 
         if(
             status === "DA_DUYET"
@@ -1984,10 +2273,8 @@ function renderTopups(){
 
         }
 
-
         const pending =
             status === "CHO_DUYET";
-
 
         html += `
 
@@ -2072,20 +2359,14 @@ function renderTopups(){
             </td>
 
         </tr>
-
         `;
 
     });
 
-
     html += `
-
         </tbody>
-
     </table>
-
     `;
-
 
     box.innerHTML =
         html;
@@ -2111,7 +2392,6 @@ async function approveTopup(id){
 
     }
 
-
     try{
 
         const result =
@@ -2125,29 +2405,26 @@ async function approveTopup(id){
 
             });
 
-
         if(!result.ok){
 
             alert(
                 "❌ " +
-                (result.message || "Không thể duyệt.")
+                result.message
             );
 
             return;
 
         }
 
-
         alert(
             "✅ Đã duyệt.\n\n" +
             "Khách: " +
-            (result.username || "") +
+            result.username +
             "\nSố tiền: " +
             money(result.amount) +
             "\nSố dư mới: " +
             money(result.balance)
         );
-
 
         await loadTopups();
 
@@ -2186,7 +2463,6 @@ async function rejectTopup(id){
 
     }
 
-
     try{
 
         const result =
@@ -2200,24 +2476,21 @@ async function rejectTopup(id){
 
             });
 
-
         if(!result.ok){
 
             alert(
                 "❌ " +
-                (result.message || "Không thể từ chối.")
+                result.message
             );
 
             return;
 
         }
 
-
         alert(
             "✅ " +
-            (result.message || "Đã từ chối.")
+            result.message
         );
-
 
         await loadTopups();
 
@@ -2250,12 +2523,10 @@ async function loadOrders(){
         .value
         .trim();
 
-
     const box =
         document.getElementById(
             "ordersTable"
         );
-
 
     if(!username){
 
@@ -2266,10 +2537,8 @@ async function loadOrders(){
 
     }
 
-
     box.innerHTML =
         '<div class="loading">⏳ Đang tải đơn hàng...</div>';
-
 
     try{
 
@@ -2284,7 +2553,6 @@ async function loadOrders(){
 
             });
 
-
         if(
             !result ||
             result.ok !== true
@@ -2298,7 +2566,6 @@ async function loadOrders(){
             );
 
         }
-
 
         renderOrders(
             result.orders || []
@@ -2318,7 +2585,7 @@ async function loadOrders(){
 
 
 /* ==================================================
-   HIỂN THỊ ĐƠN
+   RENDER ORDERS
 ================================================== */
 
 function renderOrders(orders){
@@ -2327,7 +2594,6 @@ function renderOrders(orders){
         document.getElementById(
             "ordersTable"
         );
-
 
     if(
         !Array.isArray(orders) ||
@@ -2340,7 +2606,6 @@ function renderOrders(orders){
         return;
 
     }
-
 
     let html = `
 
@@ -2365,9 +2630,7 @@ function renderOrders(orders){
         </thead>
 
         <tbody>
-
     `;
-
 
     orders
     .slice()
@@ -2419,20 +2682,14 @@ function renderOrders(orders){
             </td>
 
         </tr>
-
         `;
 
     });
 
-
     html += `
-
         </tbody>
-
     </table>
-
     `;
-
 
     box.innerHTML =
         html;
@@ -2453,7 +2710,6 @@ function updateStats(){
     .textContent =
         accountsData.length;
 
-
     const available =
         accountsData.filter(
             function(acc){
@@ -2467,7 +2723,6 @@ function updateStats(){
             }
         ).length;
 
-
     document
     .getElementById(
         "statAvailable"
@@ -2475,14 +2730,12 @@ function updateStats(){
     .textContent =
         available;
 
-
     document
     .getElementById(
         "statCustomers"
     )
     .textContent =
         customersData.length;
-
 
     const pending =
         topupsData.filter(
@@ -2496,7 +2749,6 @@ function updateStats(){
 
             }
         ).length;
-
 
     document
     .getElementById(
@@ -2514,10 +2766,10 @@ function updateStats(){
 
 function money(value){
 
-    const number =
-        Number(value || 0);
-
-    return number.toLocaleString(
+    return Number(
+        value || 0
+    )
+    .toLocaleString(
         "vi-VN"
     ) + "đ";
 
@@ -2537,15 +2789,11 @@ function showMessage(
     const box =
         document.getElementById(id);
 
-
-    if(!box){
+    if(!box)
         return;
-    }
-
 
     box.textContent =
         message;
-
 
     box.className =
         "message " +
@@ -2563,26 +2811,11 @@ function escapeHtml(value){
     return String(
         value ?? ""
     )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 
 }
 
@@ -2596,26 +2829,11 @@ function escapeJs(value){
     return String(
         value ?? ""
     )
-    .replace(
-        /\\/g,
-        "\\\\"
-    )
-    .replace(
-        /'/g,
-        "\\'"
-    )
-    .replace(
-        /"/g,
-        '\\"'
-    )
-    .replace(
-        /\r/g,
-        "\\r"
-    )
-    .replace(
-        /\n/g,
-        "\\n"
-    );
+    .replace(/\\/g,"\\\\")
+    .replace(/'/g,"\\'")
+    .replace(/"/g,'\\"')
+    .replace(/\r/g,"\\r")
+    .replace(/\n/g,"\\n");
 
 }
 
