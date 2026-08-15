@@ -220,6 +220,72 @@ body{
 
 .shop-new:hover{background:#0d63d8}
 
+/* ================= TRẠNG THÁI SHOP CŨ ================= */
+function loadOldShopStatus(){
+
+    const status =
+        localStorage.getItem("shopkarot_old_shop_status") || "updating";
+
+    const box = document.getElementById("oldShopStatus");
+
+    if(!box) return;
+
+    box.className = "old-shop-status";
+
+    if(status === "active"){
+        box.classList.add("active");
+        box.innerHTML = "🟢 SHOP ĐANG HOẠT ĐỘNG";
+    }
+    else if(status === "stopped"){
+        box.classList.add("stopped");
+        box.innerHTML = "🔴 SHOP NGỪNG HOẠT ĐỘNG";
+    }
+    else{
+        box.classList.add("updating");
+        box.innerHTML = "🟡 SHOP ĐANG CẬP NHẬT";
+    }
+}
+
+/* ================= TRẠNG THÁI SHOP ================= */
+.shop-status-banner{
+    width:calc(100% - 32px);
+    margin:0 16px 12px;
+    padding:15px 16px;
+    background:#fff;
+    border:2px solid #b6c5ff;
+    border-radius:14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+    text-align:center;
+}
+.shop-status-title{
+    color:#182238;
+    font-size:16px;
+    font-weight:900;
+    margin-bottom:9px;
+}
+.old-shop-status{
+    display:inline-block;
+    padding:8px 15px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:bold;
+}
+.old-shop-status.active{
+    background:#e9f9ef;
+    color:#168b42;
+    border:1px solid #9bd7b1;
+}
+.old-shop-status.updating{
+    background:#fff7df;
+    color:#9a6a00;
+    border:1px solid #f0d27a;
+}
+.old-shop-status.stopped{
+    background:#ffe8e8;
+    color:#d01018;
+    border:1px solid #ffb5b5;
+}
+
 /* ================= SHOP MỚI ================= */
 .new-shop-banner{
     width:calc(100% - 32px);
@@ -330,6 +396,14 @@ body{
         class="search"
         placeholder="🔎 Tìm game..."
         id="searchGame">
+</div>
+
+<!-- ================= TRẠNG THÁI SHOP ================= -->
+<div class="shop-status-banner">
+    <div class="shop-status-title">🏪 TRẠNG THÁI SHOP</div>
+    <div id="oldShopStatus" class="old-shop-status updating">
+        🟡 SHOP ĐANG CẬP NHẬT
+    </div>
 </div>
 
 <!-- ================= SHOP MỚI ================= -->
@@ -685,6 +759,7 @@ window.addEventListener(
     "load",
     function(){
 
+        loadOldShopStatus();
         loadShopStatus();
 
         const loginSuccess =
@@ -765,11 +840,16 @@ window.addEventListener(
 
         if(
             event.key ===
+            "shopkarot_old_shop_status"
+        ){
+            loadOldShopStatus();
+        }
+
+        if(
+            event.key ===
             "shopkarot_shop_status"
         ){
-
             loadShopStatus();
-
         }
 
     }
