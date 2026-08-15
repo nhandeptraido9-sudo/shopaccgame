@@ -191,10 +191,6 @@ hr{
     background:#1d4ed8;
 }
 
-/* =========================
-   ĐẾM NGƯỢC TÚI 0K
-========================= */
-
 .free-cooldown{
     margin-top:12px;
     padding:10px;
@@ -214,10 +210,6 @@ hr{
     background:#ecfdf5;
     color:#166534;
 }
-
-/* =========================
-   ACC ĐÃ MUA
-========================= */
 
 .account-info{
     margin-top:15px;
@@ -249,6 +241,18 @@ hr{
 
 .order-card hr{
     margin:15px 0;
+}
+
+.topup-list{
+    margin-top:15px;
+}
+
+.topup-item{
+    padding:15px;
+    margin-top:10px;
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:10px;
 }
 
 @media(max-width:600px){
@@ -314,7 +318,8 @@ hr{
 
     <input
         id="username"
-        placeholder="Tên tài khoản">
+        placeholder="Tên tài khoản"
+        autocomplete="off">
 
     <button onclick="login()">
         Đăng nhập
@@ -467,6 +472,10 @@ hr{
                     20.000đ
                 </div>
 
+                <div class="package">
+                    Chọn gói
+                </div>
+
                 <select id="package20">
 
                     <option value="1">Gói 1</option>
@@ -495,6 +504,10 @@ hr{
 
                 <div class="price">
                     50.000đ
+                </div>
+
+                <div class="package">
+                    Chọn gói
                 </div>
 
                 <select id="package50">
@@ -527,6 +540,10 @@ hr{
                     80.000đ
                 </div>
 
+                <div class="package">
+                    Chọn gói
+                </div>
+
                 <select id="package80">
 
                     <option value="1">Gói 1</option>
@@ -555,6 +572,10 @@ hr{
 
                 <div class="price">
                     100.000đ
+                </div>
+
+                <div class="package">
+                    Chọn gói
                 </div>
 
                 <select id="package100">
@@ -639,6 +660,7 @@ hr{
                 <input
                     id="bankAmount"
                     type="number"
+                    min="1"
                     placeholder="Số tiền">
 
                 <input
@@ -679,6 +701,7 @@ hr{
                 <input
                     id="cardAmount"
                     type="number"
+                    min="1"
                     placeholder="Mệnh giá">
 
                 <input
@@ -697,7 +720,10 @@ hr{
 
         </div>
 
-        <div id="topupMessage" class="error"></div>
+        <div
+            id="topupMessage"
+            class="error">
+        </div>
 
     </div>
 
@@ -729,7 +755,7 @@ hr{
 <script>
 
 /* ==========================================
-   API
+   API APPS SCRIPT
 ========================================== */
 
 const API_URL =
@@ -741,7 +767,7 @@ const API_URL =
 ========================================== */
 
 let currentUser =
-localStorage.getItem("shopUsername");
+    localStorage.getItem("shopUsername");
 
 let freeTimer = null;
 
@@ -759,7 +785,7 @@ function money(number){
 
 
 /* ==========================================
-   POST API
+   GỌI API
 ========================================== */
 
 async function api(data){
@@ -769,9 +795,27 @@ async function api(data){
             API_URL,
             {
                 method:"POST",
-                body:JSON.stringify(data)
+
+                headers:{
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(data)
             }
         );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "HTTP " +
+            response.status
+        );
+
+    }
+
 
     return await response.json();
 
@@ -784,11 +828,19 @@ async function api(data){
 
 async function login(){
 
+    hideError(
+        "loginError"
+    );
+
+
     const username =
         document
-        .getElementById("username")
+        .getElementById(
+            "username"
+        )
         .value
         .trim();
+
 
     if(!username){
 
@@ -801,32 +853,44 @@ async function login(){
 
     }
 
-    currentUser = username;
+
+    currentUser =
+        username;
+
 
     localStorage.setItem(
         "shopUsername",
         username
     );
 
+
     document
-    .getElementById("loginBox")
+    .getElementById(
+        "loginBox"
+    )
     .classList
     .add("hidden");
 
+
     document
-    .getElementById("shop")
+    .getElementById(
+        "shop"
+    )
     .classList
     .remove("hidden");
 
+
     document
-    .getElementById("customerName")
-    .textContent = username;
+    .getElementById(
+        "customerName"
+    )
+    .textContent =
+        username;
+
 
     await loadBalance();
 
     await checkFreeCooldown();
-
-    /* TỰ TẢI ĐƠN HÀNG */
 
     await loadOrders();
 
@@ -841,34 +905,42 @@ window.addEventListener(
     "load",
     async function(){
 
-        if(currentUser){
+        if(!currentUser){
 
-            document
-            .getElementById("loginBox")
-            .classList
-            .add("hidden");
-
-            document
-            .getElementById("shop")
-            .classList
-            .remove("hidden");
-
-            document
-            .getElementById("customerName")
-            .textContent =
-                currentUser;
-
-            await loadBalance();
-
-            await checkFreeCooldown();
-
-            /* QUAN TRỌNG:
-               VÀO LẠI TRANG SẼ TẢI
-               ACC ĐÃ MUA */
-
-            await loadOrders();
+            return;
 
         }
+
+
+        document
+        .getElementById(
+            "loginBox"
+        )
+        .classList
+        .add("hidden");
+
+
+        document
+        .getElementById(
+            "shop"
+        )
+        .classList
+        .remove("hidden");
+
+
+        document
+        .getElementById(
+            "customerName"
+        )
+        .textContent =
+            currentUser;
+
+
+        await loadBalance();
+
+        await checkFreeCooldown();
+
+        await loadOrders();
 
     }
 );
@@ -884,6 +956,23 @@ function logout(){
         "shopUsername"
     );
 
+
+    currentUser =
+        null;
+
+
+    if(freeTimer){
+
+        clearInterval(
+            freeTimer
+        );
+
+        freeTimer =
+            null;
+
+    }
+
+
     location.reload();
 
 }
@@ -895,39 +984,59 @@ function logout(){
 
 async function loadBalance(){
 
-    if(!currentUser)
+    if(!currentUser){
+
         return;
+
+    }
+
 
     try{
 
         const result =
             await api({
 
-                action:"getBalance",
+                action:
+                    "getBalance",
 
-                username:currentUser
+                username:
+                    currentUser
 
             });
+
 
         if(result.ok){
 
             const text =
-                money(result.balance);
+                money(
+                    result.balance
+                );
+
 
             document
-            .getElementById("balance")
-            .textContent = text;
+            .getElementById(
+                "balance"
+            )
+            .textContent =
+                text;
+
 
             document
-            .getElementById("balance2")
-            .textContent = text;
+            .getElementById(
+                "balance2"
+            )
+            .textContent =
+                text;
 
         }
 
     }
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Lỗi lấy số dư:",
+            error
+        );
 
     }
 
@@ -940,40 +1049,42 @@ async function loadBalance(){
 
 async function checkFreeCooldown(){
 
-    if(!currentUser)
+    if(!currentUser){
+
         return;
+
+    }
+
 
     try{
 
         const result =
             await api({
 
-                action:"checkFreeCooldown",
+                action:
+                    "checkFreeCooldown",
 
-                username:currentUser
+                username:
+                    currentUser
 
             });
 
-        const button =
-            document
-            .getElementById(
-                "freeBuyButton"
-            );
 
         if(
             result.ok === false &&
-            result.remaining
+            Number(
+                result.remaining
+            ) > 0
         ){
 
             startFreeCountdown(
-                Number(result.remaining)
+                Number(
+                    result.remaining
+                )
             );
 
-            return;
-
         }
-
-        if(result.ok === true){
+        else{
 
             stopFreeCountdown();
 
@@ -996,96 +1107,144 @@ async function checkFreeCooldown(){
    ĐẾM NGƯỢC 0K
 ========================================== */
 
-function startFreeCountdown(milliseconds){
+function startFreeCountdown(
+    milliseconds
+){
 
     const box =
         document.getElementById(
             "freeCooldown"
         );
 
+
     const time =
         document.getElementById(
             "freeTime"
         );
+
 
     const button =
         document.getElementById(
             "freeBuyButton"
         );
 
+
     if(freeTimer){
 
-        clearInterval(freeTimer);
+        clearInterval(
+            freeTimer
+        );
 
     }
 
-    box.style.display = "block";
+
+    box.style.display =
+        "block";
+
 
     box.classList.remove(
         "free-ready"
     );
 
-    button.disabled = true;
+
+    button.disabled =
+        true;
+
+
+    const endTime =
+        Date.now() +
+        Number(milliseconds);
 
 
     function update(){
 
-        if(milliseconds <= 0){
+        const remaining =
+            Math.max(
+                0,
+                endTime -
+                Date.now()
+            );
 
-            clearInterval(freeTimer);
+
+        if(remaining <= 0){
+
+            clearInterval(
+                freeTimer
+            );
+
+
+            freeTimer =
+                null;
+
 
             box.innerHTML =
                 "✅ Đã đủ 24 giờ. Bạn có thể nhận Túi 0K tiếp theo.";
+
 
             box.classList.add(
                 "free-ready"
             );
 
-            button.disabled = false;
+
+            button.disabled =
+                false;
+
 
             return;
 
         }
 
+
         const hours =
             Math.floor(
-                milliseconds /
+                remaining /
                 (1000 * 60 * 60)
             );
+
 
         const minutes =
             Math.floor(
                 (
-                    milliseconds %
+                    remaining %
                     (1000 * 60 * 60)
                 ) /
                 (1000 * 60)
             );
 
+
         const seconds =
             Math.floor(
                 (
-                    milliseconds %
+                    remaining %
                     (1000 * 60)
                 ) /
                 1000
             );
 
-        time.textContent =
-            String(hours).padStart(2,"0")
-            + ":"
-            + String(minutes).padStart(2,"0")
-            + ":"
-            + String(seconds).padStart(2,"0");
 
-        milliseconds -= 1000;
+        time.textContent =
+            String(hours)
+            .padStart(2,"0")
+            +
+            ":" +
+            String(minutes)
+            .padStart(2,"0")
+            +
+            ":" +
+            String(seconds)
+            .padStart(2,"0");
 
     }
 
+
     update();
 
+
     freeTimer =
-        setInterval(update,1000);
+        setInterval(
+            update,
+            1000
+        );
 
 }
 
@@ -1098,29 +1257,39 @@ function stopFreeCountdown(){
 
     if(freeTimer){
 
-        clearInterval(freeTimer);
+        clearInterval(
+            freeTimer
+        );
 
-        freeTimer = null;
+        freeTimer =
+            null;
 
     }
+
 
     const box =
         document.getElementById(
             "freeCooldown"
         );
 
+
     const button =
         document.getElementById(
             "freeBuyButton"
         );
 
-    box.style.display = "none";
+
+    box.style.display =
+        "none";
+
 
     box.classList.remove(
         "free-ready"
     );
 
-    button.disabled = false;
+
+    button.disabled =
+        false;
 
 }
 
@@ -1129,9 +1298,15 @@ function stopFreeCountdown(){
    MUA ACC
 ========================================== */
 
-async function buy(price,selectId){
+async function buy(
+    price,
+    selectId
+){
 
-    hideError("buyError");
+    hideError(
+        "buyError"
+    );
+
 
     if(!currentUser){
 
@@ -1144,13 +1319,34 @@ async function buy(price,selectId){
 
     }
 
+
+    const select =
+        document.getElementById(
+            selectId
+        );
+
+
+    if(!select){
+
+        showError(
+            "buyError",
+            "Không tìm thấy gói"
+        );
+
+        return;
+
+    }
+
+
     const packageNumber =
-        document
-        .getElementById(selectId)
-        .value;
+        String(
+            select.value
+        ).trim();
 
 
-    /* KIỂM TRA 0K */
+    /* ==========================
+       KIỂM TRA TÚI 0K
+    ========================== */
 
     if(price === 0){
 
@@ -1159,25 +1355,35 @@ async function buy(price,selectId){
             const check =
                 await api({
 
-                    action:"checkFreeCooldown",
+                    action:
+                        "checkFreeCooldown",
 
-                    username:currentUser
+                    username:
+                        currentUser
 
                 });
 
+
             if(
                 check.ok === false &&
-                check.remaining
+                Number(
+                    check.remaining
+                ) > 0
             ){
 
                 startFreeCountdown(
-                    Number(check.remaining)
+                    Number(
+                        check.remaining
+                    )
                 );
+
 
                 showError(
                     "buyError",
+                    check.message ||
                     "Bạn đã nhận Túi 0K. Vui lòng chờ đủ 24 giờ."
                 );
+
 
                 return;
 
@@ -1218,13 +1424,17 @@ async function buy(price,selectId){
         const result =
             await api({
 
-                action:"getAccount",
+                action:
+                    "getAccount",
 
-                username:currentUser,
+                username:
+                    currentUser,
 
-                price:price,
+                price:
+                    Number(price),
 
-                package:packageNumber
+                package:
+                    packageNumber
 
             });
 
@@ -1233,74 +1443,105 @@ async function buy(price,selectId){
 
             if(
                 price === 0 &&
-                result.remaining
+                Number(
+                    result.remaining
+                ) > 0
             ){
 
                 startFreeCountdown(
-                    Number(result.remaining)
+                    Number(
+                        result.remaining
+                    )
                 );
 
             }
 
+
             showError(
                 "buyError",
-                result.message
+                result.message ||
+                "Không thể mua acc"
             );
 
+
             await loadBalance();
+
 
             return;
 
         }
 
 
-        /* GIAO ACC */
+        /* ==========================
+           HIỆN ACC
+        ========================== */
 
         document
-        .getElementById("result")
-        .style.display = "block";
+        .getElementById(
+            "result"
+        )
+        .style
+        .display =
+            "block";
 
 
         document
-        .getElementById("orderId")
+        .getElementById(
+            "orderId"
+        )
         .textContent =
-            result.orderId;
+            result.orderId ||
+            "";
 
 
         document
-        .getElementById("accountName")
+        .getElementById(
+            "accountName"
+        )
         .textContent =
-            result.accountName;
+            result.accountName ||
+            "";
 
 
         document
-        .getElementById("accountPass")
+        .getElementById(
+            "accountPass"
+        )
         .textContent =
-            result.accountPass;
+            result.accountPass ||
+            "";
 
 
         document
-        .getElementById("newBalance")
+        .getElementById(
+            "newBalance"
+        )
         .textContent =
-            money(result.balance);
+            money(
+                result.balance
+            );
 
 
-        /* 0K */
+        /* ==========================
+           TÚI 0K
+        ========================== */
 
         if(price === 0){
 
             startFreeCountdown(
-                result.remaining ||
-                24 * 60 * 60 * 1000
+                Number(
+                    result.remaining ||
+                    24 *
+                    60 *
+                    60 *
+                    1000
+                )
             );
 
         }
 
 
         await loadBalance();
-
-        /* QUAN TRỌNG:
-           SAU KHI MUA LƯU VÀ HIỆN ĐƠN */
 
         await loadOrders();
 
@@ -1309,21 +1550,29 @@ async function buy(price,selectId){
 
             top:
                 document
-                .getElementById("result")
-                .offsetTop - 80,
+                .getElementById(
+                    "result"
+                )
+                .offsetTop -
+                80,
 
-            behavior:"smooth"
+            behavior:
+                "smooth"
 
         });
 
     }
     catch(error){
 
-        console.error(error);
+        console.error(
+            "Lỗi mua acc:",
+            error
+        );
+
 
         showError(
             "buyError",
-            "Không kết nối được máy chủ"
+            "Không kết nối được máy chủ Apps Script."
         );
 
     }
@@ -1362,9 +1611,11 @@ async function loadOrders(){
         const result =
             await api({
 
-                action:"getOrders",
+                action:
+                    "getOrders",
 
-                username:currentUser
+                username:
+                    currentUser
 
             });
 
@@ -1372,7 +1623,9 @@ async function loadOrders(){
         if(
             !result ||
             result.ok !== true ||
-            !Array.isArray(result.orders) ||
+            !Array.isArray(
+                result.orders
+            ) ||
             result.orders.length === 0
         ){
 
@@ -1384,95 +1637,113 @@ async function loadOrders(){
         }
 
 
-        box.innerHTML = "";
+        box.innerHTML =
+            "";
 
 
         result.orders
         .slice()
         .reverse()
-        .forEach(function(order){
+        .forEach(
+            function(order){
 
-            const item =
-                document.createElement("div");
+                const item =
+                    document
+                    .createElement(
+                        "div"
+                    );
 
 
-            item.className =
-                "card order-card";
+                item.className =
+                    "card order-card";
 
 
-            item.innerHTML = `
+                item.innerHTML = `
 
-                <h3>
-                    📦 Đơn hàng
-                </h3>
-
-                <p>
-                    🆔 Mã đơn:
-                    <b>
-                        ${escapeHtml(order.orderId)}
-                    </b>
-                </p>
-
-                <p>
-                    🎁 Gói:
-                    <b>
-                        ${escapeHtml(order.package)}
-                    </b>
-                </p>
-
-                <p>
-                    💰 Giá:
-                    <b>
-                        ${money(order.price)}
-                    </b>
-                </p>
-
-                <hr>
-
-                <div class="account-info">
+                    <h3>
+                        📦 Đơn hàng
+                    </h3>
 
                     <p>
-                        👤 Tên tài khoản Roblox:
+                        🆔 Mã đơn:
+                        <b>
+                            ${escapeHtml(
+                                order.orderId
+                            )}
+                        </b>
                     </p>
-
-                    <div class="account-name">
-                        ${escapeHtml(
-                            order.accountName
-                        )}
-                    </div>
 
                     <p>
-                        🔑 Mật khẩu:
+                        🎁 Gói:
+                        <b>
+                            ${escapeHtml(
+                                order.package
+                            )}
+                        </b>
                     </p>
 
-                    <div class="account-pass">
-                        ${escapeHtml(
-                            order.accountPass
-                        )}
+                    <p>
+                        💰 Giá:
+                        <b>
+                            ${money(
+                                order.price
+                            )}
+                        </b>
+                    </p>
+
+                    <hr>
+
+                    <div class="account-info">
+
+                        <p>
+                            👤 Tên tài khoản Roblox:
+                        </p>
+
+                        <div class="account-name">
+                            ${escapeHtml(
+                                order.accountName
+                            )}
+                        </div>
+
+                        <p>
+                            🔑 Mật khẩu:
+                        </p>
+
+                        <div class="account-pass">
+                            ${escapeHtml(
+                                order.accountPass
+                            )}
+                        </div>
+
                     </div>
 
-                </div>
+                    <hr>
 
-                <hr>
+                    <p>
+                        📅 Ngày mua:
+                        ${escapeHtml(
+                            order.date
+                        )}
+                    </p>
 
-                <p>
-                    📅 Ngày mua:
-                    ${escapeHtml(order.date)}
-                </p>
+                    <p>
+                        ✅ Trạng thái:
+                        <b class="success">
+                            ${escapeHtml(
+                                order.status
+                            )}
+                        </b>
+                    </p>
 
-                <p>
-                    ✅ Trạng thái:
-                    <b class="success">
-                        ${escapeHtml(order.status)}
-                    </b>
-                </p>
-
-            `;
+                `;
 
 
-            box.appendChild(item);
+                box.appendChild(
+                    item
+                );
 
-        });
+            }
+        );
 
     }
     catch(error){
@@ -1482,12 +1753,19 @@ async function loadOrders(){
             error
         );
 
+
         box.innerHTML = `
+
             <p style="color:#dc2626">
+
                 ❌ Không tải được đơn hàng.
+
                 <br>
+
                 Vui lòng thử lại.
+
             </p>
+
         `;
 
     }
@@ -1501,23 +1779,46 @@ async function loadOrders(){
 
 async function napNganHang(){
 
-    hideError("topupMessage");
+    hideError(
+        "topupMessage"
+    );
+
+
+    if(!currentUser){
+
+        showError(
+            "topupMessage",
+            "Bạn chưa đăng nhập"
+        );
+
+        return;
+
+    }
+
 
     const amount =
         Number(
             document
-            .getElementById("bankAmount")
+            .getElementById(
+                "bankAmount"
+            )
             .value
         );
 
+
     const note =
         document
-        .getElementById("bankNote")
+        .getElementById(
+            "bankNote"
+        )
         .value
         .trim();
 
 
-    if(!amount || amount <= 0){
+    if(
+        !amount ||
+        amount <= 0
+    ){
 
         showError(
             "topupMessage",
@@ -1541,18 +1842,35 @@ async function napNganHang(){
     }
 
 
+    if(
+        !confirm(
+            "Xác nhận gửi yêu cầu nạp " +
+            money(amount) +
+            "?"
+        )
+    ){
+
+        return;
+
+    }
+
+
     try{
 
         const result =
             await api({
 
-                action:"napNganHang",
+                action:
+                    "napNganHang",
 
-                username:currentUser,
+                username:
+                    currentUser,
 
-                amount:amount,
+                amount:
+                    amount,
 
-                note:note
+                note:
+                    note
 
             });
 
@@ -1564,20 +1882,29 @@ async function napNganHang(){
                 "Đã gửi yêu cầu nạp tiền. Chờ Admin duyệt."
             );
 
-            document
-            .getElementById("bankAmount")
-            .value = "";
 
             document
-            .getElementById("bankNote")
-            .value = "";
+            .getElementById(
+                "bankAmount"
+            )
+            .value =
+                "";
+
+
+            document
+            .getElementById(
+                "bankNote"
+            )
+            .value =
+                "";
 
         }
         else{
 
             showError(
                 "topupMessage",
-                result.message
+                result.message ||
+                "Không thể gửi yêu cầu"
             );
 
         }
@@ -1585,9 +1912,15 @@ async function napNganHang(){
     }
     catch(error){
 
+        console.error(
+            "Lỗi nạp ngân hàng:",
+            error
+        );
+
+
         showError(
             "topupMessage",
-            "Không kết nối được máy chủ"
+            "Không kết nối được máy chủ."
         );
 
     }
@@ -1601,29 +1934,55 @@ async function napNganHang(){
 
 async function napTheCao(){
 
-    hideError("topupMessage");
+    hideError(
+        "topupMessage"
+    );
+
+
+    if(!currentUser){
+
+        showError(
+            "topupMessage",
+            "Bạn chưa đăng nhập"
+        );
+
+        return;
+
+    }
+
 
     const provider =
         document
-        .getElementById("cardProvider")
+        .getElementById(
+            "cardProvider"
+        )
         .value;
+
 
     const amount =
         Number(
             document
-            .getElementById("cardAmount")
+            .getElementById(
+                "cardAmount"
+            )
             .value
         );
 
+
     const serial =
         document
-        .getElementById("cardSerial")
+        .getElementById(
+            "cardSerial"
+        )
         .value
         .trim();
 
+
     const code =
         document
-        .getElementById("cardCode")
+        .getElementById(
+            "cardCode"
+        )
         .value
         .trim();
 
@@ -1640,7 +1999,10 @@ async function napTheCao(){
     }
 
 
-    if(!amount || amount <= 0){
+    if(
+        !amount ||
+        amount <= 0
+    ){
 
         showError(
             "topupMessage",
@@ -1652,7 +2014,10 @@ async function napTheCao(){
     }
 
 
-    if(!serial || !code){
+    if(
+        !serial ||
+        !code
+    ){
 
         showError(
             "topupMessage",
@@ -1680,17 +2045,23 @@ async function napTheCao(){
         const result =
             await api({
 
-                action:"napTheCao",
+                action:
+                    "napTheCao",
 
-                username:currentUser,
+                username:
+                    currentUser,
 
-                provider:provider,
+                provider:
+                    provider,
 
-                amount:amount,
+                amount:
+                    amount,
 
-                serial:serial,
+                serial:
+                    serial,
 
-                code:code
+                code:
+                    code
 
             });
 
@@ -1702,24 +2073,37 @@ async function napTheCao(){
                 "Đã gửi thẻ. Vui lòng chờ Admin kiểm tra."
             );
 
-            document
-            .getElementById("cardAmount")
-            .value = "";
 
             document
-            .getElementById("cardSerial")
-            .value = "";
+            .getElementById(
+                "cardAmount"
+            )
+            .value =
+                "";
+
 
             document
-            .getElementById("cardCode")
-            .value = "";
+            .getElementById(
+                "cardSerial"
+            )
+            .value =
+                "";
+
+
+            document
+            .getElementById(
+                "cardCode"
+            )
+            .value =
+                "";
 
         }
         else{
 
             showError(
                 "topupMessage",
-                result.message
+                result.message ||
+                "Không thể gửi thẻ"
             );
 
         }
@@ -1727,9 +2111,15 @@ async function napTheCao(){
     }
     catch(error){
 
+        console.error(
+            "Lỗi nạp thẻ:",
+            error
+        );
+
+
         showError(
             "topupMessage",
-            "Không kết nối được máy chủ"
+            "Không kết nối được máy chủ."
         );
 
     }
@@ -1741,16 +2131,29 @@ async function napTheCao(){
    HIỂN THỊ LỖI
 ========================================== */
 
-function showError(id,message){
+function showError(
+    id,
+    message
+){
 
     const box =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
+
+
+    if(!box){
+        return;
+    }
+
 
     box.textContent =
         message;
 
+
     box.style.display =
         "block";
+
 
     box.classList.remove(
         "success"
@@ -1759,16 +2162,33 @@ function showError(id,message){
 }
 
 
-function showSuccess(id,message){
+/* ==========================================
+   HIỂN THỊ THÀNH CÔNG
+========================================== */
+
+function showSuccess(
+    id,
+    message
+){
 
     const box =
-        document.getElementById(id);
+        document.getElementById(
+            id
+        );
+
+
+    if(!box){
+        return;
+    }
+
 
     box.textContent =
         message;
 
+
     box.style.display =
         "block";
+
 
     box.classList.add(
         "success"
@@ -1777,12 +2197,24 @@ function showSuccess(id,message){
 }
 
 
+/* ==========================================
+   ẨN THÔNG BÁO
+========================================== */
+
 function hideError(id){
 
-    document
-    .getElementById(id)
-    .style
-    .display = "none";
+    const box =
+        document.getElementById(
+            id
+        );
+
+
+    if(box){
+
+        box.style.display =
+            "none";
+
+    }
 
 }
 
@@ -1796,11 +2228,26 @@ function escapeHtml(value){
     return String(
         value ?? ""
     )
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+    .replace(
+        /&/g,
+        "&amp;"
+    )
+    .replace(
+        /</g,
+        "&lt;"
+    )
+    .replace(
+        />/g,
+        "&gt;"
+    )
+    .replace(
+        /"/g,
+        "&quot;"
+    )
+    .replace(
+        /'/g,
+        "&#039;"
+    );
 
 }
 
