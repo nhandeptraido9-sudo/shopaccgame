@@ -224,8 +224,10 @@ th{
 }
 
 
+/* =================================================
+   TRẠNG THÁI SHOP
+================================================= */
 
-/* ================= TRẠNG THÁI SHOP ================= */
 .shop-status-box{
     background:white;
     padding:20px;
@@ -233,12 +235,14 @@ th{
     box-shadow:0 5px 20px rgba(0,0,0,.07);
     margin-bottom:20px;
 }
+
 .shop-status-options{
     display:grid;
     grid-template-columns:repeat(3,1fr);
     gap:10px;
     margin-top:12px;
 }
+
 .shop-status-option{
     width:100%;
     margin:0;
@@ -247,10 +251,12 @@ th{
     background:#f8fafc;
     color:#111827;
 }
+
 .shop-status-option.active{
     border-color:#2563eb;
     background:#eff6ff;
 }
+
 .shop-status-current{
     margin-top:14px;
     padding:12px;
@@ -258,8 +264,13 @@ th{
     background:#f8fafc;
     font-weight:bold;
 }
+
 @media(max-width:700px){
-    .shop-status-options{grid-template-columns:1fr;}
+
+    .shop-status-options{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
@@ -381,32 +392,77 @@ th{
 ================================================= -->
 
 <section class="shop-status-box">
-    <h2>⚙️ Trạng thái Shop</h2>
-    <p class="small">Admin chọn trạng thái để sử dụng cho phần thông báo Shop.</p>
+
+    <h2>
+        ⚙️ Trạng thái Shop
+    </h2>
+
+    <p class="small">
+        Chọn trạng thái Shop. Sau khi lưu,
+        index.html của khách sẽ hiển thị trạng thái này.
+    </p>
+
 
     <div class="shop-status-options">
-        <button type="button" id="statusActive" class="shop-status-option" onclick="setShopStatus('active')">
+
+        <button
+            type="button"
+            id="statusActive"
+            class="shop-status-option"
+            onclick="setShopStatus('active')">
+
             🟢 SHOP ĐANG HOẠT ĐỘNG
+
         </button>
 
-        <button type="button" id="statusUpdating" class="shop-status-option" onclick="setShopStatus('updating')">
+
+        <button
+            type="button"
+            id="statusUpdating"
+            class="shop-status-option"
+            onclick="setShopStatus('updating')">
+
             🟡 SHOP ĐANG CẬP NHẬT
+
         </button>
 
-        <button type="button" id="statusStopped" class="shop-status-option" onclick="setShopStatus('stopped')">
+
+        <button
+            type="button"
+            id="statusStopped"
+            class="shop-status-option"
+            onclick="setShopStatus('stopped')">
+
             🔴 SHOP NGỪNG HOẠT ĐỘNG
+
         </button>
+
     </div>
 
-    <div id="shopStatusCurrent" class="shop-status-current">
-        Chưa chọn trạng thái
+
+    <div
+        id="shopStatusCurrent"
+        class="shop-status-current">
+
+        Đang tải trạng thái...
+
     </div>
 
-    <button type="button" onclick="saveShopStatus()">
+
+    <button
+        type="button"
+        onclick="saveShopStatus()">
+
         💾 LƯU TRẠNG THÁI SHOP
+
     </button>
 
-    <div id="shopStatusMessage" class="hidden"></div>
+
+    <div
+        id="shopStatusMessage"
+        class="hidden">
+    </div>
+
 </section>
 
 
@@ -519,7 +575,9 @@ th{
 
         <button
             onclick="refreshAll()">
+
             🔄 Cập nhật dữ liệu
+
         </button>
 
     </div>
@@ -542,8 +600,7 @@ th{
         </h2>
 
         <p class="small">
-            Mỗi acc có thể thuộc một mệnh giá và một
-            trong 8 gói.
+            Mỗi acc có thể thuộc một mệnh giá và một trong 8 gói.
         </p>
 
 
@@ -681,7 +738,9 @@ th{
 
         <button
             onclick="loadAccounts()">
+
             🔄 Tải lại kho
+
         </button>
 
         <br><br>
@@ -695,21 +754,13 @@ th{
                     <tr>
 
                         <th>ID</th>
-
                         <th>Mệnh giá</th>
-
                         <th>Gói</th>
-
                         <th>Tên acc</th>
-
                         <th>Mật khẩu</th>
-
                         <th>Trạng thái</th>
-
                         <th>Khách</th>
-
                         <th>Ngày thêm</th>
-
                         <th>Ngày bán</th>
 
                     </tr>
@@ -745,7 +796,9 @@ th{
 
         <button
             onclick="loadCustomers()">
+
             🔄 Tải khách hàng
+
         </button>
 
         <br><br>
@@ -759,9 +812,7 @@ th{
                     <tr>
 
                         <th>Tên khách</th>
-
                         <th>Số dư</th>
-
                         <th>Ngày tạo</th>
 
                     </tr>
@@ -797,7 +848,9 @@ th{
 
         <button
             onclick="loadTopups()">
+
             🔄 Tải yêu cầu
+
         </button>
 
         <br><br>
@@ -811,23 +864,14 @@ th{
                     <tr>
 
                         <th>Mã nạp</th>
-
                         <th>Khách</th>
-
                         <th>Hình thức</th>
-
                         <th>Số tiền</th>
-
                         <th>Nhà mạng</th>
-
                         <th>Serial</th>
-
                         <th>Mã thẻ</th>
-
                         <th>Nội dung CK</th>
-
                         <th>Trạng thái</th>
-
                         <th>Thao tác</th>
 
                     </tr>
@@ -879,21 +923,13 @@ th{
                     <tr>
 
                         <th>Mã đơn</th>
-
                         <th>Khách</th>
-
                         <th>Mệnh giá</th>
-
                         <th>Gói</th>
-
                         <th>Tên acc</th>
-
                         <th>Mật khẩu</th>
-
                         <th>Số tiền</th>
-
                         <th>Ngày mua</th>
-
                         <th>Trạng thái</th>
 
                     </tr>
@@ -929,10 +965,9 @@ const API_URL =
 "https://script.google.com/macros/s/AKfycbyzLx2QQE_H0TzNk2c4opHO8J1JLz1Rqxfckoe7OMU4Ij6JRP25Asg0kIFMt5ZBAsogbQ/exec";
 
 
-/*
-   ĐỔI 2 THÔNG TIN NÀY
-   thành tài khoản Admin của bạn.
-*/
+/* =================================================
+   ADMIN LOGIN
+================================================= */
 
 const ADMIN_USERNAME =
 "admin";
@@ -976,11 +1011,8 @@ async function api(data){
             API_URL,
             {
                 method:"POST",
-
                 body:
-                    JSON.stringify(
-                        data
-                    )
+                    JSON.stringify(data)
             }
         );
 
@@ -997,27 +1029,20 @@ function adminLogin(){
 
     const user =
         document
-        .getElementById(
-            "adminUser"
-        )
+        .getElementById("adminUser")
         .value
         .trim();
 
 
     const pass =
         document
-        .getElementById(
-            "adminPass"
-        )
+        .getElementById("adminPass")
         .value;
 
 
     if(
-        user ===
-        ADMIN_USERNAME &&
-
-        pass ===
-        ADMIN_PASSWORD
+        user === ADMIN_USERNAME &&
+        pass === ADMIN_PASSWORD
     ){
 
         localStorage.setItem(
@@ -1027,17 +1052,13 @@ function adminLogin(){
 
 
         document
-        .getElementById(
-            "loginPage"
-        )
+        .getElementById("loginPage")
         .classList
         .add("hidden");
 
 
         document
-        .getElementById(
-            "adminPage"
-        )
+        .getElementById("adminPage")
         .classList
         .remove("hidden");
 
@@ -1049,9 +1070,7 @@ function adminLogin(){
 
         const box =
             document
-            .getElementById(
-                "loginError"
-            );
+            .getElementById("loginError");
 
 
         box.textContent =
@@ -1059,7 +1078,7 @@ function adminLogin(){
 
 
         box.classList
-            .remove("hidden");
+        .remove("hidden");
 
     }
 
@@ -1081,17 +1100,13 @@ window.addEventListener(
         ){
 
             document
-            .getElementById(
-                "loginPage"
-            )
+            .getElementById("loginPage")
             .classList
             .add("hidden");
 
 
             document
-            .getElementById(
-                "adminPage"
-            )
+            .getElementById("adminPage")
             .classList
             .remove("hidden");
 
@@ -1126,9 +1141,7 @@ function logout(){
 function showPage(id){
 
     document
-    .querySelectorAll(
-        ".page"
-    )
+    .querySelectorAll(".page")
     .forEach(
         page =>
             page.classList
@@ -1137,9 +1150,7 @@ function showPage(id){
 
 
     document
-    .getElementById(
-        id
-    )
+    .getElementById(id)
     .classList
     .remove("hidden");
 
@@ -1170,34 +1181,26 @@ async function addAccount(){
 
     const price =
         document
-        .getElementById(
-            "addPrice"
-        )
+        .getElementById("addPrice")
         .value;
 
 
     const pack =
         document
-        .getElementById(
-            "addPackage"
-        )
+        .getElementById("addPackage")
         .value;
 
 
     const name =
         document
-        .getElementById(
-            "addName"
-        )
+        .getElementById("addName")
         .value
         .trim();
 
 
     const pass =
         document
-        .getElementById(
-            "addPass"
-        )
+        .getElementById("addPass")
         .value
         .trim();
 
@@ -1220,20 +1223,15 @@ async function addAccount(){
         const result =
             await api({
 
-                action:
-                    "addAccount",
+                action:"addAccount",
 
-                price:
-                    price,
+                price:price,
 
-                package:
-                    pack,
+                package:pack,
 
-                accountName:
-                    name,
+                accountName:name,
 
-                accountPass:
-                    pass
+                accountPass:pass
 
             });
 
@@ -1249,16 +1247,12 @@ async function addAccount(){
 
 
             document
-            .getElementById(
-                "addName"
-            )
+            .getElementById("addName")
             .value = "";
 
 
             document
-            .getElementById(
-                "addPass"
-            )
+            .getElementById("addPass")
             .value = "";
 
 
@@ -1351,9 +1345,7 @@ function renderAccounts(){
 
             const tr =
                 document
-                .createElement(
-                    "tr"
-                );
+                .createElement("tr");
 
 
             const status =
@@ -1367,43 +1359,30 @@ function renderAccounts(){
 
 
             if(
-                status ===
-                "CON_HANG"
+                status === "CON_HANG"
             ){
 
-                badge +=
-                    " available";
+                badge += " available";
 
             }
             else{
 
-                badge +=
-                    " sold";
+                badge += " sold";
 
             }
 
 
             tr.innerHTML = `
 
-                <td>${esc(
-                    acc.id
-                )}</td>
+                <td>${esc(acc.id)}</td>
 
-                <td>${money(
-                    acc.price
-                )}</td>
+                <td>${money(acc.price)}</td>
 
-                <td>Gói ${esc(
-                    acc.package
-                )}</td>
+                <td>Gói ${esc(acc.package)}</td>
 
-                <td>${esc(
-                    acc.accountName
-                )}</td>
+                <td>${esc(acc.accountName)}</td>
 
-                <td>${esc(
-                    acc.accountPass
-                )}</td>
+                <td>${esc(acc.accountPass)}</td>
 
                 <td>
                     <span class="${badge}">
@@ -1411,24 +1390,16 @@ function renderAccounts(){
                     </span>
                 </td>
 
-                <td>${esc(
-                    acc.customer
-                )}</td>
+                <td>${esc(acc.customer)}</td>
 
-                <td>${esc(
-                    acc.createdAt
-                )}</td>
+                <td>${esc(acc.createdAt)}</td>
 
-                <td>${esc(
-                    acc.soldAt
-                )}</td>
+                <td>${esc(acc.soldAt)}</td>
 
             `;
 
 
-            tbody.appendChild(
-                tr
-            );
+            tbody.appendChild(tr);
 
         }
     );
@@ -1447,8 +1418,7 @@ async function loadCustomers(){
         const result =
             await api({
 
-                action:
-                    "getCustomers"
+                action:"getCustomers"
 
             });
 
@@ -1496,39 +1466,29 @@ function renderCustomers(){
 
             const tr =
                 document
-                .createElement(
-                    "tr"
-                );
+                .createElement("tr");
 
 
             tr.innerHTML = `
 
                 <td>
-                    ${esc(
-                        customer.username
-                    )}
+                    ${esc(customer.username)}
                 </td>
 
                 <td>
                     <b>
-                        ${money(
-                            customer.balance
-                        )}
+                        ${money(customer.balance)}
                     </b>
                 </td>
 
                 <td>
-                    ${esc(
-                        customer.createdAt
-                    )}
+                    ${esc(customer.createdAt)}
                 </td>
 
             `;
 
 
-            tbody.appendChild(
-                tr
-            );
+            tbody.appendChild(tr);
 
         }
     );
@@ -1547,8 +1507,7 @@ async function loadTopups(){
         const result =
             await api({
 
-                action:
-                    "getTopups"
+                action:"getTopups"
 
             });
 
@@ -1596,9 +1555,7 @@ function renderTopups(){
 
             const tr =
                 document
-                .createElement(
-                    "tr"
-                );
+                .createElement("tr");
 
 
             let statusClass =
@@ -1608,17 +1565,23 @@ function renderTopups(){
             if(
                 item.status ===
                 "DA_DUYET"
-            )
+            ){
+
                 statusClass =
                     "approved";
+
+            }
 
 
             if(
                 item.status ===
                 "TU_CHOI"
-            )
+            ){
+
                 statusClass =
                     "rejected";
+
+            }
 
 
             let action = "";
@@ -1636,13 +1599,17 @@ function renderTopups(){
                         <button
                             class="green"
                             onclick="approveTopup('${escAttr(item.id)}')">
+
                             Duyệt
+
                         </button>
 
                         <button
                             class="danger"
                             onclick="rejectTopup('${escAttr(item.id)}')">
+
                             Từ chối
+
                         </button>
 
                     </div>
@@ -1660,47 +1627,29 @@ function renderTopups(){
 
             tr.innerHTML = `
 
-                <td>${esc(
-                    item.id
-                )}</td>
+                <td>${esc(item.id)}</td>
 
-                <td>${esc(
-                    item.username
-                )}</td>
+                <td>${esc(item.username)}</td>
 
-                <td>${esc(
-                    item.method
-                )}</td>
+                <td>${esc(item.method)}</td>
 
                 <td>
                     <b>
-                        ${money(
-                            item.amount
-                        )}
+                        ${money(item.amount)}
                     </b>
                 </td>
 
-                <td>${esc(
-                    item.provider
-                )}</td>
+                <td>${esc(item.provider)}</td>
 
-                <td>${esc(
-                    item.serial
-                )}</td>
+                <td>${esc(item.serial)}</td>
 
-                <td>${esc(
-                    item.code
-                )}</td>
+                <td>${esc(item.code)}</td>
 
-                <td>${esc(
-                    item.note
-                )}</td>
+                <td>${esc(item.note)}</td>
 
                 <td>
                     <span class="badge ${statusClass}">
-                        ${esc(
-                            item.status
-                        )}
+                        ${esc(item.status)}
                     </span>
                 </td>
 
@@ -1711,9 +1660,7 @@ function renderTopups(){
             `;
 
 
-            tbody.appendChild(
-                tr
-            );
+            tbody.appendChild(tr);
 
         }
     );
@@ -1740,18 +1687,14 @@ async function approveTopup(id){
         const result =
             await api({
 
-                action:
-                    "duyetNap",
+                action:"duyetNap",
 
-                id:
-                    id
+                id:id
 
             });
 
 
-        alert(
-            result.message
-        );
+        alert(result.message);
 
 
         if(result.ok){
@@ -1793,18 +1736,14 @@ async function rejectTopup(id){
         const result =
             await api({
 
-                action:
-                    "tuChoiNap",
+                action:"tuChoiNap",
 
-                id:
-                    id
+                id:id
 
             });
 
 
-        alert(
-            result.message
-        );
+        alert(result.message);
 
 
         if(result.ok){
@@ -1831,16 +1770,6 @@ async function rejectTopup(id){
 
 async function loadAllOrders(){
 
-    /*
-       API hiện tại có getOrders
-       theo từng username.
-
-       Vì vậy phần Admin sẽ lấy
-       danh sách khách rồi lấy đơn
-       của từng khách.
-    */
-
-
     if(
         customers.length === 0
     ){
@@ -1862,8 +1791,7 @@ async function loadAllOrders(){
             const result =
                 await api({
 
-                    action:
-                        "getOrders",
+                    action:"getOrders",
 
                     username:
                         customer.username
@@ -1925,61 +1853,39 @@ function renderOrders(){
 
             const tr =
                 document
-                .createElement(
-                    "tr"
-                );
+                .createElement("tr");
 
 
             tr.innerHTML = `
 
-                <td>${esc(
-                    order.orderId
-                )}</td>
+                <td>${esc(order.orderId)}</td>
 
-                <td>${esc(
-                    order.username
-                )}</td>
+                <td>${esc(order.username)}</td>
 
-                <td>${money(
-                    order.price
-                )}</td>
+                <td>${money(order.price)}</td>
 
                 <td>
-                    Gói ${esc(
-                        order.package
-                    )}
+                    Gói ${esc(order.package)}
                 </td>
 
-                <td>${esc(
-                    order.accountName
-                )}</td>
+                <td>${esc(order.accountName)}</td>
 
-                <td>${esc(
-                    order.accountPass
-                )}</td>
+                <td>${esc(order.accountPass)}</td>
 
-                <td>${money(
-                    order.amount
-                )}</td>
+                <td>${money(order.amount)}</td>
 
-                <td>${esc(
-                    order.date
-                )}</td>
+                <td>${esc(order.date)}</td>
 
                 <td>
                     <span class="badge approved">
-                        ${esc(
-                            order.status
-                        )}
+                        ${esc(order.status)}
                     </span>
                 </td>
 
             `;
 
 
-            tbody.appendChild(
-                tr
-            );
+            tbody.appendChild(tr);
 
         }
     );
@@ -2000,9 +1906,7 @@ function updateDashboard(){
     const available =
         accounts.filter(
             acc =>
-                String(
-                    acc.status
-                )
+                String(acc.status)
                 .toUpperCase()
                 ===
                 "CON_HANG"
@@ -2012,9 +1916,7 @@ function updateDashboard(){
     const sold =
         accounts.filter(
             acc =>
-                String(
-                    acc.status
-                )
+                String(acc.status)
                 .toUpperCase()
                 ===
                 "DA_BAN"
@@ -2091,82 +1993,245 @@ function updateDashboard(){
 }
 
 
+/* =================================================
+   TRẠNG THÁI SHOP
+================================================= */
+
+const SHOP_STATUS_DATA = {
+
+    active:{
+        label:
+            "🟢 SHOP ĐANG HOẠT ĐỘNG"
+    },
+
+    updating:{
+        label:
+            "🟡 SHOP ĐANG CẬP NHẬT"
+    },
+
+    stopped:{
+        label:
+            "🔴 SHOP NGỪNG HOẠT ĐỘNG"
+    }
+
+};
+
+
+let selectedShopStatus =
+    "active";
 
 
 /* =================================================
-   TRẠNG THÁI SHOP
-   Lưu vào localStorage để Admin giữ lựa chọn trên trình duyệt.
+   CHỌN TRẠNG THÁI
 ================================================= */
-
-const SHOP_STATUS_KEY = "shopkarot_shop_status";
-
-const SHOP_STATUS_DATA = {
-    active:{
-        label:"🟢 SHOP ĐANG HOẠT ĐỘNG",
-        className:"success"
-    },
-    updating:{
-        label:"🟡 SHOP ĐANG CẬP NHẬT",
-        className:"pending"
-    },
-    stopped:{
-        label:"🔴 SHOP NGỪNG HOẠT ĐỘNG",
-        className:"error"
-    }
-};
-
-let selectedShopStatus =
-    localStorage.getItem(SHOP_STATUS_KEY) || "active";
 
 function setShopStatus(status){
 
-    if(!SHOP_STATUS_DATA[status]) return;
+    if(
+        !SHOP_STATUS_DATA[status]
+    )
+        return;
 
-    selectedShopStatus = status;
+
+    selectedShopStatus =
+        status;
+
+
     renderShopStatus();
+
 }
+
+
+/* =================================================
+   HIỂN THỊ TRẠNG THÁI
+================================================= */
 
 function renderShopStatus(){
 
     document
-        .querySelectorAll(".shop-status-option")
-        .forEach(btn => btn.classList.remove("active"));
+    .querySelectorAll(
+        ".shop-status-option"
+    )
+    .forEach(
+        btn =>
+            btn.classList
+            .remove("active")
+    );
 
-    const map = {
-        active:"statusActive",
-        updating:"statusUpdating",
-        stopped:"statusStopped"
+
+    const ids = {
+
+        active:
+            "statusActive",
+
+        updating:
+            "statusUpdating",
+
+        stopped:
+            "statusStopped"
+
     };
 
-    const selected = document.getElementById(map[selectedShopStatus]);
+
+    const selected =
+        document.getElementById(
+            ids[selectedShopStatus]
+        );
+
 
     if(selected){
-        selected.classList.add("active");
+
+        selected.classList
+            .add("active");
+
     }
 
-    const box = document.getElementById("shopStatusCurrent");
+
+    const box =
+        document.getElementById(
+            "shopStatusCurrent"
+        );
+
 
     if(box){
+
         box.textContent =
             "Trạng thái hiện tại: " +
-            SHOP_STATUS_DATA[selectedShopStatus].label;
+            SHOP_STATUS_DATA[
+                selectedShopStatus
+            ].label;
+
     }
+
 }
 
-function saveShopStatus(){
 
-    localStorage.setItem(
-        SHOP_STATUS_KEY,
-        selectedShopStatus
-    );
+/* =================================================
+   TẢI TRẠNG THÁI TỪ SERVER
+================================================= */
 
-    showMessage(
-        "shopStatusMessage",
-        "Đã lưu: " +
-        SHOP_STATUS_DATA[selectedShopStatus].label,
-        true
-    );
+async function loadShopStatus(){
+
+    try{
+
+        const response =
+            await fetch(
+                API_URL +
+                "?action=getShopStatus"
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if(
+            result.ok &&
+            SHOP_STATUS_DATA[
+                result.status
+            ]
+        ){
+
+            selectedShopStatus =
+                result.status;
+
+
+            renderShopStatus();
+
+        }
+        else{
+
+            renderShopStatus();
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Không tải được trạng thái Shop:",
+            error
+        );
+
+
+        renderShopStatus();
+
+    }
+
 }
+
+
+/* =================================================
+   LƯU TRẠNG THÁI
+================================================= */
+
+async function saveShopStatus(){
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "setShopStatus",
+
+                status:
+                    selectedShopStatus
+
+            });
+
+
+        if(result.ok){
+
+            showMessage(
+
+                "shopStatusMessage",
+
+                "✅ Đã lưu: " +
+                SHOP_STATUS_DATA[
+                    selectedShopStatus
+                ].label,
+
+                true
+
+            );
+
+        }
+        else{
+
+            showMessage(
+
+                "shopStatusMessage",
+
+                result.message ||
+                "Không thể lưu trạng thái.",
+
+                false
+
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(error);
+
+
+        showMessage(
+
+            "shopStatusMessage",
+
+            "❌ Không kết nối được máy chủ.",
+
+            false
+
+        );
+
+    }
+
+}
+
 
 /* =================================================
    REFRESH
@@ -2179,6 +2244,8 @@ async function refreshAll(){
     await loadCustomers();
 
     await loadTopups();
+
+    await loadShopStatus();
 
     updateDashboard();
 
@@ -2197,9 +2264,11 @@ function showMessage(
 
     const box =
         document
-        .getElementById(
-            id
-        );
+        .getElementById(id);
+
+
+    if(!box)
+        return;
 
 
     box.textContent =
@@ -2208,14 +2277,14 @@ function showMessage(
 
     box.className =
         success
-            ? "success"
-            : "error";
+        ? "success"
+        : "error";
 
 }
 
 
 /* =================================================
-   ESCAPE
+   ESCAPE HTML
 ================================================= */
 
 function esc(value){
@@ -2247,6 +2316,10 @@ function esc(value){
 }
 
 
+/* =================================================
+   ESCAPE ATTRIBUTE
+================================================= */
+
 function escAttr(value){
 
     return String(
@@ -2262,11 +2335,6 @@ function escAttr(value){
     );
 
 }
-
-
-
-/* Khôi phục trạng thái Shop đã lưu */
-renderShopStatus();
 
 </script>
 
