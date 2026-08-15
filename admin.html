@@ -3,442 +3,2207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Admin - ShopAccGame</title>
+
+<title>SHOPKAROT - ADMIN</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f6fa;color:#172033}
-header{background:#111827;color:#fff;padding:18px 20px;position:sticky;top:0;z-index:10}
-header h1{margin:0;font-size:22px}
-header p{margin:5px 0 0;color:#cbd5e1;font-size:13px}
-.wrap{max-width:1150px;margin:20px auto;padding:0 14px}
-.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:0 4px 18px #0000000d}
-.card h2{margin:0 0 14px;font-size:18px}
-.status-card{border:2px solid #e5e7eb}
-.status-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-select,input,textarea{width:100%;padding:11px;border:1px solid #d1d5db;border-radius:9px;font-size:14px}
-select{max-width:300px;background:#fff}
-button{border:0;border-radius:9px;padding:11px 16px;cursor:pointer;font-weight:700}
-.btn{background:#2563eb;color:#fff}
-.btn:hover{opacity:.9}
-.btn-red{background:#dc2626;color:#fff}
-.btn-yellow{background:#d97706;color:#fff}
-.btn-gray{background:#64748b;color:#fff}
-.status-badge{display:inline-block;padding:9px 13px;border-radius:999px;font-weight:700;background:#e5e7eb}
-.active{background:#dcfce7;color:#166534}
-.closed{background:#fee2e2;color:#991b1b}
-.maintenance{background:#fef3c7;color:#92400e}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
-.msg{margin-top:10px;padding:10px;border-radius:9px;background:#f1f5f9;display:none}
-.msg.show{display:block}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th,td{padding:10px;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}
-th{background:#f8fafc}
-.table-wrap{overflow:auto}
-.small{font-size:12px;color:#64748b}
-.login{max-width:450px;margin:70px auto}
-.hidden{display:none!important}
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#111827;
+}
+
+header{
+    background:#111827;
+    color:white;
+    padding:18px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.container{
+    max-width:1250px;
+    margin:25px auto;
+    padding:0 15px;
+}
+
+.login{
+    max-width:420px;
+    margin:80px auto;
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 25px rgba(0,0,0,.1);
+}
+
+input,
+select,
+button{
+    width:100%;
+    padding:11px;
+    margin-top:8px;
+    border-radius:8px;
+    border:1px solid #d1d5db;
+    font-size:15px;
+}
+
+button{
+    border:0;
+    background:#2563eb;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.logout{
+    width:auto;
+    background:#dc2626;
+    padding:9px 15px;
+}
+
+.nav{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+
+.nav button{
+    width:auto;
+    background:#374151;
+}
+
+.box{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+    margin-bottom:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(
+        auto-fit,
+        minmax(220px,1fr)
+    );
+    gap:15px;
+}
+
+.stat{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:bold;
+    margin-top:8px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1000px;
+}
+
+th,
+td{
+    padding:10px;
+    border-bottom:1px solid #e5e7eb;
+    text-align:left;
+}
+
+th{
+    background:#f8fafc;
+}
+
+.table-wrap{
+    overflow:auto;
+}
+
+.success{
+    background:#dcfce7;
+    color:#166534;
+    padding:12px;
+    border-radius:9px;
+    margin-top:10px;
+}
+
+.error{
+    background:#fee2e2;
+    color:#991b1b;
+    padding:12px;
+    border-radius:9px;
+    margin-top:10px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 8px;
+    border-radius:7px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.available{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.sold{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.approved{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.rejected{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.danger{
+    background:#dc2626;
+}
+
+.green{
+    background:#16a34a;
+}
+
+.gray{
+    background:#6b7280;
+}
+
+.blue{
+    background:#2563eb;
+}
+
+.small{
+    font-size:13px;
+    color:#64748b;
+}
+
+.action{
+    display:flex;
+    gap:5px;
+    flex-wrap:wrap;
+}
+
+.action button{
+    width:auto;
+    padding:7px 10px;
+    margin:0;
+}
+
+/* ================= TRẠNG THÁI SHOP ================= */
+
+.shop-status-box{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,.07);
+    margin-bottom:20px;
+}
+
+.shop-status-options{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:12px;
+}
+
+.shop-status-option{
+    width:100%;
+    margin:0;
+    padding:12px;
+    border:2px solid #e5e7eb;
+    background:#f8fafc;
+    color:#111827;
+}
+
+.shop-status-option.active{
+    border-color:#2563eb;
+    background:#eff6ff;
+}
+
+.shop-status-current{
+    margin-top:14px;
+    padding:12px;
+    border-radius:9px;
+    background:#f8fafc;
+    font-weight:bold;
+}
+
 @media(max-width:700px){
- .grid,.grid-3{grid-template-columns:1fr}
- .status-row{align-items:stretch}
- select{max-width:none}
+    .shop-status-options{
+        grid-template-columns:1fr;
+    }
 }
 </style>
 </head>
+
 <body>
 
-<header>
-  <h1>⚙️ Admin ShopAccGame</h1>
-  <p>Quản lý Shop, kho acc, khách hàng và nạp tiền</p>
-</header>
+<!-- =================================================
+     LOGIN
+================================================= -->
 
-<div class="wrap">
+<div id="loginPage" class="login">
 
-  <section id="loginBox" class="card login">
-    <h2>🔐 Đăng nhập Admin</h2>
-    <label>Admin Key</label>
-    <input id="adminKey" type="password" placeholder="Nhập Admin Key">
-    <br><br>
-    <button class="btn" onclick="loginAdmin()">Vào trang Admin</button>
-    <div id="loginMsg" class="msg"></div>
-  </section>
+    <h2>🔐 ADMIN SHOPKAROT</h2>
 
-  <main id="adminMain" class="hidden">
+    <p class="small">
+        Đăng nhập khu vực quản trị.
+    </p>
 
-    <!-- TRẠNG THÁI SHOP Ở ĐẦU TRANG -->
-    <section class="card status-card">
-      <h2>🏪 Trạng thái Shop</h2>
+    <input
+        id="adminUser"
+        placeholder="Tên Admin">
 
-      <div class="status-row">
-        <span id="statusBadge" class="status-badge">Đang tải...</span>
+    <input
+        id="adminPass"
+        type="password"
+        placeholder="Mật khẩu Admin">
 
-        <select id="shopStatus">
-          <option value="Đang hoạt động">🟢 Đang hoạt động</option>
-          <option value="Tạm đóng">🔴 Tạm đóng</option>
-          <option value="Đang bảo trì">🟡 Đang bảo trì</option>
-        </select>
+    <button onclick="adminLogin()">
+        Đăng nhập
+    </button>
 
-        <button class="btn" onclick="saveShopStatus()">Lưu trạng thái</button>
-      </div>
+    <div
+        id="loginError"
+        class="error hidden">
+    </div>
 
-      <br>
-
-      <label>Thông báo hiển thị cho khách</label>
-      <input id="shopMessage" placeholder="Ví dụ: Shop đang hoạt động bình thường">
-
-      <div id="statusMsg" class="msg"></div>
-    </section>
-
-    <section class="card">
-      <h2>➕ Thêm acc</h2>
-      <div class="grid-3">
-        <div>
-          <label>Mệnh giá</label>
-          <input id="price" type="number" min="0" placeholder="0">
-        </div>
-        <div>
-          <label>Gói</label>
-          <input id="package" placeholder="Ví dụ: 1">
-        </div>
-        <div>
-          <label>Tên acc</label>
-          <input id="accountName" placeholder="Tên đăng nhập">
-        </div>
-      </div>
-      <br>
-      <div>
-        <label>Mật khẩu</label>
-        <input id="accountPass" placeholder="Mật khẩu">
-      </div>
-      <br>
-      <button class="btn" onclick="addAccount()">Thêm acc vào kho</button>
-      <div id="addMsg" class="msg"></div>
-    </section>
-
-    <section class="card">
-      <h2>📦 Kho acc</h2>
-      <button class="btn-gray" onclick="loadAccounts()">Tải lại kho</button>
-      <br><br>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th><th>Mệnh giá</th><th>Gói</th><th>Acc</th>
-              <th>Trạng thái</th><th>Khách</th><th>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody id="accountsBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>👥 Khách hàng</h2>
-      <button class="btn-gray" onclick="loadCustomers()">Tải lại khách</button>
-      <br><br>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr><th>Tên khách</th><th>Số dư</th><th>Ngày tạo</th><th>Thao tác</th></tr>
-          </thead>
-          <tbody id="customersBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2>💳 Yêu cầu nạp tiền</h2>
-      <button class="btn-gray" onclick="loadTopups()">Tải lại nạp tiền</button>
-      <br><br>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Mã nạp</th><th>Khách</th><th>Hình thức</th>
-              <th>Số tiền</th><th>Thông tin</th><th>Trạng thái</th><th>Thao tác</th>
-            </tr>
-          </thead>
-          <tbody id="topupsBody"></tbody>
-        </table>
-      </div>
-    </section>
-
-  </main>
 </div>
 
+
+<!-- =================================================
+     ADMIN
+================================================= -->
+
+<div id="adminPage" class="hidden">
+
+<header>
+
+    <div class="logo">
+        🎮 SHOPKAROT ADMIN
+    </div>
+
+    <button
+        class="logout"
+        onclick="logout()">
+        Đăng xuất
+    </button>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- =================================================
+     MENU
+================================================= -->
+
+<div class="nav">
+
+    <button onclick="showPage('dashboard')">
+        📊 Tổng quan
+    </button>
+
+    <button onclick="showPage('add')">
+        ➕ Thêm acc
+    </button>
+
+    <button onclick="showPage('warehouse')">
+        📦 Kho acc
+    </button>
+
+    <button onclick="showPage('customers')">
+        👥 Khách hàng
+    </button>
+
+    <button onclick="showPage('topups')">
+        💰 Nạp tiền
+    </button>
+
+    <button onclick="showPage('orders')">
+        🧾 Đơn hàng
+    </button>
+
+    <button onclick="refreshAll()">
+        🔄 Làm mới
+    </button>
+
+</div>
+
+
+<!-- =================================================
+     TRẠNG THÁI SHOP
+================================================= -->
+
+<section class="shop-status-box">
+
+    <h2>
+        🏪 TRẠNG THÁI SHOP
+    </h2>
+
+    <p class="small">
+        Admin chọn trạng thái Shop.
+        Trạng thái này được lưu riêng trên trình duyệt
+        của Admin.
+    </p>
+
+    <div class="shop-status-options">
+
+        <button
+            type="button"
+            id="statusActive"
+            class="shop-status-option"
+            onclick="setShopStatus('active')">
+
+            🟢 SHOP ĐANG HOẠT ĐỘNG
+
+        </button>
+
+        <button
+            type="button"
+            id="statusUpdating"
+            class="shop-status-option"
+            onclick="setShopStatus('updating')">
+
+            🟡 SHOP ĐANG CẬP NHẬT
+
+        </button>
+
+        <button
+            type="button"
+            id="statusStopped"
+            class="shop-status-option"
+            onclick="setShopStatus('stopped')">
+
+            🔴 SHOP NGỪNG HOẠT ĐỘNG
+
+        </button>
+
+    </div>
+
+    <div
+        id="shopStatusCurrent"
+        class="shop-status-current">
+
+        Chưa chọn trạng thái
+
+    </div>
+
+    <button
+        type="button"
+        onclick="saveShopStatus()">
+
+        💾 LƯU TRẠNG THÁI SHOP
+
+    </button>
+
+    <div
+        id="shopStatusMessage"
+        class="hidden">
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     DASHBOARD
+================================================= -->
+
+<section id="dashboard" class="page">
+
+    <div class="grid">
+
+        <div class="stat">
+            <div>📦 Tổng acc</div>
+            <div
+                id="totalAccounts"
+                class="stat-number">
+                0
+            </div>
+        </div>
+
+        <div class="stat">
+            <div>🟢 Còn hàng</div>
+            <div
+                id="availableAccounts"
+                class="stat-number">
+                0
+            </div>
+        </div>
+
+        <div class="stat">
+            <div>🔴 Đã bán</div>
+            <div
+                id="soldAccounts"
+                class="stat-number">
+                0
+            </div>
+        </div>
+
+        <div class="stat">
+            <div>👥 Khách hàng</div>
+            <div
+                id="totalCustomers"
+                class="stat-number">
+                0
+            </div>
+        </div>
+
+        <div class="stat">
+            <div>💰 Yêu cầu nạp</div>
+            <div
+                id="pendingTopups"
+                class="stat-number">
+                0
+            </div>
+        </div>
+
+    </div>
+
+    <div class="box">
+
+        <h2>
+            📊 Tổng quan kho
+        </h2>
+
+        <p>
+            Acc còn hàng:
+            <b id="dashboardAvailable">0</b>
+        </p>
+
+        <p>
+            Acc đã bán:
+            <b id="dashboardSold">0</b>
+        </p>
+
+        <button onclick="refreshAll()">
+            🔄 Cập nhật dữ liệu
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     ADD ACCOUNT
+================================================= -->
+
+<section id="add" class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            ➕ Thêm acc vào kho
+        </h2>
+
+        <p class="small">
+            Mỗi acc có thể thuộc một mệnh giá và một trong
+            8 gói.
+        </p>
+
+        <label>
+            Mệnh giá
+        </label>
+
+        <select id="addPrice">
+
+            <option value="0">0K</option>
+            <option value="10000">10K</option>
+            <option value="20000">20K</option>
+            <option value="50000">50K</option>
+            <option value="80000">80K</option>
+            <option value="100000">100K</option>
+            <option value="200000">200K</option>
+            <option value="500000">500K</option>
+
+        </select>
+
+        <label>
+            Gói
+        </label>
+
+        <select id="addPackage">
+
+            <option value="1">Gói 1</option>
+            <option value="2">Gói 2</option>
+            <option value="3">Gói 3</option>
+            <option value="4">Gói 4</option>
+            <option value="5">Gói 5</option>
+            <option value="6">Gói 6</option>
+            <option value="7">Gói 7</option>
+            <option value="8">Gói 8</option>
+
+        </select>
+
+        <label>
+            Tên tài khoản
+        </label>
+
+        <input
+            id="addName"
+            placeholder="Tên acc Roblox">
+
+        <label>
+            Mật khẩu
+        </label>
+
+        <input
+            id="addPass"
+            placeholder="Mật khẩu acc">
+
+        <button onclick="addAccount()">
+            ➕ Thêm vào kho
+        </button>
+
+        <div
+            id="addMessage"
+            class="hidden">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     WAREHOUSE
+================================================= -->
+
+<section id="warehouse" class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            📦 Kho tài khoản
+        </h2>
+
+        <p class="small">
+            Có thể xem và xóa từng acc trong kho.
+            Nút Xóa sẽ gọi trực tiếp Apps Script.
+        </p>
+
+        <button onclick="loadAccounts()">
+            🔄 Tải lại kho
+        </button>
+
+        <br><br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>ID</th>
+                        <th>Mệnh giá</th>
+                        <th>Gói</th>
+                        <th>Tên acc</th>
+                        <th>Mật khẩu</th>
+                        <th>Trạng thái</th>
+                        <th>Khách</th>
+                        <th>Ngày thêm</th>
+                        <th>Ngày bán</th>
+                        <th>Thao tác</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="accountsTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     CUSTOMERS
+================================================= -->
+
+<section id="customers" class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            👥 Khách hàng
+        </h2>
+
+        <button onclick="loadCustomers()">
+            🔄 Tải khách hàng
+        </button>
+
+        <br><br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Tên khách</th>
+                        <th>Số dư</th>
+                        <th>Ngày tạo</th>
+                        <th>Lần nhận Túi 0K</th>
+                        <th>Thao tác</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="customersTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     TOPUPS
+================================================= -->
+
+<section id="topups" class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            💰 Yêu cầu nạp tiền
+        </h2>
+
+        <button onclick="loadTopups()">
+            🔄 Tải yêu cầu
+        </button>
+
+        <br><br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Mã nạp</th>
+                        <th>Khách</th>
+                        <th>Hình thức</th>
+                        <th>Số tiền</th>
+                        <th>Nhà mạng</th>
+                        <th>Serial</th>
+                        <th>Mã thẻ</th>
+                        <th>Nội dung CK</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="topupsTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     ORDERS
+================================================= -->
+
+<section id="orders" class="page hidden">
+
+    <div class="box">
+
+        <h2>
+            🧾 Đơn hàng
+        </h2>
+
+        <button onclick="loadAllOrders()">
+            🔄 Tải đơn hàng
+        </button>
+
+        <br><br>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Mã đơn</th>
+                        <th>Khách</th>
+                        <th>Mệnh giá</th>
+                        <th>Gói</th>
+                        <th>Tên acc</th>
+                        <th>Mật khẩu</th>
+                        <th>Số tiền</th>
+                        <th>Ngày mua</th>
+                        <th>Trạng thái</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="ordersTable">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+</div>
+
+
 <script>
-/*
- * DÁN URL WEB APP GOOGLE APPS SCRIPT CỦA BẠN VÀO ĐÂY.
- * Ví dụ:
- * https://script.google.com/macros/s/XXXXXXXX/exec
- */
-const API_URL =https://script.googleusercontent.com/macros/echo?user_content_key=AUkAhnScgIlVUFu4vpeOx2Kru_0W81kbvdE3gPhGJtARdp5QdFjD39SKzuwCy-jFGtpskb6uCNznvfKJS600XLUDq1_61k_JjGlApEVdH086La3IHHASI6qUTSyHW4JqaWBiDpcbT6Bpv-jvuhqzO8qz9F8urVG2hPPPUkVCVNh9AOw3xEuAyyZjr4vpIsuPRtgZ9gkfwHd_m8PlE0HngWgYNQerJe317dAjcQAnP1_Gu16fDU6PB-A1CXCQbXBjwB-jvc2x8b7ggn6JDerVKVwBTSH6EkgkOw&lib=MyUUUj22UBw43OjsRdJqfbdtg9oZl93DK 
 
-let ADMIN_KEY = "";
+/* =================================================
+   API
+================================================= */
 
-function showMsg(id, text, ok=true){
-  const el=document.getElementById(id);
-  el.textContent=text;
-  el.classList.add("show");
-  el.style.background=ok ? "#ecfdf5" : "#fef2f2";
-  el.style.color=ok ? "#166534" : "#991b1b";
-}
-
-function esc(v){
-  return String(v ?? "").replace(/[&<>"']/g,m=>({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[m]));
-}
-
-async function apiGet(action, extra={}){
-  const q=new URLSearchParams({action,...extra});
-  const r=await fetch(API_URL+"?"+q.toString());
-  return await r.json();
-}
-
-async function apiPost(data){
-  const r=await fetch(API_URL,{
-    method:"POST",
-    headers:{"Content-Type":"text/plain;charset=utf-8"},
-    body:JSON.stringify(data)
-  });
-  return await r.json();
-}
-
-async function loginAdmin(){
-  const key=document.getElementById("adminKey").value.trim();
-  if(!key){
-    showMsg("loginMsg","Vui lòng nhập Admin Key",false);
-    return;
-  }
-
-  ADMIN_KEY=key;
-
-  try{
-    const data=await apiGet("getCustomers",{adminKey:ADMIN_KEY});
-    if(!data.ok){
-      showMsg("loginMsg",data.message||"Admin Key không đúng",false);
-      ADMIN_KEY="";
-      return;
-    }
-
-    document.getElementById("loginBox").classList.add("hidden");
-    document.getElementById("adminMain").classList.remove("hidden");
-
-    loadShopStatus();
-    loadAccounts();
-    loadCustomers();
-    loadTopups();
-  }catch(e){
-    showMsg("loginMsg","Không kết nối được API: "+e.message,false);
-    ADMIN_KEY="";
-  }
-}
-
-function statusClass(status){
-  if(status==="Đang hoạt động") return "active";
-  if(status==="Tạm đóng") return "closed";
-  return "maintenance";
-}
-
-async function loadShopStatus(){
-  try{
-    const data=await apiGet("getShopStatus");
-    if(!data.ok) throw new Error(data.message||"Không lấy được trạng thái");
-
-    document.getElementById("shopStatus").value=data.status;
-    document.getElementById("shopMessage").value=data.message||"";
-    const badge=document.getElementById("statusBadge");
-    badge.textContent=data.status;
-    badge.className="status-badge "+statusClass(data.status);
-  }catch(e){
-    showMsg("statusMsg",e.message,false);
-  }
-}
-
-async function saveShopStatus(){
-  const status=document.getElementById("shopStatus").value;
-  const message=document.getElementById("shopMessage").value.trim();
-
-  try{
-    const data=await apiPost({
-      action:"setShopStatus",
-      adminKey:ADMIN_KEY,
-      status:status,
-      message:message
-    });
-
-    if(!data.ok){
-      showMsg("statusMsg",data.message||"Không lưu được",false);
-      return;
-    }
-
-    const badge=document.getElementById("statusBadge");
-    badge.textContent=data.status;
-    badge.className="status-badge "+statusClass(data.status);
-
-    showMsg("statusMsg","Đã lưu: "+data.status,true);
-  }catch(e){
-    showMsg("statusMsg","Lỗi API: "+e.message,false);
-  }
-}
-
-async function addAccount(){
-  const data=await apiPost({
-    action:"addAccount",
-    adminKey:ADMIN_KEY,
-    price:document.getElementById("price").value,
-    package:document.getElementById("package").value,
-    accountName:document.getElementById("accountName").value,
-    accountPass:document.getElementById("accountPass").value
-  });
-
-  if(data.ok){
-    showMsg("addMsg","Đã thêm acc thành công");
-    document.getElementById("accountName").value="";
-    document.getElementById("accountPass").value="";
-    loadAccounts();
-  }else{
-    showMsg("addMsg",data.message||"Không thêm được acc",false);
-  }
-}
-
-async function loadAccounts(){
-  try{
-    const data=await apiGet("getAccounts");
-    const body=document.getElementById("accountsBody");
-    if(!data.ok){body.innerHTML="<tr><td colspan='7'>"+esc(data.message)+"</td></tr>";return;}
-
-    body.innerHTML=(data.accounts||[]).map(a=>`
-      <tr>
-        <td>${esc(a.id)}</td>
-        <td>${Number(a.price||0).toLocaleString("vi-VN")}đ</td>
-        <td>${esc(a.package)}</td>
-        <td>${esc(a.accountName)}</td>
-        <td>${esc(a.status)}</td>
-        <td>${esc(a.customer)}</td>
-        <td><button class="btn-red" onclick="deleteAccount('${esc(a.id)}')">Xóa</button></td>
-      </tr>
-    `).join("") || "<tr><td colspan='7'>Kho chưa có acc</td></tr>";
-  }catch(e){
-    document.getElementById("accountsBody").innerHTML="<tr><td colspan='7'>"+esc(e.message)+"</td></tr>";
-  }
-}
-
-async function deleteAccount(id){
-  if(!confirm("Bạn chắc chắn muốn xóa acc này khỏi kho?")) return;
-
-  const data=await apiPost({
-    action:"deleteAccount",
-    adminKey:ADMIN_KEY,
-    id:id
-  });
-
-  alert(data.message||"Đã xử lý");
-  if(data.ok) loadAccounts();
-}
-
-async function loadCustomers(){
-  const data=await apiGet("getCustomers",{adminKey:ADMIN_KEY});
-  const body=document.getElementById("customersBody");
-
-  if(!data.ok){
-    body.innerHTML="<tr><td colspan='4'>"+esc(data.message)+"</td></tr>";
-    return;
-  }
-
-  body.innerHTML=(data.customers||[]).map(c=>`
-    <tr>
-      <td>${esc(c.username)}</td>
-      <td>${Number(c.balance||0).toLocaleString("vi-VN")}đ</td>
-      <td>${esc(c.createdAt)}</td>
-      <td><button class="btn-red" onclick="deleteCustomer('${esc(c.username)}')">Xóa</button></td>
-    </tr>
-  `).join("") || "<tr><td colspan='4'>Chưa có khách hàng</td></tr>";
-}
-
-async function deleteCustomer(username){
-  if(!confirm("Xóa khách hàng "+username+"?")) return;
-
-  const data=await apiPost({
-    action:"deleteCustomer",
-    adminKey:ADMIN_KEY,
-    username:username
-  });
-
-  alert(data.message||"Đã xử lý");
-  if(data.ok) loadCustomers();
-}
-
-async function loadTopups(){
-  const data=await apiGet("getTopups",{adminKey:ADMIN_KEY});
-  const body=document.getElementById("topupsBody");
-
-  if(!data.ok){
-    body.innerHTML="<tr><td colspan='7'>"+esc(data.message)+"</td></tr>";
-    return;
-  }
-
-  body.innerHTML=(data.topups||[]).map(t=>{
-    let info="";
-    if(t.method==="THE_CAO"){
-      info="Nhà mạng: "+esc(t.provider)+"<br>Serial: "+esc(t.serial)+"<br>Mã: "+esc(t.code);
-    }else{
-      info="Nội dung: "+esc(t.note);
-    }
-
-    let action="";
-    if(t.status==="CHO_DUYET"){
-      action=`
-        <button class="btn" onclick="approveTopup('${esc(t.id)}')">Duyệt</button>
-        <button class="btn-red" onclick="rejectTopup('${esc(t.id)}')">Từ chối</button>
-      `;
-    }
-
-    return `
-      <tr>
-        <td>${esc(t.id)}</td>
-        <td>${esc(t.username)}</td>
-        <td>${esc(t.method)}</td>
-        <td>${Number(t.amount||0).toLocaleString("vi-VN")}đ</td>
-        <td>${info}</td>
-        <td>${esc(t.status)}</td>
-        <td>${action}</td>
-      </tr>
-    `;
-  }).join("") || "<tr><td colspan='7'>Chưa có yêu cầu nạp</td></tr>";
-}
-
-async function approveTopup(id){
-  if(!confirm("Duyệt yêu cầu nạp này?")) return;
-
-  const data=await apiPost({
-    action:"duyetNap",
-    adminKey:ADMIN_KEY,
-    id:id
-  });
-
-  alert(data.message||"Đã xử lý");
-  if(data.ok){
-    loadTopups();
-    loadCustomers();
-  }
-}
-
-async function rejectTopup(id){
-  if(!confirm("Từ chối yêu cầu nạp này?")) return;
-
-  const data=await apiPost({
-    action:"tuChoiNap",
-    adminKey:ADMIN_KEY,
-    id:id
-  });
-
-  alert(data.message||"Đã xử lý");
-  if(data.ok) loadTopups();
-}
-</script>
-
-</body>
-</html>
+const API_URL =
+"https://script.google.com/macros/s/AKfycbyzLx2QQE_H0TzNk2c4opHO8J1JLz1Rqxfckoe7OMU4Ij6JRP25Asg0kIFMt5ZBAsogbQ/exec"; 
+ 
+ 
+/* ================================================= 
+   ADMIN LOGIN 
+================================================= */ 
+ 
+const ADMIN_USERNAME = "admin"; 
+const ADMIN_PASSWORD = "123456"; 
+ 
+ 
+let accounts = []; 
+let customers = []; 
+let topups = []; 
+let orders = []; 
+ 
+ 
+/* ================================================= 
+   FORMAT TIỀN 
+================================================= */ 
+ 
+function money(value){ 
+ 
+    return Number(value || 0) 
+        .toLocaleString("vi-VN") + "đ"; 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   API POST 
+================================================= */ 
+ 
+async function api(data){ 
+ 
+    const response = await fetch( 
+        API_URL, 
+        { 
+            method:"POST", 
+            body:JSON.stringify(data) 
+        } 
+    ); 
+ 
+    return await response.json(); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   LOGIN 
+================================================= */ 
+ 
+function adminLogin(){ 
+ 
+    const user = 
+        document 
+        .getElementById("adminUser") 
+        .value 
+        .trim(); 
+ 
+    const pass = 
+        document 
+        .getElementById("adminPass") 
+        .value; 
+ 
+    if( 
+        user === ADMIN_USERNAME && 
+        pass === ADMIN_PASSWORD 
+    ){ 
+ 
+        localStorage.setItem( 
+            "shopAdmin", 
+            "1" 
+        ); 
+ 
+        document 
+        .getElementById("loginPage") 
+        .classList 
+        .add("hidden"); 
+ 
+        document 
+        .getElementById("adminPage") 
+        .classList 
+        .remove("hidden"); 
+ 
+        refreshAll(); 
+ 
+    } 
+    else{ 
+ 
+        const box = 
+            document 
+            .getElementById("loginError"); 
+ 
+        box.textContent = 
+            "Sai tên Admin hoặc mật khẩu."; 
+ 
+        box.classList 
+        .remove("hidden"); 
+ 
+    } 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   AUTO LOGIN 
+================================================= */ 
+ 
+window.addEventListener( 
+    "load", 
+    function(){ 
+ 
+        if( 
+            localStorage.getItem( 
+                "shopAdmin" 
+            ) === "1" 
+        ){ 
+ 
+            document 
+            .getElementById("loginPage") 
+            .classList 
+            .add("hidden"); 
+ 
+            document 
+            .getElementById("adminPage") 
+            .classList 
+            .remove("hidden"); 
+ 
+            refreshAll(); 
+ 
+        } 
+ 
+        renderShopStatus(); 
+ 
+    } 
+); 
+ 
+ 
+/* ================================================= 
+   LOGOUT 
+================================================= */ 
+ 
+function logout(){ 
+ 
+    localStorage.removeItem( 
+        "shopAdmin" 
+    ); 
+ 
+    location.reload(); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   MENU 
+================================================= */ 
+ 
+function showPage(id){ 
+ 
+    document 
+    .querySelectorAll(".page") 
+    .forEach( 
+        page => 
+            page.classList 
+            .add("hidden") 
+    ); 
+ 
+    document 
+    .getElementById(id) 
+    .classList 
+    .remove("hidden"); 
+ 
+    if(id === "warehouse") 
+        loadAccounts(); 
+ 
+    if(id === "customers") 
+        loadCustomers(); 
+ 
+    if(id === "topups") 
+        loadTopups(); 
+ 
+    if(id === "orders") 
+        loadAllOrders(); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   THÊM ACC 
+================================================= */ 
+ 
+async function addAccount(){ 
+ 
+    const price = 
+        document 
+        .getElementById("addPrice") 
+        .value; 
+ 
+    const pack = 
+        document 
+        .getElementById("addPackage") 
+        .value; 
+ 
+    const name = 
+        document 
+        .getElementById("addName") 
+        .value 
+        .trim(); 
+ 
+    const pass = 
+        document 
+        .getElementById("addPass") 
+        .value 
+        .trim(); 
+ 
+    if(!name || !pass){ 
+ 
+        showMessage( 
+            "addMessage", 
+            "Vui lòng nhập tên acc và mật khẩu.", 
+            false 
+        ); 
+ 
+        return; 
+ 
+    } 
+ 
+    try{ 
+ 
+        const result = 
+            await api({ 
+ 
+                action:"addAccount", 
+ 
+                price:price, 
+ 
+                package:pack, 
+ 
+                accountName:name, 
+ 
+                accountPass:pass 
+ 
+            }); 
+ 
+        if(result.ok){ 
+ 
+            showMessage( 
+                "addMessage", 
+                "Đã thêm acc vào kho. ID: " + 
+                result.id, 
+                true 
+            ); 
+ 
+            document 
+            .getElementById("addName") 
+            .value = ""; 
+ 
+            document 
+            .getElementById("addPass") 
+            .value = ""; 
+ 
+            await loadAccounts(); 
+ 
+        } 
+        else{ 
+ 
+            showMessage( 
+                "addMessage", 
+                result.message || "Không thể thêm acc.", 
+                false 
+            ); 
+ 
+        } 
+ 
+    } 
+    catch(error){ 
+ 
+        showMessage( 
+            "addMessage", 
+            "Không kết nối được Apps Script.", 
+            false 
+        ); 
+ 
+    } 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   LOAD ACCOUNTS 
+================================================= */ 
+ 
+async function loadAccounts(){ 
+ 
+    try{ 
+ 
+        const response = 
+            await fetch( 
+                API_URL + 
+                "?action=getAccounts" 
+            ); 
+ 
+        const result = 
+            await response.json(); 
+ 
+        if(!result.ok){ 
+ 
+            console.error( 
+                result.message 
+            ); 
+ 
+            return; 
+ 
+        } 
+ 
+        accounts = 
+            result.accounts || []; 
+ 
+        renderAccounts(); 
+ 
+        updateDashboard(); 
+ 
+    } 
+    catch(error){ 
+ 
+        console.error(error); 
+ 
+    } 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   RENDER ACCOUNTS 
+================================================= */ 
+ 
+function renderAccounts(){ 
+ 
+    const tbody = 
+        document 
+        .getElementById( 
+            "accountsTable" 
+        ); 
+ 
+    tbody.innerHTML = ""; 
+ 
+    if(accounts.length === 0){ 
+ 
+        tbody.innerHTML = ` 
+            <tr> 
+                <td colspan="10"> 
+                    Không có acc trong kho. 
+                </td> 
+            </tr> 
+        `; 
+ 
+        return; 
+ 
+    } 
+ 
+    accounts.forEach( 
+        acc => { 
+ 
+            const tr = 
+                document 
+                .createElement("tr"); 
+ 
+            const status = 
+                String( 
+                    acc.status || "" 
+                ); 
+ 
+            let badge = 
+                "badge "; 
+ 
+            if( 
+                status.toUpperCase() 
+                === "CON_HANG" 
+            ){ 
+ 
+                badge += "available"; 
+ 
+            } 
+            else{ 
+ 
+                badge += "sold"; 
+ 
+            } 
+ 
+            tr.innerHTML = ` 
+ 
+                <td>${esc(acc.id)}</td> 
+ 
+                <td>${money(acc.price)}</td> 
+ 
+                <td> 
+                    Gói ${esc(acc.package)} 
+                </td> 
+ 
+                <td>${esc(acc.accountName)}</td> 
+ 
+                <td>${esc(acc.accountPass)}</td> 
+ 
+                <td> 
+                    <span class="${badge}"> 
+                        ${esc(status)} 
+                    </span> 
+                </td> 
+ 
+                <td> 
+                    ${esc(acc.customer)} 
+                </td> 
+ 
+                <td> 
+                    ${esc(acc.createdAt)} 
+                </td> 
+ 
+                <td> 
+                    ${esc(acc.soldAt)} 
+                </td> 
+ 
+                <td> 
+ 
+                    <div class="action"> 
+ 
+                        <button 
+                            class="danger" 
+                            onclick="deleteAccount('${escAttr(acc.id)}')"> 
+ 
+                            🗑️ Xóa 
+ 
+                        </button> 
+ 
+                    </div> 
+ 
+                </td> 
+ 
+            `; 
+ 
+            tbody.appendChild(tr); 
+ 
+        } 
+    ); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   XÓA ACC THẬT 
+================================================= */ 
+ 
+async function deleteAccount(id){ 
+ 
+    if(!id){ 
+ 
+        alert( 
+            "Không tìm thấy ID acc." 
+        ); 
+ 
+        return; 
+ 
+    } 
+ 
+    const account = 
+        accounts.find( 
+            acc => 
+                String(acc.id) === 
+                String(id) 
+        ); 
+ 
+    const name = 
+        account 
+        ? account.accountName 
+        : id; 
+ 
+    const ok = 
+        confirm( 
+            "Bạn có chắc muốn xóa acc:\n\n" + 
+            name + 
+            "\n\nID: " + 
+            id + 
+            "\n\nHành động này sẽ xóa khỏi Google Sheet." 
+        ); 
+ 
+    if(!ok) 
+        return; 
+ 
+    try{ 
+ 
+        const result = 
+            await api({ 
+ 
+                action:"deleteAccount", 
+ 
+                id:id 
+ 
+            }); 
+ 
+        if(result.ok){ 
+ 
+            alert( 
+                result.message || 
+                "Đã xóa acc." 
+            ); 
+ 
+            await loadAccounts(); 
+ 
+        } 
+        else{ 
+ 
+            alert( 
+                result.message || 
+                "Không thể xóa acc." 
+            ); 
+ 
+        } 
+ 
+    } 
+    catch(error){ 
+ 
+        console.error(error); 
+ 
+        alert( 
+            "Không kết nối được Apps Script." 
+        ); 
+ 
+    } 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   LOAD CUSTOMERS 
+================================================= */ 
+ 
+async function loadCustomers(){ 
+ 
+    try{ 
+ 
+        const result = 
+            await api({ 
+ 
+                action:"getCustomers" 
+ 
+            }); 
+ 
+        if(!result.ok) 
+            return; 
+ 
+        customers = 
+            result.customers || []; 
+ 
+        renderCustomers(); 
+ 
+        updateDashboard(); 
+ 
+    } 
+    catch(error){ 
+ 
+        console.error(error); 
+ 
+    } 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   RENDER CUSTOMERS 
+================================================= */ 
+ 
+function renderCustomers(){ 
+ 
+    const tbody = 
+        document 
+        .getElementById( 
+            "customersTable" 
+        ); 
+ 
+    tbody.innerHTML = ""; 
+ 
+    if(customers.length === 0){ 
+ 
+        tbody.innerHTML = ` 
+            <tr> 
+                <td colspan="5"> 
+                    Chưa có khách hàng. 
+                </td> 
+            </tr> 
+        `; 
+ 
+        return; 
+ 
+    } 
+ 
+    customers.forEach( 
+        customer => { 
+ 
+            const tr = 
+                document 
+                .createElement("tr"); 
+ 
+            tr.innerHTML = ` 
+ 
+                <td> 
+                    ${esc( 
+                        customer.username 
+                    )} 
+                </td> 
+ 
+                <td> 
+                    <b> 
+                        ${money( 
+                            customer.balance 
+                        )} 
+                    </b> 
+                </td> 
+ 
+                <td> 
+                    ${esc( 
+                        customer.createdAt 
+                    )} 
+                </td> 
+ 
+                <td> 
+                    ${esc( 
+                        customer.freeClaim 
+                    )} 
+                </td> 
+ 
+                <td> 
+ 
+                    <div class="action"> 
+ 
+                        <button 
+                            class="blue" 
+                            onclick="viewCustomer('${escAttr(customer.username)}')"> 
+ 
+                            👁️ Xem 
+ 
+                        </button> 
+ 
+                    </div> 
+ 
+                </td> 
+ 
+            `; 
+ 
+            tbody.appendChild(tr); 
+ 
+        } 
+    ); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   XEM KHÁCH 
+================================================= */ 
+ 
+function viewCustomer(username){ 
+ 
+    alert( 
+        "Khách hàng: " + 
+        username 
+    ); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   LOAD TOPUPS 
+================================================= */ 
+ 
+async function loadTopups(){ 
+ 
+    try{ 
+ 
+        const result = 
+            await api({ 
+ 
+                action:"getTopups" 
+ 
+            }); 
+ 
+        if(!result.ok) 
+            return; 
+ 
+        topups = 
+            result.topups || []; 
+ 
+        renderTopups(); 
+ 
+        updateDashboard(); 
+ 
+    } 
+    catch(error){ 
+ 
+        console.error(error); 
+ 
+    } 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   RENDER TOPUPS 
+================================================= */ 
+ 
+function renderTopups(){ 
+ 
+    const tbody = 
+        document 
+        .getElementById( 
+            "topupsTable" 
+        ); 
+ 
+    tbody.innerHTML = ""; 
+ 
+    topups.forEach( 
+        item => { 
+ 
+            const tr = 
+                document 
+                .createElement("tr"); 
+ 
+            let statusClass = 
+                "pending"; 
+ 
+            if( 
+                item.status === 
+                "DA_DUYET" 
+            ) 
+                statusClass = 
+                    "approved"; 
+ 
+            if( 
+                item.status === 
+                "TU_CHOI" 
+            ) 
+                statusClass = 
+                    "rejected"; 
+ 
+            let action = ""; 
+ 
+            if( 
+                item.status === 
+                "CHO_DUYET" 
+            ){ 
+ 
+                action = ` 
+ 
+                    <div class="action"> 
+ 
+                        <button 
+                            class="green" 
+                            onclick="approveTopup('${escAttr(item.id)}')"> 
+ 
+                            Duyệt 
+ 
+                        </button> 
+ 
+                        <button 
+                            class="danger" 
+                            onclick="rejectTopup('${escAttr(item.id)}')"> 
+ 
+                            Từ chối 
+ 
+                        </button> 
+ 
+                    </div> 
+ 
+                `; 
+ 
+            } 
+            else{ 
+ 
+                action = 
+                    "Đã xử lý"; 
+ 
+            } 
+ 
+            tr.innerHTML = ` 
+ 
+                <td>${esc(item.id)}</td> 
+ 
+                <td>${esc(item.username)}</td> 
+ 
+                <td>${esc(item.method)}</td> 
+ 
+                <td> 
+                    <b> 
+                        ${money(item.amount)} 
+                    </b> 
+                </td> 
+ 
+                <td>${esc(item.provider)}</td> 
+ 
+                <td>${esc(item.serial)}</td> 
+ 
+                <td>${esc(item.code)}</td> 
+ 
+                <td>${esc(item.note)}</td> 
+ 
+                <td> 
+                    <span class="badge ${statusClass}"> 
+                        ${esc(item.status)} 
+                    </span> 
+                </td> 
+ 
+                <td> 
+                    ${action} 
+                </td> 
+ 
+            `; 
+ 
+            tbody.appendChild(tr); 
+ 
+        } 
+    ); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   DUYỆT NẠP 
+================================================= */ 
+ 
+async function approveTopup(id){ 
+ 
+    if( 
+        !confirm( 
+            "Bạn chắc chắn muốn duyệt yêu cầu này?" 
+        ) 
+    ) 
+        return; 
+ 
+    try{ 
+ 
+        const result = 
+            await api({ 
+ 
+                action:"duyetNap", 
+ 
+                id:id 
+ 
+            }); 
+ 
+        alert( 
+            result.message 
+        ); 
+ 
+        if(result.ok){ 
+ 
+            await loadTopups(); 
+ 
+            await loadCustomers(); 
+ 
+        } 
+ 
+    } 
+    catch(error){ 
+ 
+        alert( 
+            "Không kết nối được máy chủ." 
+        ); 
+ 
+    } 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   TỪ CHỐI NẠP 
+================================================= */ 
+ 
+async function rejectTopup(id){ 
+ 
+    if( 
+        !confirm( 
+            "Bạn chắc chắn muốn từ chối?" 
+        ) 
+    ) 
+        return; 
+ 
+    try{ 
+ 
+        const result = 
+            await api({ 
+ 
+                action:"tuChoiNap", 
+ 
+                id:id 
+ 
+            }); 
+ 
+        alert( 
+            result.message 
+        ); 
+ 
+        if(result.ok){ 
+ 
+            await loadTopups(); 
+ 
+        } 
+ 
+    } 
+    catch(error){ 
+ 
+        alert( 
+            "Không kết nối được máy chủ." 
+        ); 
+ 
+    } 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   LOAD ORDERS 
+================================================= */ 
+ 
+async function loadAllOrders(){ 
+ 
+    if( 
+        customers.length === 0 
+    ){ 
+ 
+        await loadCustomers(); 
+ 
+    } 
+ 
+    const resultOrders = []; 
+ 
+    for( 
+        const customer of customers 
+    ){ 
+ 
+        try{ 
+ 
+            const result = 
+                await api({ 
+ 
+                    action:"getOrders", 
+ 
+                    username: 
+                        customer.username 
+ 
+                }); 
+ 
+            if( 
+                result.ok && 
+                result.orders 
+            ){ 
+ 
+                resultOrders.push( 
+                    ...result.orders 
+                ); 
+ 
+            } 
+ 
+        } 
+        catch(error){ 
+ 
+            console.error(error); 
+ 
+        } 
+ 
+    } 
+ 
+    orders = 
+        resultOrders; 
+ 
+    renderOrders(); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   RENDER ORDERS 
+================================================= */ 
+ 
+function renderOrders(){ 
+ 
+    const tbody = 
+        document 
+        .getElementById( 
+            "ordersTable" 
+        ); 
+ 
+    tbody.innerHTML = ""; 
+ 
+    orders 
+    .slice() 
+    .reverse() 
+    .forEach( 
+        order => { 
+ 
+            const tr = 
+                document 
+                .createElement("tr"); 
+ 
+            tr.innerHTML = ` 
+ 
+                <td> 
+                    ${esc(order.orderId)} 
+                </td> 
+ 
+                <td> 
+                    ${esc(order.username)} 
+                </td> 
+ 
+                <td> 
+                    ${money(order.price)} 
+                </td> 
+ 
+                <td> 
+                    Gói ${esc(order.package)} 
+                </td> 
+ 
+                <td> 
+                    ${esc(order.accountName)} 
+                </td> 
+ 
+                <td> 
+                    ${esc(order.accountPass)} 
+                </td> 
+ 
+                <td> 
+                    ${money(order.amount)} 
+                </td> 
+ 
+                <td> 
+                    ${esc(order.date)} 
+                </td> 
+ 
+                <td> 
+ 
+                    <span class="badge approved"> 
+                        ${esc(order.status)} 
+                    </span> 
+ 
+                </td> 
+ 
+            `; 
+ 
+            tbody.appendChild(tr); 
+ 
+        } 
+    ); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   DASHBOARD 
+================================================= */ 
+ 
+function updateDashboard(){ 
+ 
+    const total = 
+        accounts.length; 
+ 
+    const available = 
+        accounts.filter( 
+            acc => 
+                String( 
+                    acc.status 
+                ) 
+                .toUpperCase() 
+                === "CON_HANG" 
+        ).length; 
+ 
+    const sold = 
+        accounts.filter( 
+            acc => 
+                String( 
+                    acc.status 
+                ) 
+                .toUpperCase() 
+                === "DA_BAN" 
+        ).length; 
+ 
+    const customerCount = 
+        customers.length; 
+ 
+    const pending = 
+        topups.filter( 
+            item => 
+                item.status === 
+                "CHO_DUYET" 
+        ).length; 
+ 
+    document 
+    .getElementById( 
+        "totalAccounts" 
+    ) 
+    .textContent = 
+        total; 
+ 
+    document 
+    .getElementById( 
+        "availableAccounts" 
+    ) 
+    .textContent = 
+        available; 
+ 
+    document 
+    .getElementById( 
+        "soldAccounts" 
+    ) 
+    .textContent = 
+        sold; 
+ 
+    document 
+    .getElementById( 
+        "totalCustomers" 
+    ) 
+    .textContent = 
+        customerCount; 
+ 
+    document 
+    .getElementById( 
+        "pendingTopups" 
+    ) 
+    .textContent = 
+        pending; 
+ 
+    document 
+    .getElementById( 
+        "dashboardAvailable" 
+    ) 
+    .textContent = 
+        available; 
+ 
+    document 
+    .getElementById( 
+        "dashboardSold" 
+    ) 
+    .textContent = 
+        sold; 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   TRẠNG THÁI SHOP 
+================================================= */ 
+ 
+const SHOP_STATUS_KEY = 
+    "shopkarot_shop_status"; 
+ 
+ 
+const SHOP_STATUS_DATA = { 
+ 
+    active:{ 
+        label:"🟢 SHOP ĐANG HOẠT ĐỘNG", 
+        className:"success" 
+    }, 
+ 
+    updating:{ 
+        label:"🟡 SHOP ĐANG CẬP NHẬT", 
+        className:"pending" 
+    }, 
+ 
+    stopped:{ 
+        label:"🔴 SHOP NGỪNG HOẠT ĐỘNG", 
+        className:"error" 
+    } 
+ 
+}; 
+ 
+ 
+let selectedShopStatus = 
+    localStorage.getItem( 
+        SHOP_STATUS_KEY 
+    ) || "active"; 
+ 
+ 
+function setShopStatus(status){ 
+ 
+    if( 
+        !SHOP_STATUS_DATA[status] 
+    ) 
+        return; 
+ 
+    selectedShopStatus = 
+        status; 
+ 
+    renderShopStatus(); 
+ 
+} 
+ 
+ 
+function renderShopStatus(){ 
+ 
+    document 
+    .querySelectorAll( 
+        ".shop-status-option" 
+    ) 
+    .forEach( 
+        btn => 
+            btn.classList 
+            .remove("active") 
+    ); 
+ 
+    const map = { 
+ 
+        active: 
+            "statusActive", 
+ 
+        updating: 
+            "statusUpdating", 
+ 
+        stopped: 
+            "statusStopped" 
+ 
+    }; 
+ 
+    const selected = 
+        document.getElementById( 
+            map[ 
+                selectedShopStatus 
+            ] 
+        ); 
+ 
+    if(selected){ 
+ 
+        selected 
+        .classList 
+        .add("active"); 
+ 
+    } 
+ 
+    const box = 
+        document.getElementById( 
+            "shopStatusCurrent" 
+        ); 
+ 
+    if(box){ 
+ 
+        box.textContent = 
+            "Trạng thái hiện tại: " + 
+            SHOP_STATUS_DATA[ 
+                selectedShopStatus 
+            ].label; 
+ 
+    } 
+ 
+} 
+ 
+ 
+function saveShopStatus(){ 
+ 
+    localStorage.setItem( 
+        SHOP_STATUS_KEY, 
+        selectedShopStatus 
+    ); 
+ 
+    showMessage( 
+        "shopStatusMessage", 
+        "Đã lưu: " + 
+        SHOP_STATUS_DATA[ 
+            selectedShopStatus 
+        ].label, 
+        true 
+    ); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   REFRESH 
+================================================= */ 
+ 
+async function refreshAll(){ 
+ 
+    await loadAccounts(); 
+ 
+    await loadCustomers(); 
+ 
+    await loadTopups(); 
+ 
+    updateDashboard(); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   MESSAGE 
+================================================= */ 
+ 
+function showMessage( 
+    id, 
+    message, 
+    success 
+){ 
+ 
+    const box = 
+        document 
+        .getElementById(id); 
+ 
+    if(!box) 
+        return; 
+ 
+    box.textContent = 
+        message; 
+ 
+    box.className = 
+        success 
+        ? "success" 
+        : "error"; 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   ESCAPE HTML 
+================================================= */ 
+ 
+function esc(value){ 
+ 
+    return String( 
+        value ?? "" 
+    ) 
+    .replace( 
+        /&/g, 
+        "&amp;" 
+    ) 
+    .replace( 
+        /</g, 
+        "&lt;" 
+    ) 
+    .replace( 
+        />/g, 
+        "&gt;" 
+    ) 
+    .replace( 
+        /"/g, 
+        "&quot;" 
+    ) 
+    .replace( 
+        /'/g, 
+        "&#039;" 
+    ); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   ESCAPE ATTRIBUTE 
+================================================= */ 
+ 
+function escAttr(value){ 
+ 
+    return String( 
+        value ?? "" 
+    ) 
+    .replace( 
+        /\\/g, 
+        "\\\\" 
+    ) 
+    .replace( 
+        /'/g, 
+        "\\'" 
+    ); 
+ 
+} 
+ 
+ 
+/* ================================================= 
+   KHỞI TẠO TRẠNG THÁI SHOP 
+================================================= */ 
+ 
+renderShopStatus(); 
+ 
+</script> 
+ 
+</body> 
+</html> day de minh gui them code indexx
