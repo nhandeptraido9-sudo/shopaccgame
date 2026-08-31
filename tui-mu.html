@@ -261,6 +261,16 @@ button:disabled{
     font-weight:bold;
 }
 
+.package-warning{
+    margin-top:15px;
+    padding:15px;
+    border-radius:12px;
+    background:#fff7ed;
+    border:1px solid #fed7aa;
+    color:#9a3412;
+    line-height:1.6;
+}
+
 @media(max-width:600px){
 
     .header{
@@ -376,17 +386,22 @@ button:disabled{
 
         </div>
 
-    <div class="package-warning"> 
-        <strong> 
-            2️⃣ Nếu Gói 1 không có acc 
-        </strong> 
-        <br><br> 
-        Nếu quý khách chọn 
-        <b>Gói 1</b> 
-        nhưng hệ thống báo không có acc hoặc lấy acc bị lỗi, hãy 
-        <b>kiểm tra từng gói khác</b> đang có trên shop. 
-    </div> 
-    
+        <div class="package-warning">
+
+            <strong>
+                2️⃣ Nếu Gói 1 không có acc
+            </strong>
+
+            <br><br>
+
+            Nếu quý khách chọn
+            <b>Gói 1</b>
+            nhưng hệ thống báo không có acc hoặc lấy acc bị lỗi, hãy
+            <b>kiểm tra từng gói khác</b>
+            đang có trên shop.
+
+        </div>
+
     </div>
 
 
@@ -725,8 +740,12 @@ button:disabled{
             📦 Đơn hàng của tôi
         </h2>
 
-        <button onclick="loadOrders()">
+        <button
+            id="reloadOrdersButton"
+            onclick="loadOrders()">
+
             🔄 Xem / tải lại đơn hàng
+
         </button>
 
         <div id="orders"></div>
@@ -804,7 +823,36 @@ async function api(data){
     }
 
 
-    return await response.json();
+    const text =
+        await response.text();
+
+
+    if(!text){
+
+        throw new Error(
+            "API không trả về dữ liệu"
+        );
+
+    }
+
+
+    try{
+
+        return JSON.parse(text);
+
+    }
+    catch(error){
+
+        console.error(
+            "API trả về dữ liệu không phải JSON:",
+            text
+        );
+
+        throw new Error(
+            "Dữ liệu API không hợp lệ"
+        );
+
+    }
 
 }
 
@@ -1249,7 +1297,9 @@ async function buy(price,selectId){
         String(select.value).trim();
 
 
-    /* 0K */
+    /* ==========================
+       KIỂM TRA 0K
+    ========================== */
 
     if(price === 0){
 
@@ -1290,6 +1340,12 @@ async function buy(price,selectId){
 
         }
         catch(error){
+
+            console.error(
+                "Lỗi kiểm tra 0K:",
+                error
+            );
+
 
             showError(
                 "buyError",
@@ -1404,7 +1460,9 @@ async function buy(price,selectId){
             money(result.balance);
 
 
-        /* 0K */
+        /* ==========================
+           0K
+        ========================== */
 
         if(price === 0){
 
@@ -1425,19 +1483,25 @@ async function buy(price,selectId){
 
 
         /*
-         * Đợi một chút rồi tải lại đơn hàng
-         * để khách kéo xuống thấy đơn mới.
+         * Đợi 1 giây để dữ liệu đơn hàng
+         * được ghi hoàn tất trên Sheet.
          */
 
         await new Promise(
             function(resolve){
+
                 setTimeout(
                     resolve,
                     1000
                 );
+
             }
         );
 
+
+        /*
+         * Tải lại đơn hàng.
+         */
 
         await loadOrders();
 
@@ -1450,8 +1514,11 @@ async function buy(price,selectId){
             function(){
 
                 resultBox.scrollIntoView({
+
                     behavior:"smooth",
+
                     block:"center"
+
                 });
 
             },
@@ -1489,6 +1556,23 @@ async function loadOrders(){
         );
 
 
+    const button =
+        document.getElementById(
+            "reloadOrdersButton"
+        );
+
+
+    if(!box){
+
+        console.error(
+            "Không tìm thấy phần tử orders"
+        );
+
+        return;
+
+    }
+
+
     if(!currentUser){
 
         box.innerHTML =
@@ -1499,11 +1583,35 @@ async function loadOrders(){
     }
 
 
+    /*
+     * Hiển thị trạng thái đang tải.
+     */
+
     box.innerHTML =
         "<p>⏳ Đang tải đơn hàng...</p>";
 
 
+    if(button){
+
+        button.disabled =
+            true;
+
+        button.textContent =
+            "⏳ Đang tải đơn hàng...";
+
+    }
+
+
     try{
+
+        /*
+         * Code.gs hiện tại hỗ trợ:
+         *
+         * action = getOrders
+         * username = tên khách
+         *
+         * Chúng ta gửi POST trực tiếp.
+         */
 
         const result =
             await api({
@@ -1517,24 +1625,135 @@ async function loadOrders(){
             });
 
 
+        console.log(
+            "Kết quả getOrders:",
+            result
+        );
+
+
+        /*
+         * Nếu API báo lỗi.
+         */
+
         if(
             !result ||
-            result.ok !== true ||
-            !Array.isArray(result.orders) ||
-            result.orders.length === 0
+            result.ok !== true
         ){
 
-            box.innerHTML =
-                "<p>📦 Bạn chưa có đơn hàng.</p>";
+            box.innerHTML = `
+
+                <p style="color:#dc2626">
+
+                    ❌ Không tải được đơn hàng.
+
+                    <br>
+
+                    ${
+                        escapeHtml(
+                            result &&
+                            result.message
+                                ? result.message
+                                : "API không trả về dữ liệu hợp lệ."
+                        )
+                    }
+
+                </p>
+
+            `;
 
             return;
 
         }
 
 
+        /*
+         * Code.gs trả:
+         *
+         * {
+         *   ok:true,
+         *   orders:[...]
+         * }
+         */
+
+        if(
+            !Array.isArray(
+                result.orders
+            )
+        ){
+
+            box.innerHTML = `
+
+                <p style="color:#dc2626">
+
+                    ❌ Dữ liệu đơn hàng không hợp lệ.
+
+                </p>
+
+            `;
+
+            return;
+
+        }
+
+
+        /*
+         * Không có đơn.
+         */
+
+        if(
+            result.orders.length === 0
+        ){
+
+            box.innerHTML = `
+
+                <div
+                    style="
+                        padding:18px;
+                        border-radius:12px;
+                        background:#f8fafc;
+                        border:1px solid #e2e8f0;
+                        text-align:center;
+                    "
+                >
+
+                    <div
+                        style="
+                            font-size:35px;
+                            margin-bottom:8px;
+                        "
+                    >
+                        📦
+                    </div>
+
+                    <b>
+                        Bạn chưa có đơn hàng.
+                    </b>
+
+                    <p class="small">
+                        Sau khi mua acc thành công,
+                        đơn hàng sẽ được lưu tại đây.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+
+        }
+
+
+        /*
+         * Xóa nội dung cũ.
+         */
+
         box.innerHTML =
             "";
 
+
+        /*
+         * Đơn mới nhất hiển thị trước.
+         */
 
         result.orders
         .slice()
@@ -1552,6 +1771,52 @@ async function loadOrders(){
                     "card order-card";
 
 
+                /*
+                 * Lấy dữ liệu an toàn.
+                 */
+
+                const orderId =
+                    escapeHtml(
+                        order.orderId || ""
+                    );
+
+
+                const packageName =
+                    escapeHtml(
+                        order.package || ""
+                    );
+
+
+                const accountName =
+                    escapeHtml(
+                        order.accountName || ""
+                    );
+
+
+                const accountPass =
+                    escapeHtml(
+                        order.accountPass || ""
+                    );
+
+
+                const date =
+                    escapeHtml(
+                        order.date || ""
+                    );
+
+
+                const status =
+                    escapeHtml(
+                        order.status || ""
+                    );
+
+
+                const price =
+                    money(
+                        order.price
+                    );
+
+
                 item.innerHTML = `
 
                     <h3>
@@ -1561,27 +1826,21 @@ async function loadOrders(){
                     <p>
                         🆔 Mã đơn:
                         <b>
-                            ${escapeHtml(
-                                order.orderId
-                            )}
+                            ${orderId}
                         </b>
                     </p>
 
                     <p>
                         🎁 Gói:
                         <b>
-                            ${escapeHtml(
-                                order.package
-                            )}
+                            ${packageName}
                         </b>
                     </p>
 
                     <p>
                         💰 Giá:
                         <b>
-                            ${money(
-                                order.price
-                            )}
+                            ${price}
                         </b>
                     </p>
 
@@ -1594,9 +1853,7 @@ async function loadOrders(){
                         </p>
 
                         <div class="account-name">
-                            ${escapeHtml(
-                                order.accountName
-                            )}
+                            ${accountName}
                         </div>
 
                         <p>
@@ -1604,9 +1861,7 @@ async function loadOrders(){
                         </p>
 
                         <div class="account-pass">
-                            ${escapeHtml(
-                                order.accountPass
-                            )}
+                            ${accountPass}
                         </div>
 
                     </div>
@@ -1615,19 +1870,29 @@ async function loadOrders(){
 
                     <p>
                         📅 Ngày mua:
-                        ${escapeHtml(
-                            order.date
-                        )}
+                        ${date}
                     </p>
 
                     <p>
                         ✅ Trạng thái:
                         <b class="success">
-                            ${escapeHtml(
-                                order.status
-                            )}
+                            ${status}
                         </b>
                     </p>
+
+                    <div class="delivery-note">
+
+                        📌 Acc này đã được lưu trong
+                        <b>Đơn hàng của tôi</b>.
+
+                        <br>
+
+                        Bạn có thể quay lại trang này
+                        và bấm
+                        <b>“Xem / tải lại đơn hàng”</b>
+                        để xem lại acc đã mua.
+
+                    </div>
 
                 `;
 
@@ -1650,17 +1915,55 @@ async function loadOrders(){
 
         box.innerHTML = `
 
-            <p style="color:#dc2626">
+            <div
+                style="
+                    padding:18px;
+                    border-radius:12px;
+                    background:#fef2f2;
+                    border:1px solid #fecaca;
+                    color:#b91c1c;
+                "
+            >
 
-                ❌ Không tải được đơn hàng.
+                <b>
+                    ❌ Không tải được đơn hàng.
+                </b>
 
-                <br>
+                <br><br>
 
-                Vui lòng thử lại.
+                Vui lòng kiểm tra kết nối mạng
+                hoặc thử bấm tải lại.
 
-            </p>
+                <br><br>
+
+                <span class="small">
+                    ${
+                        escapeHtml(
+                            error.message || ""
+                        )
+                    }
+                </span>
+
+            </div>
 
         `;
+
+    }
+    finally{
+
+        /*
+         * Luôn trả nút về trạng thái bình thường.
+         */
+
+        if(button){
+
+            button.disabled =
+                false;
+
+            button.textContent =
+                "🔄 Xem / tải lại đơn hàng";
+
+        }
 
     }
 
@@ -1757,4 +2060,3 @@ function escapeHtml(value){
 
 </body>
 </html>
-```
