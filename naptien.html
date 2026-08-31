@@ -1,0 +1,1528 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>SHOPKAROT - Nạp tiền</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:
+        linear-gradient(135deg,#eef2ff,#f8fafc 45%,#e0f2fe);
+    color:#111827;
+    min-height:100vh;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    background:
+        linear-gradient(135deg,#111827,#312e81);
+    color:white;
+    padding:18px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+    box-shadow:0 5px 20px rgba(0,0,0,.18);
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.user-area{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.balance{
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+    padding:10px 16px;
+    border-radius:12px;
+    font-weight:bold;
+    box-shadow:0 4px 12px rgba(0,0,0,.15);
+}
+
+.logout{
+    width:auto;
+    margin:0;
+    padding:10px 15px;
+    background:#dc2626;
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    width:100%;
+    max-width:1100px;
+    margin:25px auto;
+    padding:0 15px 40px;
+}
+
+/* ================= BUTTON ================= */
+
+button,
+input,
+select{
+    font-family:Arial,sans-serif;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+button:hover{
+    opacity:.92;
+    transform:translateY(-1px);
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+/* ================= TOP NOTICE ================= */
+
+.notice{
+    background:white;
+    border-radius:18px;
+    padding:22px;
+    margin-bottom:20px;
+    box-shadow:0 8px 30px rgba(15,23,42,.09);
+    border:1px solid #e5e7eb;
+}
+
+.notice-title{
+    margin:0 0 15px;
+    font-size:22px;
+    color:#111827;
+}
+
+.notice p{
+    line-height:1.65;
+    margin:10px 0;
+}
+
+.warning-box{
+    margin-top:18px;
+    padding:17px;
+    background:#fff5f5;
+    border:2px solid #ef4444;
+    border-radius:14px;
+}
+
+.warning-box h3{
+    margin:0 0 12px;
+    color:#dc2626;
+}
+
+.amount-example{
+    margin:15px auto;
+    width:max-content;
+    max-width:100%;
+    padding:10px 25px;
+    border-radius:10px;
+    background:#fee2e2;
+    color:#b91c1c;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.admin-note{
+    margin-top:18px;
+    padding:14px;
+    background:#eff6ff;
+    border:1px solid #93c5fd;
+    border-radius:12px;
+    color:#1e40af;
+    font-weight:bold;
+}
+
+/* ================= LOGIN ================= */
+
+.login-box{
+    background:white;
+    padding:30px;
+    border-radius:18px;
+    text-align:center;
+    box-shadow:0 8px 30px rgba(15,23,42,.09);
+}
+
+.login-btn{
+    margin-top:15px;
+    width:100%;
+    padding:14px;
+    border-radius:11px;
+    background:linear-gradient(135deg,#4f46e5,#2563eb);
+    color:white;
+    font-size:16px;
+}
+
+/* ================= SHOP BUTTON ================= */
+
+.back-shop{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    margin-bottom:18px;
+    padding:11px 18px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    text-decoration:none;
+    border-radius:11px;
+    font-weight:bold;
+    box-shadow:0 5px 15px rgba(37,99,235,.2);
+}
+
+.back-shop:hover{
+    transform:translateY(-1px);
+}
+
+/* ================= TITLE ================= */
+
+.page-title{
+    text-align:center;
+    margin:5px 0 25px;
+}
+
+.page-title h1{
+    margin:0 0 7px;
+    font-size:30px;
+}
+
+.page-title p{
+    margin:0;
+    color:#64748b;
+}
+
+/* ================= GRID ================= */
+
+.topup-grid{
+    display:grid;
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+    gap:20px;
+}
+
+/* ================= CARD ================= */
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:23px;
+    box-shadow:0 8px 30px rgba(15,23,42,.09);
+    border:1px solid #e5e7eb;
+}
+
+.card-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:18px;
+}
+
+.icon{
+    width:48px;
+    height:48px;
+    border-radius:13px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:25px;
+    background:#eef2ff;
+}
+
+.card h2{
+    margin:0;
+    font-size:21px;
+}
+
+.card-subtitle{
+    margin:4px 0 0;
+    color:#64748b;
+    font-size:13px;
+}
+
+/* ================= FORM ================= */
+
+label{
+    display:block;
+    margin:14px 0 6px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+input,
+select{
+    width:100%;
+    padding:13px;
+    border:1px solid #cbd5e1;
+    border-radius:11px;
+    outline:none;
+    background:white;
+    font-size:15px;
+}
+
+input:focus,
+select:focus{
+    border-color:#6366f1;
+    box-shadow:0 0 0 3px rgba(99,102,241,.1);
+}
+
+.main-btn{
+    width:100%;
+    margin-top:20px;
+    padding:14px;
+    border-radius:11px;
+    color:white;
+    font-size:16px;
+    background:linear-gradient(135deg,#4f46e5,#2563eb);
+    box-shadow:0 5px 15px rgba(37,99,235,.2);
+}
+
+.bank-btn{
+    background:linear-gradient(135deg,#059669,#16a34a);
+}
+
+/* ================= INFO ================= */
+
+.form-info{
+    margin-top:15px;
+    padding:12px;
+    border-radius:10px;
+    background:#f8fafc;
+    color:#64748b;
+    font-size:13px;
+    line-height:1.55;
+}
+
+/* ================= MESSAGE ================= */
+
+.message{
+    display:none;
+    margin-top:16px;
+    padding:13px;
+    border-radius:11px;
+    font-weight:bold;
+    line-height:1.5;
+}
+
+.message.error{
+    display:none;
+    background:#fef2f2;
+    border:1px solid #fecaca;
+    color:#b91c1c;
+}
+
+.message.success{
+    display:none;
+    background:#ecfdf5;
+    border:1px solid #a7f3d0;
+    color:#166534;
+}
+
+/* ================= USER INFO ================= */
+
+.user-info{
+    margin-bottom:20px;
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 8px 30px rgba(15,23,42,.09);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.user-name{
+    font-size:18px;
+    font-weight:bold;
+}
+
+.user-small{
+    color:#64748b;
+    margin-top:5px;
+}
+
+/* ================= HIDDEN ================= */
+
+.hidden{
+    display:none!important;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:750px){
+
+    .topup-grid{
+        grid-template-columns:1fr;
+    }
+
+    .header{
+        padding:15px;
+    }
+
+    .logo{
+        font-size:20px;
+    }
+
+    .container{
+        margin-top:18px;
+    }
+
+    .page-title h1{
+        font-size:25px;
+    }
+
+}
+
+@media(max-width:450px){
+
+    .notice,
+    .card,
+    .login-box,
+    .user-info{
+        padding:17px;
+    }
+
+    .balance{
+        width:100%;
+        text-align:center;
+    }
+
+    .user-area{
+        width:100%;
+    }
+
+    .logout{
+        width:100%;
+    }
+
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+```
+<div class="logo">
+    🎮 SHOPKAROT
+</div>
+
+<div class="user-area">
+
+    <div class="balance">
+        💰 Số dư:
+        <span id="balance">0đ</span>
+    </div>
+
+    <button
+        class="logout"
+        onclick="logout()">
+        Đăng xuất
+    </button>
+
+</div>
+```
+
+</header>
+
+<div class="container">
+
+```
+<!-- ================= QUAY LẠI SHOP ================= -->
+
+<a
+    href="index.html"
+    class="back-shop">
+    ← Quay lại Shop
+</a>
+
+
+<!-- ================= THÔNG TIN NGƯỜI DÙNG ================= -->
+
+<div
+    id="userInfo"
+    class="user-info hidden">
+
+    <div>
+
+        <div class="user-name">
+            👋 Xin chào,
+            <span id="customerName"></span>
+        </div>
+
+        <div class="user-small">
+            Bạn đang nạp tiền cho tài khoản SHOPKAROT.
+        </div>
+
+    </div>
+
+    <div class="balance">
+        💰
+        <span id="balance2">
+            0đ
+        </span>
+    </div>
+
+</div>
+
+
+<!-- ================= THÔNG BÁO ================= -->
+
+<aside class="notice">
+
+    <h2 class="notice-title">
+        📣 Lưu ý khi nạp tiền
+    </h2>
+
+    <p>
+        ⚠️ <b>Quý khách lưu ý:</b>
+        Vui lòng kiểm tra thật kỹ thông tin trước khi gửi yêu cầu nạp tiền.
+    </p>
+
+    <p>
+        💳 Khi nạp thẻ cào, hãy nhập
+        <b>đúng số tiền, số Serial và mã thẻ</b>
+        để Admin có thể kiểm tra chính xác.
+    </p>
+
+    <div class="warning-box">
+
+        <h3>
+            🚨 LƯU Ý KHI NHẬP SỐ TIỀN
+        </h3>
+
+        <p>
+            ❌ Không nhập thiếu số 0.
+        </p>
+
+        <p>
+            Ví dụ: nếu muốn nạp
+            <b>50.000đ</b>,
+            hãy nhập:
+        </p>
+
+        <div class="amount-example">
+            50000
+        </div>
+
+        <p>
+            ⚠️ Không nhập
+            <b>50</b>
+            nếu bạn muốn nạp
+            <b>50.000đ</b>.
+        </p>
+
+        <p>
+            ✅ Hãy nhập đầy đủ số tiền,
+            bao gồm cả <b>ba số 0</b>.
+        </p>
+
+        <p>
+            🔐 Với thẻ cào, vui lòng kiểm tra:
+            <b>Nhà mạng + Mệnh giá + Serial + Mã thẻ</b>.
+        </p>
+
+    </div>
+
+    <div class="admin-note">
+        💡 Nếu quý khách nạp tiền xong nhưng tài khoản
+        <b>không vào tiền</b>, vui lòng báo Admin ngay để được kiểm tra.
+    </div>
+
+</aside>
+
+
+<!-- ================= CHƯA ĐĂNG NHẬP ================= -->
+
+<div
+    id="loginBox"
+    class="login-box hidden">
+
+    <h2>
+        🔐 Bạn chưa đăng nhập
+    </h2>
+
+    <p>
+        Vui lòng đăng nhập tài khoản khách hàng
+        trước khi nạp tiền.
+    </p>
+
+    <button
+        class="login-btn"
+        onclick="goLogin()">
+        🔐 Đăng nhập
+    </button>
+
+</div>
+
+
+<!-- ================= NỘI DUNG NẠP ================= -->
+
+<div
+    id="topupContent"
+    class="hidden">
+
+    <div class="page-title">
+
+        <h1>
+            💰 Nạp tiền
+        </h1>
+
+        <p>
+            Chọn phương thức nạp tiền phù hợp với bạn.
+        </p>
+
+    </div>
+
+
+    <div class="topup-grid">
+
+
+        <!-- ================= NẠP THẺ ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div class="icon">
+                    💳
+                </div>
+
+                <div>
+
+                    <h2>
+                        Nạp thẻ cào
+                    </h2>
+
+                    <p class="card-subtitle">
+                        Gửi thẻ để Admin kiểm tra
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <label>
+                🏷️ Nhà mạng
+            </label>
+
+            <select id="cardProvider">
+
+                <option value="">
+                    -- Chọn nhà mạng --
+                </option>
+
+                <option value="VIETTEL">
+                    Viettel
+                </option>
+
+                <option value="VINAPHONE">
+                    Vinaphone
+                </option>
+
+                <option value="MOBIFONE">
+                    Mobifone
+                </option>
+
+            </select>
+
+
+            <label>
+                💰 Mệnh giá
+            </label>
+
+            <input
+                id="cardAmount"
+                type="number"
+                min="1"
+                inputmode="numeric"
+                placeholder="Ví dụ: 50000">
+
+
+            <label>
+                🔢 Số Serial
+            </label>
+
+            <input
+                id="cardSerial"
+                type="text"
+                autocomplete="off"
+                placeholder="Nhập số Serial">
+
+
+            <label>
+                🔑 Mã thẻ
+            </label>
+
+            <input
+                id="cardCode"
+                type="text"
+                autocomplete="off"
+                placeholder="Nhập mã thẻ">
+
+
+            <button
+                id="cardButton"
+                class="main-btn"
+                onclick="napTheCao()">
+
+                💳 Gửi thẻ cào
+
+            </button>
+
+
+            <div class="form-info">
+
+                ⚠️ Vui lòng kiểm tra kỹ
+                <b>nhà mạng, mệnh giá, Serial và mã thẻ</b>
+                trước khi gửi.
+
+            </div>
+
+        </div>
+
+
+        <!-- ================= NẠP NGÂN HÀNG ================= -->
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <div
+                    class="icon"
+                    style="background:#ecfdf5;">
+                    🏦
+                </div>
+
+                <div>
+
+                    <h2>
+                        Nạp ngân hàng
+                    </h2>
+
+                    <p class="card-subtitle">
+                        Gửi yêu cầu sau khi chuyển khoản
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <label>
+                💰 Số tiền
+            </label>
+
+            <input
+                id="bankAmount"
+                type="number"
+                min="1"
+                inputmode="numeric"
+                placeholder="Ví dụ: 50000">
+
+
+            <label>
+                📝 Nội dung chuyển khoản
+            </label>
+
+            <input
+                id="bankNote"
+                type="text"
+                placeholder="Nhập nội dung chuyển khoản">
+
+
+            <button
+                id="bankButton"
+                class="main-btn bank-btn"
+                onclick="napNganHang()">
+
+                🏦 Gửi yêu cầu ngân hàng
+
+            </button>
+
+
+            <div class="form-info">
+
+                ⚠️ Hiện tại giao dịch ngân hàng
+                <b>có thể gặp lỗi</b>.
+                Nếu có thể, quý khách nên sử dụng
+                <b>thẻ cào</b> để hạn chế lỗi.
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MESSAGE ================= -->
+
+    <div
+        id="topupMessage"
+        class="message">
+    </div>
+
+</div>
+```
+
+</div>
+
+<script>
+
+/* =====================================================
+   API APPS SCRIPT CỦA SHOPKAROT
+===================================================== */
+
+const API_URL =
+"https://script.google.com/macros/s/AKfycbxDdPzxksVtt0Qq8e6LXY80MpxVXkNdFTc87ms2BKmLUIf2hKBIp-ZIZu0nj4_w_m8AeQ/exec";
+
+
+/* =====================================================
+   BIẾN
+===================================================== */
+
+let currentUser =
+    localStorage.getItem("currentUser") || "";
+
+
+/* =====================================================
+   FORMAT TIỀN
+===================================================== */
+
+function money(number){
+
+    return Number(number || 0)
+        .toLocaleString("vi-VN") + "đ";
+
+}
+
+
+/* =====================================================
+   GỌI API
+===================================================== */
+
+async function api(data){
+
+    const response =
+        await fetch(
+            API_URL,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(data)
+            }
+        );
+
+
+    if(!response.ok){
+
+        throw new Error(
+            "HTTP " +
+            response.status
+        );
+
+    }
+
+
+    const text =
+        await response.text();
+
+
+    let result;
+
+
+    try{
+
+        result =
+            JSON.parse(text);
+
+    }
+    catch(error){
+
+        console.error(
+            "API trả về không phải JSON:",
+            text
+        );
+
+        throw new Error(
+            "API không trả về JSON hợp lệ."
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =====================================================
+   KHỞI ĐỘNG
+===================================================== */
+
+window.addEventListener(
+    "load",
+    async function(){
+
+        currentUser =
+            localStorage.getItem("currentUser") || "";
+
+
+        if(!currentUser){
+
+            document
+            .getElementById("loginBox")
+            .classList
+            .remove("hidden");
+
+
+            document
+            .getElementById("topupContent")
+            .classList
+            .add("hidden");
+
+
+            document
+            .getElementById("userInfo")
+            .classList
+            .add("hidden");
+
+
+            return;
+
+        }
+
+
+        document
+        .getElementById("loginBox")
+        .classList
+        .add("hidden");
+
+
+        document
+        .getElementById("topupContent")
+        .classList
+        .remove("hidden");
+
+
+        document
+        .getElementById("userInfo")
+        .classList
+        .remove("hidden");
+
+
+        document
+        .getElementById("customerName")
+        .textContent =
+            currentUser;
+
+
+        await loadBalance();
+
+    }
+);
+
+
+/* =====================================================
+   ĐI ĐẾN LOGIN
+===================================================== */
+
+function goLogin(){
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =====================================================
+   ĐĂNG XUẤT
+===================================================== */
+
+function logout(){
+
+    localStorage.removeItem(
+        "currentUser"
+    );
+
+
+    localStorage.removeItem(
+        "shopUsername"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =====================================================
+   LẤY SỐ DƯ
+===================================================== */
+
+async function loadBalance(){
+
+    if(!currentUser){
+
+        return;
+
+    }
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "getBalance",
+
+                username:
+                    currentUser
+
+            });
+
+
+        if(result.ok){
+
+            const balanceText =
+                money(
+                    result.balance
+                );
+
+
+            document
+            .getElementById("balance")
+            .textContent =
+                balanceText;
+
+
+            document
+            .getElementById("balance2")
+            .textContent =
+                balanceText;
+
+        }
+        else{
+
+            console.error(
+                "Không lấy được số dư:",
+                result.message
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Lỗi loadBalance:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   NẠP THẺ CÀO
+===================================================== */
+
+async function napTheCao(){
+
+    hideMessage();
+
+
+    if(!currentUser){
+
+        showError(
+            "Bạn chưa đăng nhập. Vui lòng đăng nhập trước."
+        );
+
+        return;
+
+    }
+
+
+    const provider =
+        document
+        .getElementById("cardProvider")
+        .value
+        .trim();
+
+
+    const amount =
+        Number(
+            document
+            .getElementById("cardAmount")
+            .value
+        );
+
+
+    const serial =
+        document
+        .getElementById("cardSerial")
+        .value
+        .trim();
+
+
+    const code =
+        document
+        .getElementById("cardCode")
+        .value
+        .trim();
+
+
+    /* ================= KIỂM TRA ================= */
+
+    if(!provider){
+
+        showError(
+            "❌ Vui lòng chọn nhà mạng."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !amount ||
+        amount <= 0
+    ){
+
+        showError(
+            "❌ Vui lòng nhập đúng mệnh giá thẻ."
+        );
+
+        return;
+
+    }
+
+
+    if(!serial){
+
+        showError(
+            "❌ Vui lòng nhập số Serial."
+        );
+
+        return;
+
+    }
+
+
+    if(!code){
+
+        showError(
+            "❌ Vui lòng nhập mã thẻ."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "Xác nhận gửi thẻ " +
+            provider +
+            " mệnh giá " +
+            money(amount) +
+            "?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const button =
+        document
+        .getElementById("cardButton");
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "⏳ Đang gửi thẻ...";
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "napTheCao",
+
+                username:
+                    currentUser,
+
+                provider:
+                    provider,
+
+                amount:
+                    amount,
+
+                serial:
+                    serial,
+
+                code:
+                    code
+
+            });
+
+
+        if(result.ok){
+
+            showSuccess(
+                "✅ Đã gửi thẻ thành công. Vui lòng chờ Admin kiểm tra và duyệt."
+            );
+
+
+            document
+            .getElementById("cardAmount")
+            .value =
+                "";
+
+
+            document
+            .getElementById("cardSerial")
+            .value =
+                "";
+
+
+            document
+            .getElementById("cardCode")
+            .value =
+                "";
+
+
+            await loadBalance();
+
+        }
+        else{
+
+            showError(
+                result.message ||
+                "❌ Không thể gửi thẻ. Vui lòng thử lại."
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Lỗi napTheCao:",
+            error
+        );
+
+
+        showError(
+            "❌ Không kết nối được máy chủ Apps Script. Vui lòng thử lại."
+        );
+
+    }
+    finally{
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "💳 Gửi thẻ cào";
+
+    }
+
+}
+
+
+/* =====================================================
+   NẠP NGÂN HÀNG
+===================================================== */
+
+async function napNganHang(){
+
+    hideMessage();
+
+
+    if(!currentUser){
+
+        showError(
+            "❌ Bạn chưa đăng nhập."
+        );
+
+        return;
+
+    }
+
+
+    const amount =
+        Number(
+            document
+            .getElementById("bankAmount")
+            .value
+        );
+
+
+    const note =
+        document
+        .getElementById("bankNote")
+        .value
+        .trim();
+
+
+    if(
+        !amount ||
+        amount <= 0
+    ){
+
+        showError(
+            "❌ Vui lòng nhập đúng số tiền cần nạp."
+        );
+
+        return;
+
+    }
+
+
+    if(!note){
+
+        showError(
+            "❌ Vui lòng nhập nội dung chuyển khoản."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !confirm(
+            "Xác nhận gửi yêu cầu nạp " +
+            money(amount) +
+            "?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const button =
+        document
+        .getElementById("bankButton");
+
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "⏳ Đang gửi yêu cầu...";
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "napNganHang",
+
+                username:
+                    currentUser,
+
+                amount:
+                    amount,
+
+                note:
+                    note
+
+            });
+
+
+        if(result.ok){
+
+            showSuccess(
+                "✅ Đã gửi yêu cầu nạp tiền. Vui lòng chờ Admin kiểm tra và duyệt."
+            );
+
+
+            document
+            .getElementById("bankAmount")
+            .value =
+                "";
+
+
+            document
+            .getElementById("bankNote")
+            .value =
+                "";
+
+
+            await loadBalance();
+
+        }
+        else{
+
+            showError(
+                result.message ||
+                "❌ Không thể gửi yêu cầu nạp tiền."
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            "Lỗi napNganHang:",
+            error
+        );
+
+
+        showError(
+            "❌ Không kết nối được máy chủ Apps Script. Vui lòng thử lại."
+        );
+
+    }
+    finally{
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            "🏦 Gửi yêu cầu ngân hàng";
+
+    }
+
+}
+
+
+/* =====================================================
+   HIỂN THỊ THÔNG BÁO
+===================================================== */
+
+function showError(message){
+
+    const box =
+        document
+        .getElementById("topupMessage");
+
+
+    box.className =
+        "message error";
+
+
+    box.textContent =
+        message;
+
+
+    box.style.display =
+        "block";
+
+
+    box.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+/* =====================================================
+   THÀNH CÔNG
+===================================================== */
+
+function showSuccess(message){
+
+    const box =
+        document
+        .getElementById("topupMessage");
+
+
+    box.className =
+        "message success";
+
+
+    box.textContent =
+        message;
+
+
+    box.style.display =
+        "block";
+
+
+    box.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+
+}
+
+
+/* =====================================================
+   ẨN THÔNG BÁO
+===================================================== */
+
+function hideMessage(){
+
+    const box =
+        document
+        .getElementById("topupMessage");
+
+
+    box.style.display =
+        "none";
+
+
+    box.textContent =
+        "";
+
+}
+
+</script>
+
+</body>
+</html>
