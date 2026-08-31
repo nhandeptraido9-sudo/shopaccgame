@@ -1,11 +1,18 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width,initial-scale=1.0">
+
 <title>SHOPKAROT - Túi Mù</title>
 
 <style>
+
 *{
     box-sizing:border-box;
 }
@@ -148,17 +155,6 @@ button:disabled{
     display:none!important;
 }
 
-.nav{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-}
-
-.nav button{
-    width:auto;
-    background:#374151;
-}
-
 .small{
     font-size:13px;
     color:#64748b;
@@ -243,18 +239,6 @@ hr{
     margin:15px 0;
 }
 
-.topup-list{
-    margin-top:15px;
-}
-
-.topup-item{
-    padding:15px;
-    margin-top:10px;
-    background:#f8fafc;
-    border:1px solid #e5e7eb;
-    border-radius:10px;
-}
-
 @media(max-width:600px){
 
     .header{
@@ -266,14 +250,22 @@ hr{
     }
 
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<a href="index.html" class="back-shop">
+
+<a href="index.html"
+   class="back-shop">
+
     ← Quay lại Shop
+
 </a>
+
 
 <header class="header">
 
@@ -284,14 +276,21 @@ hr{
     <div>
 
         <span class="balance">
+
             💰 Số dư:
-            <span id="balance">0đ</span>
+
+            <span id="balance">
+                0đ
+            </span>
+
         </span>
 
         <button
             class="logout"
             onclick="logout()">
+
             Đăng xuất
+
         </button>
 
     </div>
@@ -302,449 +301,518 @@ hr{
 <div class="container">
 
 
-<!-- =========================
+<!-- =================================================
      ĐĂNG NHẬP
-========================= -->
+================================================= -->
 
-<div
-    id="loginBox"
-    class="login-box">
+<div id="loginBox"
+     class="login-box">
 
-    <h2>🔐 Đăng nhập</h2>
+    <h2>
+        🔐 Đăng nhập
+    </h2>
 
     <p class="small">
-        Nhập tên tài khoản khách hàng của bạn.
+        Nhập tên tài khoản khách hàng và mật khẩu của bạn.
     </p>
 
     <input
         id="username"
         placeholder="Tên tài khoản"
-        autocomplete="off">
+        autocomplete="username">
 
-    <button onclick="login()">
-        Đăng nhập
+    <input
+        id="password"
+        type="password"
+        placeholder="Mật khẩu"
+        autocomplete="current-password">
+
+    <button
+        id="loginButton"
+        onclick="login()">
+
+        🔐 Đăng nhập
+
     </button>
 
-    <div
-        id="loginError"
-        class="error">
+    <div id="loginError"
+         class="error">
     </div>
 
 </div>
 
 
-<!-- =========================
+<!-- =================================================
      SHOP
-========================= -->
+================================================= -->
+
+<div id="shop"
+     class="hidden">
+
+
+<div class="box">
+
+    <h2>
+
+        👋 Xin chào,
+        <span id="customerName"></span>
+
+    </h2>
+
+    <p>
+
+        💰 Số dư:
+        <b id="balance2">
+            0đ
+        </b>
+
+    </p>
+
+</div>
+
+
+<!-- =================================================
+     TÚI MÙ
+================================================= -->
+
+<div class="box">
+
+<h2>
+    🎁 Túi mù
+</h2>
+
+<p class="small">
+
+    Chọn mệnh giá và gói.
+    Hệ thống sẽ tự lấy acc còn hàng đúng loại.
+
+</p>
+
+
+<div class="grid">
+
+
+<!-- 0K -->
+
+<div class="card">
+
+<h3>
+    🎁 Túi 0K
+</h3>
+
+<div class="price">
+    0đ
+</div>
+
+<div class="package">
+    Chọn gói
+</div>
+
+<select id="package0">
+
+<option value="1">
+    Gói 1
+</option>
+
+<option value="2">
+    Gói 2
+</option>
+
+<option value="3">
+    Gói 3
+</option>
+
+<option value="4">
+    Gói 4
+</option>
+
+<option value="5">
+    Gói 5
+</option>
+
+<option value="6">
+    Gói 6
+</option>
+
+<option value="7">
+    Gói 7
+</option>
+
+<option value="8">
+    Gói 8
+</option>
+
+</select>
+
+<button
+    id="freeBuyButton"
+    onclick="buy(0,'package0')">
+
+    Mua ngay
+
+</button>
 
 <div
-    id="shop"
-    class="hidden">
+    id="freeCooldown"
+    class="free-cooldown">
 
+    ⏳ Bạn có thể nhận Túi 0K tiếp theo sau:
 
-    <div class="box">
+    <br>
 
-        <h2>
-            👋 Xin chào,
-            <span id="customerName"></span>
-        </h2>
+    <b id="freeTime">
+        24:00:00
+    </b>
 
-        <p>
-            💰 Số dư:
-            <b id="balance2">0đ</b>
-        </p>
+</div>
 
-    </div>
+</div>
 
 
-    <!-- =====================
-         TÚI MÙ
-    ====================== -->
+<!-- 10K -->
 
-    <div class="box">
+<div class="card">
 
-        <h2>🎁 Túi mù</h2>
+<h3>
+    🎁 Túi 10K
+</h3>
 
-        <p class="small">
-            Chọn mệnh giá và gói. Hệ thống sẽ tự lấy
-            acc còn hàng đúng loại.
-        </p>
+<div class="price">
+    10.000đ
+</div>
 
+<div class="package">
+    Chọn gói
+</div>
 
-        <div class="grid">
+<select id="package10">
 
+<option value="1">Gói 1</option>
+<option value="2">Gói 2</option>
+<option value="3">Gói 3</option>
+<option value="4">Gói 4</option>
+<option value="5">Gói 5</option>
+<option value="6">Gói 6</option>
+<option value="7">Gói 7</option>
+<option value="8">Gói 8</option>
 
-            <!-- TÚI 0K -->
+</select>
 
-            <div class="card">
+<button onclick="buy(10000,'package10')">
+    Mua ngay
+</button>
 
-                <h3>
-                    🎁 Túi 0K
-                </h3>
+</div>
 
-                <div class="price">
-                    0đ
-                </div>
 
-                <div class="package">
-                    Chọn gói
-                </div>
+<!-- 20K -->
 
-                <select id="package0">
+<div class="card">
 
-                    <option value="1">Gói 1</option>
-                    <option value="2">Gói 2</option>
-                    <option value="3">Gói 3</option>
-                    <option value="4">Gói 4</option>
-                    <option value="5">Gói 5</option>
-                    <option value="6">Gói 6</option>
-                    <option value="7">Gói 7</option>
-                    <option value="8">Gói 8</option>
+<h3>
+    🎁 Túi 20K
+</h3>
 
-                </select>
+<div class="price">
+    20.000đ
+</div>
 
-                <button
-                    id="freeBuyButton"
-                    onclick="buy(0,'package0')">
+<div class="package">
+    Chọn gói
+</div>
 
-                    Mua ngay
+<select id="package20">
 
-                </button>
+<option value="1">Gói 1</option>
+<option value="2">Gói 2</option>
+<option value="3">Gói 3</option>
+<option value="4">Gói 4</option>
+<option value="5">Gói 5</option>
+<option value="6">Gói 6</option>
+<option value="7">Gói 7</option>
+<option value="8">Gói 8</option>
 
-                <div
-                    id="freeCooldown"
-                    class="free-cooldown">
+</select>
 
-                    ⏳ Bạn có thể nhận Túi 0K tiếp theo sau:
+<button onclick="buy(20000,'package20')">
+    Mua ngay
+</button>
 
-                    <br>
+</div>
 
-                    <b id="freeTime">
-                        24:00:00
-                    </b>
 
-                </div>
+<!-- 50K -->
 
-            </div>
+<div class="card">
 
+<h3>
+    🎁 Túi 50K
+</h3>
 
-            <!-- TÚI 10K -->
+<div class="price">
+    50.000đ
+</div>
 
-            <div class="card">
+<div class="package">
+    Chọn gói
+</div>
 
-                <h3>🎁 Túi 10K</h3>
+<select id="package50">
 
-                <div class="price">
-                    10.000đ
-                </div>
+<option value="1">Gói 1</option>
+<option value="2">Gói 2</option>
+<option value="3">Gói 3</option>
+<option value="4">Gói 4</option>
+<option value="5">Gói 5</option>
+<option value="6">Gói 6</option>
+<option value="7">Gói 7</option>
+<option value="8">Gói 8</option>
 
-                <div class="package">
-                    Chọn gói
-                </div>
+</select>
 
-                <select id="package10">
+<button onclick="buy(50000,'package50')">
+    Mua ngay
+</button>
 
-                    <option value="1">Gói 1</option>
-                    <option value="2">Gói 2</option>
-                    <option value="3">Gói 3</option>
-                    <option value="4">Gói 4</option>
-                    <option value="5">Gói 5</option>
-                    <option value="6">Gói 6</option>
-                    <option value="7">Gói 7</option>
-                    <option value="8">Gói 8</option>
+</div>
 
-                </select>
 
-                <button onclick="buy(10000,'package10')">
-                    Mua ngay
-                </button>
+<!-- 80K -->
 
-            </div>
+<div class="card">
 
+<h3>
+    🎁 Túi 80K
+</h3>
 
-            <!-- TÚI 20K -->
+<div class="price">
+    80.000đ
+</div>
 
-            <div class="card">
+<div class="package">
+    Chọn gói
+</div>
 
-                <h3>🎁 Túi 20K</h3>
+<select id="package80">
 
-                <div class="price">
-                    20.000đ
-                </div>
+<option value="1">Gói 1</option>
+<option value="2">Gói 2</option>
+<option value="3">Gói 3</option>
+<option value="4">Gói 4</option>
+<option value="5">Gói 5</option>
+<option value="6">Gói 6</option>
+<option value="7">Gói 7</option>
+<option value="8">Gói 8</option>
 
-                <div class="package">
-                    Chọn gói
-                </div>
+</select>
 
-                <select id="package20">
+<button onclick="buy(80000,'package80')">
+    Mua ngay
+</button>
 
-                    <option value="1">Gói 1</option>
-                    <option value="2">Gói 2</option>
-                    <option value="3">Gói 3</option>
-                    <option value="4">Gói 4</option>
-                    <option value="5">Gói 5</option>
-                    <option value="6">Gói 6</option>
-                    <option value="7">Gói 7</option>
-                    <option value="8">Gói 8</option>
+</div>
 
-                </select>
 
-                <button onclick="buy(20000,'package20')">
-                    Mua ngay
-                </button>
+<!-- 100K -->
 
-            </div>
+<div class="card">
 
+<h3>
+    🎁 Túi 100K
+</h3>
 
-            <!-- TÚI 50K -->
+<div class="price">
+    100.000đ
+</div>
 
-            <div class="card">
+<div class="package">
+    Chọn gói
+</div>
 
-                <h3>🎁 Túi 50K</h3>
+<select id="package100">
 
-                <div class="price">
-                    50.000đ
-                </div>
+<option value="1">Gói 1</option>
+<option value="2">Gói 2</option>
+<option value="3">Gói 3</option>
+<option value="4">Gói 4</option>
+<option value="5">Gói 5</option>
+<option value="6">Gói 6</option>
+<option value="7">Gói 7</option>
+<option value="8">Gói 8</option>
 
-                <div class="package">
-                    Chọn gói
-                </div>
+</select>
 
-                <select id="package50">
+<button onclick="buy(100000,'package100')">
+    Mua ngay
+</button>
 
-                    <option value="1">Gói 1</option>
-                    <option value="2">Gói 2</option>
-                    <option value="3">Gói 3</option>
-                    <option value="4">Gói 4</option>
-                    <option value="5">Gói 5</option>
-                    <option value="6">Gói 6</option>
-                    <option value="7">Gói 7</option>
-                    <option value="8">Gói 8</option>
+</div>
 
-                </select>
 
-                <button onclick="buy(50000,'package50')">
-                    Mua ngay
-                </button>
+</div>
 
-            </div>
 
+<div id="buyError"
+     class="error">
+</div>
 
-            <!-- TÚI 80K -->
 
-            <div class="card">
+<!-- KẾT QUẢ -->
 
-                <h3>🎁 Túi 80K</h3>
+<div id="result"
+     class="result">
 
-                <div class="price">
-                    80.000đ
-                </div>
+<h3>
+    🎉 Giao acc thành công!
+</h3>
 
-                <div class="package">
-                    Chọn gói
-                </div>
+<p>
+    Mã đơn:
+    <b id="orderId"></b>
+</p>
 
-                <select id="package80">
+<hr>
 
-                    <option value="1">Gói 1</option>
-                    <option value="2">Gói 2</option>
-                    <option value="3">Gói 3</option>
-                    <option value="4">Gói 4</option>
-                    <option value="5">Gói 5</option>
-                    <option value="6">Gói 6</option>
-                    <option value="7">Gói 7</option>
-                    <option value="8">Gói 8</option>
+<p>
+    👤 Tên acc:
+    <b id="accountName"></b>
+</p>
 
-                </select>
+<p>
+    🔑 Mật khẩu:
+    <b id="accountPass"></b>
+</p>
 
-                <button onclick="buy(80000,'package80')">
-                    Mua ngay
-                </button>
+<p>
+    💰 Số dư còn lại:
+    <b id="newBalance"></b>
+</p>
 
-            </div>
+</div>
 
 
-            <!-- TÚI 100K -->
+</div>
 
-            <div class="card">
 
-                <h3>🎁 Túi 100K</h3>
+<!-- =================================================
+     NẠP TIỀN
+================================================= -->
 
-                <div class="price">
-                    100.000đ
-                </div>
+<div class="box">
 
-                <div class="package">
-                    Chọn gói
-                </div>
+<h2>
+    💰 Nạp tiền
+</h2>
 
-                <select id="package100">
+<div class="topup-grid">
 
-                    <option value="1">Gói 1</option>
-                    <option value="2">Gói 2</option>
-                    <option value="3">Gói 3</option>
-                    <option value="4">Gói 4</option>
-                    <option value="5">Gói 5</option>
-                    <option value="6">Gói 6</option>
-                    <option value="7">Gói 7</option>
-                    <option value="8">Gói 8</option>
 
-                </select>
+<div class="card">
 
-                <button onclick="buy(100000,'package100')">
-                    Mua ngay
-                </button>
+<h3>
+    🏦 Ngân hàng
+</h3>
 
-            </div>
+<p class="small">
 
-        </div>
+    Sau khi chuyển khoản,
+    gửi yêu cầu để Admin kiểm tra.
 
+</p>
 
-        <div id="buyError" class="error"></div>
+<input
+    id="bankAmount"
+    type="number"
+    min="1"
+    placeholder="Số tiền">
 
+<input
+    id="bankNote"
+    placeholder="Nội dung chuyển khoản">
 
-        <!-- KẾT QUẢ MUA -->
+<button onclick="napNganHang()">
+    Gửi yêu cầu
+</button>
 
-        <div id="result" class="result">
+</div>
 
-            <h3>
-                🎉 Giao acc thành công!
-            </h3>
 
-            <p>
-                Mã đơn:
-                <b id="orderId"></b>
-            </p>
+<div class="card">
 
-            <hr>
+<h3>
+    🎫 Thẻ cào
+</h3>
 
-            <p>
-                👤 Tên acc:
-                <b id="accountName"></b>
-            </p>
+<select id="cardProvider">
 
-            <p>
-                🔑 Mật khẩu:
-                <b id="accountPass"></b>
-            </p>
+<option value="">
+    Chọn nhà mạng
+</option>
 
-            <p>
-                💰 Số dư còn lại:
-                <b id="newBalance"></b>
-            </p>
+<option value="VIETTEL">
+    Viettel
+</option>
 
-        </div>
+<option value="VINAPHONE">
+    Vinaphone
+</option>
 
-    </div>
+<option value="MOBIFONE">
+    Mobifone
+</option>
 
+</select>
 
-    <!-- =====================
-         NẠP TIỀN
-    ====================== -->
+<input
+    id="cardAmount"
+    type="number"
+    min="1"
+    placeholder="Mệnh giá">
 
-    <div class="box">
+<input
+    id="cardSerial"
+    placeholder="Serial">
 
-        <h2>💰 Nạp tiền</h2>
+<input
+    id="cardCode"
+    placeholder="Mã thẻ">
 
-        <div class="topup-grid">
+<button onclick="napTheCao()">
+    Gửi thẻ
+</button>
 
-            <div class="card">
+</div>
 
-                <h3>🏦 Ngân hàng</h3>
 
-                <p class="small">
-                    Sau khi chuyển khoản, gửi yêu cầu
-                    để Admin kiểm tra.
-                </p>
+</div>
 
-                <input
-                    id="bankAmount"
-                    type="number"
-                    min="1"
-                    placeholder="Số tiền">
 
-                <input
-                    id="bankNote"
-                    placeholder="Nội dung chuyển khoản">
+<div id="topupMessage"
+     class="error">
+</div>
 
-                <button onclick="napNganHang()">
-                    Gửi yêu cầu
-                </button>
+</div>
 
-            </div>
 
+<!-- =================================================
+     ĐƠN HÀNG
+================================================= -->
 
-            <div class="card">
+<div class="box">
 
-                <h3>🎫 Thẻ cào</h3>
+<h2>
+    📦 Đơn hàng của tôi
+</h2>
 
-                <select id="cardProvider">
+<button onclick="loadOrders()">
 
-                    <option value="">
-                        Chọn nhà mạng
-                    </option>
+    🔄 Xem / tải lại đơn hàng
 
-                    <option value="VIETTEL">
-                        Viettel
-                    </option>
+</button>
 
-                    <option value="VINAPHONE">
-                        Vinaphone
-                    </option>
+<div id="orders"></div>
 
-                    <option value="MOBIFONE">
-                        Mobifone
-                    </option>
-
-                </select>
-
-                <input
-                    id="cardAmount"
-                    type="number"
-                    min="1"
-                    placeholder="Mệnh giá">
-
-                <input
-                    id="cardSerial"
-                    placeholder="Serial">
-
-                <input
-                    id="cardCode"
-                    placeholder="Mã thẻ">
-
-                <button onclick="napTheCao()">
-                    Gửi thẻ
-                </button>
-
-            </div>
-
-        </div>
-
-        <div
-            id="topupMessage"
-            class="error">
-        </div>
-
-    </div>
-
-
-    <!-- =====================
-         ĐƠN ĐÃ MUA
-    ====================== -->
-
-    <div class="box">
-
-        <h2>
-            📦 Đơn hàng của tôi
-        </h2>
-
-        <button onclick="loadOrders()">
-            🔄 Xem / tải lại đơn hàng
-        </button>
-
-        <div id="orders"></div>
-
-    </div>
+</div>
 
 
 </div>
@@ -754,39 +822,46 @@ hr{
 
 <script>
 
-/* ==========================================
-   API APPS SCRIPT
-========================================== */
+
+/* =================================================
+   API
+================================================= */
 
 const API_URL =
 "https://script.google.com/macros/s/AKfycbxDdPzxksVtt0Qq8e6LXY80MpxVXkNdFTc87ms2BKmLUIf2hKBIp-ZIZu0nj4_w_m8AeQ/exec";
 
 
-/* ==========================================
+/* =================================================
    BIẾN
-========================================== */
+================================================= */
 
 let currentUser =
-    localStorage.getItem("shopUsername");
+    localStorage.getItem(
+        "shopUsername"
+    );
 
 let freeTimer = null;
 
 
-/* ==========================================
+/* =================================================
    FORMAT TIỀN
-========================================== */
+================================================= */
 
 function money(number){
 
-    return Number(number || 0)
-        .toLocaleString("vi-VN") + "đ";
+    return Number(
+        number || 0
+    )
+    .toLocaleString(
+        "vi-VN"
+    ) + "đ";
 
 }
 
 
-/* ==========================================
-   GỌI API
-========================================== */
+/* =================================================
+   API
+================================================= */
 
 async function api(data){
 
@@ -822,9 +897,9 @@ async function api(data){
 }
 
 
-/* ==========================================
+/* =================================================
    ĐĂNG NHẬP
-========================================== */
+================================================= */
 
 async function login(){
 
@@ -842,6 +917,15 @@ async function login(){
         .trim();
 
 
+    const password =
+        document
+        .getElementById(
+            "password"
+        )
+        .value
+        .trim();
+
+
     if(!username){
 
         showError(
@@ -854,15 +938,116 @@ async function login(){
     }
 
 
-    currentUser =
-        username;
+    if(!password){
+
+        showError(
+            "loginError",
+            "Vui lòng nhập mật khẩu"
+        );
+
+        return;
+
+    }
 
 
-    localStorage.setItem(
-        "shopUsername",
-        username
-    );
+    const button =
+        document
+        .getElementById(
+            "loginButton"
+        );
 
+
+    button.disabled =
+        true;
+
+
+    button.textContent =
+        "⏳ Đang đăng nhập...";
+
+
+    try{
+
+        const result =
+            await api({
+
+                action:
+                    "loginCustomer",
+
+                username:
+                    username,
+
+                password:
+                    password
+
+            });
+
+
+        if(!result.ok){
+
+            showError(
+                "loginError",
+                result.message ||
+                "Tên tài khoản hoặc mật khẩu không đúng"
+            );
+
+            return;
+
+        }
+
+
+        currentUser =
+            result.username ||
+            username;
+
+
+        localStorage.setItem(
+            "shopUsername",
+            currentUser
+        );
+
+
+        showShop();
+
+
+        await loadBalance();
+
+        await checkFreeCooldown();
+
+        await loadOrders();
+
+    }
+    catch(error){
+
+        console.error(
+            "Lỗi đăng nhập:",
+            error
+        );
+
+
+        showError(
+            "loginError",
+            "Không kết nối được máy chủ Apps Script."
+        );
+
+    }
+    finally{
+
+        button.disabled =
+            false;
+
+        button.textContent =
+            "🔐 Đăng nhập";
+
+    }
+
+}
+
+
+/* =================================================
+   HIỆN SHOP
+================================================= */
+
+function showShop(){
 
     document
     .getElementById(
@@ -885,70 +1070,52 @@ async function login(){
         "customerName"
     )
     .textContent =
-        username;
-
-
-    await loadBalance();
-
-    await checkFreeCooldown();
-
-    await loadOrders();
+        currentUser;
 
 }
 
 
-/* ==========================================
+/* =================================================
    TỰ ĐĂNG NHẬP
-========================================== */
+================================================= */
 
 window.addEventListener(
     "load",
     async function(){
 
-        if(!currentUser){
+        /*
+         * Chỉ lưu username không đủ để
+         * tự xác thực lại mật khẩu.
+         *
+         * Vì vậy không tự vào shop chỉ
+         * dựa vào localStorage.
+         *
+         * Người dùng sẽ đăng nhập lại
+         * bằng tên + mật khẩu khi tải lại trang.
+         */
 
-            return;
+        if(currentUser){
+
+            /*
+             * Điền sẵn tên tài khoản
+             */
+
+            document
+            .getElementById(
+                "username"
+            )
+            .value =
+                currentUser;
 
         }
-
-
-        document
-        .getElementById(
-            "loginBox"
-        )
-        .classList
-        .add("hidden");
-
-
-        document
-        .getElementById(
-            "shop"
-        )
-        .classList
-        .remove("hidden");
-
-
-        document
-        .getElementById(
-            "customerName"
-        )
-        .textContent =
-            currentUser;
-
-
-        await loadBalance();
-
-        await checkFreeCooldown();
-
-        await loadOrders();
 
     }
 );
 
 
-/* ==========================================
+/* =================================================
    ĐĂNG XUẤT
-========================================== */
+================================================= */
 
 function logout(){
 
@@ -978,9 +1145,9 @@ function logout(){
 }
 
 
-/* ==========================================
+/* =================================================
    LẤY SỐ DƯ
-========================================== */
+================================================= */
 
 async function loadBalance(){
 
@@ -1043,9 +1210,9 @@ async function loadBalance(){
 }
 
 
-/* ==========================================
+/* =================================================
    KIỂM TRA 0K
-========================================== */
+================================================= */
 
 async function checkFreeCooldown(){
 
@@ -1103,9 +1270,9 @@ async function checkFreeCooldown(){
 }
 
 
-/* ==========================================
+/* =================================================
    ĐẾM NGƯỢC 0K
-========================================== */
+================================================= */
 
 function startFreeCountdown(
     milliseconds
@@ -1249,9 +1416,9 @@ function startFreeCountdown(
 }
 
 
-/* ==========================================
-   DỪNG ĐẾM NGƯỢC
-========================================== */
+/* =================================================
+   DỪNG 0K
+================================================= */
 
 function stopFreeCountdown(){
 
@@ -1294,9 +1461,9 @@ function stopFreeCountdown(){
 }
 
 
-/* ==========================================
+/* =================================================
    MUA ACC
-========================================== */
+================================================= */
 
 async function buy(
     price,
@@ -1343,10 +1510,6 @@ async function buy(
             select.value
         ).trim();
 
-
-    /* ==========================
-       KIỂM TRA TÚI 0K
-    ========================== */
 
     if(price === 0){
 
@@ -1472,10 +1635,6 @@ async function buy(
         }
 
 
-        /* ==========================
-           HIỆN ACC
-        ========================== */
-
         document
         .getElementById(
             "result"
@@ -1521,10 +1680,6 @@ async function buy(
                 result.balance
             );
 
-
-        /* ==========================
-           TÚI 0K
-        ========================== */
 
         if(price === 0){
 
@@ -1580,9 +1735,9 @@ async function buy(
 }
 
 
-/* ==========================================
+/* =================================================
    LOAD ĐƠN HÀNG
-========================================== */
+================================================= */
 
 async function loadOrders(){
 
@@ -1773,9 +1928,9 @@ async function loadOrders(){
 }
 
 
-/* ==========================================
+/* =================================================
    NẠP NGÂN HÀNG
-========================================== */
+================================================= */
 
 async function napNganHang(){
 
@@ -1928,9 +2083,9 @@ async function napNganHang(){
 }
 
 
-/* ==========================================
+/* =================================================
    NẠP THẺ
-========================================== */
+================================================= */
 
 async function napTheCao(){
 
@@ -2127,9 +2282,9 @@ async function napTheCao(){
 }
 
 
-/* ==========================================
+/* =================================================
    HIỂN THỊ LỖI
-========================================== */
+================================================= */
 
 function showError(
     id,
@@ -2162,9 +2317,9 @@ function showError(
 }
 
 
-/* ==========================================
+/* =================================================
    HIỂN THỊ THÀNH CÔNG
-========================================== */
+================================================= */
 
 function showSuccess(
     id,
@@ -2197,9 +2352,9 @@ function showSuccess(
 }
 
 
-/* ==========================================
+/* =================================================
    ẨN THÔNG BÁO
-========================================== */
+================================================= */
 
 function hideError(id){
 
@@ -2219,9 +2374,9 @@ function hideError(id){
 }
 
 
-/* ==========================================
+/* =================================================
    CHỐNG CHÈN HTML
-========================================== */
+================================================= */
 
 function escapeHtml(value){
 
@@ -2254,4 +2409,6 @@ function escapeHtml(value){
 </script>
 
 </body>
+
 </html>
+```
