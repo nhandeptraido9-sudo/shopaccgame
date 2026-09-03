@@ -1262,7 +1262,6 @@ async function buy(price,selectId){
 
     hideError("buyError");
 
-
     if(!currentUser){
 
         showError(
@@ -1271,15 +1270,12 @@ async function buy(price,selectId){
         );
 
         return;
-
     }
-
 
     const select =
         document.getElementById(
             selectId
         );
-
 
     if(!select){
 
@@ -1289,17 +1285,32 @@ async function buy(price,selectId){
         );
 
         return;
-
     }
-
 
     const packageNumber =
         String(select.value).trim();
 
+    /* ==========================================
+       XÁC NHẬN NGAY LẬP TỨC
+       Không gọi API trước confirm()
+       ========================================== */
+
+    if(
+        !confirm(
+            "Bạn có chắc muốn mua Túi " +
+            money(price) +
+            " - Gói " +
+            packageNumber +
+            "?"
+        )
+    ){
+
+        return;
+    }
 
     /* ==========================
-       KIỂM TRA 0K
-    ========================== */
+       KIỂM TRA 0K SAU KHI OK
+       ========================== */
 
     if(price === 0){
 
@@ -1316,7 +1327,6 @@ async function buy(price,selectId){
 
                 });
 
-
             if(
                 check.ok === false &&
                 Number(check.remaining) > 0
@@ -1326,16 +1336,13 @@ async function buy(price,selectId){
                     Number(check.remaining)
                 );
 
-
                 showError(
                     "buyError",
                     check.message ||
                     "Bạn đã nhận Túi 0K. Vui lòng chờ đủ 24 giờ."
                 );
 
-
                 return;
-
             }
 
         }
@@ -1346,41 +1353,22 @@ async function buy(price,selectId){
                 error
             );
 
-
             showError(
                 "buyError",
                 "Không kiểm tra được thời gian Túi 0K."
             );
 
             return;
-
         }
 
     }
-
-
-    if(
-        !confirm(
-            "Bạn có chắc muốn mua Túi " +
-            money(price) +
-            " - Gói " +
-            packageNumber +
-            "?"
-        )
-    ){
-
-        return;
-
-    }
-
 
     try{
 
         const result =
             await api({
 
-                action:
-                    "getAccount",
+                action:"getAccount",
 
                 username:
                     currentUser,
@@ -1392,7 +1380,6 @@ async function buy(price,selectId){
                     packageNumber
 
             });
-
 
         if(!result.ok){
 
@@ -1407,62 +1394,52 @@ async function buy(price,selectId){
 
             }
 
-
             showError(
                 "buyError",
                 result.message ||
                 "Không thể mua acc."
             );
 
-
             await loadBalance();
 
             return;
-
         }
-
 
         /* ==========================
            HIỆN ACC
-        ========================== */
+           ========================== */
 
         const resultBox =
             document.getElementById(
                 "result"
             );
 
-
         resultBox.style.display =
             "block";
 
-
         document
-        .getElementById("orderId")
-        .textContent =
+            .getElementById("orderId")
+            .textContent =
             result.orderId || "";
 
-
         document
-        .getElementById("accountName")
-        .textContent =
+            .getElementById("accountName")
+            .textContent =
             result.accountName || "";
 
-
         document
-        .getElementById("accountPass")
-        .textContent =
+            .getElementById("accountPass")
+            .textContent =
             result.accountPass || "";
 
-
         document
-        .getElementById("newBalance")
-        .textContent =
+            .getElementById("newBalance")
+            .textContent =
             money(result.balance);
-
 
         /* ==========================
            0K
-        ========================== */
+           ========================== */
 
         if(price === 0){
 
@@ -1478,9 +1455,7 @@ async function buy(price,selectId){
 
         }
 
-
         await loadBalance();
-
 
         /*
          * Đợi 1 giây để dữ liệu đơn hàng
@@ -1498,13 +1473,11 @@ async function buy(price,selectId){
             }
         );
 
-
         /*
          * Tải lại đơn hàng.
          */
 
         await loadOrders();
-
 
         /*
          * Cuộn tới phần giao acc.
@@ -1532,7 +1505,6 @@ async function buy(price,selectId){
             "Lỗi mua acc:",
             error
         );
-
 
         showError(
             "buyError",
