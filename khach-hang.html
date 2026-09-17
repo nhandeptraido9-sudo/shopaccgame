@@ -19,7 +19,6 @@ body{
     color:#182238;
 }
 
-
 /* HEADER */
 
 header{
@@ -37,7 +36,6 @@ header p{
     margin:0;
 }
 
-
 /* CONTAINER */
 
 .container{
@@ -46,7 +44,6 @@ header p{
     padding:15px;
 }
 
-
 /* BOX */
 
 .box{
@@ -54,70 +51,51 @@ header p{
     border-radius:18px;
     padding:25px;
     margin-bottom:20px;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.10);
+    box-shadow:0 5px 20px rgba(0,0,0,.10);
 }
 
 .box h2{
     margin-top:0;
 }
 
-
 /* THÔNG TIN */
 
 .info-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(2,1fr);
-
+    grid-template-columns:repeat(2,1fr);
     gap:15px;
 }
 
 .info{
     background:#f5f7fb;
-
     padding:18px;
-
     border-radius:12px;
 }
 
 .label{
     color:#777;
-
     font-size:14px;
-
     margin-bottom:7px;
 }
 
 .value{
     font-size:19px;
-
     font-weight:bold;
-
     color:#202742;
 }
-
 
 /* THỐNG KÊ */
 
 .stats{
     display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
+    grid-template-columns:repeat(3,1fr);
     gap:15px;
 }
 
 .stat{
     text-align:center;
-
     padding:20px;
-
     border-radius:14px;
-
     background:#f5f7fb;
 }
 
@@ -127,97 +105,83 @@ header p{
 
 .stat-number{
     font-size:24px;
-
     font-weight:bold;
-
     color:#5137df;
-
     margin-top:8px;
 }
 
 .stat-name{
     color:#777;
-
     font-size:14px;
-
     margin-top:5px;
 }
 
+/* THÔNG BÁO ĐƠN HÀNG */
 
-/* ĐƠN HÀNG */
-
-.order{
-    border:1px solid #e2e5ed;
-
-    border-radius:12px;
-
-    padding:17px;
-
-    margin-top:12px;
+.order-notice{
+    background:linear-gradient(135deg,#f7f5ff,#eef5ff);
+    border:1px solid #ddd8ff;
+    border-radius:14px;
+    padding:20px;
 }
 
-.order-title{
-    font-size:18px;
-
-    font-weight:bold;
+.order-notice h3{
+    margin:0 0 12px;
+    font-size:20px;
+    color:#5137df;
 }
 
-.order-row{
-    display:flex;
+.order-notice p{
+    margin:10px 0;
+    line-height:1.6;
+}
 
-    justify-content:space-between;
+.order-notice .guide{
+    margin-top:15px;
+    padding:13px;
+    background:white;
+    border-radius:10px;
+    border-left:4px solid #5137df;
+}
 
-    margin-top:10px;
-
+.order-notice .note{
+    margin-top:15px;
+    font-size:14px;
     color:#555;
 }
-
-.status{
-    display:inline-block;
-
-    margin-top:12px;
-
-    padding:6px 11px;
-
-    border-radius:8px;
-
-    background:#dff7e7;
-
-    color:#188344;
-
-    font-size:13px;
-
-    font-weight:bold;
-}
-
 
 /* NÚT */
 
 .back{
     display:block;
-
     width:100%;
-
     padding:14px;
-
     text-align:center;
-
-    background:
-        linear-gradient(
-            90deg,
-            #6647ee,
-            #3e79ee
-        );
-
+    background:linear-gradient(90deg,#6647ee,#3e79ee);
     color:white;
-
     text-decoration:none;
-
     border-radius:10px;
-
     font-weight:bold;
 }
 
+/* ĐĂNG XUẤT */
+
+.logout{
+    width:100%;
+    margin-top:20px;
+    padding:13px;
+    border:0;
+    border-radius:10px;
+    background:#e53935;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.logout:hover{
+    opacity:.9;
+}
 
 /* MOBILE */
 
@@ -231,21 +195,13 @@ header p{
         grid-template-columns:1fr;
     }
 
-    .order-row{
-        flex-direction:column;
-
-        gap:5px;
-    }
-
 }
 
 </style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
@@ -256,75 +212,48 @@ header p{
 </header>
 
 
-
 <div class="container">
-
 
     <!-- THÔNG TIN -->
 
     <div class="box">
 
-        <h2>
-            👤 Thông tin khách hàng
-        </h2>
-
+        <h2>👤 Thông tin khách hàng</h2>
 
         <div class="info-grid">
-            <div class="info-grid">
-
-    <div class="info">
-
-        <div class="label">
-            👤 Tên khách hàng
-        </div>
-
-        <div
-            class="value"
-            id="customerName">
-            Chưa đăng nhập
-        </div>
-
-    </div>
-
-
-    <div class="info">
-
-        <div class="label">
-            🔐 Mật khẩu
-        </div>
-
-        <div class="value">
-            ********
-        </div>
-
-    </div>
-
-</div>
-<button
-    type="button"
-    onclick="
-        localStorage.removeItem('currentUser');
-        window.location.href='login.html';
-    "
-    style="
-        width:100%;
-        margin-top:20px;
-        padding:13px;
-        border:0;
-        border-radius:10px;
-        background:#e53935;
-        color:white;
-        font-size:16px;
-        font-weight:bold;
-        cursor:pointer;
-    ">
-    🚪 Đăng xuất
-</button>
 
             <div class="info">
 
                 <div class="label">
-                    Tên shop
+                    👤 Tên khách hàng
+                </div>
+
+                <div
+                    class="value"
+                    id="customerName">
+                    Chưa đăng nhập
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="label">
+                    🔐 Mật khẩu
+                </div>
+
+                <div class="value">
+                    ********
+                </div>
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="label">
+                    🏪 Tên shop
                 </div>
 
                 <div class="value">
@@ -337,7 +266,7 @@ header p{
             <div class="info">
 
                 <div class="label">
-                    Trạng thái
+                    📡 Trạng thái
                 </div>
 
                 <div class="value">
@@ -346,28 +275,31 @@ header p{
 
             </div>
 
-<div class="info">
 
-    <div class="label">
-        Hỗ trợ
-    </div>
-    <a
-        href="https://www.tiktok.com/@shopkarot.vn"
-        target="_blank"
-        style="
-            color:#5137df;
-            text-decoration:none;
-            font-weight:bold;
-        ">
-        🎵 TikTok Admin
-    </a>
-
-</div>
-           
             <div class="info">
 
                 <div class="label">
-                    Thời gian hoạt động
+                    🎵 Hỗ trợ
+                </div>
+
+                <a
+                    href="https://www.tiktok.com/@shopkarot.vn"
+                    target="_blank"
+                    style="
+                        color:#5137df;
+                        text-decoration:none;
+                        font-weight:bold;
+                    ">
+                    TikTok Admin
+                </a>
+
+            </div>
+
+
+            <div class="info">
+
+                <div class="label">
+                    🕐 Thời gian hoạt động
                 </div>
 
                 <div class="value">
@@ -376,24 +308,31 @@ header p{
 
             </div>
 
-
         </div>
 
-    </div>
 
+        <button
+            type="button"
+            class="logout"
+            onclick="
+                localStorage.removeItem('currentUser');
+                window.location.href='login.html';
+            ">
+
+            🚪 Đăng xuất
+
+        </button>
+
+    </div>
 
 
     <!-- THỐNG KÊ -->
 
     <div class="box">
 
-        <h2>
-            📊 Thống kê
-        </h2>
-
+        <h2>📊 Thống kê</h2>
 
         <div class="stats">
-
 
             <div class="stat">
 
@@ -439,8 +378,7 @@ header p{
                     🎮
                 </div>
 
-                <div
-                    class="stat-number">
+                <div class="stat-number">
                     48
                 </div>
 
@@ -450,96 +388,44 @@ header p{
 
             </div>
 
-
         </div>
 
     </div>
-
 
 
     <!-- ĐƠN HÀNG -->
 
     <div class="box">
 
-        <div class="box">
+        <div class="order-notice">
 
-    <h2>
-        📦 Đơn hàng khách đã mua
-    </h2>
+            <h3>
+                📦 Đơn hàng khách đã mua
+            </h3>
 
-    <div id="customerOrders">
+            <p>
+                Bạn có thể xem lại các đơn hàng đã mua trong
+                <strong>phần Mua Acc</strong>.
+            </p>
 
-        <p>
-            Đang tải đơn hàng...
-        </p>
-
-    </div>
-
-</div>
-
-
-        <div id="orders">
-
-            <div class="order">
-
-                <div class="order-title">
-                    🎁 Túi mù Blox Fruits
-                </div>
-
-
-                <div class="order-row">
-
-                    <span>
-                        Gói: 10K
-                    </span>
-
-                    <span>
-                        💰 10.000đ
-                    </span>
-
-                </div>
-
-
-                <span class="status">
-                    ✅ Đã giao
-                </span>
-
+            <div class="guide">
+                👉 Nếu chưa biết cách xem đơn hàng, hãy
+                <strong>xem video hướng dẫn</strong>
+                để được hướng dẫn chi tiết.
             </div>
 
-
-
-            <div class="order">
-
-                <div class="order-title">
-                    🎁 Túi mù Blox Fruits
-                </div>
-
-
-                <div class="order-row">
-
-                    <span>
-                        Gói: 50K
-                    </span>
-
-                    <span>
-                        💰 50.000đ
-                    </span>
-
-                </div>
-
-
-                <span class="status">
-                    ✅ Đã giao
-                </span>
-
+            <div class="note">
+                📌 <strong>Lưu ý:</strong>
+                Đơn hàng sau khi mua thành công sẽ được lưu lại
+                để bạn có thể kiểm tra và xem lại.
             </div>
-
 
         </div>
 
     </div>
 
 
+    <!-- QUAY LẠI -->
 
     <a
         href="index.html"
@@ -549,25 +435,16 @@ header p{
 
     </a>
 
-
 </div>
-
 
 
 <script>
 
-/*
-=========================================
-ĐẾM KHÁCH HÀNG
-=========================================
+/* ================================
+   HIỂN THỊ TÊN KHÁCH HÀNG
+================================ */
 
-Lấy số tài khoản khách đã tạo
-trên trình duyệt hiện tại.
-*/
-
-try{
-
-   const currentUser =
+const currentUser =
     localStorage.getItem("currentUser");
 
 document.getElementById(
@@ -576,47 +453,64 @@ document.getElementById(
     currentUser || "Chưa đăng nhập";
 
 
-    const customerCount =
-        Object.keys(users).length;
+/* ================================
+   ĐẾM KHÁCH HÀNG
+================================
 
+Không dùng biến users chưa khai báo
+để tránh lỗi JavaScript.
 
-    document.getElementById(
-        "customerCount"
-    ).textContent =
-        customerCount;
+Nếu hệ thống của bạn có lưu danh sách
+tài khoản trong localStorage thì có thể
+đổi tên key bên dưới cho đúng.
+*/
 
+try{
+
+    const usersData =
+        localStorage.getItem("users");
+
+    if(usersData){
+
+        const users =
+            JSON.parse(usersData);
+
+        document.getElementById(
+            "customerCount"
+        ).textContent =
+            Object.keys(users).length;
+
+    }else{
+
+        document.getElementById(
+            "customerCount"
+        ).textContent = "0";
+
+    }
 
 }catch(error){
 
     document.getElementById(
         "customerCount"
-    ).textContent =
-        "0";
+    ).textContent = "0";
 
 }
 
 
+/* ================================
+   ĐƠN HÀNG
+================================
 
-/*
-=========================================
-ĐẾM ĐƠN HÀNG
-=========================================
+Phần này hiện chỉ hiển thị hướng dẫn,
+không còn tự tạo đơn 10K / 50K mẫu.
 */
-
-const orderElements =
-    document.querySelectorAll(
-        ".order"
-    );
-
 
 document.getElementById(
     "orderCount"
-).textContent =
-    orderElements.length;
+).textContent = "0";
 
 </script>
 
-
 </body>
-
 </html>
+**Lưu ý:** mình giữ nguyên link TikTok `@shopkarot.vn` theo code bạn gửi. Nếu đây là bản ShopKarot mới mà bạn muốn dùng **TikTok chính thức `@shopkarotnew.com`**, mình có thể đổi luôn trong code.
