@@ -3,334 +3,457 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHOPKAROT - Acc Steal an Egg</title>
+<meta name="theme-color" content="#7c3aed">
+<title>SHOPKAROT - Túi Mù Steal an Egg</title>
 
 <style>
 *{box-sizing:border-box}
 :root{
-    --purple:#7c3aed;
-    --pink:#ec4899;
-    --dark:#171126;
-    --muted:#6b6478;
+  --purple:#7c3aed;
+  --pink:#ec4899;
+  --dark:#211633;
+  --muted:#6b6478;
+  --border:#eadcfb;
+  --white:#fff;
 }
 body{
-    margin:0;
-    font-family:Arial,Helvetica,sans-serif;
-    color:#251a35;
-    background:linear-gradient(135deg,#f5f0ff,#fff0f7);
-    min-height:100vh;
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#251a35;
+  background:linear-gradient(135deg,#f5f0ff,#fff0f7);
+  min-height:100vh;
 }
 a{text-decoration:none}
+button{font:inherit}
 .topbar{
-    background:rgba(255,255,255,.95);
-    border-bottom:1px solid #eadcfb;
-    padding:15px 5%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    flex-wrap:wrap;
+  background:rgba(255,255,255,.96);
+  border-bottom:1px solid var(--border);
+  padding:15px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
 }
-.logo{font-size:23px;font-weight:900;color:var(--purple)}
+.logo{font-size:24px;font-weight:900;color:var(--purple)}
 .logo span{color:var(--pink)}
 .back{
-    color:var(--purple);
-    font-weight:bold;
-    padding:10px 15px;
-    border:1px solid #e5d5ff;
-    border-radius:12px;
-    background:white;
+  display:inline-block;
+  color:var(--purple);
+  font-weight:bold;
+  padding:10px 15px;
+  border:1px solid #e5d5ff;
+  border-radius:12px;
+  background:white;
 }
-.container{width:min(1100px,92%);margin:auto}
+.container{width:min(1150px,92%);margin:auto}
 .hero{
-    margin:28px auto;
-    padding:35px 24px;
-    border-radius:25px;
-    color:white;
-    text-align:center;
-    background:linear-gradient(135deg,#6d28d9,#9333ea,#ec4899);
-    box-shadow:0 14px 35px rgba(124,58,237,.22);
+  margin:28px auto;
+  padding:38px 24px;
+  border-radius:25px;
+  color:white;
+  text-align:center;
+  background:linear-gradient(135deg,#6d28d9,#9333ea,#ec4899);
+  box-shadow:0 14px 35px #7c3aed30;
 }
-.hero .tag{
-    display:inline-block;
-    background:rgba(255,255,255,.18);
-    border:1px solid rgba(255,255,255,.3);
-    padding:7px 13px;
-    border-radius:30px;
-    font-size:13px;
-    font-weight:bold;
+.tag{
+  display:inline-block;
+  padding:8px 14px;
+  border-radius:30px;
+  border:1px solid #ffffff60;
+  background:#ffffff25;
+  font-size:13px;
+  font-weight:bold;
 }
-.hero h1{margin:17px 0 10px;font-size:clamp(27px,5vw,43px)}
-.hero p{max-width:700px;margin:auto;line-height:1.7;color:#f7edff}
+.hero h1{margin:17px 0 10px;font-size:clamp(28px,5vw,43px)}
+.hero p{max-width:720px;margin:auto;line-height:1.8;color:#f7edff}
 .notice{
-    margin:22px 0;
-    padding:17px 19px;
-    background:white;
-    border:1px solid #eadcfb;
-    border-left:5px solid var(--pink);
-    border-radius:15px;
-    line-height:1.7;
-    box-shadow:0 5px 18px rgba(55,25,80,.04);
+  margin:22px 0;
+  padding:17px 19px;
+  background:white;
+  border:1px solid var(--border);
+  border-left:5px solid var(--pink);
+  border-radius:15px;
+  line-height:1.8;
+  box-shadow:0 5px 18px #3719500a;
 }
 .section-title{
-    text-align:center;
-    margin:35px 0 8px;
-    font-size:28px;
-    color:var(--dark);
+  text-align:center;
+  margin:35px 0 8px;
+  font-size:clamp(23px,4vw,29px);
+  color:var(--dark);
 }
 .section-desc{
-    text-align:center;
-    color:var(--muted);
-    margin:0 0 25px;
-    line-height:1.6;
+  text-align:center;
+  color:var(--muted);
+  margin:0 0 25px;
+  line-height:1.7;
 }
 .grid{
-    display:grid;
-    grid-template-columns:repeat(4,minmax(0,1fr));
-    gap:18px;
-    margin-bottom:35px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+  margin-bottom:35px;
 }
 .card{
-    background:white;
-    border:1px solid #eadcfb;
-    border-radius:21px;
-    padding:17px;
-    overflow:hidden;
-    box-shadow:0 8px 25px rgba(55,25,80,.07);
-    transition:transform .2s,box-shadow .2s;
+  min-width:0;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:16px;
+  overflow:hidden;
+  box-shadow:0 8px 25px #37195010;
+  transition:transform .2s,box-shadow .2s;
 }
 .card:hover{
-    transform:translateY(-5px);
-    box-shadow:0 15px 30px rgba(124,58,237,.15);
+  transform:translateY(-4px);
+  box-shadow:0 15px 30px #7c3aed20;
 }
 .card-image{
-    height:145px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    border-radius:15px;
-    color:white;
-    font-size:25px;
-    font-weight:900;
-    line-height:1.4;
-    background:linear-gradient(135deg,#6d28d9,#ec4899);
+  min-height:140px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  border-radius:15px;
+  color:white;
+  font-size:23px;
+  font-weight:900;
+  line-height:1.5;
+  overflow-wrap:anywhere;
+  background:linear-gradient(135deg,#6d28d9,#ec4899);
 }
 .price-0{background:linear-gradient(135deg,#64748b,#94a3b8)}
 .price-20{background:linear-gradient(135deg,#2563eb,#60a5fa)}
 .price-40{background:linear-gradient(135deg,#ea580c,#fbbf24)}
 .price-50{background:linear-gradient(135deg,#7c3aed,#ec4899)}
 .status{
-    display:inline-block;
-    margin-top:14px;
-    background:#dcfce7;
-    color:#15803d;
-    padding:6px 10px;
-    border-radius:20px;
-    font-size:12px;
-    font-weight:bold;
+  display:inline-block;
+  margin-top:13px;
+  background:#dcfce7;
+  color:#15803d;
+  padding:6px 10px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
 }
-.card h3{margin:13px 0 8px;font-size:18px}
+.card h3{margin:13px 0 8px;font-size:18px;overflow-wrap:anywhere}
 .card p{
-    color:var(--muted);
-    font-size:14px;
-    line-height:1.6;
-    min-height:43px;
-    overflow-wrap:anywhere;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.7;
+  min-height:44px;
+  overflow-wrap:anywhere;
 }
 .price{
-    font-size:25px;
-    font-weight:900;
-    color:var(--purple);
-    margin:15px 0;
+  font-size:25px;
+  font-weight:900;
+  color:var(--purple);
+  margin:15px 0;
 }
 .buy-btn{
-    display:block;
-    text-align:center;
-    width:100%;
-    padding:12px 10px;
-    color:white;
-    font-weight:800;
-    border-radius:12px;
-    background:linear-gradient(135deg,#7c3aed,#ec4899);
-    transition:opacity .2s;
+  display:block;
+  text-align:center;
+  width:100%;
+  padding:12px 10px;
+  color:white;
+  font-weight:800;
+  border:0;
+  border-radius:12px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#7c3aed,#ec4899);
+  transition:opacity .2s;
 }
 .buy-btn:hover{opacity:.88}
+.secondary-btn{
+  display:inline-block;
+  padding:10px 15px;
+  color:var(--purple);
+  font-weight:bold;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:12px;
+}
+.toolbar{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:20px 0;
+}
 .info-grid{
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:15px;
-    margin:25px 0 35px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
+  margin:25px 0 35px;
 }
 .info-card{
-    background:white;
-    border:1px solid #eadcfb;
-    border-radius:17px;
-    padding:19px;
-    line-height:1.7;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:19px;
+  line-height:1.8;
 }
 .info-card h3{margin-top:0;color:var(--purple)}
+.empty{display:none;text-align:center;padding:20px}
 .footer{
-    margin-top:35px;
-    padding:27px 15px;
-    text-align:center;
-    color:#eee6ff;
-    background:#211633;
-    line-height:1.9;
+  margin-top:35px;
+  padding:27px 15px;
+  text-align:center;
+  color:#eee6ff;
+  background:#211633;
+  line-height:1.9;
 }
 .footer a{color:#f9a8d4;font-weight:bold}
-@media(max-width:850px){
-    .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-    .info-grid{grid-template-columns:1fr}
+.hidden{display:none!important}
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .info-grid{grid-template-columns:1fr}
 }
-@media(max-width:450px){
-    .grid{grid-template-columns:1fr}
-    .hero{padding:28px 17px}
-    .card-image{height:160px}
+@media(max-width:480px){
+  .container{width:92%}
+  .grid{grid-template-columns:1fr}
+  .hero{padding:29px 17px}
+  .card-image{min-height:155px}
 }
 </style>
 </head>
 
 <body>
 <header class="topbar">
-    <a class="logo" href="index.html">SHOP<span>KAROT</span></a>
-    <a class="back" href="steal-an-egg.html">← Quay lại Steal an Egg</a>
+  <a class="logo" href="index.html">SHOP<span>KAROT</span></a>
+  <a class="back" href="steal-an-egg.html">← Quay lại Steal an Egg</a>
 </header>
 
 <main class="container">
-    <section class="hero">
-        <span class="tag">🎮 SHOP ACC ROBLOX</span>
-        <h1>🥚 ACC STEAL AN EGG</h1>
-        <p>
-            Chọn gói acc phù hợp với bạn. Có 10 Túi Mù 0K và các gói
-            20K, 40K, 50K. Nhấn MUA NGAY để chuyển đến trang đặt mua riêng.
-        </p>
-    </section>
-
-    <div class="notice">
-        <strong>📢 Lưu ý trước khi mua:</strong><br>
-        • Gói 0K không được bảo hành.<br>
-        • Với các gói khác, vui lòng đọc chính sách bảo hành của shop.<br>
-        • Khách hàng nên quay video liên tục từ lúc mua đến khi đăng nhập thành công để làm bằng chứng nếu cần hỗ trợ.<br>
-        • Trạng thái còn hàng cần được cập nhật theo kho acc thực tế.
-    </div>
-
-    <h2 class="section-title">🎁 10 Túi Mù Steal an Egg 0K</h2>
-    <p class="section-desc">
-        Mỗi Túi Mù có mã riêng. Chọn MUA NGAY để mở trang đặt mua gói 0K.
+  <section class="hero">
+    <span class="tag">🎮 SHOP ACC ROBLOX</span>
+    <h1 id="heroTitle">🥚 TÚI MÙ STEAL AN EGG</h1>
+    <p id="heroDescription">
+      Chọn mệnh giá để xem 10 Túi Mù của gói đó.
+      Mỗi túi có mã riêng và trang đặt mua riêng.
     </p>
+  </section>
 
-    <section class="grid" id="freePackages"></section>
+  <div class="notice">
+    <strong>📢 LƯU Ý TRƯỚC KHI MUA</strong><br>
+    • Gói 0K không được bảo hành.<br>
+    • Với các gói khác, vui lòng đọc kỹ chính sách bảo hành của shop.<br>
+    • Nên quay video liên tục từ lúc mua đến khi đăng nhập thành công để làm bằng chứng khi cần hỗ trợ.<br>
+    • Trạng thái hàng trên trang là thông tin hiển thị mẫu; cần đối chiếu với kho thực tế.
+  </div>
 
-    <h2 class="section-title">🛒 Các gói acc khác</h2>
-    <p class="section-desc">Mỗi mức giá có trang đặt mua riêng.</p>
+  <!-- TRANG CHỌN MỆNH GIÁ -->
+  <section id="priceSection">
+    <h2 class="section-title">🛒 Chọn mệnh giá Túi Mù</h2>
+    <p class="section-desc">
+      Chọn mệnh giá để mở danh sách gồm 10 Túi Mù cùng giá.
+    </p>
+    <section class="grid" id="priceGrid"></section>
+  </section>
 
-    <section class="grid">
-        <article class="card">
-            <div class="card-image price-20">ACC<br>STEAL AN EGG<br>20K</div>
-            <span class="status">🟢 Còn hàng</span>
-            <h3>Acc Steal an Egg #002</h3>
-            <p>Mã acc: SAE-20K-001<br>Gói acc giá 20K.</p>
-            <div class="price">20.000đ</div>
-            <a class="buy-btn" href="chi-tiet-acc-steal-an-egg-20k.html?buy=SAE-20K-001">
-                MUA NGAY →
-            </a>
-        </article>
+  <!-- TRANG 10 TÚI MÙ CỦA MỆNH GIÁ ĐƯỢC CHỌN -->
+  <section id="packageSection" class="hidden">
+    <div class="toolbar">
+      <a class="secondary-btn" href="acc-steal-an-egg.html">← Tất cả mệnh giá</a>
+    </div>
+    <h2 class="section-title" id="packageTitle">🎁 10 Túi Mù</h2>
+    <p class="section-desc" id="packageDescription"></p>
+    <section class="grid" id="packageGrid"></section>
+  </section>
 
-        <article class="card">
-            <div class="card-image price-40">ACC<br>STEAL AN EGG<br>40K</div>
-            <span class="status">🟢 Còn hàng</span>
-            <h3>Acc Steal an Egg #003</h3>
-            <p>Mã acc: SAE-40K-001<br>Gói acc giá 40K.</p>
-            <div class="price">40.000đ</div>
-            <a class="buy-btn" href="chi-tiet-acc-steal-an-egg-40k.html?buy=SAE-40K-001">
-                MUA NGAY →
-            </a>
-        </article>
-
-        <article class="card">
-            <div class="card-image price-50">ACC<br>STEAL AN EGG<br>50K</div>
-            <span class="status">🟢 Còn hàng</span>
-            <h3>Acc Steal an Egg #004</h3>
-            <p>Mã acc: SAE-50K-001<br>Gói acc giá 50K.</p>
-            <div class="price">50.000đ</div>
-            <a class="buy-btn" href="chi-tiet-acc-steal-an-egg-50k.html?buy=SAE-50K-001">
-                MUA NGAY →
-            </a>
-        </article>
-    </section>
-
-
-
-        <div class="info-card">
-            <h3>🛡️ Lưu ý bảo hành</h3>
-            <p>
-                Gói 0K không được bảo hành. Với các gói khác,
-                hãy kiểm tra chính sách bảo hành được thông báo
-                tại thời điểm mua hàng.
-            </p>
-        </div>
-
-        <div class="info-card">
-            <h3>💬 Liên hệ ShopKarot</h3>
-            <p>Nếu cần hỗ trợ, hãy liên hệ kênh TikTok chính thức.</p>
-            <a class="buy-btn"
-               href="https://www.tiktok.com/@shopkarotnew.com"
-               target="_blank" rel="noopener noreferrer">
-               LIÊN HỆ SHOP →
-            </a>
-        </div>
-    </section>
+  <h2 class="section-title">✨ Thông tin mua hàng</h2>
+  <section class="info-grid">
+    <div class="info-card">
+      <h3>🛍️ Cách đặt mua</h3>
+      <p>
+        1. Chọn mệnh giá.<br>
+        2. Chọn một trong 10 Túi Mù.<br>
+        3. Nhấn MUA NGAY để đến trang đặt mua.<br>
+        4. Điền thông tin và chờ shop xác nhận.
+      </p>
+    </div>
+    <div class="info-card">
+      <h3>🛡️ Chính sách bảo hành</h3>
+      <p>
+        Gói 0K không được bảo hành. Với các gói khác,
+        vui lòng xem chính sách được shop thông báo tại thời điểm mua.
+      </p>
+    </div>
+    <div class="info-card">
+      <h3>💬 Liên hệ ShopKarot</h3>
+      <p>Nếu cần hỗ trợ, liên hệ kênh TikTok chính thức của shop.</p>
+      <a class="buy-btn"
+         href="https://www.tiktok.com/@shopkarotnew.com"
+         target="_blank" rel="noopener noreferrer">
+        LIÊN HỆ SHOP →
+      </a>
+    </div>
+  </section>
 </main>
 
 <footer class="footer">
-    <strong>SHOPKAROT</strong><br>
-    Shop acc game Roblox và dịch vụ game<br>
-    TikTok chính thức:
-    <a href="https://www.tiktok.com/@shopkarotnew.com"
-       target="_blank" rel="noopener noreferrer">@shopkarotnew.com</a><br>
-    © ShopKarot - Vui lòng đọc kỹ thông tin trước khi mua.
+  <strong>SHOPKAROT</strong><br>
+  Shop acc game Roblox và dịch vụ game<br>
+  TikTok chính thức:
+  <a href="https://www.tiktok.com/@shopkarotnew.com"
+     target="_blank" rel="noopener noreferrer">@shopkarotnew.com</a><br>
+  © ShopKarot - Vui lòng đọc kỹ thông tin trước khi mua.
 </footer>
 
 <script>
 (function(){
-    const container = document.getElementById("freePackages");
+  "use strict";
+
+  const PAGE_FILE = "acc-steal-an-egg.html";
+
+  /*
+   * Mỗi mức giá có 10 mã Túi Mù.
+   * Mỗi nút MUA NGAY chuyển đến file đặt mua của mức giá đó,
+   * kèm mã riêng của Túi Mù qua tham số buy.
+   */
+  const packages = {
+    "0K": {
+      amount: 0,
+      className: "price-0",
+      prefix: "SAE-0K",
+      destination: "chi-tiet-acc-steal-an-egg-0k.html"
+    },
+    "20K": {
+      amount: 20000,
+      className: "price-20",
+      prefix: "SAE-20K",
+      destination: "chi-tiet-acc-steal-an-egg-20k.html"
+    },
+    "40K": {
+      amount: 40000,
+      className: "price-40",
+      prefix: "SAE-40K",
+      destination: "chi-tiet-acc-steal-an-egg-40k.html"
+    },
+    "50K": {
+      amount: 50000,
+      className: "price-50",
+      prefix: "SAE-50K",
+      destination: "chi-tiet-acc-steal-an-egg-50k.html"
+    }
+  };
+
+  const priceGrid = document.getElementById("priceGrid");
+  const priceSection = document.getElementById("priceSection");
+  const packageSection = document.getElementById("packageSection");
+  const packageGrid = document.getElementById("packageGrid");
+  const packageTitle = document.getElementById("packageTitle");
+  const packageDescription = document.getElementById("packageDescription");
+  const heroTitle = document.getElementById("heroTitle");
+  const heroDescription = document.getElementById("heroDescription");
+
+  function formatPrice(value){
+    return value.toLocaleString("vi-VN") + "đ";
+  }
+
+  function makeElement(tag, className, text){
+    const element = document.createElement(tag);
+    if(className) element.className = className;
+    if(text !== undefined) element.textContent = text;
+    return element;
+  }
+
+  function getCode(price, number){
+    return packages[price].prefix + "-" + String(number).padStart(3,"0");
+  }
+
+  function openPricePage(price){
+    const url = new URL(PAGE_FILE, window.location.href);
+    url.searchParams.set("goi", price);
+    window.location.href = url.pathname + url.search;
+  }
+
+  function renderPriceCards(){
+    Object.keys(packages).forEach(function(price){
+      const config = packages[price];
+      const card = makeElement("article","card");
+
+      const image = makeElement("div","card-image " + config.className,
+        "TÚI MÙ\nSTEAL AN EGG\n" + price);
+      image.style.whiteSpace = "pre-line";
+
+      const status = makeElement("span","status",
+        price === "0K" ? "🎁 Gói miễn phí" : "🟢 Gói " + price);
+
+      const title = makeElement("h3","",
+        "10 Túi Mù Steal an Egg " + price);
+
+      const desc = makeElement("p","",
+        "Mã từ " + getCode(price,1) + " đến " + getCode(price,10) + ".");
+
+      const value = makeElement("div","price",formatPrice(config.amount));
+
+      const button = makeElement("a","buy-btn","XEM 10 TÚI MÙ →");
+      const url = new URL(PAGE_FILE, window.location.href);
+      url.searchParams.set("goi",price);
+      button.href = url.pathname + url.search;
+
+      card.append(image,status,title,desc,value,button);
+      priceGrid.appendChild(card);
+    });
+  }
+
+  function renderPackageCards(price){
+    const config = packages[price];
+    if(!config) return;
+
+    priceSection.classList.add("hidden");
+    packageSection.classList.remove("hidden");
+
+    heroTitle.textContent = "🥚 TÚI MÙ STEAL AN EGG " + price;
+    heroDescription.textContent =
+      "Bạn đang xem 10 Túi Mù mệnh giá " + price +
+      ". Chọn một túi để mở trang đặt mua riêng.";
+
+    packageTitle.textContent = "🎁 10 TÚI MÙ " + price;
+    packageDescription.textContent =
+      "Mỗi túi có mã riêng, giá " + formatPrice(config.amount) + ".";
+
+    packageGrid.replaceChildren();
 
     for(let i = 1; i <= 10; i++){
-        const number = String(i).padStart(3, "0");
-        const code = "SAE-0K-" + number;
+      const code = getCode(price,i);
+      const number = String(i).padStart(3,"0");
+      const card = makeElement("article","card");
 
-        const card = document.createElement("article");
-        card.className = "card";
+      const image = makeElement("div","card-image " + config.className,
+        "TÚI MÙ\nSTEAL AN EGG\n" + price + " #" + number);
+      image.style.whiteSpace = "pre-line";
 
-        const image = document.createElement("div");
-        image.className = "card-image price-0";
-        image.innerHTML = "TÚI MÙ<br>STEAL AN EGG<br>0K #" + number;
+      const status = makeElement("span","status","🟢 Còn hàng");
 
-        const status = document.createElement("span");
-        status.className = "status";
-        status.textContent = "🟢 Còn hàng";
+      const title = makeElement("h3","","Túi Mù Steal an Egg #" + number);
 
-        const title = document.createElement("h3");
-        title.textContent = "Túi Mù Steal an Egg #" + number;
+      const desc = makeElement("p","","Mã gói: " + code + ". Mệnh giá " + price + ".");
 
-        const description = document.createElement("p");
-        description.textContent = "Mã gói: " + code +
-            " — Túi Mù Steal an Egg miễn phí.";
+      const value = makeElement("div","price",formatPrice(config.amount));
 
-        const price = document.createElement("div");
-        price.className = "price";
-        price.textContent = "0đ";
+      const button = makeElement("a","buy-btn","MUA NGAY →");
+      const orderUrl = new URL(config.destination,window.location.href);
+      orderUrl.searchParams.set("buy",code);
+      button.href = orderUrl.pathname + orderUrl.search;
 
-        const button = document.createElement("a");
-        button.className = "buy-btn";
-        button.href = "chi-tiet-acc-steal-an-egg-0k.html?buy=" +
-            encodeURIComponent(code);
-        button.textContent = "MUA NGAY →";
-
-        card.append(image, status, title, description, price, button);
-        container.appendChild(card);
+      card.append(image,status,title,desc,value,button);
+      packageGrid.appendChild(card);
     }
+  }
+
+  renderPriceCards();
+
+  const params = new URLSearchParams(window.location.search);
+  const selectedPrice = params.get("goi");
+
+  if(selectedPrice && Object.prototype.hasOwnProperty.call(packages,selectedPrice)){
+    renderPackageCards(selectedPrice);
+  }
 })();
 </script>
 </body>
