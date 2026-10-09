@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -122,6 +123,7 @@ button{font:inherit}
   font-weight:900;
   line-height:1.5;
   overflow-wrap:anywhere;
+  white-space:pre-line;
   background:linear-gradient(135deg,#6d28d9,#ec4899);
 }
 .price-0{background:linear-gradient(135deg,#64748b,#94a3b8)}
@@ -197,7 +199,6 @@ button{font:inherit}
   line-height:1.8;
 }
 .info-card h3{margin-top:0;color:var(--purple)}
-.empty{display:none;text-align:center;padding:20px}
 .footer{
   margin-top:35px;
   padding:27px 15px;
@@ -208,6 +209,34 @@ button{font:inherit}
 }
 .footer a{color:#f9a8d4;font-weight:bold}
 .hidden{display:none!important}
+.detail-row{
+  padding:13px 0;
+  border-bottom:1px solid #f0e7fb;
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  line-height:1.7;
+  overflow-wrap:anywhere;
+}
+.detail-row strong{color:var(--purple)}
+.detail-value{text-align:right;white-space:pre-wrap;overflow-wrap:anywhere}
+.detail-panel{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px;
+  margin:20px 0 35px;
+  box-shadow:0 8px 25px #37195010;
+}
+.warning{
+  margin-top:18px;
+  background:#fff7ed;
+  border:1px solid #fed7aa;
+  color:#9a3412;
+  padding:14px;
+  border-radius:12px;
+  line-height:1.8;
+}
 @media(max-width:900px){
   .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .info-grid{grid-template-columns:1fr}
@@ -217,6 +246,8 @@ button{font:inherit}
   .grid{grid-template-columns:1fr}
   .hero{padding:29px 17px}
   .card-image{min-height:155px}
+  .detail-row{display:block}
+  .detail-value{text-align:left;margin-top:5px}
 }
 </style>
 </head>
@@ -233,64 +264,104 @@ button{font:inherit}
     <h1 id="heroTitle">🥚 TÚI MÙ STEAL AN EGG</h1>
     <p id="heroDescription">
       Chọn mệnh giá để xem 10 Túi Mù của gói đó.
-      Mỗi túi có mã riêng và trang đặt mua riêng.
+      Bấm MUA NGAY để xem thông tin ACC tương ứng.
     </p>
   </section>
 
-  <div class="notice">
+  <div class="notice" id="mainNotice">
     <strong>📢 LƯU Ý TRƯỚC KHI MUA</strong><br>
     • Gói 0K không được bảo hành.<br>
     • Với các gói khác, vui lòng đọc kỹ chính sách bảo hành của shop.<br>
     • Nên quay video liên tục từ lúc mua đến khi đăng nhập thành công để làm bằng chứng khi cần hỗ trợ.<br>
-    • Trạng thái hàng trên trang là thông tin hiển thị mẫu; cần đối chiếu với kho thực tế.
+    • Chỉ những ACC đã được nhập dữ liệu bên dưới mới hiển thị thông tin đăng nhập.
   </div>
 
-  <!-- TRANG CHỌN MỆNH GIÁ -->
   <section id="priceSection">
     <h2 class="section-title">🛒 Chọn mệnh giá Túi Mù</h2>
-    <p class="section-desc">
-      Chọn mệnh giá để mở danh sách gồm 10 Túi Mù cùng giá.
-    </p>
+    <p class="section-desc">Chọn mệnh giá để xem 10 Túi Mù cùng giá.</p>
     <section class="grid" id="priceGrid"></section>
   </section>
 
-  <!-- TRANG 10 TÚI MÙ CỦA MỆNH GIÁ ĐƯỢC CHỌN -->
   <section id="packageSection" class="hidden">
     <div class="toolbar">
-      <a class="secondary-btn" href="acc-steal-an-egg.html">← Tất cả mệnh giá</a>
+      <button class="secondary-btn" id="backPackages" type="button">← Tất cả mệnh giá</button>
     </div>
     <h2 class="section-title" id="packageTitle">🎁 10 Túi Mù</h2>
     <p class="section-desc" id="packageDescription"></p>
     <section class="grid" id="packageGrid"></section>
   </section>
 
-  <h2 class="section-title">✨ Thông tin mua hàng</h2>
-  <section class="info-grid">
-    <div class="info-card">
-      <h3>🛍️ Cách đặt mua</h3>
-      <p>
-        1. Chọn mệnh giá.<br>
-        2. Chọn một trong 10 Túi Mù.<br>
-        3. Nhấn MUA NGAY để đến trang đặt mua.<br>
-        4. Điền thông tin và chờ shop xác nhận.
-      </p>
+  <section id="detailSection" class="hidden">
+    <div class="toolbar">
+      <button class="secondary-btn" id="backToBags" type="button">← Quay lại 10 Túi Mù</button>
     </div>
-    <div class="info-card">
-      <h3>🛡️ Chính sách bảo hành</h3>
-      <p>
-        Gói 0K không được bảo hành. Với các gói khác,
-        vui lòng xem chính sách được shop thông báo tại thời điểm mua.
-      </p>
-    </div>
-    <div class="info-card">
-      <h3>💬 Liên hệ ShopKarot</h3>
-      <p>Nếu cần hỗ trợ, liên hệ kênh TikTok chính thức của shop.</p>
-      <a class="buy-btn"
+    <h2 class="section-title">🔐 Thông tin ACC của bạn</h2>
+    <p class="section-desc">Thông tin hiển thị theo mã Túi Mù bạn vừa chọn.</p>
+
+    <div class="detail-panel">
+      <span class="status" id="detailStatus">🟢 Còn hàng</span>
+      <h2 id="detailName">ACC Steal an Egg</h2>
+      <div class="price" id="detailPrice"></div>
+
+      <div class="detail-row">
+        <strong>Mã Túi Mù</strong>
+        <span class="detail-value" id="detailCode"></span>
+      </div>
+      <div class="detail-row">
+        <strong>Mệnh giá</strong>
+        <span class="detail-value" id="detailPackage"></span>
+      </div>
+      <div class="detail-row">
+        <strong>Tên đăng nhập</strong>
+        <span class="detail-value" id="detailUsername"></span>
+      </div>
+      <div class="detail-row">
+        <strong>Mật khẩu</strong>
+        <span class="detail-value" id="detailPassword"></span>
+      </div>
+      <div class="detail-row">
+        <strong>Thông tin ACC</strong>
+        <span class="detail-value" id="detailDescription"></span>
+      </div>
+
+      <div class="warning">
+        ⚠️ Kiểm tra kỹ thông tin trước khi đăng nhập. Gói 0K không được bảo hành.
+      </div>
+
+      <a class="buy-btn" style="margin-top:18px"
          href="https://www.tiktok.com/@shopkarotnew.com"
-         target="_blank" rel="noopener noreferrer">
-        LIÊN HỆ SHOP →
-      </a>
+         target="_blank" rel="noopener noreferrer">LIÊN HỆ SHOP →</a>
+      <button class="buy-btn" style="margin-top:10px"
+              id="backToBagsBottom" type="button">QUAY LẠI DANH SÁCH TÚI</button>
     </div>
+  </section>
+
+  <section id="infoSection">
+    <h2 class="section-title">✨ Thông tin mua hàng</h2>
+    <section class="info-grid">
+      <div class="info-card">
+        <h3>🛍️ Cách xem ACC</h3>
+        <p>
+          1. Chọn mệnh giá.<br>
+          2. Chọn một trong 10 Túi Mù.<br>
+          3. Nhấn MUA NGAY để xem thông tin ACC đã nhập.
+        </p>
+      </div>
+      <div class="info-card">
+        <h3>🛡️ Chính sách bảo hành</h3>
+        <p>
+          Gói 0K không được bảo hành. Với các gói khác,
+          vui lòng xem chính sách được shop thông báo tại thời điểm mua.
+        </p>
+      </div>
+      <div class="info-card">
+        <h3>💬 Liên hệ ShopKarot</h3>
+        <p>Nếu cần hỗ trợ, liên hệ kênh TikTok chính thức của shop.</p>
+        <a class="buy-btn"
+           href="https://www.tiktok.com/@shopkarotnew.com"
+           target="_blank" rel="noopener noreferrer">LIÊN HỆ SHOP →</a>
+      </div>
+    </section>
   </section>
 </main>
 
@@ -309,35 +380,63 @@ button{font:inherit}
 
   const PAGE_FILE = "acc-steal-an-egg.html";
 
-  /*
-   * Mỗi mức giá có 10 mã Túi Mù.
-   * Mỗi nút MUA NGAY chuyển đến file đặt mua của mức giá đó,
-   * kèm mã riêng của Túi Mù qua tham số buy.
-   */
   const packages = {
     "0K": {
-      amount: 0,
-      className: "price-0",
-      prefix: "SAE-0K",
-      destination: "chi-tiet-acc-steal-an-egg-0k.html"
+      amount:0,
+      className:"price-0",
+      prefix:"SAE-0K"
     },
     "20K": {
-      amount: 20000,
-      className: "price-20",
-      prefix: "SAE-20K",
-      destination: "chi-tiet-acc-steal-an-egg-20k.html"
+      amount:20000,
+      className:"price-20",
+      prefix:"SAE-20K"
     },
     "40K": {
-      amount: 40000,
-      className: "price-40",
-      prefix: "SAE-40K",
-      destination: "chi-tiet-acc-steal-an-egg-40k.html"
+      amount:40000,
+      className:"price-40",
+      prefix:"SAE-40K"
     },
     "50K": {
-      amount: 50000,
-      className: "price-50",
-      prefix: "SAE-50K",
-      destination: "chi-tiet-acc-steal-an-egg-50k.html"
+      amount:50000,
+      className:"price-50",
+      prefix:"SAE-50K"
+    }
+  };
+
+  /*
+   * KHO ACC:
+   * Nhập username, password và description thật cho từng mã.
+   * Các mã chưa được khai báo sẽ hiện thông báo chưa có dữ liệu.
+   *
+   * Ví dụ:
+   * "SAE-0K-001":{
+   *   username:"TEN_DANG_NHAP_THAT",
+   *   password:"MAT_KHAU_THAT",
+   *   description:"Thông tin ACC"
+   * }
+   *
+   * Không điền mật khẩu giả vào đây.
+   */
+  const accounts = {
+    "SAE-0K-001":{
+      username:"",
+      password:"",
+      description:"Chưa nhập thông tin ACC."
+    },
+    "SAE-20K-001":{
+      username:"",
+      password:"",
+      description:"Chưa nhập thông tin ACC."
+    },
+    "SAE-40K-001":{
+      username:"",
+      password:"",
+      description:"Chưa nhập thông tin ACC."
+    },
+    "SAE-50K-001":{
+      username:"",
+      password:"",
+      description:"Chưa nhập thông tin ACC."
     }
   };
 
@@ -345,116 +444,196 @@ button{font:inherit}
   const priceSection = document.getElementById("priceSection");
   const packageSection = document.getElementById("packageSection");
   const packageGrid = document.getElementById("packageGrid");
-  const packageTitle = document.getElementById("packageTitle");
-  const packageDescription = document.getElementById("packageDescription");
-  const heroTitle = document.getElementById("heroTitle");
-  const heroDescription = document.getElementById("heroDescription");
+  const detailSection = document.getElementById("detailSection");
+  const infoSection = document.getElementById("infoSection");
+  const mainNotice = document.getElementById("mainNotice");
+
+  let currentPrice = "0K";
 
   function formatPrice(value){
     return value.toLocaleString("vi-VN") + "đ";
   }
 
-  function makeElement(tag, className, text){
-    const element = document.createElement(tag);
-    if(className) element.className = className;
-    if(text !== undefined) element.textContent = text;
-    return element;
+  function makeElement(tag,className,text){
+    const el = document.createElement(tag);
+    if(className) el.className = className;
+    if(text !== undefined) el.textContent = text;
+    return el;
   }
 
-  function getCode(price, number){
+  function getCode(price,number){
     return packages[price].prefix + "-" + String(number).padStart(3,"0");
   }
 
-  function openPricePage(price){
-    const url = new URL(PAGE_FILE, window.location.href);
-    url.searchParams.set("goi", price);
-    window.location.href = url.pathname + url.search;
+  function showOnly(section){
+    priceSection.classList.toggle("hidden",section !== "prices");
+    packageSection.classList.toggle("hidden",section !== "packages");
+    detailSection.classList.toggle("hidden",section !== "detail");
+    infoSection.classList.toggle("hidden",section === "detail");
+    mainNotice.classList.toggle("hidden",section === "detail");
+  }
+
+  function setUrl(params){
+    const url = new URL(PAGE_FILE,window.location.href);
+    Object.keys(params).forEach(function(key){
+      if(params[key]) url.searchParams.set(key,params[key]);
+    });
+    window.history.pushState({}, "", url.pathname + url.search);
   }
 
   function renderPriceCards(){
+    priceGrid.replaceChildren();
+
     Object.keys(packages).forEach(function(price){
       const config = packages[price];
       const card = makeElement("article","card");
-
       const image = makeElement("div","card-image " + config.className,
         "TÚI MÙ\nSTEAL AN EGG\n" + price);
-      image.style.whiteSpace = "pre-line";
-
       const status = makeElement("span","status",
         price === "0K" ? "🎁 Gói miễn phí" : "🟢 Gói " + price);
-
-      const title = makeElement("h3","",
-        "10 Túi Mù Steal an Egg " + price);
-
+      const title = makeElement("h3","","10 Túi Mù Steal an Egg " + price);
       const desc = makeElement("p","",
         "Mã từ " + getCode(price,1) + " đến " + getCode(price,10) + ".");
-
       const value = makeElement("div","price",formatPrice(config.amount));
-
-      const button = makeElement("a","buy-btn","XEM 10 TÚI MÙ →");
-      const url = new URL(PAGE_FILE, window.location.href);
-      url.searchParams.set("goi",price);
-      button.href = url.pathname + url.search;
+      const button = makeElement("button","buy-btn","XEM 10 TÚI MÙ →");
+      button.type = "button";
+      button.addEventListener("click",function(){
+        renderPackageCards(price,true);
+      });
 
       card.append(image,status,title,desc,value,button);
       priceGrid.appendChild(card);
     });
   }
 
-  function renderPackageCards(price){
-    const config = packages[price];
-    if(!config) return;
+  function renderPackageCards(price,updateUrl){
+    if(!packages[price]) return;
+    currentPrice = price;
 
-    priceSection.classList.add("hidden");
-    packageSection.classList.remove("hidden");
-
-    heroTitle.textContent = "🥚 TÚI MÙ STEAL AN EGG " + price;
-    heroDescription.textContent =
-      "Bạn đang xem 10 Túi Mù mệnh giá " + price +
-      ". Chọn một túi để mở trang đặt mua riêng.";
-
-    packageTitle.textContent = "🎁 10 TÚI MÙ " + price;
-    packageDescription.textContent =
-      "Mỗi túi có mã riêng, giá " + formatPrice(config.amount) + ".";
+    document.getElementById("heroTitle").textContent =
+      "🥚 TÚI MÙ STEAL AN EGG " + price;
+    document.getElementById("heroDescription").textContent =
+      "Chọn một túi để xem thông tin ACC tương ứng.";
+    document.getElementById("packageTitle").textContent =
+      "🎁 10 TÚI MÙ " + price;
+    document.getElementById("packageDescription").textContent =
+      "Mỗi túi có mã riêng, giá " + formatPrice(packages[price].amount) + ".";
 
     packageGrid.replaceChildren();
 
-    for(let i = 1; i <= 10; i++){
+    for(let i=1;i<=10;i++){
       const code = getCode(price,i);
       const number = String(i).padStart(3,"0");
       const card = makeElement("article","card");
-
-      const image = makeElement("div","card-image " + config.className,
+      const image = makeElement("div","card-image " + packages[price].className,
         "TÚI MÙ\nSTEAL AN EGG\n" + price + " #" + number);
-      image.style.whiteSpace = "pre-line";
-
-      const status = makeElement("span","status","🟢 Còn hàng");
-
+      const status = makeElement("span","status","🟢 Túi Mù");
       const title = makeElement("h3","","Túi Mù Steal an Egg #" + number);
-
-      const desc = makeElement("p","","Mã gói: " + code + ". Mệnh giá " + price + ".");
-
-      const value = makeElement("div","price",formatPrice(config.amount));
-
-      const button = makeElement("a","buy-btn","MUA NGAY →");
-      const orderUrl = new URL(config.destination,window.location.href);
-      orderUrl.searchParams.set("buy",code);
-      button.href = orderUrl.pathname + orderUrl.search;
+      const desc = makeElement("p","","Mã túi: " + code);
+      const value = makeElement("div","price",formatPrice(packages[price].amount));
+      const button = makeElement("button","buy-btn","MUA NGAY →");
+      button.type = "button";
+      button.addEventListener("click",function(){
+        renderDetail(code,true);
+      });
 
       card.append(image,status,title,desc,value,button);
       packageGrid.appendChild(card);
     }
+
+    showOnly("packages");
+    if(updateUrl) setUrl({goi:price});
   }
+
+  function renderDetail(code,updateUrl){
+    const match = /^SAE-(0K|20K|40K|50K)-(\d{3})$/.exec(code);
+    if(!match || Number(match[2]) < 1 || Number(match[2]) > 10){
+      alert("Mã Túi Mù không hợp lệ.");
+      return;
+    }
+
+    const price = match[1];
+    const account = accounts[code];
+
+    document.getElementById("detailName").textContent =
+      "ACC Steal an Egg - " + code;
+    document.getElementById("detailPrice").textContent =
+      formatPrice(packages[price].amount);
+    document.getElementById("detailCode").textContent = code;
+    document.getElementById("detailPackage").textContent = price;
+
+    document.getElementById("detailUsername").textContent =
+      account && account.username ? account.username : "Chưa nhập tên đăng nhập";
+    document.getElementById("detailPassword").textContent =
+      account && account.password ? account.password : "Chưa nhập mật khẩu";
+    document.getElementById("detailDescription").textContent =
+      account && account.description ? account.description : "Chưa có thông tin ACC";
+
+    const status = document.getElementById("detailStatus");
+    if(account && account.username && account.password){
+      status.textContent = "🟢 Đã có dữ liệu ACC";
+      status.style.background = "#dcfce7";
+      status.style.color = "#15803d";
+    }else{
+      status.textContent = "🟠 Chưa nhập đủ dữ liệu ACC";
+      status.style.background = "#ffedd5";
+      status.style.color = "#9a3412";
+    }
+
+    showOnly("detail");
+    document.getElementById("heroTitle").textContent = "🔐 CHI TIẾT ACC";
+    document.getElementById("heroDescription").textContent =
+      "Thông tin của mã Túi Mù " + code;
+
+    if(updateUrl) setUrl({buy:code});
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  document.getElementById("backPackages").addEventListener("click",function(){
+    showOnly("prices");
+    document.getElementById("heroTitle").textContent = "🥚 TÚI MÙ STEAL AN EGG";
+    document.getElementById("heroDescription").textContent =
+      "Chọn mệnh giá để xem 10 Túi Mù của gói đó.";
+    setUrl({});
+  });
+
+  function backToCurrentBags(){
+    renderPackageCards(currentPrice,true);
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  document.getElementById("backToBags").addEventListener("click",backToCurrentBags);
+  document.getElementById("backToBagsBottom").addEventListener("click",backToCurrentBags);
+
+  window.addEventListener("popstate",function(){
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get("buy");
+    const price = params.get("goi");
+
+    if(code){
+      renderDetail(code,false);
+    }else if(price && packages[price]){
+      renderPackageCards(price,false);
+    }else{
+      showOnly("prices");
+    }
+  });
 
   renderPriceCards();
 
   const params = new URLSearchParams(window.location.search);
-  const selectedPrice = params.get("goi");
+  const initialCode = params.get("buy");
+  const initialPrice = params.get("goi");
 
-  if(selectedPrice && Object.prototype.hasOwnProperty.call(packages,selectedPrice)){
-    renderPackageCards(selectedPrice);
+  if(initialCode){
+    renderDetail(initialCode,false);
+  }else if(initialPrice && packages[initialPrice]){
+    renderPackageCards(initialPrice,false);
+  }else{
+    showOnly("prices");
   }
 })();
 </script>
 </body>
 </html>
+```
