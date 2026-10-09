@@ -1,0 +1,428 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SHOPKAROT - Acc Steal an Egg</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --purple: #7c3aed;
+    --pink: #ec4899;
+    --dark: #171126;
+    --muted: #6b6478;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #251a35;
+    background: linear-gradient(135deg, #f5f0ff, #fff0f7);
+    min-height: 100vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+.topbar {
+    background: rgba(255,255,255,0.95);
+    border-bottom: 1px solid #eadcfb;
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 900;
+    color: var(--purple);
+}
+
+.logo span {
+    color: var(--pink);
+}
+
+.back {
+    color: var(--purple);
+    font-weight: bold;
+    padding: 10px 15px;
+    border: 1px solid #e5d5ff;
+    border-radius: 12px;
+    background: white;
+}
+
+.container {
+    width: min(1100px, 92%);
+    margin: auto;
+}
+
+.hero {
+    margin: 28px auto;
+    padding: 35px 24px;
+    border-radius: 25px;
+    color: white;
+    text-align: center;
+    background: linear-gradient(135deg, #6d28d9, #9333ea, #ec4899);
+    box-shadow: 0 14px 35px rgba(124,58,237,0.22);
+}
+
+.hero .tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 7px 13px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.hero h1 {
+    margin: 17px 0 10px;
+    font-size: clamp(27px, 5vw, 43px);
+}
+
+.hero p {
+    max-width: 650px;
+    margin: auto;
+    line-height: 1.7;
+    color: #f7edff;
+}
+
+.notice {
+    margin: 22px 0;
+    padding: 17px 19px;
+    background: white;
+    border: 1px solid #eadcfb;
+    border-left: 5px solid var(--pink);
+    border-radius: 15px;
+    line-height: 1.7;
+    box-shadow: 0 5px 18px rgba(55,25,80,0.04);
+}
+
+.section-title {
+    text-align: center;
+    margin: 35px 0 8px;
+    font-size: 28px;
+    color: var(--dark);
+}
+
+.section-desc {
+    text-align: center;
+    color: var(--muted);
+    margin: 0 0 25px;
+    line-height: 1.6;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 35px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #eadcfb;
+    border-radius: 21px;
+    padding: 17px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(55,25,80,0.07);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(124,58,237,0.15);
+}
+
+.card-image {
+    height: 145px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-radius: 15px;
+    color: white;
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.3;
+    background: linear-gradient(135deg, #6d28d9, #ec4899);
+}
+
+.price-0 {
+    background: linear-gradient(135deg, #64748b, #94a3b8);
+}
+
+.price-20 {
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+}
+
+.price-40 {
+    background: linear-gradient(135deg, #ea580c, #fbbf24);
+}
+
+.price-50 {
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+}
+
+.status {
+    display: inline-block;
+    margin-top: 14px;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.card h3 {
+    margin: 13px 0 8px;
+    font-size: 18px;
+}
+
+.card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 43px;
+}
+
+.price {
+    font-size: 25px;
+    font-weight: 900;
+    color: var(--purple);
+    margin: 15px 0;
+}
+
+.buy-btn {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding: 12px 10px;
+    color: white;
+    font-weight: 800;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #7c3aed, #ec4899);
+    transition: opacity .2s;
+}
+
+.buy-btn:hover {
+    opacity: .88;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    margin: 25px 0 35px;
+}
+
+.info-card {
+    background: white;
+    border: 1px solid #eadcfb;
+    border-radius: 17px;
+    padding: 19px;
+    line-height: 1.7;
+}
+
+.info-card h3 {
+    margin-top: 0;
+    color: var(--purple);
+}
+
+.footer {
+    margin-top: 35px;
+    padding: 27px 15px;
+    text-align: center;
+    color: #eee6ff;
+    background: #211633;
+    line-height: 1.9;
+}
+
+.footer a {
+    color: #f9a8d4;
+    font-weight: bold;
+}
+
+@media (max-width: 850px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 450px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        padding: 28px 17px;
+    }
+
+    .card-image {
+        height: 160px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+    <a class="logo" href="index.html">SHOP<span>KAROT</span></a>
+    <a class="back" href="steal-an-egg.html">← Quay lại Steal an Egg</a>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <span class="tag">🎮 SHOP ACC ROBLOX</span>
+        <h1>🥚 ACC STEAL AN EGG</h1>
+        <p>
+            Chọn gói acc phù hợp với bạn. Có 4 gói giá 0K, 20K, 40K và 50K.
+            Nhấn MUA NGAY để chuyển sang trang đặt mua của từng gói.
+        </p>
+    </section>
+
+    <div class="notice">
+        <strong>📢 Lưu ý trước khi mua:</strong><br>
+        • Acc gói 0K không được bảo hành.<br>
+        • Đối với các gói có bảo hành, vui lòng đọc kỹ chính sách của shop trước khi đặt mua.<br>
+        • Khách hàng cần quay video liên tục từ lúc mua đến khi đăng nhập thành công để làm bằng chứng nếu cần hỗ trợ.<br>
+        • Thông tin acc cụ thể sẽ được cung cấp theo từng đơn hàng.
+    </div>
+
+    <h2 class="section-title">🛒 Chọn gói acc của bạn</h2>
+    <p class="section-desc">
+        Bấm vào gói muốn mua để mở trang đặt hàng riêng.
+    </p>
+
+    <section class="grid">
+
+        <!-- GÓI 0K -->
+        <article class="card">
+            <div class="card-image price-0">
+                ACC<br>STEAL AN EGG<br>0K
+            </div>
+            <span class="status">🟢 Còn hàng</span>
+            <h3>Acc Steal an Egg #001</h3>
+            <p>Mã acc: SAE-0K-001<br>Gói dành cho khách muốn nhận acc miễn phí.</p>
+            <div class="price">0đ</div>
+            <a class="buy-btn"
+               href="chi-tiet-acc-steal-an-egg.html?buy=SAE-0K-001">
+               MUA NGAY →
+            </a>
+        </article>
+
+        <!-- GÓI 20K -->
+        <article class="card">
+            <div class="card-image price-20">
+                ACC<br>STEAL AN EGG<br>20K
+            </div>
+            <span class="status">🟢 Còn hàng</span>
+            <h3>Acc Steal an Egg #002</h3>
+            <p>Mã acc: SAE-20K-001<br>Gói acc giá 20K.</p>
+            <div class="price">20.000đ</div>
+            <a class="buy-btn"
+               href="chi-tiet-acc-steal-an-egg.html?buy=SAE-20K-001">
+               MUA NGAY →
+            </a>
+        </article>
+
+        <!-- GÓI 40K -->
+        <article class="card">
+            <div class="card-image price-40">
+                ACC<br>STEAL AN EGG<br>40K
+            </div>
+            <span class="status">🟢 Còn hàng</span>
+            <h3>Acc Steal an Egg #003</h3>
+            <p>Mã acc: SAE-40K-001<br>Gói acc giá 40K.</p>
+            <div class="price">40.000đ</div>
+            <a class="buy-btn"
+               href="chi-tiet-acc-steal-an-egg.html?buy=SAE-40K-001">
+               MUA NGAY →
+            </a>
+        </article>
+
+        <!-- GÓI 50K -->
+        <article class="card">
+            <div class="card-image price-50">
+                ACC<br>STEAL AN EGG<br>50K
+            </div>
+            <span class="status">🟢 Còn hàng</span>
+            <h3>Acc Steal an Egg #004</h3>
+            <p>Mã acc: SAE-50K-001<br>Gói acc giá 50K.</p>
+            <div class="price">50.000đ</div>
+            <a class="buy-btn"
+               href="chi-tiet-acc-steal-an-egg.html?buy=SAE-50K-001">
+               MUA NGAY →
+            </a>
+        </article>
+
+    </section>
+
+    <h2 class="section-title">✨ Thông tin mua hàng</h2>
+
+    <section class="info-grid">
+        <div class="info-card">
+            <h3>🛍️ Cách đặt mua</h3>
+            <p>
+                1. Chọn gói acc muốn mua.<br>
+                2. Nhấn nút MUA NGAY.<br>
+                3. Điền thông tin đặt hàng.<br>
+                4. Làm theo hướng dẫn xác nhận đơn hàng.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <h3>🛡️ Lưu ý bảo hành</h3>
+            <p>
+                Gói 0K không được bảo hành. Với các gói khác,
+                hãy kiểm tra chính sách bảo hành được thông báo
+                tại thời điểm mua hàng.
+            </p>
+        </div>
+
+        <div class="info-card">
+            <h3>💬 Liên hệ ShopKarot</h3>
+            <p>
+                Nếu cần hỗ trợ, hãy liên hệ kênh TikTok chính thức của shop.
+            </p>
+            <a class="buy-btn"
+               href="https://www.tiktok.com/@shopkarotnew.com"
+               target="_blank"
+               rel="noopener noreferrer">
+               LIÊN HỆ SHOP →
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <strong>SHOPKAROT</strong><br>
+    Shop acc game Roblox và dịch vụ game<br>
+    TikTok chính thức:
+    <a href="https://www.tiktok.com/@shopkarotnew.com"
+       target="_blank"
+       rel="noopener noreferrer">@shopkarotnew.com</a><br>
+    © ShopKarot - Vui lòng đọc kỹ thông tin trước khi mua.
+</footer>
+
+</body>
+</html>
+```
