@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SHOPKAROT - Steal an Egg</title>
+<meta name="description" content="ShopKarot cung cấp acc Steal an Egg và dịch vụ cày thuê, Gamepass Steal an Egg.">
+<meta name="theme-color" content="#7138e8">
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+:root{
+    --primary:#7138e8;
+    --primary-dark:#5425bd;
+    --pink:#ed4ca5;
+    --text:#20213a;
+    --muted:#687087;
+    --background:#f6f4fc;
+    --white:#ffffff;
+    --border:#e8e0fa;
+    --green:#159b62;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    color:var(--text);
+    background:var(--background);
+}
+
+a{
+    text-decoration:none;
+}
+
+button,
+input{
+    font:inherit;
+}
+
+/* THANH ĐẦU TRANG */
+.topbar{
+    background:rgba(255,255,255,.96);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:100;
+    backdrop-filter:blur(12px);
+}
+
+.topbar-inner{
+    max-width:1150px;
+    margin:auto;
+    padding:13px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+
+.logo{
+    color:var(--primary);
+    font-size:23px;
+    font-weight:900;
+    letter-spacing:.5px;
+}
+
+.logo span{
+    color:var(--pink);
+}
+
+.top-link{
+    color:var(--primary);
+    font-size:14px;
+    font-weight:bold;
+    padding:10px 14px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    transition:.2s;
+}
+
+.top-link:hover{
+    background:#f1eaff;
+}
+
+/* BANNER */
+.hero{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(125deg,#5125b9 0%,#7939e8 52%,#ec4ca5 100%);
+    color:white;
+    padding:65px 20px 58px;
+}
+
+.hero:before,
+.hero:after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    pointer-events:none;
+}
+
+.hero:before{
+    width:280px;
+    height:280px;
+    top:-130px;
+    right:8%;
+}
+
+.hero:after{
+    width:200px;
+    height:200px;
+    bottom:-125px;
+    left:8%;
+}
+
+.hero-content{
+    position:relative;
+    z-index:1;
+    max-width:1000px;
+    margin:auto;
+    text-align:center;
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:8px 14px;
+    border:1px solid #ffffff55;
+    background:#ffffff18;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:bold;
+    letter-spacing:1px;
+    margin-bottom:18px;
+}
+
+.hero h1{
+    margin:0;
+    font-size:clamp(29px,5vw,46px);
+    line-height:1.2;
+    font-weight:900;
+}
+
+.hero h1 span{
+    color:#ffe18a;
+}
+
+.hero p{
+    max-width:650px;
+    margin:17px auto 0;
+    line-height:1.8;
+    color:#f5eaff;
+    font-size:15px;
+}
+
+.hero-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:12px;
+    margin-top:27px;
+}
+
+.hero-button{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:13px 20px;
+    min-height:46px;
+    border-radius:11px;
+    font-weight:bold;
+    transition:transform .2s,box-shadow .2s;
+}
+
+.hero-button:hover{
+    transform:translateY(-3px);
+}
+
+.hero-button.primary{
+    background:white;
+    color:var(--primary-dark);
+    box-shadow:0 6px 20px #25105030;
+}
+
+.hero-button.secondary{
+    color:white;
+    border:1px solid #ffffff80;
+    background:#ffffff15;
+}
+
+/* NỘI DUNG */
+.container{
+    max-width:1100px;
+    padding:0 20px;
+    margin:0 auto;
+}
+
+.breadcrumb{
+    display:flex;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:22px 0;
+    font-size:13px;
+    color:var(--muted);
+}
+
+.breadcrumb a{
+    color:var(--primary);
+    font-weight:bold;
+}
+
+.section{
+    padding:15px 0 30px;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.section-label{
+    display:inline-block;
+    color:var(--primary);
+    background:#eee6ff;
+    padding:7px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.section-heading h2{
+    margin:0;
+    font-size:clamp(23px,4vw,31px);
+    color:var(--text);
+}
+
+.section-heading p{
+    color:var(--muted);
+    line-height:1.7;
+    margin:10px auto 0;
+    max-width:620px;
+    font-size:14px;
+}
+
+/* HAI DANH MỤC */
+.category-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:22px;
+}
+
+.category-card{
+    position:relative;
+    overflow:hidden;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:22px;
+    box-shadow:0 7px 25px #31205b0b;
+    transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+
+.category-card:hover{
+    transform:translateY(-5px);
+    border-color:#c9b1ff;
+    box-shadow:0 15px 32px #31205b16;
+}
+
+.category-art{
+    height:205px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    gap:10px;
+    color:white;
+    border-radius:15px;
+    text-align:center;
+    font-weight:900;
+    font-size:27px;
+    line-height:1.3;
+    text-shadow:0 3px 10px #0002;
+}
+
+.category-art.acc{
+    background:linear-gradient(135deg,#6832d4,#ad5de8,#f178c6);
+}
+
+.category-art.service{
+    background:linear-gradient(135deg,#087f8c,#12b99a,#71dfb4);
+}
+
+.art-icon{
+    font-size:52px;
+    filter:drop-shadow(0 5px 7px #0002);
+}
+
+.category-card h3{
+    font-size:22px;
+    margin:20px 0 10px;
+}
+
+.category-description{
+    min-height:68px;
+    font-size:14px;
+    color:var(--muted);
+    line-height:1.8;
+    margin:0;
+}
+
+.feature-list{
+    list-style:none;
+    margin:17px 0 0;
+    padding:0;
+}
+
+.feature-list li{
+    font-size:13px;
+    line-height:1.7;
+    margin:8px 0;
+    color:#41465b;
+}
+
+.feature-list li::before{
+    content:"✓";
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:19px;
+    height:19px;
+    margin-right:8px;
+    background:#e5f8ee;
+    color:#138451;
+    border-radius:50%;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.category-button{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    min-height:48px;
+    padding:13px;
+    margin-top:20px;
+    border-radius:11px;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    background:linear-gradient(100deg,var(--primary),var(--pink));
+    box-shadow:0 5px 14px #7138e825;
+    transition:filter .2s,transform .2s;
+}
+
+.category-button:hover{
+    filter:brightness(1.06);
+    transform:translateY(-2px);
+}
+
+/* ƯU ĐIỂM */
+.benefits{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:15px;
+    margin:5px 0 35px;
+}
+
+.benefit{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:20px 15px;
+    text-align:center;
+}
+
+.benefit-icon{
+    font-size:29px;
+}
+
+.benefit h3{
+    font-size:15px;
+    margin:12px 0 8px;
+}
+
+.benefit p{
+    margin:0;
+    font-size:13px;
+    color:var(--muted);
+    line-height:1.7;
+}
+
+/* THÔNG TIN */
+.info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-bottom:30px;
+}
+
+.info-card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:22px;
+}
+
+.info-card h3{
+    margin:0 0 15px;
+    font-size:18px;
+    color:var(--primary);
+}
+
+.info-card p{
+    color:#555b70;
+    font-size:14px;
+    line-height:1.85;
+    margin:9px 0;
+}
+
+.notice-card{
+    border-color:#f4d58a;
+    background:linear-gradient(135deg,#fffdf6,#fff8e6);
+}
+
+.notice-card h3{
+    color:#a16207;
+}
+
+.notice-card p{
+    color:#6d5422;
+}
+
+/* LIÊN HỆ */
+.contact-box{
+    background:linear-gradient(120deg,#eee7ff,#fff0f8);
+    border:1px solid #dfcffd;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.contact-box h2{
+    font-size:23px;
+    margin:0 0 10px;
+}
+
+.contact-box p{
+    color:var(--muted);
+    line-height:1.7;
+    font-size:14px;
+}
+
+.contact-button{
+    display:inline-flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    padding:13px 20px;
+    margin-top:8px;
+    border-radius:10px;
+    background:#111827;
+    color:white;
+    font-weight:bold;
+    font-size:14px;
+    transition:transform .2s;
+}
+
+.contact-button:hover{
+    transform:translateY(-2px);
+}
+
+/* CHÂN TRANG */
+.footer{
+    background:#211638;
+    color:white;
+    padding:28px 20px;
+    text-align:center;
+}
+
+.footer-logo{
+    font-size:20px;
+    font-weight:900;
+}
+
+.footer-logo span{
+    color:#f58acb;
+}
+
+.footer p{
+    margin:10px 0 0;
+    color:#d4cbe7;
+    font-size:12px;
+    line-height:1.8;
+}
+
+/* NÚT LÊN ĐẦU */
+.to-top{
+    position:fixed;
+    right:18px;
+    bottom:18px;
+    z-index:50;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    background:var(--primary);
+    color:white;
+    font-size:21px;
+    box-shadow:0 5px 18px #0002;
+    transition:transform .2s;
+}
+
+.to-top:hover{
+    transform:translateY(-4px);
+}
+
+/* RESPONSIVE */
+@media(max-width:750px){
+    .hero{
+        padding:48px 18px;
+    }
+
+    .category-grid{
+        gap:14px;
+    }
+
+    .category-card{
+        padding:15px;
+    }
+
+    .category-art{
+        height:160px;
+        font-size:23px;
+    }
+
+    .art-icon{
+        font-size:42px;
+    }
+
+    .benefits{
+        grid-template-columns:1fr;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:520px){
+    .topbar-inner{
+        padding:12px;
+    }
+
+    .logo{
+        font-size:19px;
+    }
+
+    .top-link{
+        padding:9px 10px;
+        font-size:12px;
+    }
+
+    .hero{
+        padding:42px 16px;
+    }
+
+    .hero p{
+        font-size:14px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .hero-button{
+        width:100%;
+    }
+
+    .container{
+        padding:0 13px;
+    }
+
+    .category-grid{
+        grid-template-columns:1fr;
+    }
+
+    .category-art{
+        height:180px;
+    }
+
+    .category-description{
+        min-height:0;
+    }
+
+    .section{
+        padding-top:8px;
+    }
+
+    .info-card{
+        padding:18px;
+    }
+
+    .contact-box{
+        padding:22px 16px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,
+    *::before,
+    *::after{
+        scroll-behavior:auto!important;
+        transition:none!important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- THANH ĐIỀU HƯỚNG -->
+<nav class="topbar">
+    <div class="topbar-inner">
+        <a href="index.html" class="logo">
+            SHOP<span>KAROT</span>
+        </a>
+
+        <a href="index.html" class="top-link">
+            ← Về Shop chính
+        </a>
+    </div>
+</nav>
+
+<!-- BANNER CHÍNH -->
+<header class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            🎮 DANH MỤC GAME ROBLOX
+        </div>
+
+        <h1>
+            SHOPKAROT<br>
+            <span>STEAL AN EGG</span>
+        </h1>
+
+        <p>
+            Chào mừng bạn đến với danh mục Steal an Egg của ShopKarot.
+            Khám phá các gói tài khoản và dịch vụ trong game,
+            lựa chọn sản phẩm phù hợp với nhu cầu của bạn.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="acc-steal-an-egg.html" class="hero-button primary">
+                🥚 XEM ACC NGAY
+            </a>
+
+            <a href="dich-vu-steal-an-egg.html" class="hero-button secondary">
+                ⚡ KHÁM PHÁ DỊCH VỤ
+            </a>
+        </div>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- ĐƯỜNG DẪN -->
+    <div class="breadcrumb">
+        <a href="index.html">Trang chủ</a>
+        <span>›</span>
+        <span>Steal an Egg</span>
+    </div>
+
+    <!-- DANH MỤC -->
+    <section class="section" id="danh-muc">
+        <div class="section-heading">
+            <div class="section-label">DANH MỤC SẢN PHẨM</div>
+            <h2>Khám phá Steal an Egg</h2>
+            <p>
+                Chọn danh mục bên dưới để xem thông tin chi tiết,
+                giá bán và cách đặt mua.
+            </p>
+        </div>
+
+        <div class="category-grid">
+
+            <!-- ACC -->
+            <article class="category-card">
+                <div class="category-art acc">
+                    <div class="art-icon">🥚</div>
+                    <div>ACC STEAL AN EGG</div>
+                </div>
+
+                <h3>🥚 Acc Steal an Egg</h3>
+
+                <p class="category-description">
+                    Khám phá các gói tài khoản Steal an Egg,
+                    xem mã tài khoản, giá bán và tình trạng kho
+                    trước khi đặt mua.
+                </p>
+
+                <ul class="feature-list">
+                    <li>Các gói acc theo mức giá</li>
+                    <li>Xem thông tin từng mã acc</li>
+                    <li>Hướng dẫn đặt mua rõ ràng</li>
+                    <li>Hỗ trợ theo chính sách sản phẩm</li>
+                </ul>
+
+                <a href="acc-steal-an-egg.html" class="category-button">
+                    XEM DANH SÁCH ACC →
+                </a>
+            </article>
+
+            <!-- DỊCH VỤ -->
+            <article class="category-card">
+                <div class="category-art service">
+                    <div class="art-icon">⚡</div>
+                    <div>DỊCH VỤ STEAL AN EGG</div>
+                </div>
+
+                <h3>⚡ Dịch vụ Steal an Egg</h3>
+
+                <p class="category-description">
+                    Xem các dịch vụ hỗ trợ trong game,
+                    lựa chọn cày thuê hoặc Gamepass
+                    và gửi yêu cầu tư vấn.
+                </p>
+
+                <ul class="feature-list">
+                    <li>Cày thuê Steal an Egg</li>
+                    <li>Gamepass Steal an Egg</li>
+                    <li>Xem thông tin và giá dịch vụ</li>
+                    <li>Gửi yêu cầu để được tư vấn</li>
+                </ul>
+
+                <a href="dich-vu-steal-an-egg.html" class="category-button">
+                    XEM CÁC DỊCH VỤ →
+                </a>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- ĐIỂM NỔI BẬT -->
+    <section class="section">
+        <div class="section-heading">
+            <div class="section-label">SHOPKAROT</div>
+            <h2>Mua hàng thuận tiện hơn</h2>
+            <p>
+                Tham khảo thông tin trước khi chọn sản phẩm
+                để quá trình đặt mua được thuận tiện.
+            </p>
+        </div>
+
+        <div class="benefits">
+            <article class="benefit">
+                <div class="benefit-icon">🔎</div>
+                <h3>Thông tin rõ ràng</h3>
+                <p>
+                    Xem mã sản phẩm, giá và thông tin
+                    trước khi đặt mua.
+                </p>
+            </article>
+
+            <article class="benefit">
+                <div class="benefit-icon">🛡️</div>
+                <h3>Chính sách hỗ trợ</h3>
+                <p>
+                    Đọc kỹ điều kiện bảo hành và hỗ trợ
+                    của từng sản phẩm.
+                </p>
+            </article>
+
+            <article class="benefit">
+                <div class="benefit-icon">💬</div>
+                <h3>Hỗ trợ khách hàng</h3>
+                <p>
+                    Liên hệ Admin nếu cần kiểm tra
+                    đơn hàng hoặc giải đáp thắc mắc.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <!-- THÔNG TIN SHOP -->
+    <section class="info-grid">
+
+        <article class="info-card">
+            <h3>📌 Hướng dẫn mua hàng</h3>
+
+            <p>
+                <b>Bước 1:</b> Chọn Acc Steal an Egg
+                hoặc Dịch vụ Steal an Egg.
+            </p>
+
+            <p>
+                <b>Bước 2:</b> Xem giá, mã sản phẩm
+                và thông tin liên quan.
+            </p>
+
+            <p>
+                <b>Bước 3:</b> Điền thông tin theo biểu mẫu
+                nếu muốn gửi yêu cầu đặt hàng.
+            </p>
+
+            <p>
+                <b>Bước 4:</b> Liên hệ Admin để xác nhận
+                tình trạng đơn hàng và hướng dẫn thanh toán.
+            </p>
+        </article>
+
+        <article class="info-card notice-card">
+            <h3>⚠️ Lưu ý quan trọng</h3>
+
+            <p>
+                • Kiểm tra kỹ thông tin sản phẩm trước khi mua.
+            </p>
+
+            <p>
+                • Gói acc 0K không có bảo hành theo chính sách
+                đã công bố cho sản phẩm.
+            </p>
+
+            <p>
+                • Với acc có yêu cầu quay video bằng chứng,
+                hãy quay liên tục từ lúc mua đến khi đăng nhập
+                thành công; không cắt ghép video.
+            </p>
+
+            <p>
+                • Nếu đã thanh toán nhưng chưa nhận được sản phẩm,
+                không tự đặt mua lại. Hãy liên hệ Admin để kiểm tra.
+            </p>
+        </article>
+
+    </section>
+
+    <!-- THỜI GIAN HOẠT ĐỘNG -->
+    <section class="info-card" style="margin-bottom:25px">
+        <h3>🕐 Thời gian hoạt động ShopKarot</h3>
+
+        <p>
+            <b>Thứ 2 – Thứ 6:</b> 17:00 – 21:15
+        </p>
+
+        <p>
+            <b>Thứ 7:</b> 09:30 – 20:00
+        </p>
+
+        <p>
+            Ngoài thời gian hoạt động, bạn có thể để lại yêu cầu
+            và liên hệ Admin để được hỗ trợ khi shop hoạt động trở lại.
+        </p>
+    </section>
+
+    <!-- LIÊN HỆ -->
+    <section class="contact-box">
+        <h2>💬 Bạn cần hỗ trợ?</h2>
+
+        <p>
+            Nếu gặp lỗi khi đặt hàng, cần xác nhận sản phẩm
+            hoặc muốn hỏi thêm về dịch vụ Steal an Egg,
+            hãy liên hệ kênh TikTok chính thức của ShopKarot.
+        </p>
+
+        <a
+            href="https://www.tiktok.com/@shopkarotnew.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-button"
+        >
+            🎵 LIÊN HỆ ADMIN SHOPKAROT
+        </a>
+    </section>
+
+</main>
+
+<!-- CHÂN TRANG -->
+<footer class="footer">
+    <div class="footer-logo">
+        SHOP<span>KAROT</span> - STEAL AN EGG
+    </div>
+
+    <p>
+        Shop acc game và dịch vụ Roblox<br>
+        Vui lòng đọc kỹ thông tin và chính sách sản phẩm trước khi mua.<br>
+        © SHOPKAROT
+    </p>
+</footer>
+
+<a href="#" class="to-top" aria-label="Lên đầu trang" title="Lên đầu trang">↑</a>
+
+</body>
+</html>
