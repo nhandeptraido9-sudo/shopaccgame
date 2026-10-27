@@ -1,4 +1,4 @@
-
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -202,6 +202,100 @@ header p{
     color:#475569;
 }
 
+/* 10 GOI TUI MU BLOX FRUITS */
+.mystery-packages{
+    margin-top:25px;
+    padding:18px;
+    background:#fff;
+    border:2px solid #fecaca;
+    border-radius:14px;
+}
+
+.mystery-title{
+    color:#b91c1c;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    margin:0 0 10px;
+}
+
+.mystery-description{
+    text-align:center;
+    color:#64748b;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+.package-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:14px;
+}
+
+.package-item{
+    padding:16px;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    text-align:center;
+    background:#fff;
+    box-shadow:0 3px 10px rgba(0,0,0,.04);
+}
+
+.package-item h3{
+    font-size:16px;
+    margin:0 0 10px;
+    color:#172033;
+}
+
+.package-level{
+    font-size:13px;
+    color:#64748b;
+    line-height:1.6;
+}
+
+.package-price{
+    color:#15803d;
+    font-size:26px;
+    font-weight:bold;
+    margin:13px 0;
+}
+
+.package-buy{
+    width:100%;
+    padding:13px 10px;
+    border:0;
+    border-radius:9px;
+    background:linear-gradient(135deg,#e21b23,#b91c1c);
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.package-buy:hover{
+    filter:brightness(.92);
+}
+
+.package-result{
+    display:none;
+    margin-top:20px;
+    padding:18px;
+    background:#f0fdf4;
+    border:2px solid #86efac;
+    border-radius:12px;
+    line-height:1.7;
+}
+
+.package-result h3{
+    color:#166534;
+    margin-top:0;
+}
+
+.package-result .selected-name{
+    font-weight:bold;
+    color:#b91c1c;
+}
+
 footer{
     text-align:center;
     padding:22px 12px;
@@ -224,6 +318,14 @@ footer{
 
     .info-row{
         font-size:14px;
+    }
+
+    .package-grid{
+        grid-template-columns:1fr;
+    }
+
+    .mystery-packages{
+        padding:13px;
     }
 }
 </style>
@@ -270,8 +372,130 @@ footer{
 
             <div class="info-row">
                 <span>Cách nhận ACC</span>
-                <strong>Nhắn tin Admin</strong>
+                <strong>Chọn gói và nhắn tin Admin</strong>
             </div>
+
+            <!-- DANH SACH 10 GOI TUI MU -->
+            <section class="mystery-packages">
+
+                <h2 class="mystery-title">
+                    🎁 TÚI MÙ BLOX FRUITS LV 1000+
+                </h2>
+
+                <p class="mystery-description">
+                    ACC BLOX FRUITS LEVEL 1000 TRỞ LÊN 0K<br>
+                    Chọn một trong 10 gói bên dưới rồi nhấn MUA NGAY.<br>
+                    <strong>Giá mỗi gói: 0đ</strong>
+                </p>
+
+                <div class="package-grid" id="packageGrid">
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #001</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="001">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #002</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="002">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #003</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="003">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #004</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="004">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #005</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="005">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #006</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="006">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #007</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="007">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #008</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="008">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #009</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="009">MUA NGAY</button>
+                    </div>
+
+                    <div class="package-item">
+                        <h3>🎁 Túi Mù #010</h3>
+                        <div class="package-level">Blox Fruits Level 1000+</div>
+                        <div class="package-price">0K</div>
+                        <button class="package-buy" data-package="010">MUA NGAY</button>
+                    </div>
+
+                </div>
+
+                <!-- HIEN THI GOI DA CHON -->
+                <div class="package-result" id="packageResult" aria-live="polite">
+                    <h3>✅ BẠN ĐÃ CHỌN GÓI TÚI MÙ!</h3>
+
+                    <p class="selected-name" id="selectedPackage">
+                        Túi Mù Blox Fruits
+                    </p>
+
+                    <p>Giá gói: <strong>0đ</strong></p>
+
+                    <p>
+                        Vui lòng liên hệ Admin ShopKarot để kiểm tra tình trạng
+                        tài khoản và được hướng dẫn nhận acc.
+                    </p>
+
+                    <a
+                        class="admin-btn"
+                        id="contactSelected"
+                        href="https://www.tiktok.com/@shopkarotnew.com"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        🎵 NHẮN TIN ADMIN ĐỂ NHẬN ACC
+                    </a>
+
+                    <a
+                        class="discord-btn"
+                        href="https://discord.gg/7jfEeKYNV6"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        💬 THAM GIA DISCORD SHOPKAROT
+                    </a>
+                </div>
+
+            </section>
 
             <div class="security">
                 <h3>🔐 ACC BẢO MẬT</h3>
@@ -332,5 +556,35 @@ footer{
     Liên hệ Admin để được hỗ trợ.
 </footer>
 
+<script>
+/*
+ * Chọn gói sẽ hiện mã gói đã chọn và thông tin liên hệ Admin.
+ * Muốn tự động hiện username/mật khẩu acc thật thì cần kết nối
+ * kho tài khoản hoặc khai báo dữ liệu tài khoản tương ứng.
+ */
+document.querySelectorAll(".package-buy").forEach(function(button){
+
+    button.addEventListener("click", function(){
+
+        const packageNumber = this.getAttribute("data-package");
+        const packageName = "Túi Mù Blox Fruits #" + packageNumber;
+        const packageCode = "BF-0K-" + packageNumber;
+
+        document.getElementById("selectedPackage").textContent =
+            packageName + " | Mã gói: " + packageCode;
+
+        const result = document.getElementById("packageResult");
+        result.style.display = "block";
+
+        result.scrollIntoView({
+            behavior:"smooth",
+            block:"center"
+        });
+    });
+
+});
+</script>
+
 </body>
 </html>
+```
