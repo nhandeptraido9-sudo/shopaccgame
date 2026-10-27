@@ -3,514 +3,321 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Khách hàng - SHOPACCGAME</title>
 
 <style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#eef2f7;
-    color:#182238;
-}
-
-/* HEADER */
-
-header{
-    background:linear-gradient(90deg,#5137df,#347bf0);
-    color:white;
-    text-align:center;
-    padding:28px 15px;
-}
-
-header h1{
-    margin:0 0 8px;
-}
-
-header p{
-    margin:0;
-}
-
-/* CONTAINER */
-
-.container{
-    max-width:900px;
-    margin:30px auto;
-    padding:15px;
-}
-
-/* BOX */
-
-.box{
-    background:white;
-    border-radius:18px;
-    padding:25px;
-    margin-bottom:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,.10);
-}
-
-.box h2{
-    margin-top:0;
-}
-
-/* THÔNG TIN */
-
-.info-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
-}
-
-.info{
-    background:#f5f7fb;
-    padding:18px;
-    border-radius:12px;
-}
-
-.label{
-    color:#777;
-    font-size:14px;
-    margin-bottom:7px;
-}
-
-.value{
-    font-size:19px;
-    font-weight:bold;
-    color:#202742;
-}
-
-/* THỐNG KÊ */
-
-.stats{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
-}
-
-.stat{
-    text-align:center;
-    padding:20px;
-    border-radius:14px;
-    background:#f5f7fb;
-}
-
-.stat-icon{
-    font-size:28px;
-}
-
-.stat-number{
-    font-size:24px;
-    font-weight:bold;
-    color:#5137df;
-    margin-top:8px;
-}
-
-.stat-name{
-    color:#777;
-    font-size:14px;
-    margin-top:5px;
-}
-
-/* THÔNG BÁO ĐƠN HÀNG */
-
-.order-notice{
-    background:linear-gradient(135deg,#f7f5ff,#eef5ff);
-    border:1px solid #ddd8ff;
-    border-radius:14px;
-    padding:20px;
-}
-
-.order-notice h3{
-    margin:0 0 12px;
-    font-size:20px;
-    color:#5137df;
-}
-
-.order-notice p{
-    margin:10px 0;
-    line-height:1.6;
-}
-
-.order-notice .guide{
-    margin-top:15px;
-    padding:13px;
-    background:white;
-    border-radius:10px;
-    border-left:4px solid #5137df;
-}
-
-.order-notice .note{
-    margin-top:15px;
-    font-size:14px;
-    color:#555;
-}
-
-/* NÚT */
-
-.back{
-    display:block;
-    width:100%;
-    padding:14px;
-    text-align:center;
-    background:linear-gradient(90deg,#6647ee,#3e79ee);
-    color:white;
-    text-decoration:none;
-    border-radius:10px;
-    font-weight:bold;
-}
-
-/* ĐĂNG XUẤT */
-
-.logout{
-    width:100%;
-    margin-top:20px;
-    padding:13px;
-    border:0;
-    border-radius:10px;
-    background:#e53935;
-    color:white;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-}
-
-.logout:hover{
-    opacity:.9;
-}
-
-/* MOBILE */
-
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#182238}
+header{background:linear-gradient(90deg,#5137df,#347bf0);color:white;text-align:center;padding:28px 15px}
+header h1{margin:0 0 8px}
+header p{margin:0}
+.container{max-width:900px;margin:30px auto;padding:15px}
+.box{background:white;border-radius:18px;padding:25px;margin-bottom:20px;box-shadow:0 5px 20px rgba(0,0,0,.10)}
+.box h2{margin-top:0}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.info{background:#f5f7fb;padding:18px;border-radius:12px}
+.label{color:#777;font-size:14px;margin-bottom:7px}
+.value{font-size:19px;font-weight:bold;color:#202742;overflow-wrap:anywhere}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.stat{text-align:center;padding:20px;border-radius:14px;background:#f5f7fb}
+.stat-icon{font-size:28px}
+.stat-number{font-size:24px;font-weight:bold;color:#5137df;margin-top:8px}
+.stat-name{color:#777;font-size:14px;margin-top:5px}
+.order-notice{background:linear-gradient(135deg,#f7f5ff,#eef5ff);border:1px solid #ddd8ff;border-radius:14px;padding:20px}
+.order-notice h3{margin:0 0 12px;font-size:20px;color:#5137df}
+.order-notice p{margin:10px 0;line-height:1.6}
+.order-notice .guide{margin-top:15px;padding:13px;background:white;border-radius:10px;border-left:4px solid #5137df}
+.order-notice .note{margin-top:15px;font-size:14px;color:#555}
+.back{display:block;width:100%;padding:14px;text-align:center;background:linear-gradient(90deg,#6647ee,#3e79ee);color:white;text-decoration:none;border-radius:10px;font-weight:bold}
+.logout{width:100%;margin-top:20px;padding:13px;border:0;border-radius:10px;background:#e53935;color:white;font-size:16px;font-weight:bold;cursor:pointer}
+.logout:hover{opacity:.9}
+.refresh{padding:10px 14px;background:#5137df;color:#fff;border:0;border-radius:8px;cursor:pointer;font-weight:bold}
+.table-wrap{width:100%;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:620px}
+th,td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:14px}
+th{background:#f5f7fb;color:#5137df}
+.status{font-weight:bold}
+.loading,.empty,.error{padding:16px;background:#f5f7fb;border-radius:10px;margin-top:12px;line-height:1.6}
+.error{color:#b91c1c;background:#fff1f2}
+.empty{color:#555}
 @media(max-width:600px){
-
-    .info-grid{
-        grid-template-columns:1fr;
-    }
-
-    .stats{
-        grid-template-columns:1fr;
-    }
-
+ .info-grid,.stats{grid-template-columns:1fr}
+ .box{padding:18px}
+ .container{margin:15px auto;padding:10px}
 }
-
 </style>
-
 </head>
 
 <body>
-
 <header>
-
     <h1>👤 SHOPACCGAME</h1>
-
     <p>Thông tin khách hàng</p>
-
 </header>
-
 
 <div class="container">
 
-    <!-- THÔNG TIN -->
-
     <div class="box">
-
         <h2>👤 Thông tin khách hàng</h2>
 
         <div class="info-grid">
-
             <div class="info">
-
-                <div class="label">
-                    👤 Tên khách hàng
-                </div>
-
-                <div
-                    class="value"
-                    id="customerName">
-                    Chưa đăng nhập
-                </div>
-
+                <div class="label">👤 Tên khách hàng</div>
+                <div class="value" id="customerName">Đang tải...</div>
             </div>
 
-
             <div class="info">
-
-                <div class="label">
-                    🔐 Mật khẩu
-                </div>
-
-                <div class="value">
-                    ********
-                </div>
-
+                <div class="label">🔐 Mật khẩu</div>
+                <div class="value">********</div>
             </div>
 
-
             <div class="info">
-
-                <div class="label">
-                    🏪 Tên shop
-                </div>
-
-                <div class="value">
-                    SHOPACCGAME
-                </div>
-
+                <div class="label">🏪 Tên shop</div>
+                <div class="value">SHOPACCGAME</div>
             </div>
 
-
             <div class="info">
-
-                <div class="label">
-                    📡 Trạng thái
-                </div>
-
-                <div class="value">
-                    🟢 Đang hoạt động
-                </div>
-
+                <div class="label">📡 Trạng thái</div>
+                <div class="value">🟢 Đang hoạt động</div>
             </div>
 
-
             <div class="info">
-
-                <div class="label">
-                    🎵 Hỗ trợ
-                </div>
-
-                <a
-                    href="https://www.tiktok.com/@shopkarot.vn"
-                    target="_blank"
-                    style="
-                        color:#5137df;
-                        text-decoration:none;
-                        font-weight:bold;
-                    ">
-                    TikTok Admin
+                <div class="label">🎵 Hỗ trợ</div>
+                <a href="https://www.tiktok.com/@shopkarotnew.com"
+                   target="_blank" rel="noopener"
+                   style="color:#5137df;text-decoration:none;font-weight:bold">
+                   TikTok Admin
                 </a>
-
             </div>
-
 
             <div class="info">
-
-                <div class="label">
-                    🕐 Thời gian hoạt động
-                </div>
-
-                <div class="value">
-                    24/7
-                </div>
-
+                <div class="label">🕐 Thời gian hoạt động</div>
+                <div class="value">24/7</div>
             </div>
-
         </div>
 
-
-        <button
-            type="button"
-            class="logout"
-            onclick="
-                localStorage.removeItem('currentUser');
-                window.location.href='login.html';
-            ">
-
+        <button type="button" class="logout" id="logoutButton">
             🚪 Đăng xuất
+        </button>
+    </div>
 
+    <div class="box">
+        <h2>📊 Thống kê</h2>
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-icon">👥</div>
+                <div class="stat-number" id="customerCount">—</div>
+                <div class="stat-name">Khách hàng</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">📦</div>
+                <div class="stat-number" id="orderCount">0</div>
+                <div class="stat-name">Đơn hàng của bạn</div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-icon">🎮</div>
+                <div class="stat-number">48</div>
+                <div class="stat-name">Gói túi mù</div>
+            </div>
+        </div>
+        <p style="font-size:13px;color:#777">
+            Số khách hàng tổng không được tải từ API quản trị để tránh lộ dữ liệu.
+        </p>
+    </div>
+
+    <div class="box">
+        <h2>📦 Lịch sử đơn hàng đã mua</h2>
+        <p style="color:#666;line-height:1.6">
+            Danh sách được tải từ API Google Apps Script theo tên tài khoản đang đăng nhập.
+        </p>
+
+        <button type="button" class="refresh" id="refreshOrders">
+            🔄 Tải lại đơn hàng
         </button>
 
-    </div>
+        <div id="ordersMessage" class="loading">Đang tải đơn hàng...</div>
 
-
-    <!-- THỐNG KÊ -->
-
-    <div class="box">
-
-        <h2>📊 Thống kê</h2>
-
-        <div class="stats">
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    👥
-                </div>
-
-                <div
-                    class="stat-number"
-                    id="customerCount">
-                    0
-                </div>
-
-                <div class="stat-name">
-                    Khách hàng
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    📦
-                </div>
-
-                <div
-                    class="stat-number"
-                    id="orderCount">
-                    0
-                </div>
-
-                <div class="stat-name">
-                    Đơn hàng
-                </div>
-
-            </div>
-
-
-            <div class="stat">
-
-                <div class="stat-icon">
-                    🎮
-                </div>
-
-                <div class="stat-number">
-                    48
-                </div>
-
-                <div class="stat-name">
-                    Gói túi mù
-                </div>
-
-            </div>
-
+        <div class="table-wrap" id="ordersTableWrap" style="display:none;margin-top:14px">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã đơn</th>
+                        <th>Ngày mua</th>
+                        <th>Gói</th>
+                        <th>Số tiền</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody id="ordersBody"></tbody>
+            </table>
         </div>
-
     </div>
 
-
-    <!-- ĐƠN HÀNG -->
-
     <div class="box">
-
         <div class="order-notice">
-
-            <h3>
-                📦 Đơn hàng khách đã mua
-            </h3>
-
+            <h3>💳 Lịch sử nạp tiền</h3>
             <p>
-                Bạn có thể xem lại các đơn hàng đã mua trong
-                <strong>phần Mua Acc</strong>.
+                Lịch sử nạp tiền chưa được kết nối ở trang này vì API hiện tại
+                chưa có chức năng trả về lịch sử nạp đã lọc riêng theo khách hàng.
             </p>
-
             <div class="guide">
-                👉 Nếu chưa biết cách xem đơn hàng, hãy
-                <strong>xem video hướng dẫn</strong>
-                để được hướng dẫn chi tiết.
+                🔒 Để bảo vệ thông tin khách hàng, trang này không gọi API quản trị
+                lấy toàn bộ lịch sử nạp tiền.
             </div>
-
-            <div class="note">
-                📌 <strong>Lưu ý:</strong>
-                Đơn hàng sau khi mua thành công sẽ được lưu lại
-                để bạn có thể kiểm tra và xem lại.
-            </div>
-
         </div>
-
     </div>
 
-
-    <!-- QUAY LẠI -->
-
-    <a
-        href="index.html"
-        class="back">
-
-        ← Quay lại SHOPACCGAME
-
-    </a>
-
+    <a href="index.html" class="back">← Quay lại SHOPACCGAME</a>
 </div>
 
-
 <script>
+const API_URL =
+"https://script.google.com/macros/s/AKfycbwl8dKrmR7TsEQgNZJSVKsKNFLbjiFjb45JkzYMHcJAAwXmO2iGXFKIHmooejRg8m-pJw/exec";
 
-/* ================================
-   HIỂN THỊ TÊN KHÁCH HÀNG
-================================ */
+/* Lấy tên đăng nhập từ các khóa localStorage đang dùng */
+function getCurrentUsername(){
+    const keys = [
+        "shopkarot_user",
+        "shopkarot_username",
+        "currentUser"
+    ];
 
-const currentUser =
-    localStorage.getItem("currentUser");
-
-document.getElementById(
-    "customerName"
-).textContent =
-    currentUser || "Chưa đăng nhập";
-
-
-/* ================================
-   ĐẾM KHÁCH HÀNG
-================================
-
-Không dùng biến users chưa khai báo
-để tránh lỗi JavaScript.
-
-Nếu hệ thống của bạn có lưu danh sách
-tài khoản trong localStorage thì có thể
-đổi tên key bên dưới cho đúng.
-*/
-
-try{
-
-    const usersData =
-        localStorage.getItem("users");
-
-    if(usersData){
-
-        const users =
-            JSON.parse(usersData);
-
-        document.getElementById(
-            "customerCount"
-        ).textContent =
-            Object.keys(users).length;
-
-    }else{
-
-        document.getElementById(
-            "customerCount"
-        ).textContent = "0";
-
+    for(const key of keys){
+        const value = localStorage.getItem(key);
+        if(value && value.trim()){
+            try{
+                const parsed = JSON.parse(value);
+                if(typeof parsed === "string" && parsed.trim()){
+                    return parsed.trim();
+                }
+                if(parsed && typeof parsed === "object"){
+                    const name =
+                        parsed.username ||
+                        parsed.user ||
+                        parsed.name;
+                    if(name) return String(name).trim();
+                }
+            }catch(e){
+                return value.trim();
+            }
+        }
     }
-
-}catch(error){
-
-    document.getElementById(
-        "customerCount"
-    ).textContent = "0";
-
+    return "";
 }
 
+const username = getCurrentUsername();
+const customerNameElement = document.getElementById("customerName");
 
-/* ================================
-   ĐƠN HÀNG
-================================
+if(username){
+    customerNameElement.textContent = username;
+    document.getElementById("customerCount").textContent = "—";
+}else{
+    customerNameElement.textContent = "Chưa đăng nhập";
+    document.getElementById("customerCount").textContent = "—";
+    document.getElementById("ordersMessage").className = "error";
+    document.getElementById("ordersMessage").textContent =
+        "Không tìm thấy tài khoản đăng nhập. Hãy đăng nhập lại rồi mở hồ sơ khách hàng.";
+}
 
-Phần này hiện chỉ hiển thị hướng dẫn,
-không còn tự tạo đơn 10K / 50K mẫu.
-*/
+/* Định dạng số tiền */
+function formatMoney(value){
+    const number = Number(value);
+    if(!Number.isFinite(number)) return String(value || "0");
+    return number.toLocaleString("vi-VN") + "đ";
+}
 
-document.getElementById(
-    "orderCount"
-).textContent = "0";
+/* Hiển thị nội dung an toàn, không chèn dữ liệu API bằng innerHTML */
+function addCell(row, value){
+    const cell = document.createElement("td");
+    cell.textContent = value == null || value === "" ? "—" : String(value);
+    row.appendChild(cell);
+}
 
+/* Tải đơn hàng theo tên khách */
+async function loadOrders(){
+    const message = document.getElementById("ordersMessage");
+    const tableWrap = document.getElementById("ordersTableWrap");
+    const tbody = document.getElementById("ordersBody");
+    const count = document.getElementById("orderCount");
+
+    tbody.replaceChildren();
+    tableWrap.style.display = "none";
+
+    if(!username){
+        count.textContent = "0";
+        message.className = "error";
+        message.textContent =
+            "Bạn chưa đăng nhập hoặc không tìm thấy tên tài khoản trong localStorage.";
+        return;
+    }
+
+    message.className = "loading";
+    message.textContent = "Đang tải đơn hàng...";
+
+    try{
+        const url = API_URL +
+            "?action=getOrders&username=" +
+            encodeURIComponent(username) +
+            "&_=" + Date.now();
+
+        const response = await fetch(url, {method:"GET", cache:"no-store"});
+        if(!response.ok){
+            throw new Error("Máy chủ trả về HTTP " + response.status);
+        }
+
+        const data = await response.json();
+
+        if(!data || data.ok !== true){
+            throw new Error(data && data.message
+                ? data.message
+                : "API không trả về dữ liệu hợp lệ.");
+        }
+
+        const orders = Array.isArray(data.orders) ? data.orders : [];
+        count.textContent = String(orders.length);
+
+        if(orders.length === 0){
+            message.className = "empty";
+            message.textContent = "Chưa tìm thấy đơn hàng nào của tài khoản " + username + ".";
+            return;
+        }
+
+        orders.slice().reverse().forEach(order => {
+            const row = document.createElement("tr");
+            addCell(row, order.orderId);
+            addCell(row, order.date);
+            addCell(row, order.package || order.price);
+            addCell(row, formatMoney(order.amount));
+            addCell(row, order.status);
+            tbody.appendChild(row);
+        });
+
+        message.className = "empty";
+        message.textContent = "Đã tải " + orders.length + " đơn hàng.";
+        tableWrap.style.display = "block";
+
+    }catch(error){
+        count.textContent = "—";
+        message.className = "error";
+        message.textContent =
+            "Không tải được đơn hàng: " + error.message +
+            ". Hãy kiểm tra URL triển khai Apps Script, quyền truy cập và phiên bản triển khai.";
+    }
+}
+
+document.getElementById("refreshOrders").addEventListener("click", loadOrders);
+
+document.getElementById("logoutButton").addEventListener("click", function(){
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("shopkarot_user");
+    localStorage.removeItem("shopkarot_username");
+    window.location.href = "login.html";
+});
+
+if(username){
+    loadOrders();
+}
 </script>
-
 </body>
 </html>
-
