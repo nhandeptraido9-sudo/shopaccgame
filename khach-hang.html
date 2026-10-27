@@ -3,321 +3,592 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khách hàng - SHOPACCGAME</title>
+<title>Hồ sơ khách hàng - SHOPKAROT</title>
 
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#eef2f7;color:#182238}
-header{background:linear-gradient(90deg,#5137df,#347bf0);color:white;text-align:center;padding:28px 15px}
-header h1{margin:0 0 8px}
-header p{margin:0}
-.container{max-width:900px;margin:30px auto;padding:15px}
-.box{background:white;border-radius:18px;padding:25px;margin-bottom:20px;box-shadow:0 5px 20px rgba(0,0,0,.10)}
-.box h2{margin-top:0}
-.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
-.info{background:#f5f7fb;padding:18px;border-radius:12px}
-.label{color:#777;font-size:14px;margin-bottom:7px}
-.value{font-size:19px;font-weight:bold;color:#202742;overflow-wrap:anywhere}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
-.stat{text-align:center;padding:20px;border-radius:14px;background:#f5f7fb}
-.stat-icon{font-size:28px}
-.stat-number{font-size:24px;font-weight:bold;color:#5137df;margin-top:8px}
-.stat-name{color:#777;font-size:14px;margin-top:5px}
-.order-notice{background:linear-gradient(135deg,#f7f5ff,#eef5ff);border:1px solid #ddd8ff;border-radius:14px;padding:20px}
-.order-notice h3{margin:0 0 12px;font-size:20px;color:#5137df}
-.order-notice p{margin:10px 0;line-height:1.6}
-.order-notice .guide{margin-top:15px;padding:13px;background:white;border-radius:10px;border-left:4px solid #5137df}
-.order-notice .note{margin-top:15px;font-size:14px;color:#555}
-.back{display:block;width:100%;padding:14px;text-align:center;background:linear-gradient(90deg,#6647ee,#3e79ee);color:white;text-decoration:none;border-radius:10px;font-weight:bold}
-.logout{width:100%;margin-top:20px;padding:13px;border:0;border-radius:10px;background:#e53935;color:white;font-size:16px;font-weight:bold;cursor:pointer}
-.logout:hover{opacity:.9}
-.refresh{padding:10px 14px;background:#5137df;color:#fff;border:0;border-radius:8px;cursor:pointer;font-weight:bold}
-.table-wrap{width:100%;overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:620px}
-th,td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left;font-size:14px}
-th{background:#f5f7fb;color:#5137df}
-.status{font-weight:bold}
-.loading,.empty,.error{padding:16px;background:#f5f7fb;border-radius:10px;margin-top:12px;line-height:1.6}
-.error{color:#b91c1c;background:#fff1f2}
-.empty{color:#555}
-@media(max-width:600px){
- .info-grid,.stats{grid-template-columns:1fr}
- .box{padding:18px}
- .container{margin:15px auto;padding:10px}
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#111827;
+}
+header{
+    background:#111827;
+    color:white;
+    padding:17px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+.logo{font-size:23px;font-weight:bold}
+.logo span{color:#60a5fa}
+.header-buttons{display:flex;gap:8px;flex-wrap:wrap}
+button,.button{
+    border:0;
+    border-radius:9px;
+    padding:10px 14px;
+    font-weight:bold;
+    cursor:pointer;
+    text-decoration:none;
+    font-size:14px;
+}
+button:hover,.button:hover{opacity:.88}
+.btn-blue{background:#2563eb;color:white}
+.btn-red{background:#dc2626;color:white}
+.btn-green{background:#16a34a;color:white}
+.btn-gray{background:#e5e7eb;color:#111827}
+.container{max-width:1050px;margin:25px auto;padding:0 15px}
+.panel{
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 4px 18px #0000000d;
+    margin-bottom:20px;
+}
+h1{font-size:25px;margin:0 0 8px}
+h2{font-size:20px;margin:0 0 15px}
+.muted{color:#64748b;font-size:14px;line-height:1.6}
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+    gap:12px;
+    margin-top:18px;
+}
+.stat{
+    padding:16px;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+}
+.stat strong{display:block;font-size:23px;margin-top:8px;color:#2563eb}
+.status{
+    padding:12px 14px;
+    border-radius:10px;
+    background:#eff6ff;
+    color:#1d4ed8;
+    margin-bottom:18px;
+    line-height:1.5;
+}
+.order-card{
+    border:1px solid #dbe3ef;
+    border-radius:13px;
+    padding:17px;
+    margin-top:14px;
+    background:#fff;
+}
+.order-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    flex-wrap:wrap;
+    border-bottom:1px solid #e5e7eb;
+    padding-bottom:12px;
+    margin-bottom:12px;
+}
+.order-id{font-weight:bold;color:#2563eb;word-break:break-word}
+.badge{
+    display:inline-block;
+    padding:6px 10px;
+    border-radius:20px;
+    background:#dcfce7;
+    color:#166534;
+    font-size:12px;
+    font-weight:bold;
+}
+.details{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:12px;
+}
+.detail{
+    padding:12px;
+    background:#f8fafc;
+    border-radius:9px;
+    min-width:0;
+}
+.detail label{
+    display:block;
+    color:#64748b;
+    font-size:13px;
+    margin-bottom:7px;
+}
+.value{
+    font-weight:bold;
+    overflow-wrap:anywhere;
+    line-height:1.5;
+}
+.credential{
+    background:#eff6ff;
+    border:1px solid #bfdbfe;
+    padding:14px;
+    border-radius:11px;
+    margin-top:14px;
+}
+.credential-title{font-weight:bold;margin-bottom:12px}
+.credential-row{margin-top:12px}
+.credential-row label{
+    display:block;
+    font-size:13px;
+    color:#475569;
+    margin-bottom:6px;
+}
+.credential-value{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+.credential-value input{
+    min-width:0;
+    width:100%;
+    padding:11px;
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    background:white;
+    font-size:14px;
+}
+.credential-value button{flex-shrink:0}
+.account-actions{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:14px;
+}
+.empty{
+    text-align:center;
+    padding:28px 15px;
+    background:#f8fafc;
+    border:1px dashed #cbd5e1;
+    border-radius:12px;
+    line-height:1.7;
+}
+.error{color:#b91c1c;background:#fef2f2}
+footer{text-align:center;color:#64748b;padding:20px;font-size:13px}
+@media(max-width:500px){
+    header{padding:14px}
+    .logo{font-size:20px}
+    .panel{padding:15px}
+    .container{margin-top:15px}
+    .credential-value{align-items:stretch}
+    .credential-value button{padding:9px}
 }
 </style>
 </head>
 
 <body>
+
 <header>
-    <h1>👤 SHOPACCGAME</h1>
-    <p>Thông tin khách hàng</p>
+    <div class="logo">SHOP<span>KAROT</span></div>
+    <div class="header-buttons">
+        <a class="button btn-blue" href="index.html">🏠 Trang chủ</a>
+        <a class="button btn-gray" href="lich-su.html">🧾 Lịch sử mua</a>
+        <button class="btn-red" onclick="logout()">Đăng xuất</button>
+    </div>
 </header>
 
-<div class="container">
+<main class="container">
 
-    <div class="box">
-        <h2>👤 Thông tin khách hàng</h2>
+    <section class="panel">
+        <h1>👤 Hồ sơ khách hàng</h1>
+        <p class="muted">
+            Xin chào <strong id="customerName">Khách hàng</strong>.
+            Tại đây bạn có thể xem lại tên tài khoản và mật khẩu
+            của các acc đã mua được hệ thống lưu trong lịch sử đơn hàng.
+        </p>
 
-        <div class="info-grid">
-            <div class="info">
-                <div class="label">👤 Tên khách hàng</div>
-                <div class="value" id="customerName">Đang tải...</div>
-            </div>
-
-            <div class="info">
-                <div class="label">🔐 Mật khẩu</div>
-                <div class="value">********</div>
-            </div>
-
-            <div class="info">
-                <div class="label">🏪 Tên shop</div>
-                <div class="value">SHOPACCGAME</div>
-            </div>
-
-            <div class="info">
-                <div class="label">📡 Trạng thái</div>
-                <div class="value">🟢 Đang hoạt động</div>
-            </div>
-
-            <div class="info">
-                <div class="label">🎵 Hỗ trợ</div>
-                <a href="https://www.tiktok.com/@shopkarotnew.com"
-                   target="_blank" rel="noopener"
-                   style="color:#5137df;text-decoration:none;font-weight:bold">
-                   TikTok Admin
-                </a>
-            </div>
-
-            <div class="info">
-                <div class="label">🕐 Thời gian hoạt động</div>
-                <div class="value">24/7</div>
-            </div>
-        </div>
-
-        <button type="button" class="logout" id="logoutButton">
-            🚪 Đăng xuất
-        </button>
-    </div>
-
-    <div class="box">
-        <h2>📊 Thống kê</h2>
         <div class="stats">
             <div class="stat">
-                <div class="stat-icon">👥</div>
-                <div class="stat-number" id="customerCount">—</div>
-                <div class="stat-name">Khách hàng</div>
+                Tổng đơn hàng
+                <strong id="orderCount">—</strong>
             </div>
-
             <div class="stat">
-                <div class="stat-icon">📦</div>
-                <div class="stat-number" id="orderCount">0</div>
-                <div class="stat-name">Đơn hàng của bạn</div>
+                Tổng tiền đã mua
+                <strong id="totalSpent">—</strong>
             </div>
-
             <div class="stat">
-                <div class="stat-icon">🎮</div>
-                <div class="stat-number">48</div>
-                <div class="stat-name">Gói túi mù</div>
+                Tài khoản đã nhận
+                <strong id="accountCount">—</strong>
             </div>
         </div>
-        <p style="font-size:13px;color:#777">
-            Số khách hàng tổng không được tải từ API quản trị để tránh lộ dữ liệu.
-        </p>
-    </div>
+    </section>
 
-    <div class="box">
-        <h2>📦 Lịch sử đơn hàng đã mua</h2>
-        <p style="color:#666;line-height:1.6">
-            Danh sách được tải từ API Google Apps Script theo tên tài khoản đang đăng nhập.
+    <div id="status" class="status">⏳ Đang kết nối hệ thống...</div>
+
+    <section class="panel">
+        <h2>📦 Tất cả acc đã mua</h2>
+        <p class="muted">
+            Bấm “Hiện mật khẩu” để xem mật khẩu acc.
+            Bạn nên đổi mật khẩu sau khi đăng nhập vào acc game.
         </p>
 
-        <button type="button" class="refresh" id="refreshOrders">
-            🔄 Tải lại đơn hàng
+        <button class="btn-blue" id="refreshButton" onclick="loadOrders()">
+            🔄 Tải lại lịch sử
         </button>
 
-        <div id="ordersMessage" class="loading">Đang tải đơn hàng...</div>
-
-        <div class="table-wrap" id="ordersTableWrap" style="display:none;margin-top:14px">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mã đơn</th>
-                        <th>Ngày mua</th>
-                        <th>Gói</th>
-                        <th>Số tiền</th>
-                        <th>Trạng thái</th>
-                    </tr>
-                </thead>
-                <tbody id="ordersBody"></tbody>
-            </table>
+        <div id="orders">
+            <div class="empty">Đang tải đơn hàng...</div>
         </div>
-    </div>
+    </section>
 
-    <div class="box">
-        <div class="order-notice">
-            <h3>💳 Lịch sử nạp tiền</h3>
-            <p>
-                Lịch sử nạp tiền chưa được kết nối ở trang này vì API hiện tại
-                chưa có chức năng trả về lịch sử nạp đã lọc riêng theo khách hàng.
-            </p>
-            <div class="guide">
-                🔒 Để bảo vệ thông tin khách hàng, trang này không gọi API quản trị
-                lấy toàn bộ lịch sử nạp tiền.
-            </div>
-        </div>
-    </div>
+</main>
 
-    <a href="index.html" class="back">← Quay lại SHOPACCGAME</a>
-</div>
+<footer>SHOPKAROT · Hồ sơ khách hàng</footer>
 
 <script>
+/* ================================
+   CẤU HÌNH API
+================================ */
 const API_URL =
 "https://script.google.com/macros/s/AKfycbwl8dKrmR7TsEQgNZJSVKsKNFLbjiFjb45JkzYMHcJAAwXmO2iGXFKIHmooejRg8m-pJw/exec";
 
-/* Lấy tên đăng nhập từ các khóa localStorage đang dùng */
-function getCurrentUsername(){
-    const keys = [
-        "shopkarot_user",
-        "shopkarot_username",
-        "currentUser"
-    ];
+/* ================================
+   LẤY TÊN KHÁCH ĐÃ ĐĂNG NHẬP
+================================ */
+function getCurrentUser(){
+    return (
+        localStorage.getItem("shopkarot_user") ||
+        localStorage.getItem("shopkarot_username") ||
+        localStorage.getItem("currentUser") ||
+        ""
+    ).trim();
+}
 
-    for(const key of keys){
-        const value = localStorage.getItem(key);
-        if(value && value.trim()){
-            try{
-                const parsed = JSON.parse(value);
-                if(typeof parsed === "string" && parsed.trim()){
-                    return parsed.trim();
-                }
-                if(parsed && typeof parsed === "object"){
-                    const name =
-                        parsed.username ||
-                        parsed.user ||
-                        parsed.name;
-                    if(name) return String(name).trim();
-                }
-            }catch(e){
-                return value.trim();
-            }
-        }
+let currentUser = getCurrentUser();
+let ordersData = [];
+
+/* ================================
+   HÀM HIỂN THỊ AN TOÀN
+================================ */
+function escapeHTML(value){
+    return String(value == null ? "" : value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function money(value){
+    return Number(value || 0).toLocaleString("vi-VN") + "đ";
+}
+
+function setStatus(message,isError){
+    const el = document.getElementById("status");
+    el.textContent = message;
+    el.className = isError ? "status error" : "status";
+}
+
+/* ================================
+   KIỂM TRA ĐĂNG NHẬP
+================================ */
+function checkLogin(){
+    if(!currentUser){
+        document.getElementById("customerName").textContent = "Chưa đăng nhập";
+        setStatus("⚠️ Bạn chưa đăng nhập. Hãy đăng nhập rồi quay lại hồ sơ.",true);
+        document.getElementById("orders").innerHTML = `
+            <div class="empty">
+                Bạn cần đăng nhập để xem lịch sử mua acc.<br><br>
+                <a class="button btn-blue" href="login.html">🔐 Đăng nhập</a>
+            </div>`;
+        document.getElementById("refreshButton").disabled = true;
+        return false;
     }
-    return "";
+
+    document.getElementById("customerName").textContent = currentUser;
+    return true;
 }
 
-const username = getCurrentUsername();
-const customerNameElement = document.getElementById("customerName");
-
-if(username){
-    customerNameElement.textContent = username;
-    document.getElementById("customerCount").textContent = "—";
-}else{
-    customerNameElement.textContent = "Chưa đăng nhập";
-    document.getElementById("customerCount").textContent = "—";
-    document.getElementById("ordersMessage").className = "error";
-    document.getElementById("ordersMessage").textContent =
-        "Không tìm thấy tài khoản đăng nhập. Hãy đăng nhập lại rồi mở hồ sơ khách hàng.";
-}
-
-/* Định dạng số tiền */
-function formatMoney(value){
-    const number = Number(value);
-    if(!Number.isFinite(number)) return String(value || "0");
-    return number.toLocaleString("vi-VN") + "đ";
-}
-
-/* Hiển thị nội dung an toàn, không chèn dữ liệu API bằng innerHTML */
-function addCell(row, value){
-    const cell = document.createElement("td");
-    cell.textContent = value == null || value === "" ? "—" : String(value);
-    row.appendChild(cell);
-}
-
-/* Tải đơn hàng theo tên khách */
+/* ================================
+   TẢI ĐƠN HÀNG TỪ GOOGLE SHEETS
+================================ */
 async function loadOrders(){
-    const message = document.getElementById("ordersMessage");
-    const tableWrap = document.getElementById("ordersTableWrap");
-    const tbody = document.getElementById("ordersBody");
-    const count = document.getElementById("orderCount");
-
-    tbody.replaceChildren();
-    tableWrap.style.display = "none";
-
-    if(!username){
-        count.textContent = "0";
-        message.className = "error";
-        message.textContent =
-            "Bạn chưa đăng nhập hoặc không tìm thấy tên tài khoản trong localStorage.";
-        return;
+    if(!currentUser){
+        currentUser = getCurrentUser();
     }
 
-    message.className = "loading";
-    message.textContent = "Đang tải đơn hàng...";
+    if(!checkLogin()) return;
+
+    const button = document.getElementById("refreshButton");
+    const box = document.getElementById("orders");
+
+    button.disabled = true;
+    button.textContent = "⏳ Đang tải...";
+    box.innerHTML = '<div class="empty">Đang tải lịch sử mua acc...</div>';
+    setStatus("🔄 Đang lấy dữ liệu đơn hàng từ hệ thống...");
 
     try{
         const url = API_URL +
             "?action=getOrders&username=" +
-            encodeURIComponent(username) +
+            encodeURIComponent(currentUser) +
             "&_=" + Date.now();
 
-        const response = await fetch(url, {method:"GET", cache:"no-store"});
+        const response = await fetch(url,{method:"GET",cache:"no-store"});
+
         if(!response.ok){
-            throw new Error("Máy chủ trả về HTTP " + response.status);
+            throw new Error("Máy chủ phản hồi HTTP " + response.status);
         }
 
-        const data = await response.json();
+        const result = await response.json();
 
-        if(!data || data.ok !== true){
-            throw new Error(data && data.message
-                ? data.message
+        if(!result || result.ok !== true){
+            throw new Error(result && result.message
+                ? result.message
                 : "API không trả về dữ liệu hợp lệ.");
         }
 
-        const orders = Array.isArray(data.orders) ? data.orders : [];
-        count.textContent = String(orders.length);
-
-        if(orders.length === 0){
-            message.className = "empty";
-            message.textContent = "Chưa tìm thấy đơn hàng nào của tài khoản " + username + ".";
-            return;
+        if(!Array.isArray(result.orders)){
+            throw new Error("Dữ liệu lịch sử đơn hàng không hợp lệ.");
         }
 
-        orders.slice().reverse().forEach(order => {
-            const row = document.createElement("tr");
-            addCell(row, order.orderId);
-            addCell(row, order.date);
-            addCell(row, order.package || order.price);
-            addCell(row, formatMoney(order.amount));
-            addCell(row, order.status);
-            tbody.appendChild(row);
-        });
+        ordersData = result.orders.slice().reverse();
 
-        message.className = "empty";
-        message.textContent = "Đã tải " + orders.length + " đơn hàng.";
-        tableWrap.style.display = "block";
+        renderOrders(ordersData);
+
+        setStatus("✅ Đã tải xong lịch sử đơn hàng của " + currentUser + ".");
 
     }catch(error){
-        count.textContent = "—";
-        message.className = "error";
-        message.textContent =
-            "Không tải được đơn hàng: " + error.message +
-            ". Hãy kiểm tra URL triển khai Apps Script, quyền truy cập và phiên bản triển khai.";
+        console.error("Lỗi tải đơn hàng:",error);
+        box.innerHTML = `
+            <div class="empty error">
+                ❌ Không tải được lịch sử đơn hàng.<br>
+                ${escapeHTML(error.message)}<br><br>
+                Hãy kiểm tra API Apps Script đã triển khai phiên bản mới
+                và đường dẫn API_URL có đúng hay không.
+            </div>`;
+        setStatus("❌ Tải dữ liệu thất bại. Vui lòng thử tải lại.",true);
+    }finally{
+        button.disabled = false;
+        button.textContent = "🔄 Tải lại lịch sử";
     }
 }
 
-document.getElementById("refreshOrders").addEventListener("click", loadOrders);
+/* ================================
+   HIỂN THỊ TẤT CẢ ACC ĐÃ MUA
+================================ */
+function renderOrders(orders){
+    const box = document.getElementById("orders");
 
-document.getElementById("logoutButton").addEventListener("click", function(){
-    localStorage.removeItem("currentUser");
+    const totalSpent = orders.reduce((sum,order)=>{
+        return sum + Number(order.amount || order.price || 0);
+    },0);
+
+    const accountCount = orders.filter(order=>{
+        return Boolean(
+            String(order.accountName || "").trim() ||
+            String(order.accountPass || "").trim()
+        );
+    }).length;
+
+    document.getElementById("orderCount").textContent = orders.length;
+    document.getElementById("totalSpent").textContent = money(totalSpent);
+    document.getElementById("accountCount").textContent = accountCount;
+
+    if(orders.length === 0){
+        box.innerHTML = `
+            <div class="empty">
+                <div style="font-size:38px">📦</div>
+                <strong>Bạn chưa có đơn hàng nào.</strong>
+                <p class="muted">
+                    Khi mua acc thành công, đơn hàng sẽ xuất hiện tại đây
+                    nếu hệ thống đã lưu vào Google Sheets.
+                </p>
+                <a class="button btn-blue" href="index.html">Đi mua acc</a>
+            </div>`;
+        return;
+    }
+
+    box.innerHTML = orders.map((order,index)=>{
+        const orderId = order.orderId || ("Đơn hàng " + (index + 1));
+        const accountName = String(order.accountName || "").trim();
+        const accountPass = String(order.accountPass || "").trim();
+        const price = Number(order.amount || order.price || 0);
+        const packageName = order.package
+            ? (String(order.package).toLowerCase().includes("gói")
+                ? order.package
+                : "Gói " + order.package)
+            : "Không có thông tin";
+        const status = order.status || "Đã ghi nhận";
+        const date = order.date || "Không có thông tin";
+
+        const missingCredentials = !accountName && !accountPass;
+
+        return `
+        <article class="order-card">
+            <div class="order-head">
+                <div>
+                    <div class="order-id">🧾 ${escapeHTML(orderId)}</div>
+                    <div class="muted">Ngày mua: ${escapeHTML(date)}</div>
+                </div>
+                <span class="badge">${escapeHTML(status)}</span>
+            </div>
+
+            <div class="details">
+                <div class="detail">
+                    <label>Mệnh giá</label>
+                    <div class="value">${escapeHTML(money(order.price || 0))}</div>
+                </div>
+                <div class="detail">
+                    <label>Gói đã mua</label>
+                    <div class="value">${escapeHTML(packageName)}</div>
+                </div>
+                <div class="detail">
+                    <label>Số tiền đã trừ</label>
+                    <div class="value">${escapeHTML(money(price))}</div>
+                </div>
+            </div>
+
+            <div class="credential">
+                <div class="credential-title">🔐 Thông tin tài khoản game</div>
+
+                <div class="credential-row">
+                    <label>👤 Tên tài khoản / Username</label>
+                    <div class="credential-value">
+                        <input
+                            id="acc-user-${index}"
+                            type="text"
+                            readonly
+                            value="${escapeHTML(accountName || "Chưa có dữ liệu")}"
+                            autocomplete="off">
+                        <button class="btn-blue"
+                            onclick="copyField('acc-user-${index}')"
+                            ${accountName ? "" : "disabled"}>
+                            Sao chép
+                        </button>
+                    </div>
+                </div>
+
+                <div class="credential-row">
+                    <label>🔑 Mật khẩu</label>
+                    <div class="credential-value">
+                        <input
+                            id="acc-pass-${index}"
+                            type="password"
+                            readonly
+                            value="${escapeHTML(accountPass)}"
+                            placeholder="${accountPass ? "" : "Chưa có dữ liệu mật khẩu"}"
+                            autocomplete="new-password">
+                        <button class="btn-gray"
+                            id="toggle-${index}"
+                            onclick="togglePassword(${index})"
+                            ${accountPass ? "" : "disabled"}>
+                            Hiện mật khẩu
+                        </button>
+                        <button class="btn-blue"
+                            onclick="copyField('acc-pass-${index}')"
+                            ${accountPass ? "" : "disabled"}>
+                            Sao chép
+                        </button>
+                    </div>
+                </div>
+
+                ${missingCredentials ? `
+                    <p class="muted" style="margin-bottom:0">
+                        ⚠️ Đơn hàng này chưa có tên acc hoặc mật khẩu trong dữ liệu API.
+                        Nếu bạn đã mua acc, hãy kiểm tra các cột “Tên acc” và
+                        “Mật khẩu” trong sheet DonHang.
+                    </p>` : ""}
+            </div>
+
+            <div class="account-actions">
+                <button class="btn-green"
+                    onclick="copyAccount(${index})"
+                    ${accountName || accountPass ? "" : "disabled"}>
+                    📋 Sao chép cả tài khoản
+                </button>
+            </div>
+        </article>`;
+    }).join("");
+}
+
+/* ================================
+   HIỆN / ẨN MẬT KHẨU
+================================ */
+function togglePassword(index){
+    const input = document.getElementById("acc-pass-" + index);
+    const button = document.getElementById("toggle-" + index);
+
+    if(!input || !button) return;
+
+    if(input.type === "password"){
+        input.type = "text";
+        button.textContent = "Ẩn mật khẩu";
+    }else{
+        input.type = "password";
+        button.textContent = "Hiện mật khẩu";
+    }
+}
+
+/* ================================
+   SAO CHÉP TRƯỜNG
+================================ */
+async function copyField(id){
+    const input = document.getElementById(id);
+    if(!input || !input.value) return;
+
+    try{
+        await navigator.clipboard.writeText(input.value);
+        alert("✅ Đã sao chép!");
+    }catch(error){
+        input.type = "text";
+        input.select();
+        const copied = document.execCommand("copy");
+        input.setSelectionRange(0,0);
+        if(copied){
+            alert("✅ Đã sao chép!");
+        }else{
+            alert("Không thể tự sao chép. Vui lòng sao chép thủ công.");
+        }
+    }
+}
+
+/* ================================
+   SAO CHÉP CẢ ACC
+================================ */
+async function copyAccount(index){
+    const username = document.getElementById("acc-user-" + index);
+    const password = document.getElementById("acc-pass-" + index);
+
+    if(!username || !password) return;
+
+    const text =
+        "Tên tài khoản: " + username.value +
+        "\nMật khẩu: " + password.value;
+
+    try{
+        await navigator.clipboard.writeText(text);
+        alert("✅ Đã sao chép tên tài khoản và mật khẩu!");
+    }catch(error){
+        alert(text);
+    }
+}
+
+/* ================================
+   ĐĂNG XUẤT
+================================ */
+function logout(){
+    if(!confirm("Bạn có chắc muốn đăng xuất?")) return;
+
     localStorage.removeItem("shopkarot_user");
     localStorage.removeItem("shopkarot_username");
-    window.location.href = "login.html";
-});
+    localStorage.removeItem("currentUser");
 
-if(username){
-    loadOrders();
+    window.location.href = "login.html";
 }
+
+/* ================================
+   KHỞI ĐỘNG TRANG
+================================ */
+window.addEventListener("DOMContentLoaded",()=>{
+    currentUser = getCurrentUser();
+    if(checkLogin()){
+        loadOrders();
+    }
+});
 </script>
+
 </body>
 </html>
+```
