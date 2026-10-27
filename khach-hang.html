@@ -36,6 +36,7 @@ button,.button{
     font-size:14px;
 }
 button:hover,.button:hover{opacity:.88}
+button:disabled{opacity:.5;cursor:not-allowed}
 .btn-blue{background:#2563eb;color:white}
 .btn-red{background:#dc2626;color:white}
 .btn-green{background:#16a34a;color:white}
@@ -51,6 +52,31 @@ button:hover,.button:hover{opacity:.88}
 h1{font-size:25px;margin:0 0 8px}
 h2{font-size:20px;margin:0 0 15px}
 .muted{color:#64748b;font-size:14px;line-height:1.6}
+.profile-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+    gap:12px;
+    margin-top:18px;
+}
+.profile-item{
+    padding:16px;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    min-width:0;
+}
+.profile-label{
+    color:#64748b;
+    font-size:13px;
+    margin-bottom:9px;
+}
+.profile-value{
+    color:#1d4ed8;
+    font-size:18px;
+    font-weight:bold;
+    overflow-wrap:anywhere;
+    line-height:1.5;
+}
 .stats{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
@@ -63,7 +89,13 @@ h2{font-size:20px;margin:0 0 15px}
     border:1px solid #e2e8f0;
     border-radius:12px;
 }
-.stat strong{display:block;font-size:23px;margin-top:8px;color:#2563eb}
+.stat strong{
+    display:block;
+    font-size:23px;
+    margin-top:8px;
+    color:#2563eb;
+    overflow-wrap:anywhere;
+}
 .status{
     padding:12px 14px;
     border-radius:10px;
@@ -172,7 +204,8 @@ footer{text-align:center;color:#64748b;padding:20px;font-size:13px}
     .logo{font-size:20px}
     .panel{padding:15px}
     .container{margin-top:15px}
-    .credential-value{align-items:stretch}
+    .credential-value{align-items:stretch;flex-wrap:wrap}
+    .credential-value input{flex:1 1 100%}
     .credential-value button{padding:9px}
 }
 </style>
@@ -184,21 +217,53 @@ footer{text-align:center;color:#64748b;padding:20px;font-size:13px}
     <div class="logo">SHOP<span>KAROT</span></div>
     <div class="header-buttons">
         <a class="button btn-blue" href="index.html">🏠 Trang chủ</a>
-        <a class="button btn-gray" href="lich-su.html">🧾 Lịch sử mua</a>
         <button class="btn-red" onclick="logout()">Đăng xuất</button>
     </div>
 </header>
 
 <main class="container">
 
+    <!-- THÔNG TIN KHÁCH HÀNG ĐẶT Ở ĐẦU TRANG -->
     <section class="panel">
-        <h1>👤 Hồ sơ khách hàng</h1>
+        <h1>👤 Thông tin khách hàng</h1>
         <p class="muted">
             Xin chào <strong id="customerName">Khách hàng</strong>.
-            Tại đây bạn có thể xem lại tên tài khoản và mật khẩu
-            của các acc đã mua được hệ thống lưu trong lịch sử đơn hàng.
+            Thông tin hồ sơ và số dư được hiển thị theo dữ liệu hệ thống.
         </p>
 
+        <div class="profile-grid">
+            <div class="profile-item">
+                <div class="profile-label">Tên Đăng Nhập</div>
+                <div class="profile-value" id="profileUsername">Đang tải...</div>
+            </div>
+            <div class="profile-item">
+                <div class="profile-label">Ngày Đăng Ký</div>
+                <div class="profile-value" id="profileCreated">Đang tải...</div>
+            </div>
+            <div class="profile-item">
+                <div class="profile-label">Ngày Cập Nhật</div>
+                <div class="profile-value" id="profileUpdated">Đang tải...</div>
+            </div>
+            <div class="profile-item">
+                <div class="profile-label">Số Tiền Hiện Có</div>
+                <div class="profile-value" id="profileBalance">Đang tải...</div>
+            </div>
+            <div class="profile-item">
+                <div class="profile-label">Tổng Tiền Đã Nạp</div>
+                <div class="profile-value" id="profileDeposits">Đang tải...</div>
+            </div>
+        </div>
+
+        <p id="profileStatus" class="muted">
+            Đang tải thông tin hồ sơ...
+        </p>
+
+        <button class="button btn-blue" id="refreshProfileButton"
+                onclick="loadProfile()">🔄 Tải lại hồ sơ</button>
+    </section>
+
+    <section class="panel">
+        <h2>📊 Thống kê mua hàng</h2>
         <div class="stats">
             <div class="stat">
                 Tổng đơn hàng
@@ -225,7 +290,7 @@ footer{text-align:center;color:#64748b;padding:20px;font-size:13px}
         </p>
 
         <button class="btn-blue" id="refreshButton" onclick="loadOrders()">
-            🔄 Tải lại lịch sử
+            🔄 Tải lại đơn hàng
         </button>
 
         <div id="orders">
@@ -245,7 +310,7 @@ const API_URL =
 "https://script.google.com/macros/s/AKfycbwl8dKrmR7TsEQgNZJSVKsKNFLbjiFjb45JkzYMHcJAAwXmO2iGXFKIHmooejRg8m-pJw/exec";
 
 /* ================================
-   LẤY TÊN KHÁCH ĐÃ ĐĂNG NHẬP
+   TÀI KHOẢN ĐANG ĐĂNG NHẬP
 ================================ */
 function getCurrentUser(){
     return (
@@ -259,9 +324,6 @@ function getCurrentUser(){
 let currentUser = getCurrentUser();
 let ordersData = [];
 
-/* ================================
-   HÀM HIỂN THỊ AN TOÀN
-================================ */
 function escapeHTML(value){
     return String(value == null ? "" : value)
         .replace(/&/g,"&amp;")
@@ -272,7 +334,9 @@ function escapeHTML(value){
 }
 
 function money(value){
-    return Number(value || 0).toLocaleString("vi-VN") + "đ";
+    const amount = Number(value);
+    if(!Number.isFinite(amount)) return "Chưa có dữ liệu";
+    return amount.toLocaleString("vi-VN") + "đ";
 }
 
 function setStatus(message,isError){
@@ -281,51 +345,75 @@ function setStatus(message,isError){
     el.className = isError ? "status error" : "status";
 }
 
+function setProfileStatus(message,isError){
+    const el = document.getElementById("profileStatus");
+    el.textContent = message;
+    el.style.color = isError ? "#b91c1c" : "#64748b";
+}
+
 /* ================================
    KIỂM TRA ĐĂNG NHẬP
 ================================ */
 function checkLogin(){
     if(!currentUser){
         document.getElementById("customerName").textContent = "Chưa đăng nhập";
+        document.getElementById("profileUsername").textContent = "Chưa đăng nhập";
+        document.getElementById("profileCreated").textContent = "—";
+        document.getElementById("profileUpdated").textContent = "—";
+        document.getElementById("profileBalance").textContent = "—";
+        document.getElementById("profileDeposits").textContent = "—";
+
+        setProfileStatus("Vui lòng đăng nhập để xem hồ sơ.",true);
         setStatus("⚠️ Bạn chưa đăng nhập. Hãy đăng nhập rồi quay lại hồ sơ.",true);
+
         document.getElementById("orders").innerHTML = `
             <div class="empty">
-                Bạn cần đăng nhập để xem lịch sử mua acc.<br><br>
+                Bạn cần đăng nhập để xem đơn hàng đã mua.<br><br>
                 <a class="button btn-blue" href="login.html">🔐 Đăng nhập</a>
             </div>`;
+
         document.getElementById("refreshButton").disabled = true;
+        document.getElementById("refreshProfileButton").disabled = true;
         return false;
     }
 
     document.getElementById("customerName").textContent = currentUser;
+    document.getElementById("profileUsername").textContent = currentUser;
     return true;
 }
 
 /* ================================
-   TẢI ĐƠN HÀNG TỪ GOOGLE SHEETS
+   TẢI HỒ SƠ KHÁCH HÀNG
+   API CẦN TRẢ VỀ:
+   {
+     "ok": true,
+     "profile": {
+       "username": "tenkhach",
+       "createdAt": "01/01/2026",
+       "updatedAt": "02/01/2026",
+       "balance": 50000,
+       "totalDeposits": 100000
+     }
+   }
 ================================ */
-async function loadOrders(){
-    if(!currentUser){
-        currentUser = getCurrentUser();
-    }
-
+async function loadProfile(){
+    if(!currentUser) currentUser = getCurrentUser();
     if(!checkLogin()) return;
 
-    const button = document.getElementById("refreshButton");
-    const box = document.getElementById("orders");
-
+    const button = document.getElementById("refreshProfileButton");
     button.disabled = true;
     button.textContent = "⏳ Đang tải...";
-    box.innerHTML = '<div class="empty">Đang tải lịch sử mua acc...</div>';
-    setStatus("🔄 Đang lấy dữ liệu đơn hàng từ hệ thống...");
 
     try{
         const url = API_URL +
-            "?action=getOrders&username=" +
+            "?action=getProfile&username=" +
             encodeURIComponent(currentUser) +
             "&_=" + Date.now();
 
-        const response = await fetch(url,{method:"GET",cache:"no-store"});
+        const response = await fetch(url,{
+            method:"GET",
+            cache:"no-store"
+        });
 
         if(!response.ok){
             throw new Error("Máy chủ phản hồi HTTP " + response.status);
@@ -334,9 +422,105 @@ async function loadOrders(){
         const result = await response.json();
 
         if(!result || result.ok !== true){
-            throw new Error(result && result.message
+            throw new Error(
+                result && result.message
                 ? result.message
-                : "API không trả về dữ liệu hợp lệ.");
+                : "API hồ sơ chưa hỗ trợ hoặc không trả về dữ liệu hợp lệ."
+            );
+        }
+
+        const profile = result.profile || result.data || result;
+
+        document.getElementById("profileUsername").textContent =
+            profile.username || profile.tenDangNhap || currentUser;
+
+        document.getElementById("customerName").textContent =
+            profile.username || profile.tenDangNhap || currentUser;
+
+        document.getElementById("profileCreated").textContent =
+            profile.createdAt || profile.ngayDangKy || "Chưa có dữ liệu";
+
+        document.getElementById("profileUpdated").textContent =
+            profile.updatedAt || profile.ngayCapNhat || "Chưa có dữ liệu";
+
+        const balance =
+            profile.balance !== undefined ? profile.balance :
+            profile.soDu !== undefined ? profile.soDu :
+            profile.soTienHienCo;
+
+        const deposits =
+            profile.totalDeposits !== undefined ? profile.totalDeposits :
+            profile.tongTienDaNap !== undefined ? profile.tongTienDaNap :
+            profile.totalDeposit;
+
+        document.getElementById("profileBalance").textContent =
+            balance !== undefined && balance !== null
+            ? money(balance) : "Chưa có dữ liệu";
+
+        document.getElementById("profileDeposits").textContent =
+            deposits !== undefined && deposits !== null
+            ? money(deposits) : "Chưa có dữ liệu";
+
+        setProfileStatus("✅ Đã tải thông tin hồ sơ.");
+
+    }catch(error){
+        console.error("Lỗi tải hồ sơ:",error);
+        setProfileStatus(
+            "⚠️ Chưa tải được dữ liệu hồ sơ từ API. " +
+            "Cần bổ sung action=getProfile trong Google Apps Script. " +
+            "Tên đăng nhập vẫn được lấy từ tài khoản hiện tại.",
+            true
+        );
+
+        document.getElementById("profileUsername").textContent = currentUser;
+        document.getElementById("profileCreated").textContent = "Chưa có dữ liệu";
+        document.getElementById("profileUpdated").textContent = "Chưa có dữ liệu";
+        document.getElementById("profileBalance").textContent = "Chưa có dữ liệu";
+        document.getElementById("profileDeposits").textContent = "Chưa có dữ liệu";
+    }finally{
+        button.disabled = false;
+        button.textContent = "🔄 Tải lại hồ sơ";
+    }
+}
+
+/* ================================
+   TẢI ĐƠN HÀNG TỪ GOOGLE SHEETS
+================================ */
+async function loadOrders(){
+    if(!currentUser) currentUser = getCurrentUser();
+    if(!checkLogin()) return;
+
+    const button = document.getElementById("refreshButton");
+    const box = document.getElementById("orders");
+
+    button.disabled = true;
+    button.textContent = "⏳ Đang tải...";
+    box.innerHTML = '<div class="empty">Đang tải đơn hàng...</div>';
+    setStatus("🔄 Đang lấy dữ liệu đơn hàng từ hệ thống...");
+
+    try{
+        const url = API_URL +
+            "?action=getOrders&username=" +
+            encodeURIComponent(currentUser) +
+            "&_=" + Date.now();
+
+        const response = await fetch(url,{
+            method:"GET",
+            cache:"no-store"
+        });
+
+        if(!response.ok){
+            throw new Error("Máy chủ phản hồi HTTP " + response.status);
+        }
+
+        const result = await response.json();
+
+        if(!result || result.ok !== true){
+            throw new Error(
+                result && result.message
+                ? result.message
+                : "API không trả về dữ liệu hợp lệ."
+            );
         }
 
         if(!Array.isArray(result.orders)){
@@ -344,29 +528,27 @@ async function loadOrders(){
         }
 
         ordersData = result.orders.slice().reverse();
-
         renderOrders(ordersData);
 
-        setStatus("✅ Đã tải xong lịch sử đơn hàng của " + currentUser + ".");
+        setStatus("✅ Đã tải xong đơn hàng của " + currentUser + ".");
 
     }catch(error){
         console.error("Lỗi tải đơn hàng:",error);
         box.innerHTML = `
             <div class="empty error">
-                ❌ Không tải được lịch sử đơn hàng.<br>
+                ❌ Không tải được đơn hàng.<br>
                 ${escapeHTML(error.message)}<br><br>
-                Hãy kiểm tra API Apps Script đã triển khai phiên bản mới
-                và đường dẫn API_URL có đúng hay không.
+                Hãy kiểm tra API Apps Script và đường dẫn API_URL.
             </div>`;
         setStatus("❌ Tải dữ liệu thất bại. Vui lòng thử tải lại.",true);
     }finally{
         button.disabled = false;
-        button.textContent = "🔄 Tải lại lịch sử";
+        button.textContent = "🔄 Tải lại đơn hàng";
     }
 }
 
 /* ================================
-   HIỂN THỊ TẤT CẢ ACC ĐÃ MUA
+   HIỂN THỊ ĐƠN HÀNG
 ================================ */
 function renderOrders(orders){
     const box = document.getElementById("orders");
@@ -405,14 +587,15 @@ function renderOrders(orders){
         const accountName = String(order.accountName || "").trim();
         const accountPass = String(order.accountPass || "").trim();
         const price = Number(order.amount || order.price || 0);
+
         const packageName = order.package
             ? (String(order.package).toLowerCase().includes("gói")
                 ? order.package
                 : "Gói " + order.package)
             : "Không có thông tin";
+
         const status = order.status || "Đã ghi nhận";
         const date = order.date || "Không có thông tin";
-
         const missingCredentials = !accountName && !accountPass;
 
         return `
@@ -486,9 +669,8 @@ function renderOrders(orders){
 
                 ${missingCredentials ? `
                     <p class="muted" style="margin-bottom:0">
-                        ⚠️ Đơn hàng này chưa có tên acc hoặc mật khẩu trong dữ liệu API.
-                        Nếu bạn đã mua acc, hãy kiểm tra các cột “Tên acc” và
-                        “Mật khẩu” trong sheet DonHang.
+                        ⚠️ Đơn hàng này chưa có tên acc hoặc mật khẩu trong API.
+                        Hãy kiểm tra dữ liệu sheet DonHang.
                     </p>` : ""}
             </div>
 
@@ -509,7 +691,6 @@ function renderOrders(orders){
 function togglePassword(index){
     const input = document.getElementById("acc-pass-" + index);
     const button = document.getElementById("toggle-" + index);
-
     if(!input || !button) return;
 
     if(input.type === "password"){
@@ -545,12 +726,11 @@ async function copyField(id){
 }
 
 /* ================================
-   SAO CHÉP CẢ ACC
+   SAO CHÉP CẢ TÀI KHOẢN
 ================================ */
 async function copyAccount(index){
     const username = document.getElementById("acc-user-" + index);
     const password = document.getElementById("acc-pass-" + index);
-
     if(!username || !password) return;
 
     const text =
@@ -583,7 +763,9 @@ function logout(){
 ================================ */
 window.addEventListener("DOMContentLoaded",()=>{
     currentUser = getCurrentUser();
+
     if(checkLogin()){
+        loadProfile();
         loadOrders();
     }
 });
@@ -591,4 +773,3 @@ window.addEventListener("DOMContentLoaded",()=>{
 
 </body>
 </html>
-```
